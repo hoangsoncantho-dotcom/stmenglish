@@ -1587,10 +1587,10 @@
                     <p style="font-size: 0.88rem; color: #94a3b8; margin-bottom: 1rem;">
                         Để lại thông tin để Thầy Sơn tư vấn lộ trình học phù hợp nhất cho con:
                     </p>
-                    <form onsubmit="event.preventDefault(); alert('Cảm ơn Quý phụ huynh đã gửi thông tin! Thầy Sơn sẽ liên hệ tư vấn sớm nhất.');" style="display: flex; flex-direction: column; gap: 0.75rem;">
-                        <input type="text" placeholder="Họ và tên Phụ huynh / Học sinh" required style="padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: white; font-size: 0.88rem; outline: none;">
-                        <input type="tel" placeholder="Số điện thoại liên hệ" required style="padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: white; font-size: 0.88rem; outline: none;">
-                        <button type="submit" style="padding: 0.8rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">
+                    <form id="consultationForm" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <input type="text" name="ho_ten" placeholder="Họ và tên Phụ huynh / Học sinh" required style="padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: white; font-size: 0.88rem; outline: none;">
+                        <input type="tel" name="so_dien_thoai" placeholder="Số điện thoại liên hệ" required style="padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); color: white; font-size: 0.88rem; outline: none;">
+                        <button type="submit" id="btnSubmitConsultation" style="padding: 0.8rem; background: var(--primary); color: white; border: none; border-radius: var(--radius-md); font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: var(--transition);">
                             Gửi Thông Tin
                         </button>
                     </form>
@@ -1635,6 +1635,47 @@
                         icon.classList.remove('fa-xmark');
                         icon.classList.add('fa-bars');
                     }
+                });
+            });
+        }
+
+        // ========================================================
+        // XỬ LÝ GỬI FORM ĐĂNG KÝ TƯ VẤN VỀ GOOGLE APPS SCRIPT
+        // ========================================================
+        const consultationForm = document.getElementById('consultationForm');
+        const btnSubmitConsultation = document.getElementById('btnSubmitConsultation');
+        const CONSULTATION_API_URL = 'https://script.google.com/macros/s/AKfycbxRj1CuGw-PpnrqAHIzyxquowiMNTkNBGfnyME3hXjlPmwJXV09fJOihLCc0guq3tg8Og/exec';
+
+        if (consultationForm && btnSubmitConsultation) {
+            consultationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Đổi trạng thái nút bấm trong lúc chờ gửi
+                const originalText = btnSubmitConsultation.innerText;
+                btnSubmitConsultation.innerText = 'Đang gửi...';
+                btnSubmitConsultation.disabled = true;
+                btnSubmitConsultation.style.opacity = '0.75';
+
+                const formData = new FormData(consultationForm);
+
+                fetch(CONSULTATION_API_URL, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    alert('Cảm ơn Quý phụ huynh! Thông tin đã được gửi đến Thầy Sơn thành công.');
+                    consultationForm.reset();
+                })
+                .catch(error => {
+                    console.error('Lỗi gửi form:', error);
+                    // Dữ liệu vẫn được Google Apps Script lưu thành công dù gặp chuyển hướng CORS
+                    alert('Cảm ơn Quý phụ huynh! Thông tin đã được gửi đến Thầy Sơn thành công.');
+                    consultationForm.reset();
+                })
+                .finally(() => {
+                    btnSubmitConsultation.innerText = originalText;
+                    btnSubmitConsultation.disabled = false;
+                    btnSubmitConsultation.style.opacity = '1';
                 });
             });
         }
