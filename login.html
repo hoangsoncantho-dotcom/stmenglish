@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - Hệ Thống Giáo Dục STM English</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Lexend -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Icon CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ========================================================
+           1. THIẾT LẬP NỀN TẢNG & BIẾN MÀU SẮC ĐỒNG BỘ
+           ======================================================== */
+        :root {
+            --primary: #0284c7;         /* Xanh dương hiện đại */
+            --primary-dark: #0369a1;    /* Xanh dương đậm */
+            --primary-deep: #0c4a6e;    /* Xanh navy biển sâu */
+            --navy-dark: #0f172a;       /* Xám đen học thuật */
+            --accent: #f59e0b;          /* Vàng hổ phách */
+            --accent-green: #10b981;    /* Xanh lục bảo thành công */
+            
+            --bg-page: #f8fafc;         /* Nền xám xanh dịu mắt */
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            
+            --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 20px 50px rgba(2, 132, 199, 0.15);
+            --radius-md: 14px;
+            --radius-lg: 22px;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Lexend', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Nền họa tiết vòng tròn mờ phía sau */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: -120px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.12) 0%, rgba(2, 132, 199, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(15, 76, 129, 0.1) 0%, rgba(15, 76, 129, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* Nút quay lại trang chủ ở góc trên */
+        .back-to-home {
+            position: absolute;
+            top: 1.8rem;
+            left: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            background: white;
+            padding: 0.65rem 1.3rem;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .back-to-home:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateX(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ========================================================
+           2. KHUNG ĐĂNG NHẬP 2 CỘT (SPLIT-SCREEN CARD)
+           ======================================================== */
+        .auth-container {
+            width: 100%;
+            max-width: 1040px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* CỘT TRÁI: BANNER THƯƠNG HIỆU & GIỚI THIỆU */
+        .auth-banner {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, #0369a1 100%);
+            color: white;
+            padding: 3.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-banner::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+        }
+
+        .banner-header {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .banner-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #38bdf8);
+            color: white;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .banner-logo-text h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            font-family: 'Lexend', sans-serif;
+            letter-spacing: -0.5px;
+            color: white;
+            line-height: 1.1;
+        }
+
+        .banner-logo-text h2 span {
+            color: #38bdf8;
+        }
+
+        .banner-logo-text p {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #bae6fd;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .banner-content {
+            margin: 3rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .banner-content h3 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            font-family: 'Lexend', sans-serif;
+            line-height: 1.3;
+        }
+
+        .banner-content h3 span {
+            color: #38bdf8;
+        }
+
+        .banner-content p {
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        /* Danh sách ưu đãi độc quyền */
+        .banner-perks {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .banner-perks li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .banner-perks li i {
+            color: #38bdf8;
+            font-size: 1.05rem;
+        }
+
+        .banner-footer {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1.2rem;
+        }
+
+        .banner-footer strong {
+            color: white;
+        }
+
+        /* CỘT PHẢI: FORM ĐĂNG NHẬP */
+        .auth-form-wrapper {
+            padding: 3.5rem 3.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+        }
+
+        .form-header h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'Lexend', sans-serif;
+            color: var(--navy-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-header p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Tabs phân loại đối tượng đăng nhập */
+        .role-tabs {
+            display: flex;
+            background: #f1f5f9;
+            padding: 0.35rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+            gap: 0.4rem;
+        }
+
+        .role-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.7rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .role-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+        }
+
+        /* Các trường nhập liệu (Inputs) */
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.1rem;
+            color: var(--text-light);
+            font-size: 1.05rem;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.9rem 1.1rem 0.9rem 2.8rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-main);
+            background-color: #f8fafc;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            background-color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+        }
+
+        .form-input:focus + .input-icon {
+            color: var(--primary);
+        }
+
+        /* Nút con mắt ẩn/hiện mật khẩu */
+        .toggle-password {
+            position: absolute;
+            right: 1.1rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.2rem;
+        }
+
+        .toggle-password:hover {
+            color: var(--navy-dark);
+        }
+
+        /* Tùy chọn nhớ mật khẩu & quên mật khẩu */
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            font-size: 0.88rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .remember-me input {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .forgot-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        /* Nút đăng nhập chính */
+        .btn-submit-auth {
+            width: 100%;
+            padding: 0.95rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: 'Lexend', sans-serif;
+            border: none;
+            border-radius: var(--radius-md);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-submit-auth:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.5);
+            background: linear-gradient(135deg, #0284c7, var(--primary-deep));
+        }
+
+        .btn-submit-auth:active {
+            transform: translateY(0);
+        }
+
+        /* Thông báo trạng thái */
+        .auth-alert {
+            display: none;
+            padding: 0.85rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .auth-alert.error {
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .auth-alert.success {
+            background-color: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* Dòng hỗ trợ đăng ký */
+        .form-footer-hint {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-footer-hint a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .form-footer-hint a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================================
+           3. THIẾT KẾ ĐÁP ỨNG CHO ĐIỆN THOẠI & TABLET
+           ======================================================== */
+        @media (max-width: 900px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+                max-width: 520px;
+            }
+
+            .auth-banner {
+                display: none; /* Ẩn banner bên cạnh trên di động để tập trung form */
+            }
+
+            .auth-form-wrapper {
+                padding: 3rem 2rem;
+            }
+
+            .back-to-home {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nút quay lại trang chủ -->
+    <a href="index.html" class="back-to-home">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Quay lại Trang Chủ</span>
+    </a>
+
+    <!-- Khối thẻ đăng nhập chính -->
+    <main class="auth-container">
+        
+        <!-- CỘT TRÁI: BANNER THƯƠNG HIỆU -->
+        <aside class="auth-banner">
+            <div>
+                <div class="banner-header">
+                    <div class="banner-logo-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div class="banner-logo-text">
+                        <h2>STM <span>English</span></h2>
+                        <p>Hệ Thống Giáo Dục Trực Tuyến</p>
+                    </div>
+                </div>
+
+                <div class="banner-content">
+                    <h3>Khám phá kho tri thức & <span>Phòng học tương tác</span></h3>
+                    <p>
+                        Truy cập ngay để tải slide bài giảng, đề khảo sát định kỳ và nộp bài tập về nhà trực tiếp vào kho lưu trữ của Thầy Sơn.
+                    </p>
+
+                    <ul class="banner-perks">
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Xem bài giảng & đề thi Global Success</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Nộp bài trực tiếp lên Google Drive 5TB</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Nhận phiếu đánh giá năng lực chi tiết</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span>Luyện tập bám sát cấu trúc đề Sở Cần Thơ</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="banner-footer">
+                <p>Phụ trách chuyên môn: <strong>Thầy Nguyễn Hoàng Sơn</strong></p>
+                <p>Cơ sở Ngoại ngữ STM • Ô Môn, Cần Thơ</p>
+            </div>
+        </aside>
+
+        <!-- CỘT PHẢI: FORM ĐĂNG NHẬP -->
+        <section class="auth-form-wrapper">
+            
+            <div class="form-header">
+                <h3>Đăng Nhập</h3>
+                <p id="formSubtitle">Chào mừng bạn quay trở lại! Vui lòng điền thông tin để vào lớp học.</p>
+            </div>
+
+            <!-- Tabs chọn vai trò: Học sinh / Giáo viên -->
+            <div class="role-tabs">
+                <button type="button" class="role-tab active" id="tabStudent" onclick="switchRole('student')">
+                    <i class="fa-solid fa-user-graduate"></i> Học Sinh / Phụ Huynh
+                </button>
+                <button type="button" class="role-tab" id="tabTeacher" onclick="switchRole('teacher')">
+                    <i class="fa-solid fa-chalkboard-user"></i> Giáo Viên
+                </button>
+            </div>
+
+            <!-- Hộp thông báo lỗi hoặc thành công -->
+            <div id="authAlert" class="auth-alert" style="display: none;"></div>
+
+            <!-- Form điền thông tin -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                
+                <!-- Tên đăng nhập / Mã học sinh -->
+                <div class="form-group">
+                    <label class="form-label" id="usernameLabel" for="username">
+                        Mã Học Sinh / Số Điện Thoại
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" id="username" class="form-input" placeholder="Ví dụ: E6-03 hoặc SĐT phụ huynh" required autocomplete="username">
+                        <i class="fa-regular fa-user input-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Mật khẩu -->
+                <div class="form-group">
+                    <label class="form-label" for="password">Mật Khẩu</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" class="form-input" placeholder="Nhập mật khẩu của bạn" required autocomplete="current-password">
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <button type="button" class="toggle-password" id="togglePassword" aria-label="Ẩn/Hiện mật khẩu" onclick="togglePasswordVisibility()">
+                            <i class="fa-regular fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tùy chọn nhớ & quên mật khẩu -->
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <span>Ghi nhớ đăng nhập</span>
+                    </label>
+                    <a href="javascript:void(0)" class="forgot-link" onclick="handleForgotPassword()">Quên mật khẩu?</a>
+                </div>
+
+                <!-- Nút bấm Đăng nhập -->
+                <button type="submit" class="btn-submit-auth" id="btnSubmit">
+                    <span>Đăng Nhập Ngay</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+            <div class="form-footer-hint">
+                Chưa có tài khoản đăng nhập? <br>
+                <a href="index.html#contact">Liên hệ Thầy Nguyễn Hoàng Sơn</a> để được cấp mã vào lớp.
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ========================================================
+         JAVASCRIPT XỬ LÝ ĐĂNG NHẬP & CHUYỂN HƯỚNG
+         ======================================================== -->
+    <script>
+        let currentRole = 'student';
+
+        // Chuyển đổi giữa tab Học sinh và Giáo viên
+        function switchRole(role) {
+            currentRole = role;
+            const tabStudent = document.getElementById('tabStudent');
+            const tabTeacher = document.getElementById('tabTeacher');
+            const usernameLabel = document.getElementById('usernameLabel');
+            const usernameInput = document.getElementById('username');
+            const formSubtitle = document.getElementById('formSubtitle');
+
+            if (role === 'student') {
+                tabStudent.classList.add('active');
+                tabTeacher.classList.remove('active');
+                usernameLabel.innerText = "Mã Học Sinh / Số Điện Thoại";
+                usernameInput.placeholder = "Ví dụ: E6-03 hoặc SĐT phụ huynh";
+                formSubtitle.innerText = "Chào mừng bạn quay trở lại! Vui lòng điền thông tin để vào lớp học.";
+            } else {
+                tabTeacher.classList.add('active');
+                tabStudent.classList.remove('active');
+                usernameLabel.innerText = "Tài Khoản Giáo Viên / Email";
+                usernameInput.placeholder = "hoangson.cantho@gmail.com";
+                formSubtitle.innerText = "Khu vực quản trị lớp học dành cho Giáo viên bộ môn.";
+            }
+            hideAlert();
+        }
+
+        // Ẩn/Hiện mật khẩu
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Hiển thị thông báo
+        function showAlert(message, type = 'error') {
+            const alertBox = document.getElementById('authAlert');
+            alertBox.className = `auth-alert ${type}`;
+            alertBox.innerHTML = type === 'error' 
+                ? `<i class="fa-solid fa-circle-exclamation"></i> <span>${message}</span>`
+                : `<i class="fa-solid fa-circle-check"></i> <span>${message}</span>`;
+            alertBox.style.display = 'flex';
+        }
+
+        function hideAlert() {
+            const alertBox = document.getElementById('authAlert');
+            alertBox.style.display = 'none';
+        }
+
+        // Xử lý sự kiện đăng nhập
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            if (!username || !password) {
+                showAlert('Vui lòng điền đầy đủ tài khoản và mật khẩu!');
+                return;
+            }
+
+            // Hiệu ứng đang xử lý đăng nhập
+            btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Đang xác thực...</span>`;
+            btnSubmit.style.opacity = '0.85';
+            btnSubmit.disabled = true;
+
+            setTimeout(() => {
+                // Đăng nhập thành công -> Lưu phiên và chuyển hướng vào classroom.html
+                showAlert('🎉 Đăng nhập thành công! Đang chuyển hướng vào phòng học...', 'success');
+                
+                // Lưu thông tin người dùng vào localStorage để trang classroom có thể hiển thị lời chào
+                localStorage.setItem('stm_user', username);
+                localStorage.setItem('stm_role', currentRole);
+
+                setTimeout(() => {
+                    window.location.href = 'classroom.html';
+                }, 1000);
+            }, 800);
+        }
+
+        // Xử lý quên mật khẩu
+        function handleForgotPassword() {
+            alert('Quý phụ huynh hoặc học sinh quên mật khẩu vui lòng liên hệ trực tiếp Thầy Nguyễn Hoàng Sơn qua Zalo/SĐT để được hỗ trợ cấp lại ngay!');
+        }
+    </script>
+</body>
+</html>
+
