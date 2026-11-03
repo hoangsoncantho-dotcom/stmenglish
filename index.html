@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cơ sở tiếng Anh STM</title>
+    <style>
+        /* Thiết lập cơ bản */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8; /* Nền xám xanh nhạt dịu mắt */
+            color: #333;
+        }
+
+        /* Thanh điều hướng */
+        .navbar {
+            background-color: #ffffff;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0056b3; /* Xanh dương đậm */
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            margin-left: 2.5rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        /* Banner chào mừng */
+        .hero {
+            background: linear-gradient(135deg, #007bff, #004494);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Khu vực hiển thị khối lớp */
+        .grades-container {
+            max-width: 1200px;
+            margin: -3rem auto 4rem; /* Kéo thẻ card lấn nhẹ lên phần banner */
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0 2rem;
+            flex-wrap: wrap; /* Tự động xuống dòng trên màn hình nhỏ */
+        }
+        .grade-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border-top: 6px solid #007bff;
+        }
+        .grade-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 123, 255, 0.15);
+        }
+        .grade-card h2 {
+            color: #004494;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .grade-card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Thiết kế đáp ứng cho màn hình cảm ứng / điện thoại */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links a {
+                margin: 0 1rem;
+            }
+            .hero {
+                padding: 4rem 1rem 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Khung Thanh điều hướng -->
+    <nav class="navbar">
+        <div class="logo">STM English</div>
+        <div class="nav-links">
+            <a href="#">Trang chủ</a>
+            <a href="#">Kho học liệu</a>
+            <a href="#">Đăng nhập</a>
+        </div>
+    </nav>
+
+    <!-- Khung Banner -->
+    <section class="hero">
+        <h1>Hệ Thống Học Tập Trực Tuyến</h1>
+        <p>Không gian giao bài tập, chia sẻ tài liệu và đánh giá năng lực ngoại ngữ dành riêng cho học sinh tại cơ sở STM.</p>
+    </section>
+
+    <!-- Khung Khối lớp -->
+    <section class="grades-container">
+        <div class="grade-card">
+            <h2>Khối Tiểu học</h2>
+            <p>Các slide tiếng Anh trực quan và bài tập từ vựng nền tảng dành cho học sinh từ Lớp 1 đến Lớp 5.</p>
+        </div>
+        <div class="grade-card">
+            <h2>Khối THCS</h2>
+            <p>Hệ thống ôn tập cấu trúc ngữ pháp chuyên sâu và đề thi thử dành cho học sinh từ Lớp 6 đến Lớp 9.</p>
+        </div>
+        <div class="grade-card">
+            <h2>Khối THPT</h2>
+            <p>Lộ trình luyện thi, bám sát các dạng đề trắc nghiệm và tự luận dành cho học sinh từ Lớp 10 đến Lớp 12.</p>
+        </div>
+    </section>
+
+</body>
+</html>
+
