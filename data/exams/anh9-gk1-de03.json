@@ -1,0 +1,574 @@
+{
+  "id": "anh9-gk1-de03",
+  "title": "Đề Kiểm Tra Giữa Kỳ 1 (2026-2027) • Đề Số 03 - Tiếng Anh 9",
+  "grade": 9,
+  "subject": "Tiếng Anh (Global Success)",
+  "timeMinutes": 60,
+  "description": "Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ (Gồm Listening, Multiple Choice, Cloze test, Reading và Tự luận trắc nghiệm hóa 100%).",
+  "questions": [
+    {
+      "id": 1,
+      "type": "listening",
+      "tag": "Part 1. Short Conversation",
+      "question": "What was the main activity of the \"Green Neighborhood\" project last weekend?",
+      "options": [
+        "Painting classroom walls",
+        "Cleaning up trash and planting trees along the canal",
+        "Selling handicrafts to tourists",
+        "Repairing old street lamps"
+      ],
+      "correct_answer": "Cleaning up trash and planting trees along the canal",
+      "explanation": "Chọn B — Thông tin nghe (Track 1): '...the students collected plastic debris and cleared weeds along the embankment... planted forty blooming bougainvillea trees...'",
+      "audio_url": "https://raw.githubusercontent.com/hoangsoncantho-dotcom/stmenglish/main/audio/03_De_03_Track_1_Green_Neighborhood.mp3"
+    },
+    {
+      "id": 2,
+      "type": "listening",
+      "tag": "Part 1. Short Conversation",
+      "question": "How many student volunteers joined the campaign?",
+      "options": [
+        "Over thirty students",
+        "Exactly fifty students",
+        "More than seventy students",
+        "Nearly one hundred students"
+      ],
+      "correct_answer": "More than seventy students",
+      "explanation": "Chọn C — Thông tin nghe (Track 1): 'Over seventy student volunteers gathered at 7:00 a.m. along the Nhieu Loc canal.'"
+    },
+    {
+      "id": 3,
+      "type": "listening",
+      "tag": "Part 1. Short Conversation",
+      "question": "Who provided the volunteers with protective gloves and trash bags?",
+      "options": [
+        "Local sanitation workers and the ward council",
+        "A foreign tourist company",
+        "The school library staff",
+        "An online shopping store"
+      ],
+      "correct_answer": "Local sanitation workers and the ward council",
+      "explanation": "Chọn A — Thông tin nghe (Track 1): '...provided by local sanitation workers and the ward council...'"
+    },
+    {
+      "id": 4,
+      "type": "listening",
+      "tag": "Part 1. Short Conversation",
+      "question": "What will the volunteer group do next Sunday?",
+      "options": [
+        "Host a free English club for underprivileged children",
+        "Organize a cooking contest",
+        "Travel to a mountainous craft village",
+        "Build a new sports stadium Part 2. Listen to a talk by a paediatrician about how excessive smartphone use damages adolescent sleep. Choose the correct answer A, B, C, or D for each question. You will hear the recording twice."
+      ],
+      "correct_answer": "Host a free English club for underprivileged children",
+      "explanation": "Chọn A — Thông tin nghe (Track 1): '...next Sunday, the volunteers will organize a free conversational English club for underprivileged children...'"
+    },
+    {
+      "id": 5,
+      "type": "listening",
+      "tag": "Part 2. Talk / Presentation",
+      "question": "What percentage of secondary school students admit to taking smartphones to bed?",
+      "options": [
+        "Around twenty percent",
+        "Nearly forty percent",
+        "Over seventy percent",
+        "Exactly ninety-five percent"
+      ],
+      "correct_answer": "Over seventy percent",
+      "explanation": "Chọn C — Thông tin nghe (Track 2): '...over seventy percent of secondary school students admit to bringing smartphones into their beds every night.'",
+      "audio_url": "https://raw.githubusercontent.com/hoangsoncantho-dotcom/stmenglish/main/audio/03_De_03_Track_2_Screen_Time_And_Sleep.mp3"
+    },
+    {
+      "id": 6,
+      "type": "listening",
+      "tag": "Part 2. Talk / Presentation",
+      "question": "How does blue light from electronic screens harm the brain?",
+      "options": [
+        "It tricks the brain into thinking it is daytime and blocks melatonin",
+        "It makes the ears sensitive to soft sounds",
+        "It causes immediate stomach ache",
+        "It reduces oxygen levels in the lungs"
+      ],
+      "correct_answer": "It tricks the brain into thinking it is daytime and blocks melatonin",
+      "explanation": "Chọn A — Thông tin nghe (Track 2): '...blue light radiating from phone screens tricks the human brain into thinking it is still broad daylight... halts the production of melatonin...'"
+    },
+    {
+      "id": 7,
+      "type": "listening",
+      "tag": "Part 2. Talk / Presentation",
+      "question": "What is a common symptom seen in sleep-deprived students at school?",
+      "options": [
+        "Extreme hunger during breaks",
+        "Impaired memory and reduced attention span",
+        "Outstanding physical endurance",
+        "Rapid reading speed"
+      ],
+      "correct_answer": "Impaired memory and reduced attention span",
+      "explanation": "Chọn B — Thông tin nghe (Track 2): '...chronically sleep-deprived adolescents suffer from impaired memory retention, reduced concentration spans...'"
+    },
+    {
+      "id": 8,
+      "type": "listening",
+      "tag": "Part 2. Talk / Presentation",
+      "question": "What does the doctor advise parents to establish in their houses?",
+      "options": [
+        "Strict computer gaming rooms",
+        "Screen-free zones in bedrooms",
+        "Homework checkpoints every hour",
+        "Loud alarm clocks in every corner"
+      ],
+      "correct_answer": "Screen-free zones in bedrooms",
+      "explanation": "Chọn B — Thông tin nghe (Track 2): '...strongly urge families to establish strict \"screen-free zones\" in bedrooms.'"
+    },
+    {
+      "id": 9,
+      "type": "grammar",
+      "tag": "Language Focus",
+      "question": "Garbage collectors and sanitation workers are essential ______ who help keep our neighborhood clean and hygienic.",
+      "options": [
+        "community helpers",
+        "craft artisans",
+        "foreign tourists",
+        "delivery persons"
+      ],
+      "correct_answer": "community helpers",
+      "explanation": "Chọn A — Từ vựng (Unit 1): 'community helpers' (những người phục vụ cộng đồng như nhân viên vệ sinh, người thu gom rác)."
+    },
+    {
+      "id": 10,
+      "type": "grammar",
+      "tag": "Language Focus",
+      "question": "During adolescence, young people frequently experience peer ______ to conform to their classmates' fashion trends.",
+      "options": [
+        "pressure",
+        "amenity",
+        "leisure",
+        "suburb"
+      ],
+      "correct_answer": "pressure",
+      "explanation": "Chọn A — Từ vựng (Unit 3): 'peer pressure' (áp lực đồng trang lứa)."
+    },
+    {
+      "id": 11,
+      "type": "grammar",
+      "tag": "Language Focus",
+      "question": "The new residents had no idea ______ to contact when an unexpected electrical blackout occurred.",
+      "options": [
+        "who",
+        "which",
+        "what",
+        "where"
+      ],
+      "correct_answer": "who",
+      "explanation": "Chọn A — Ngữ pháp (Unit 1): Cấu trúc Wh-word + to-V. Chỉ người cần liên hệ hỗ trợ: 'who to contact'."
+    },
+    {
+      "id": 12,
+      "type": "grammar",
+      "tag": "Language Focus",
+      "question": "Because of a sudden drop in tourist numbers, the family pottery workshop had to ______ permanently.",
+      "options": [
+        "close down",
+        "pass down",
+        "look around",
+        "carry out"
+      ],
+      "correct_answer": "close down",
+      "explanation": "Chọn A — Cụm động từ (Unit 1): 'close down' (đóng cửa vĩnh viễn do ế ẩm)."
+    },
+    {
+      "id": 13,
+      "type": "grammar",
+      "tag": "Language Focus",
+      "question": "The more attentively students listen to the lesson, ______ they comprehend the complex grammar formulas.",
+      "options": [
+        "the more easily",
+        "the easier",
+        "more easy",
+        "easily than"
+      ],
+      "correct_answer": "the more easily",
+      "explanation": "Chọn A — So sánh kép (Unit 2): Bổ nghĩa cho động từ 'comprehend' cần trạng từ 'easily', dạng so sánh hơn là 'the more easily'."
+    },
+    {
+      "id": 14,
+      "type": "grammar",
+      "tag": "Everyday Communication",
+      "question": "Jack: \"Shall we join the weekend community clean-up campaign along the canal?\"",
+      "options": [
+        "Count me in! That sounds very meaningful.",
+        "No, you can't join it.",
+        "It doesn't matter to you.",
+        "Thanks for the money."
+      ],
+      "correct_answer": "Count me in! That sounds very meaningful.",
+      "explanation": "Chọn A — Giao tiếp xã hội: 'Count me in! That sounds very meaningful.' (Cho mình tham gia với! Nghe rất ý nghĩa)."
+    },
+    {
+      "id": 15,
+      "type": "grammar",
+      "tag": "Everyday Communication",
+      "question": "Helen: \"I can't fall asleep because I keep worrying about tomorrow's presentation.\"",
+      "options": [
+        "Try taking deep breaths and listening to some soothing music.",
+        "That's fantastic news! Congratulations!",
+        "You should drink some strong black coffee.",
+        "Never mind your presentation."
+      ],
+      "correct_answer": "Try taking deep breaths and listening to some soothing music.",
+      "explanation": "Chọn A — Giao tiếp xã hội: Đưa ra lời khuyên thư giãn khi bạn lo lắng trước bài thuyết trình: 'Try taking deep breaths and listening to some soothing music.'"
+    },
+    {
+      "id": 16,
+      "type": "grammar",
+      "tag": "Signs & Notices",
+      "question": "What does this safety sign in the school science lab mean?",
+      "options": [
+        "Students are required to wear eye protection while conducting experiments.",
+        "You can buy sunglasses inside the chemistry laboratory.",
+        "Chemicals can be touched with bare hands.",
+        "Only teachers are allowed to wear goggles."
+      ],
+      "correct_answer": "Students are required to wear eye protection while conducting experiments.",
+      "explanation": "Chọn A — Biển báo an toàn: 'Safety goggles must be worn' nghĩa là bắt buộc phải đeo kính bảo hộ trong phòng thí nghiệm hóa học."
+    },
+    {
+      "id": 17,
+      "type": "grammar",
+      "tag": "Signs & Notices",
+      "question": "What does this street sign near the hospital indicate?",
+      "options": [
+        "Vehicles parked here will be removed because this bay is for ambulances.",
+        "Free parking is available for hospital visitors.",
+        "Ambulances are not allowed to stop in this area.",
+        "You can park your car here for fifteen minutes."
+      ],
+      "correct_answer": "Vehicles parked here will be removed because this bay is for ambulances.",
+      "explanation": "Chọn A — Biển báo giao thông: 'Tow-away zone' tại khu vực cấp cứu bệnh viện nghĩa là phương tiện đỗ sai quy định sẽ bị cẩu kéo đi nơi khác."
+    },
+    {
+      "id": 18,
+      "type": "grammar",
+      "tag": "Closest Meaning",
+      "question": "\"Which route should I take to avoid morning traffic jams?\" my father wondered.",
+      "options": [
+        "My father wondered which route to take to avoid morning traffic jams.",
+        "My father asked me which route I took to avoid morning traffic jams.",
+        "My father explained which route he had taken to avoid traffic jams.",
+        "My father told me how to avoid morning traffic jams."
+      ],
+      "correct_answer": "My father wondered which route to take to avoid morning traffic jams.",
+      "explanation": "Chọn A — Tìm câu đồng nghĩa: Rút gọn câu hỏi gián tiếp sang 'which route to take to avoid morning traffic jams'."
+    },
+    {
+      "id": 19,
+      "type": "grammar",
+      "tag": "Sentence Combining",
+      "question": "You spend more time scrolling on social media. You become more distracted from your studies.",
+      "options": [
+        "The more time you spend scrolling on social media, the more distracted you become from your studies.",
+        "Because you spend more time on social media, you concentrate better on your studies.",
+        "You are too distracted to spend time scrolling on social media.",
+        "The less time you spend on social media, the more distracted you become."
+      ],
+      "correct_answer": "The more time you spend scrolling on social media, the more distracted you become from your studies.",
+      "explanation": "Chọn A — Kết hợp câu: So sánh kép 'The more time you spend scrolling on social media, the more distracted you become from your studies.'"
+    },
+    {
+      "id": 20,
+      "type": "grammar",
+      "tag": "Sentence Arrangement",
+      "question": "Arrange the following sentences to make a complete conversation:",
+      "options": [
+        "c - a - e - b - d",
+        "c - e - a - b - d",
+        "a - c - b - e - d",
+        "c - a - b - e - d"
+      ],
+      "correct_answer": "c - a - e - b - d",
+      "explanation": "Chọn A — Sắp xếp hội thoại: c (Rủ đi tình nguyện ở bếp ăn từ thiện) -> a (Hào hứng hỏi giờ và địa điểm) -> e (Giải thích công việc nấu ăn cho người già) -> b (Hẹn 8:00 sáng tại thư viện) -> d (Chốt mang tạp dề và gặp mặt)."
+    },
+    {
+      "id": 21,
+      "type": "grammar",
+      "tag": "Sentence Arrangement",
+      "question": "Arrange the following sentences to make a coherent paragraph about waste collectors:",
+      "options": [
+        "a - c - e - b - d",
+        "a - b - c - e - d",
+        "c - e - a - b - d",
+        "a - c - b - e - d"
+      ],
+      "correct_answer": "a - c - e - b - d",
+      "explanation": "Chọn A — Sắp xếp đoạn văn: a (Chủ đề: vai trò công nhân vệ sinh) -> c (Làm việc đêm hôm mưa gió) -> e (Thu gom hàng tấn rác trước giờ cao điểm) -> b (Nếu thiếu họ đường phố sẽ ngập rác) -> d (Kết luận: người dân cần biết ơn và phân loại rác)."
+    },
+    {
+      "id": 22,
+      "type": "reading",
+      "tag": "Cloze-test (Reading)",
+      "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(22)</b> trong đoạn văn trên:",
+      "options": [
+        "risk",
+        "lose",
+        "give",
+        "take"
+      ],
+      "correct_answer": "risk",
+      "explanation": "Chọn A — Đọc điền từ: Cụm từ cố định 'risk their lives' (liều mình, xả thân cứu người).",
+      "passage": "<b>ĐỌC ĐOẠN VĂN SAU VÀ CHỌN TỪ THÍCH HỢP ĐIỀN VÀO CHỖ TRỐNG (CÂU 22 - 26):</b><br><br>In every neighbourhood, community helpers play a vital role in ensuring social security, public sanitation, and local well-being. From early dawn, street cleaners sweep public streets and collect domestic garbage, keeping our living environment fresh and pleasant. Traffic police officers monitor major intersections to keep traffic flowing smoothly during rush hours. In emergencies, brave firefighters (22)______ their lives to protect people from raging fires. Besides civil servants, local volunteer groups actively participate in community support. Many high school students dedicate their weekends (23)______ teaching free classes for disadvantaged children or planting green trees in public parks. These noble actions create a (24)______ sense of social solidarity among residents. (25)______, youth centers organize workshops to equip teens with practical life skills. If every citizen (26)______ a small effort to assist their neighbours, our community will become a much warmer and happier home."
+    },
+    {
+      "id": 23,
+      "type": "grammar",
+      "tag": "Cloze-test (Reading)",
+      "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(23)</b> trong đoạn văn trên:",
+      "options": [
+        "to",
+        "for",
+        "in",
+        "with"
+      ],
+      "correct_answer": "to",
+      "explanation": "Chọn A — Đọc điền từ: Cấu trúc 'dedicate time to V-ing' (dành thời gian cho việc dạy học/trồng cây)."
+    },
+    {
+      "id": 24,
+      "type": "grammar",
+      "tag": "Cloze-test (Reading)",
+      "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(24)</b> trong đoạn văn trên:",
+      "options": [
+        "stronger",
+        "strongest",
+        "strongly",
+        "strength"
+      ],
+      "correct_answer": "stronger",
+      "explanation": "Chọn A — Đọc điền từ: Dạng so sánh hơn 'a stronger sense of social solidarity' (tinh thần đoàn kết xã hội mạnh mẽ hơn)."
+    },
+    {
+      "id": 25,
+      "type": "grammar",
+      "tag": "Cloze-test (Reading)",
+      "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(25)</b> trong đoạn văn trên:",
+      "options": [
+        "Furthermore",
+        "However",
+        "Although",
+        "Otherwise"
+      ],
+      "correct_answer": "Furthermore",
+      "explanation": "Chọn A — Đọc điền từ: Liên từ bổ sung thông tin tích cực: 'Furthermore' (Hơn nữa, Thêm vào đó)."
+    },
+    {
+      "id": 26,
+      "type": "grammar",
+      "tag": "Cloze-test (Reading)",
+      "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(26)</b> trong đoạn văn trên:",
+      "options": [
+        "makes",
+        "made",
+        "will make",
+        "is making"
+      ],
+      "correct_answer": "makes",
+      "explanation": "Chọn A — Đọc điền từ: Mệnh đề If loại 1, chủ ngữ 'every citizen' là danh từ số ít chia 'makes'."
+    },
+    {
+      "id": 27,
+      "type": "reading",
+      "tag": "Reading Comprehension",
+      "question": "What is the central topic of the passage?",
+      "options": [
+        "The severe hazards of excessive screen time on adolescent health.",
+        "The historical development of computer software engineering.",
+        "How to purchase modern smartphones and laptops at low prices.",
+        "Popular outdoor sports and athletic games for high schoolers."
+      ],
+      "correct_answer": "The severe hazards of excessive screen time on adolescent health.",
+      "explanation": "Chọn A — Đọc hiểu - Ý chính: Các tác hại khôn lường của việc sử dụng thiết bị màn hình quá mức đối với sức khỏe thanh thiếu niên.",
+      "passage": "<b>ĐỌC ĐOẠN VĂN SAU VÀ CHỌN PHƯƠNG ÁN ĐÚNG NHẤT CHO CÁC CÂU HỎI (CÂU 27 - 31):</b><br><br>In the modern digital era, personal smartphones and tablets have become ubiquitous among teenagers. While these gadgets offer immense educational resources and instant connectivity, excessive screen exposure has sparked grave health concerns among medical professionals worldwide. Recent international surveys reveal that an alarming percentage of adolescents spend over six hours daily in front of screens, predominantly gaming, watching short video clips, and messaging on social networks. The most direct consequence of excessive screen time is severe sleep deprivation. The short-wavelength blue light radiated by electronic displays tricks the human brain into thinking it is still daytime, thereby suppressing the secretion of melatonin, the sleep-inducing hormone. Consequently, teenagers who operate phones in bed struggle to fall asleep, suffer from fragmented slumber, and wake up chronically fatigued. In the classroom, sleep-deprived students exhibit reduced attention spans, impaired memory retention, and noticeable irritability. Furthermore, excessive digital consumption is closely linked to sedentary living and adolescent mental health issues. Spending hours sitting motionless with devices increases the risk of early obesity, posture deformities, and chronic eye strain. On an emotional level, constant exposure to idealized online lifestyles often breeds feelings of inadequacy and fear of missing out (FOMO). To combat these digital hazards, paediatricians strongly recommend establishing \"screen-free zones\" in bedrooms and replacing virtual entertainment with outdoor sports, reading physical books, and engaging in face-to-face family conversations."
+    },
+    {
+      "id": 28,
+      "type": "grammar",
+      "tag": "Reading Comprehension",
+      "question": "According to paragraph 2, why does blue light from phone screens disrupt sleep?",
+      "options": [
+        "Because it tricks the brain and suppresses melatonin secretion.",
+        "Because it generates loud vibration noises during the night.",
+        "Because it causes sudden high fevers in young children.",
+        "Because it damages phone battery life very quickly."
+      ],
+      "correct_answer": "Because it tricks the brain and suppresses melatonin secretion.",
+      "explanation": "Chọn A — Đọc hiểu - Chi tiết: Dẫn chứng đoạn 2: '...short-wavelength blue light radiated by electronic displays tricks the human brain... thereby suppressing the secretion of melatonin...'"
+    },
+    {
+      "id": 29,
+      "type": "grammar",
+      "tag": "Reading Comprehension",
+      "question": "The word \"fatigued\" in paragraph 2 is closest in meaning to:",
+      "options": [
+        "exhausted",
+        "excited",
+        "cheerful",
+        "confident"
+      ],
+      "correct_answer": "exhausted",
+      "explanation": "Chọn A — Đọc hiểu - Từ vựng: 'fatigued' (kiệt sức, vô cùng mệt mỏi = 'exhausted')."
+    },
+    {
+      "id": 30,
+      "type": "grammar",
+      "tag": "Reading Comprehension",
+      "question": "The word \"these\" in paragraph 1 refers to:",
+      "options": [
+        "smartphones and tablets",
+        "medical professionals",
+        "international surveys",
+        "educational resources"
+      ],
+      "correct_answer": "smartphones and tablets",
+      "explanation": "Chọn A — Đọc hiểu - Đại từ: Từ 'these' trong câu 'While these gadgets offer immense educational resources...' thay thế cho 'smartphones and tablets' ở câu trước."
+    },
+    {
+      "id": 31,
+      "type": "grammar",
+      "tag": "Reading Comprehension",
+      "question": "Which of the following is recommended by paediatricians in the final paragraph?",
+      "options": [
+        "Establishing screen-free zones in bedrooms and playing outdoor sports.",
+        "Watching video clips on smartphones until falling asleep.",
+        "Spending more time gaming to relieve exam tension.",
+        "Avoiding all conversations with family members."
+      ],
+      "correct_answer": "Establishing screen-free zones in bedrooms and playing outdoor sports.",
+      "explanation": "Chọn A — Đọc hiểu - Thông tin đúng: Dẫn chứng đoạn 3: '...establishing \"screen-free zones\" in bedrooms and replacing virtual entertainment with outdoor sports...'"
+    },
+    {
+      "id": 32,
+      "type": "writing",
+      "tag": "Part 1. Word Formation",
+      "question": "Chia đúng dạng từ trong ngoặc: <i>Da Nang is considered one of the most _________ cities in Vietnam thanks to its clean beaches. (LIVE)</i>",
+      "options": [
+        "liveable",
+        "lively",
+        "living",
+        "live"
+      ],
+      "correct_answer": "liveable",
+      "explanation": "Chọn A — Sau 'the most' cần tính từ mang nghĩa đáng sống: live (v) -> liveable (adj: đáng sống). (Cách viết 'livable' cũng được chấp nhận)."
+    },
+    {
+      "id": 33,
+      "type": "writing",
+      "tag": "Part 1. Word Formation",
+      "question": "Chia đúng dạng từ trong ngoặc: <i>Working long hours under tight deadlines makes office workers feel extremely _________. (STRESS)</i>",
+      "options": [
+        "stressful",
+        "stress",
+        "stressfully",
+        "unstress"
+      ],
+      "correct_answer": "stressful",
+      "explanation": "Chọn A — Sau trạng từ 'extremely' cần tính từ miêu tả: stress (n) -> stressful (adj: căng thẳng, áp lực)."
+    },
+    {
+      "id": 34,
+      "type": "writing",
+      "tag": "Part 1. Word Formation",
+      "question": "Chia đúng dạng từ trong ngoặc: <i>The local government is investing in the _________ of historical pagodas and temples. (PRESERVE)</i>",
+      "options": [
+        "preservation",
+        "preserve",
+        "preservative",
+        "preserved"
+      ],
+      "correct_answer": "preservation",
+      "explanation": "Chọn A — Sau mạo từ 'the' và trước giới từ 'of' cần danh từ: preserve (v) -> preservation (n: sự bảo tồn)."
+    },
+    {
+      "id": 35,
+      "type": "writing",
+      "tag": "Part 2. Sentence Transformation",
+      "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>\"Which route should I take to avoid traffic jams?\" Peter asked his father.</i>",
+      "options": [
+        "Peter asked his father which route to take to avoid traffic jams.",
+        "Peter asked his father which route should he take to avoid traffic jams.",
+        "Peter asked his father which route taking to avoid traffic jams.",
+        "Peter asked his father which route to taken to avoid traffic jams."
+      ],
+      "correct_answer": "Peter asked his father which route to take to avoid traffic jams.",
+      "explanation": "Chọn A — Rút gọn mệnh đề danh từ: Wh-word + to-infinitive -> 'which route to take to avoid traffic jams'."
+    },
+    {
+      "id": 36,
+      "type": "writing",
+      "tag": "Part 2. Sentence Transformation",
+      "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>Put on a warm coat or you will come down with a bad cold.</i>",
+      "options": [
+        "If you don't put on a warm coat, you will come down with a bad cold.",
+        "If you put on a warm coat, you will come down with a bad cold.",
+        "If you didn't put on a warm coat, you would come down with a bad cold.",
+        "If you don't put on a warm coat, you won't come down with a bad cold."
+      ],
+      "correct_answer": "If you don't put on a warm coat, you will come down with a bad cold.",
+      "explanation": "Chọn A — Chuyển câu mệnh lệnh 'or' sang câu điều kiện loại 1 phủ định: 'If you don't put on a warm coat, you will come down with a bad cold.'"
+    },
+    {
+      "id": 37,
+      "type": "writing",
+      "tag": "Part 2. Sentence Transformation",
+      "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>As you spend more time on social media, you become more distracted.</i>",
+      "options": [
+        "The more time you spend on social media, the more distracted you become.",
+        "The more you spend time on social media, the most distracted you become.",
+        "The much time you spend on social media, the more distracted you become.",
+        "The more time you spend on social media, the distracted more you become."
+      ],
+      "correct_answer": "The more time you spend on social media, the more distracted you become.",
+      "explanation": "Chọn A — Cấu trúc so sánh kép: 'The more time you spend on social media, the more distracted you become.'"
+    },
+    {
+      "id": 38,
+      "type": "writing",
+      "tag": "Part 3. Sentence Building",
+      "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>They / have / no / idea / when / start / the / volunteer / project.</i>",
+      "options": [
+        "They have no idea when to start the volunteer project.",
+        "They have no idea when starting the volunteer project.",
+        "They have no idea when start the volunteer project.",
+        "They has no idea when to start the volunteer project."
+      ],
+      "correct_answer": "They have no idea when to start the volunteer project.",
+      "explanation": "Chọn A — Cụm 'have no idea' kết hợp cấu trúc 'when to start the volunteer project'."
+    },
+    {
+      "id": 39,
+      "type": "writing",
+      "tag": "Part 3. Sentence Building",
+      "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>The / more / vegetables / you / eat, / the / good / your / health / be.</i>",
+      "options": [
+        "The more vegetables you eat, the better your health is.",
+        "The more vegetables you eat, the gooder your health is.",
+        "The more vegetables you eat, the best your health is.",
+        "The more vegetables you eat, the more good your health is."
+      ],
+      "correct_answer": "The more vegetables you eat, the better your health is.",
+      "explanation": "Chọn A — So sánh kép: good -> better. 'The more vegetables you eat, the better your health is.'"
+    },
+    {
+      "id": 40,
+      "type": "writing",
+      "tag": "Part 3. Sentence Building",
+      "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>Local artisans / pass / down / their / embroidery / skills / for / generations.</i>",
+      "options": [
+        "Local artisans have passed down their embroidery skills for generations.",
+        "Local artisans passed down their embroidery skills for generations ago.",
+        "Local artisans has passed down their embroidery skills for generations.",
+        "Local artisans are passing down their embroidery skills for generations."
+      ],
+      "correct_answer": "Local artisans have passed down their embroidery skills for generations.",
+      "explanation": "Chọn A — Dấu hiệu 'for generations' chia thì Hiện tại hoàn thành với chủ ngữ số nhiều 'Local artisans' -> 'have passed down'."
+    }
+  ]
+}
