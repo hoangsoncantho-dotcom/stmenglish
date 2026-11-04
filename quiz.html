@@ -75,8 +75,8 @@
     <!-- Màn hình làm bài -->
     <div id="quiz-screen">
         <div class="info-bar">
-            <div id="progress">Câu 1 / 3</div>
-            <div class="timer"><i class="fa-regular fa-clock"></i> <span id="time">15:00</span></div>
+            <div id="progress">Câu 1 / 15</div>
+            <div class="timer"><i class="fa-regular fa-clock"></i> <span id="time">45:00</span></div>
         </div>
 
         <div class="question-card" id="question-container">
@@ -110,8 +110,6 @@
 </div>
 
 <script>
-    // 1. NGÂN HÀNG DỮ LIỆU ĐỀ THI (Cấu trúc mới hỗ trợ trộn đề)
-    // Lưu ý: correct_answer phải ghi chính xác chữ của đáp án đúng.
     // 1. NGÂN HÀNG DỮ LIỆU ĐỀ THI (Tiếng Anh 8 - Global Success - Giữa kỳ 1)
     const rawQuizData = [
         // --- PHẦN PHÁT ÂM & TRỌNG ÂM ---
@@ -249,35 +247,6 @@
             ],
             correct_answer: "If you don't work hard, you will not pass the upcoming midterm test."
         }
-    ]; = [
-        {
-            type: "listening",
-            tag: "Nghe hiểu",
-            audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Link file âm thanh mẫu
-            question: "Listen to the audio. What is the main topic of the conversation?",
-            options: ["A holiday trip", "A school project", "A new hobby", "A sports event"],
-            correct_answer: "A school project"
-        },
-        {
-            type: "reading",
-            tag: "Đọc hiểu",
-            passage: "Bat Trang is a traditional porcelain and pottery village with a history of seven centuries. It is located in an area rich in clay, which is the main material for making pottery. The artisans here always try to preserve their traditional crafts through generations.",
-            question: "According to the passage, what is the main material used in Bat Trang?",
-            options: ["Sand", "Clay", "Wood", "Plastic"],
-            correct_answer: "Clay"
-        },
-        {
-            type: "writing_mcq",
-            tag: "Viết (Trắc nghiệm hóa)",
-            question: "Choose the sentence that has the closest meaning to: 'They are building a new bridge.'",
-            options: [
-                "A new bridge is being built.", 
-                "A new bridge was built.", 
-                "A new bridge is built.", 
-                "A new bridge will be built."
-            ],
-            correct_answer: "A new bridge is being built."
-        }
     ];
 
     // 2. THUẬT TOÁN TRỘN ĐỀ (SHUFFLE)
@@ -302,7 +271,7 @@
             document.getElementById('student-name').innerHTML = `<i class="fa-regular fa-user"></i> ${studentName}`;
         }
         renderQuestion();
-        startTimer(15 * 60); // Đếm ngược 15 phút
+        startTimer(45 * 60); // Đếm ngược 45 phút cho 15 câu
     });
 
     // 4. HÀM VẼ GIAO DIỆN CÂU HỎI
