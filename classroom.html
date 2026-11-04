@@ -816,6 +816,132 @@
             color: var(--navy-dark);
         }
 
+        /* Badge vai trò: Giáo viên / Học sinh / Phụ huynh */
+        .role-badge-tag {
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 0.35rem 0.8rem;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .role-badge-tag.teacher {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        .role-badge-tag.student {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+        .role-badge-tag.parent {
+            background: #f5f3ff;
+            color: #7c3aed;
+            border: 1px solid #ddd6fe;
+        }
+
+        /* Khối khóa lớp dành cho Học sinh & Phụ huynh */
+        .locked-grade-badge {
+            background: #f1f5f9;
+            color: var(--navy-dark);
+            padding: 0.45rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1.5px solid var(--border-color);
+        }
+        .locked-grade-badge i {
+            color: var(--primary);
+        }
+
+        /* Thanh tiện ích giáo viên */
+        .teacher-toolbar-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%);
+            border: 1.5px solid #fecaca;
+            border-left: 5px solid #dc2626;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Bảng điều khiển phụ huynh */
+        .parent-dashboard-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-md);
+            border: 1.5px solid #ddd6fe;
+            border-top: 5px solid #8b5cf6;
+        }
+
+        .parent-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .parent-stat-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .parent-stat-item .val {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #7c3aed;
+        }
+
+        .parent-stat-item .lbl {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .parent-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.2rem;
+            font-size: 0.92rem;
+        }
+
+        .parent-history-table th {
+            background: #f5f3ff;
+            color: #6b21a8;
+            padding: 0.85rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #ddd6fe;
+        }
+
+        .parent-history-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--navy-dark);
+        }
+
+        .parent-history-table tr:hover {
+            background: #faf5ff;
+        }
+
         /* ========================================================
            10. RESPONSIVE CHO MOBILE & TABLET
            ======================================================== */
@@ -877,13 +1003,47 @@
 
             <!-- Khối thí sinh & Phân luồng Lớp -->
             <div class="user-nav-actions">
-                <span class="grade-badge" id="studentGradeBadge">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span id="gradeBadgeText">Khối THCS</span>
+                <!-- Badge Vai trò: Giáo viên / Học sinh / Phụ huynh -->
+                <span id="userRoleBadge" class="role-badge-tag student">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Học Sinh</span>
                 </span>
 
+                <!-- 1. DÀNH CHO GIÁO VIÊN: Bộ chọn chuyển đổi lớp tự do từ 1 đến 12 -->
+                <div id="teacherGradeControl" style="display: none; align-items: center; gap: 0.45rem;">
+                    <span style="font-size: 0.78rem; font-weight: 800; color: #dc2626; text-transform: uppercase;">
+                        <i class="fa-solid fa-chalkboard-user"></i> Xem Phòng:
+                    </span>
+                    <select id="gradeQuickSelect" onchange="switchGradeManually(this.value)" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 0.45rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; cursor: pointer; outline: none; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);">
+                        <optgroup label="Khối Tiểu Học">
+                            <option value="grade1">Lớp 1 (Tiểu Học)</option>
+                            <option value="grade2">Lớp 2 (Tiểu Học)</option>
+                            <option value="grade3">Lớp 3 (Tiểu Học)</option>
+                            <option value="grade4">Lớp 4 (Tiểu Học)</option>
+                            <option value="grade5">Lớp 5 (Tiểu Học)</option>
+                        </optgroup>
+                        <optgroup label="Khối THCS (Global Success)">
+                            <option value="grade6">Lớp 6 (THCS)</option>
+                            <option value="grade7">Lớp 7 (THCS)</option>
+                            <option value="grade8">Lớp 8 (THCS)</option>
+                            <option value="grade9" selected>Lớp 9 (THCS)</option>
+                        </optgroup>
+                        <optgroup label="Khối THPT (Global Success)">
+                            <option value="grade10">Lớp 10 (THPT)</option>
+                            <option value="grade11">Lớp 11 (THPT)</option>
+                            <option value="grade12">Lớp 12 (THPT)</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- 2. DÀNH CHO HỌC SINH & PHỤ HUYNH: Huy hiệu khóa cứng khối lớp -->
+                <div id="studentLockedGrade" class="locked-grade-badge" style="display: inline-flex;">
+                    <i class="fa-solid fa-lock"></i>
+                    <span id="studentLockedText">Khối Lớp 9</span>
+                </div>
+
                 <div class="user-greeting-card" id="userGreetingDisplay">
-                    <i class="fa-solid fa-user-graduate"></i>
+                    <i class="fa-solid fa-circle-user"></i>
                     <span>👋 Xin chào, <strong id="studentNameText">Học sinh</strong></span>
                 </div>
 
@@ -903,7 +1063,7 @@
         <div class="hero-inner">
             <div class="hero-welcome-info">
                 <h2>Không Gian Học Tập <span>E-Learning STM</span></h2>
-                <p>
+                <p id="heroSubtitle">
                     Hệ thống bài tập phân rã 5 kỹ năng chuyên biệt và trung tâm khảo thí trực tuyến chuẩn khung chương trình Bộ GD&ĐT 2018.
                 </p>
             </div>
@@ -929,6 +1089,115 @@
          4. CONTAINER CHÍNH
          ======================================================== -->
     <main class="main-container">
+
+        <!-- A. THANH CÔNG CỤ DÀNH RIÊNG CHO GIÁO VIÊN (Thầy Nguyễn Hoàng Sơn) -->
+        <section id="teacherToolbarSection" style="display: none;">
+            <div class="teacher-toolbar-box">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                    <div style="width: 44px; height: 44px; background: #fee2e2; color: #dc2626; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem;">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-family: 'Lexend', sans-serif; font-size: 1.15rem; font-weight: 800; color: #991b1b;">
+                            Bàn Làm Việc Chuyên Môn Của Thầy Sơn
+                        </h3>
+                        <p style="font-size: 0.88rem; color: #b91c1c;">
+                            Đặc quyền quản trị: Bạn có thể chọn bất kỳ khối lớp nào ở góc trên để kiểm duyệt học liệu và đề thi.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <a href="https://drive.google.com" target="_blank" class="btn-download-doc" style="background: white; border-color: #fca5a5; color: #b91c1c;">
+                        <i class="fa-brands fa-google-drive"></i>
+                        <span>Kho Drive Bài Nộp (5TB)</span>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn-download-doc" style="background: white; border-color: #fca5a5; color: #b91c1c;">
+                        <i class="fa-solid fa-table"></i>
+                        <span>Sổ Điểm & Quản Lý Tài Khoản</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- B. BẢNG THEO DÕI NĂNG LỰC DÀNH RIÊNG CHO PHỤ HUYNH -->
+        <section id="parentDashboardSection" style="display: none;">
+            <div class="parent-dashboard-card">
+                <div class="layer-header" style="margin-bottom: 0.5rem;">
+                    <div class="layer-title-box">
+                        <span class="layer-badge" style="background: #f5f3ff; color: #7c3aed;">
+                            <i class="fa-solid fa-chart-line"></i> Dành Cho Phụ Huynh
+                        </span>
+                        <h2 class="layer-title">Sổ Theo Dõi Hoạt Động & Lịch Sử Làm Bài Của Con</h2>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #7c3aed; font-weight: 700; background: #faf5ff; padding: 0.4rem 0.9rem; border-radius: var(--radius-full); border: 1px solid #ddd6fe;">
+                        <i class="fa-solid fa-child-reaching"></i> Học sinh: <span id="parentChildName">Phương Minh</span> (<span id="parentChildGrade">Lớp 9</span>)
+                    </div>
+                </div>
+
+                <p style="font-size: 0.92rem; color: var(--text-muted);">
+                    Hệ thống cập nhật tức thời kết quả làm bài tập trắc nghiệm, tình trạng nộp bài tập về nhà và nhận xét sư phạm của Thầy Sơn.
+                </p>
+
+                <!-- Lưới 3 chỉ số theo dõi năng lực của con -->
+                <div class="parent-stats-grid">
+                    <div class="parent-stat-item">
+                        <div class="val" style="color: #059669;">100%</div>
+                        <div class="lbl">Tỷ lệ Chuyên Cần</div>
+                    </div>
+                    <div class="parent-stat-item">
+                        <div class="val" style="color: #0284c7;">10.0</div>
+                        <div class="lbl">Điểm Khảo Sát Gần Nhất</div>
+                    </div>
+                    <div class="parent-stat-item">
+                        <div class="val" style="color: #7c3aed;">Đã Nộp ✅</div>
+                        <div class="lbl">Bài Tập Về Nhà Mới Nhất</div>
+                    </div>
+                </div>
+
+                <!-- Bảng Lịch sử làm bài thi khảo sát của con -->
+                <div style="overflow-x: auto; margin-top: 1rem;">
+                    <table class="parent-history-table">
+                        <thead>
+                            <tr>
+                                <th>Hạng Mục Khảo Sát</th>
+                                <th>Khối Lớp</th>
+                                <th>Điểm Số</th>
+                                <th>Trạng Thái</th>
+                                <th>Nhận Xét Sư Phạm Của Thầy Sơn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Đề Thi Khảo Sát Năng Lực Trực Tuyến</strong></td>
+                                <td>Lớp 9 (Global Success)</td>
+                                <td><span style="font-weight: 800; color: #059669; font-size: 1.1rem;">10.0 / 10</span></td>
+                                <td><span style="background: #f0fdf4; color: #16a34a; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">Đạt Chuẩn Xuất Sắc</span></td>
+                                <td>Em nắm rất vững từ vựng Unit 1 và cấu trúc so sánh kép. Làm bài tự giác và cẩn thận!</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bài Tập Về Nhà Lên Google Drive</strong></td>
+                                <td>Lớp 9</td>
+                                <td><span style="font-weight: 700; color: #0284c7;">Đã Chấm Điểm</span></td>
+                                <td><span style="background: #f0f9ff; color: #0284c7; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">Đã Lưu Drive 5TB</span></td>
+                                <td>File làm bài sạch đẹp, trình bày rõ ràng từng câu chữ.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Kênh trao đổi trực tiếp với Thầy Sơn -->
+                <div style="margin-top: 1.8rem; padding: 1.2rem; background: #faf5ff; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                    <div style="font-size: 0.92rem; color: #5b21b6; font-weight: 600;">
+                        <i class="fa-solid fa-phone-volume"></i> Cần trao đổi trực tiếp với Giáo viên phụ trách: <strong>Thầy Nguyễn Hoàng Sơn (STM Center)</strong>
+                    </div>
+                    <a href="https://zalo.me" target="_blank" class="btn-download-doc" style="background: #7c3aed; color: white; border: none; padding: 0.6rem 1.2rem;">
+                        <i class="fa-solid fa-comments"></i>
+                        <span>Nhắn Tin Zalo Với Thầy Sơn</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
         <!-- ====================================================
              TẦNG 1: CỔNG PHÂN LUỒNG & CHUYỂN UNIT (UNIT TABS)
@@ -1245,33 +1514,109 @@
          ======================================================== -->
     <script>
         // ========================================================
-        // A. CƠ SỞ DỮ LIỆU CÁC KHỐI LỚP & ĐƠN VỊ BÀI HỌC (UNITS)
+        // A. CƠ SỞ DỮ LIỆU ĐẦY ĐỦ 12 KHỐI LỚP (TỪ LỚP 1 ĐẾN LỚP 12)
+        // Chuẩn khung chương trình Bộ GD&ĐT 2018 (Global Success)
         // ========================================================
         const CURRICULUM_DATA = {
-            // Khối Lớp 9 (Global Success)
-            "grade9": [
-                { id: 1, code: "Unit 1", name: "Local Community", subtitle: "Chủ điểm: Cộng đồng địa phương, làng nghề truyền thống & từ vựng đời sống." },
-                { id: 2, code: "Unit 2", name: "City Life", subtitle: "Chủ điểm: Cuộc sống đô thị, so sánh kép và tính từ miêu tả thành phố." },
-                { id: 3, code: "Unit 3", name: "Healthy Living", subtitle: "Chủ điểm: Lối sống lành mạnh cho tuổi teen, động từ khuyết thiếu & lời khuyên." },
-                { id: 4, code: "Unit 4", name: "Remembering the Past", subtitle: "Chủ điểm: Ký ức quá khứ, cấu trúc used to và phong tục tập quán xưa." },
-                { id: 5, code: "Unit 5", name: "Our Experiences", subtitle: "Chủ điểm: Trải nghiệm thực tế, thì hiện tại hoàn thành và tính từ cảm xúc." },
-                { id: 6, code: "Unit 6", name: "Viet Nam: Then & Now", subtitle: "Chủ điểm: Việt Nam ngày nay và ngày xưa, cấu trúc câu phức liên từ." }
+            // === KHỐI TIỂU HỌC (LỚP 1 - LỚP 5) ===
+            "grade1": [
+                { id: 1, code: "Unit 1", name: "In the School Playground", subtitle: "Chủ điểm: Làm quen với chữ cái, âm B b và các hoạt động vui chơi ở sân trường." },
+                { id: 2, code: "Unit 2", name: "In the Dining Room", subtitle: "Chủ điểm: Nhận diện âm C c và các món ăn quen thuộc trong phòng ăn gia đình." },
+                { id: 3, code: "Unit 3", name: "At the Street Market", subtitle: "Chủ điểm: Mua sắm hoa quả, làm quen với âm A a và các số đếm cơ bản." },
+                { id: 4, code: "Unit 4", name: "In the Bedroom", subtitle: "Chủ điểm: Đồ dùng trong phòng ngủ, làm quen với âm D d và cách gọi tên đồ vật." },
+                { id: 5, code: "Unit 5", name: "In the Classroom", subtitle: "Chủ điểm: Dụng cụ học tập trong lớp, chữ cái E e và các chỉ lệnh của giáo viên." },
+                { id: 6, code: "Unit 6", name: "On the Farm", subtitle: "Chủ điểm: Động vật nuôi tại trang trại, chữ cái F f và đếm số lượng con vật." }
             ],
-            // Khối Lớp 8 (Global Success)
-            "grade8": [
-                { id: 1, code: "Unit 1", name: "Life in the Countryside", subtitle: "Chủ điểm: Cuộc sống vùng nông thôn, so sánh hơn của trạng từ." },
-                { id: 2, code: "Unit 2", name: "Making Friends", subtitle: "Chủ điểm: Kết bạn, sở thích và các hoạt động câu lạc bộ." },
-                { id: 3, code: "Unit 3", name: "Teenagers", subtitle: "Chủ điểm: Áp lực học tập và các câu lạc bộ dành cho giới trẻ." }
+            "grade2": [
+                { id: 1, code: "Unit 1", name: "At the Camp", subtitle: "Chủ điểm: Chuyến cắm trại dã ngoại ngoài trời, các trò chơi vận động (TPR)." },
+                { id: 2, code: "Unit 2", name: "In the Countryside", subtitle: "Chủ điểm: Khung cảnh làng quê thanh bình, cây cối, dòng sông và các loài vật." },
+                { id: 3, code: "Unit 3", name: "At the Seaside", subtitle: "Chủ điểm: Hoạt động bãi biển, thuyền buồm, sóng biển và đồ chơi trên cát." },
+                { id: 4, code: "Unit 4", name: "In the Park", subtitle: "Chủ điểm: Các trò chơi cầu trượt, xích đu trong công viên và đếm số lượng." },
+                { id: 5, code: "Unit 5", name: "In the Kitchen", subtitle: "Chủ điểm: Dụng cụ nhà bếp, hoa quả và các bữa ăn vui vẻ cùng ba mẹ." }
             ],
-            // Khối Lớp 7
-            "grade7": [
-                { id: 1, code: "Unit 1", name: "Hobbies", subtitle: "Chủ điểm: Sở thích cá nhân, thì hiện tại đơn và động từ chỉ sự thích thú." },
-                { id: 2, code: "Unit 2", name: "Healthy Living", subtitle: "Chủ điểm: Sức khỏe và các thói quen dinh dưỡng." }
+            "grade3": [
+                { id: 1, code: "Unit 1", name: "Hello", subtitle: "Chủ điểm: Chào hỏi, tự giới thiệu tên, hỏi thăm sức khỏe và tạm biệt bạn bè." },
+                { id: 2, code: "Unit 2", name: "Our Names", subtitle: "Chủ điểm: Đánh vần chữ cái trong tên, xưng hô lịch sự trong lớp học." },
+                { id: 3, code: "Unit 3", name: "Our Friends", subtitle: "Chủ điểm: Giới thiệu bạn bè thân thiết, hỏi đáp xem đây có phải là bạn của mình." },
+                { id: 4, code: "Unit 4", name: "Our Bodies", subtitle: "Chủ điểm: Các bộ phận trên cơ thể (mắt, mũi, miệng, tai, tay chân) và phản xạ nhanh." },
+                { id: 5, code: "Unit 5", name: "My Hobbies", subtitle: "Chủ điểm: Sở thích cá nhân (hát, múa, bơi lội, vẽ tranh) và cấu trúc I like..." },
+                { id: 6, code: "Unit 6", name: "Our School", subtitle: "Chủ điểm: Các phòng học, thư viện, sân trường và câu hỏi Is this our school?" }
             ],
-            // Khối Lớp 6
+            "grade4": [
+                { id: 1, code: "Unit 1", name: "My Friends", subtitle: "Chủ điểm: Quốc tịch, quê hương của các bạn học sinh đến từ khắp nơi trên thế giới." },
+                { id: 2, code: "Unit 2", name: "Time & Daily Routines", subtitle: "Chủ điểm: Hỏi đáp về thời gian và các thói quen hàng ngày (thức dậy, ăn sáng, đi ngủ)." },
+                { id: 3, code: "Unit 3", name: "My Week", subtitle: "Chủ điểm: Các ngày trong tuần, lịch học và các hoạt động ngoại khóa." },
+                { id: 4, code: "Unit 4", name: "My Birthday Party", subtitle: "Chủ điểm: Các tháng trong năm, ngày sinh nhật và các món quà ý nghĩa." },
+                { id: 5, code: "Unit 5", name: "Things We Can Do", subtitle: "Chủ điểm: Khả năng của bản thân với động từ can / can't (chơi cờ, đàn piano, trượt patin)." },
+                { id: 6, code: "Unit 6", name: "Our School Facilities", subtitle: "Chủ điểm: Cơ sở vật chất trường học, vị trí các phòng và đường đi trong trường." }
+            ],
+            "grade5": [
+                { id: 1, code: "Unit 1", name: "All About Me", subtitle: "Chủ điểm: Giới thiệu thông tin cá nhân, địa chỉ nhà, sở thích và tính cách." },
+                { id: 2, code: "Unit 2", name: "Our Homes", subtitle: "Chủ điểm: Miêu tả ngôi nhà, các phòng ốc, tiện nghi và đồ gia dụng." },
+                { id: 3, code: "Unit 3", name: "My Foreign Friends", subtitle: "Chủ điểm: Giao lưu bạn bè quốc tế, đặc trưng ngoại hình và văn hóa các nước." },
+                { id: 4, code: "Unit 4", name: "Our Free-Time Activities", subtitle: "Chủ điểm: Các hoạt động giải trí cuối tuần, rèn luyện thể dục thể thao." },
+                { id: 5, code: "Unit 5", name: "My Future Job", subtitle: "Chủ điểm: Ước mơ nghề nghiệp tương lai (bác sĩ, giáo viên, phi công, kỹ sư)." },
+                { id: 6, code: "Unit 6", name: "Our School Picnic", subtitle: "Chủ điểm: Chuyến dã ngoại của trường, kể về các hoạt động đã làm trong quá khứ." }
+            ],
+
+            // === KHỐI THCS (LỚP 6 - LỚP 9 - GLOBAL SUCCESS) ===
             "grade6": [
-                { id: 1, code: "Unit 1", name: "My New School", subtitle: "Chủ điểm: Ngôi trường mới, dụng cụ học tập và thì hiện tại đơn." },
-                { id: 2, code: "Unit 2", name: "My House", subtitle: "Chủ điểm: Các phòng và đồ vật trong nhà, giới từ chỉ nơi chốn." }
+                { id: 1, code: "Unit 1", name: "My New School", subtitle: "Chủ điểm: Ngôi trường mới, dụng cụ học tập, thì hiện tại đơn & trạng từ chỉ tần suất." },
+                { id: 2, code: "Unit 2", name: "My House", subtitle: "Chủ điểm: Các loại nhà ở, phòng ốc và giới từ chỉ vị trí nơi chốn." },
+                { id: 3, code: "Unit 3", name: "My Friends", subtitle: "Chủ điểm: Miêu tả ngoại hình, tính cách bạn bè và thì hiện tại tiếp diễn." },
+                { id: 4, code: "Unit 4", name: "My Neighbourhood", subtitle: "Chủ điểm: Khu phố em sống, chỉ đường và cấu trúc so sánh hơn của tính từ ngắn." },
+                { id: 5, code: "Unit 5", name: "Natural Wonders of VN", subtitle: "Chủ điểm: Danh lam thắng cảnh Việt Nam, danh từ đếm được & không đếm được, must/mustn't." },
+                { id: 6, code: "Unit 6", name: "Our Tet Holiday", subtitle: "Chủ điểm: Tết cổ truyền Việt Nam, phong tục tập quán và cấu trúc should / shouldn't." }
+            ],
+            "grade7": [
+                { id: 1, code: "Unit 1", name: "Hobbies", subtitle: "Chủ điểm: Sở thích cá nhân, thì hiện tại đơn và các động từ chỉ sự yêu thích (like, love, enjoy)." },
+                { id: 2, code: "Unit 2", name: "Healthy Living", subtitle: "Chủ điểm: Lối sống lành mạnh, vấn đề sức khỏe và câu đơn (simple sentences)." },
+                { id: 3, code: "Unit 3", name: "Community Service", subtitle: "Chủ điểm: Hoạt động tình nguyện vì cộng đồng, thì quá khứ đơn (Past Simple)." },
+                { id: 4, code: "Unit 4", name: "Music and Arts", subtitle: "Chủ điểm: Âm nhạc và nghệ thuật, so sánh as...as, different from, the same as." },
+                { id: 5, code: "Unit 5", name: "Food and Drink", subtitle: "Chủ điểm: Ẩm thực và đồ uống, lượng từ some, a lot of, how much, how many." },
+                { id: 6, code: "Unit 6", name: "A Visit to a School", subtitle: "Chủ điểm: Tham quan Văn Miếu Quốc Tử Giám, giới từ chỉ thời gian và nơi chốn." }
+            ],
+            "grade8": [
+                { id: 1, code: "Unit 1", name: "Life in the Countryside", subtitle: "Chủ điểm: Cuộc sống vùng nông thôn, so sánh hơn của trạng từ (comparative adverbs)." },
+                { id: 2, code: "Unit 2", name: "Making Friends", subtitle: "Chủ điểm: Câu lạc bộ học đường, các hoạt động tương tác giới trẻ." },
+                { id: 3, code: "Unit 3", name: "Teenagers", subtitle: "Chủ điểm: Tâm sinh lý tuổi dậy thì, áp lực học tập và các hội nhóm trên mạng." },
+                { id: 4, code: "Unit 4", name: "Ethnic Groups of Viet Nam", subtitle: "Chủ điểm: Các dân tộc anh em Việt Nam, câu hỏi Yes/No và Wh-questions." },
+                { id: 5, code: "Unit 5", name: "Our Customs & Traditions", subtitle: "Chủ điểm: Phong tục và truyền thống, cấu trúc have to, should và mạo từ a/an/the." },
+                { id: 6, code: "Unit 6", name: "Lifestyles", subtitle: "Chủ điểm: Lối sống hiện đại và truyền thống, tương lai đơn và câu điều kiện loại 1." }
+            ],
+            "grade9": [
+                { id: 1, code: "Unit 1", name: "Local Community", subtitle: "Chủ điểm: Cộng đồng địa phương, làng nghề truyền thống, câu hỏi gián tiếp với từ để hỏi." },
+                { id: 2, code: "Unit 2", name: "City Life", subtitle: "Chủ điểm: Cuộc sống đô thị, so sánh kép (Double Comparatives) và cụm động từ." },
+                { id: 3, code: "Unit 3", name: "Healthy Living for Teens", subtitle: "Chủ điểm: Sức khỏe thể chất & tinh thần tuổi mới lớn, động từ khuyết thiếu." },
+                { id: 4, code: "Unit 4", name: "Remembering the Past", subtitle: "Chủ điểm: Ký ức lịch sử, phong tục xưa, cấu trúc used to và quá khứ hoàn thành." },
+                { id: 5, code: "Unit 5", name: "Our Experiences", subtitle: "Chủ điểm: Trải nghiệm thực tế cuộc sống, thì hiện tại hoàn thành và tính từ mô tả cảm xúc." },
+                { id: 6, code: "Unit 6", name: "Viet Nam: Then & Now", subtitle: "Chủ điểm: Việt Nam ngày nay và ngày xưa, mệnh đề quan hệ và câu phức liên từ." }
+            ],
+
+            // === KHỐI THPT (LỚP 10 - LỚP 12 - GLOBAL SUCCESS) ===
+            "grade10": [
+                { id: 1, code: "Unit 1", name: "Family Life", subtitle: "Chủ điểm: Đời sống gia đình, phân chia công việc nhà, thì hiện tại đơn & hiện tại tiếp diễn." },
+                { id: 2, code: "Unit 2", name: "Humans & the Environment", subtitle: "Chủ điểm: Con người và môi trường, lối sống xanh, tương lai với will và be going to." },
+                { id: 3, code: "Unit 3", name: "Music", subtitle: "Chủ điểm: Âm nhạc hiện đại và truyền thống, câu ghép với liên từ đẳng lập (FANBOYS)." },
+                { id: 4, code: "Unit 4", name: "For a Better Community", subtitle: "Chủ điểm: Hoạt động tình nguyện, tính từ đuôi -ed và -ing, thì quá khứ tiếp diễn." },
+                { id: 5, code: "Unit 5", name: "Inventions", subtitle: "Chủ điểm: Các phát minh khoa học công nghệ, thì hiện tại hoàn thành và danh động từ." },
+                { id: 6, code: "Unit 6", name: "Gender Equality", subtitle: "Chủ điểm: Bình đẳng giới trong công việc, câu bị động với động từ khuyết thiếu (Modal Passives)." }
+            ],
+            "grade11": [
+                { id: 1, code: "Unit 1", name: "A Long & Healthy Life", subtitle: "Chủ điểm: Bí quyết trường thọ, sức khỏe dinh dưỡng, thì quá khứ đơn vs hiện tại hoàn thành." },
+                { id: 2, code: "Unit 2", name: "The Generation Gap", subtitle: "Chủ điểm: Khoảng cách thế hệ trong gia đình, động từ khuyết thiếu chỉ sự bắt buộc (must, have to, should)." },
+                { id: 3, code: "Unit 3", name: "Cities of the Future", subtitle: "Chủ điểm: Thành phố thông minh tương lai, động từ nối (Linking verbs) và tính từ." },
+                { id: 4, code: "Unit 4", name: "ASEAN and Viet Nam", subtitle: "Chủ điểm: Cộng đồng ASEAN, danh động từ hoàn thành (Perfect Gerunds) và phân từ hoàn thành." },
+                { id: 5, code: "Unit 5", name: "Global Warming", subtitle: "Chủ điểm: Biến đổi khí hậu toàn cầu, mệnh đề phân từ rút gọn (Participle Clauses)." },
+                { id: 6, code: "Unit 6", name: "Preserving Our Heritage", subtitle: "Chủ điểm: Bảo tồn di sản văn hóa vật thể & phi vật thể, to-infinitive clauses." }
+            ],
+            "grade12": [
+                { id: 1, code: "Unit 1", name: "Life Stories We Admire", subtitle: "Chủ điểm: Những tấm gương cuộc sống truyền cảm hứng, quá khứ đơn vs quá khứ tiếp diễn/hoàn thành." },
+                { id: 2, code: "Unit 2", name: "A Multicultural World", subtitle: "Chủ điểm: Thế giới đa văn hóa, mạo từ a/an/the và câu hỏi đuôi (Tag Questions)." },
+                { id: 3, code: "Unit 3", name: "Green Living", subtitle: "Chủ điểm: Lối sống bền vững, câu chẻ nhấn mạnh (Cleft Sentences with It is/was... that)." },
+                { id: 4, code: "Unit 4", name: "Urbanisation", subtitle: "Chủ điểm: Đô thị hóa và cơ hội việc làm, cấu trúc giả định (Subjunctive Mood)." },
+                { id: 5, code: "Unit 5", name: "The World of Work", subtitle: "Chủ điểm: Thị trường lao động và định hướng nghề nghiệp, cụm động từ nâng cao (Phrasal Verbs)." },
+                { id: 6, code: "Unit 6", name: "Artificial Intelligence", subtitle: "Chủ điểm: Trí tuệ nhân tạo (AI) trong kỷ nguyên số, câu điều kiện hỗn hợp và đảo ngữ." }
             ]
         };
 
@@ -1288,30 +1633,118 @@
             initUploadService();
         });
 
-        // 1. Nhận diện học sinh đăng nhập từ localStorage
+        // 1. Phân quyền và nhận diện thông minh 3 loại tài khoản: Giáo viên, Học sinh, Phụ huynh
         function initStudentSession() {
+            const currentRole = localStorage.getItem('stm_role') || 'student';
             const studentName = localStorage.getItem('student_name') || localStorage.getItem('stm_user') || 'Nguyễn Phương Minh';
             const studentClass = localStorage.getItem('student_class') || 'Lớp 9';
 
-            document.getElementById('studentNameText').innerText = studentName;
+            // Nhận diện khối lớp chuẩn (từ Lớp 1 đến Lớp 12)
+            currentActiveGrade = detectGrade(studentClass);
+            const gradeNum = currentActiveGrade.replace('grade', '');
+            const gradeTitle = `Khối Lớp ${gradeNum}`;
 
-            // Xác định khối lớp để phân luồng Tầng 1
-            const badgeText = document.getElementById('gradeBadgeText');
-            if (studentClass.includes('6') || studentClass.toLowerCase().includes('e6')) {
-                currentActiveGrade = "grade6";
-                badgeText.innerText = "Khối Lớp 6";
-            } else if (studentClass.includes('7') || studentClass.toLowerCase().includes('e7')) {
-                currentActiveGrade = "grade7";
-                badgeText.innerText = "Khối Lớp 7";
-            } else if (studentClass.includes('8') || studentClass.toLowerCase().includes('e8')) {
-                currentActiveGrade = "grade8";
-                badgeText.innerText = "Khối Lớp 8";
+            const roleBadge = document.getElementById('userRoleBadge');
+            const teacherControl = document.getElementById('teacherGradeControl');
+            const studentLockedGrade = document.getElementById('studentLockedGrade');
+            const studentLockedText = document.getElementById('studentLockedText');
+            const studentNameText = document.getElementById('studentNameText');
+            const teacherToolbar = document.getElementById('teacherToolbarSection');
+            const parentDashboard = document.getElementById('parentDashboardSection');
+            const heroSubtitle = document.getElementById('heroSubtitle');
+
+            // XỬ LÝ THEO 3 LOẠI TÀI KHOẢN (ROLE-BASED VIEW):
+            if (currentRole === 'teacher') {
+                // ==========================================
+                // LOẠI 1: GIÁO VIÊN (Thầy Nguyễn Hoàng Sơn)
+                // Đặc quyền: Tự do chuyển xem phòng tất cả các lớp (1 - 12)
+                // ==========================================
+                roleBadge.className = 'role-badge-tag teacher';
+                roleBadge.innerHTML = `<i class="fa-solid fa-chalkboard-user"></i> <span>Giáo Viên</span>`;
+                studentNameText.innerText = "Thầy Nguyễn Hoàng Sơn";
+
+                // Hiển thị thanh chọn lớp nhanh dành cho giáo viên
+                teacherControl.style.display = 'inline-flex';
+                studentLockedGrade.style.display = 'none';
+
+                const gradeSelect = document.getElementById('gradeQuickSelect');
+                if (gradeSelect) gradeSelect.value = currentActiveGrade;
+
+                if (teacherToolbar) teacherToolbar.style.display = 'block';
+                if (parentDashboard) parentDashboard.style.display = 'none';
+
+                heroSubtitle.innerHTML = `Bàn làm việc Quản trị Chuyên môn & Khảo thí 12 Khối lớp của <strong>Thầy Nguyễn Hoàng Sơn</strong>. Thầy có thể chuyển đổi giữa các phòng học ở thanh trên cùng.`;
+
+            } else if (currentRole === 'parent') {
+                // ==========================================
+                // LOẠI 3: PHỤ HUYNH HỌC SINH
+                // Đặc quyền: Chỉ xem lớp của con, xem bảng lịch sử hoạt động & kết quả làm bài
+                // ==========================================
+                roleBadge.className = 'role-badge-tag parent';
+                roleBadge.innerHTML = `<i class="fa-solid fa-users"></i> <span>Phụ Huynh</span>`;
+                studentNameText.innerText = `PH em ${studentName}`;
+
+                // Khóa cứng lớp của con, KHÔNG cho phụ huynh tự do chuyển sang lớp khác
+                teacherControl.style.display = 'none';
+                studentLockedGrade.style.display = 'inline-flex';
+                studentLockedText.innerText = `${gradeTitle} (Lớp của con)`;
+
+                if (teacherToolbar) teacherToolbar.style.display = 'none';
+                if (parentDashboard) {
+                    parentDashboard.style.display = 'block';
+                    document.getElementById('parentChildName').innerText = studentName;
+                    document.getElementById('parentChildGrade').innerText = gradeTitle;
+                }
+
+                heroSubtitle.innerHTML = `Kính chào Quý phụ huynh em <strong>${studentName}</strong> (${gradeTitle}). Hệ thống cập nhật tiến độ học tập và kết quả bài thi trực tuyến của con.`;
+
             } else {
-                currentActiveGrade = "grade9";
-                badgeText.innerText = "Khối Lớp 9";
+                // ==========================================
+                // LOẠI 2: HỌC SINH
+                // Giới hạn: Chỉ được phép vào đúng lớp của mình, KHÔNG được chuyển lớp khác
+                // ==========================================
+                roleBadge.className = 'role-badge-tag student';
+                roleBadge.innerHTML = `<i class="fa-solid fa-user-graduate"></i> <span>Học Sinh</span>`;
+                studentNameText.innerText = studentName;
+
+                // Khóa cứng khối lớp, KHÔNG cho học sinh tự do chuyển sang lớp khác
+                teacherControl.style.display = 'none';
+                studentLockedGrade.style.display = 'inline-flex';
+                studentLockedText.innerText = gradeTitle;
+
+                if (teacherToolbar) teacherToolbar.style.display = 'none';
+                if (parentDashboard) parentDashboard.style.display = 'none';
+
+                heroSubtitle.innerHTML = `Chào mừng em <strong>${studentName}</strong> đến với không gian học tập <strong>${gradeTitle}</strong>! Hãy tích cực luyện tập 5 kỹ năng mỗi ngày.`;
             }
 
-            document.getElementById('totalUnitsCount').innerText = CURRICULUM_DATA[currentActiveGrade].length;
+            document.getElementById('totalUnitsCount').innerText = (CURRICULUM_DATA[currentActiveGrade] || []).length;
+        }
+
+        // Hàm phát hiện khối lớp thông minh
+        function detectGrade(classStr) {
+            if (!classStr) return "grade9";
+            const str = classStr.toString().toLowerCase().trim();
+
+            // Kiểm tra từ Lớp 12 lùi dần về Lớp 1 (để tránh nhầm lẫn 1 với 10, 11, 12)
+            for (let g = 12; g >= 1; g--) {
+                const regex = new RegExp(`(^|[^0-9])(e|lớp|khoi|k|grade|lop|khối)?\\s*${g}([^0-9]|$)`, 'i');
+                if (regex.test(str) || str === `e${g}` || str === `${g}`) {
+                    return `grade${g}`;
+                }
+            }
+            return "grade9"; // Mặc định Lớp 9
+        }
+
+        // Cho phép chuyển đổi khối lớp nhanh trên giao diện
+        function switchGradeManually(gradeKey) {
+            if (CURRICULUM_DATA[gradeKey]) {
+                currentActiveGrade = gradeKey;
+                currentActiveUnitIndex = 0;
+                renderUnitTabs();
+                updateCurrentUnitView(0);
+                document.getElementById('totalUnitsCount').innerText = CURRICULUM_DATA[gradeKey].length;
+            }
         }
 
         // 2. Render các tab Unit ở Tầng 1

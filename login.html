@@ -594,10 +594,13 @@
                 <p id="formSubtitle">Chào mừng bạn quay trở lại! Vui lòng điền thông tin để vào lớp học.</p>
             </div>
 
-            <!-- Tabs chọn vai trò: Học sinh / Giáo viên -->
+            <!-- Tabs chọn 3 vai trò: Học sinh / Phụ huynh / Giáo viên -->
             <div class="role-tabs">
                 <button type="button" class="role-tab active" id="tabStudent" onclick="switchRole('student')">
-                    <i class="fa-solid fa-user-graduate"></i> Học Sinh / Phụ Huynh
+                    <i class="fa-solid fa-user-graduate"></i> Học Sinh
+                </button>
+                <button type="button" class="role-tab" id="tabParent" onclick="switchRole('parent')">
+                    <i class="fa-solid fa-users"></i> Phụ Huynh
                 </button>
                 <button type="button" class="role-tab" id="tabTeacher" onclick="switchRole('teacher')">
                     <i class="fa-solid fa-chalkboard-user"></i> Giáo Viên
@@ -665,10 +668,11 @@
     <script>
         let currentRole = 'student';
 
-        // 1. Chuyển đổi giữa tab Học sinh và Giáo viên
+        // 1. Chuyển đổi giữa 3 tab: Học sinh, Phụ huynh và Giáo viên
         function switchRole(role) {
             currentRole = role;
             const tabStudent = document.getElementById('tabStudent');
+            const tabParent = document.getElementById('tabParent');
             const tabTeacher = document.getElementById('tabTeacher');
             const usernameLabel = document.getElementById('usernameLabel');
             const studentIdInput = document.getElementById('student_id');
@@ -678,18 +682,25 @@
             // Ẩn thông báo cũ khi đổi tab
             msgBox.style.display = 'none';
 
+            tabStudent.classList.remove('active');
+            if (tabParent) tabParent.classList.remove('active');
+            tabTeacher.classList.remove('active');
+
             if (role === 'student') {
                 tabStudent.classList.add('active');
-                tabTeacher.classList.remove('active');
-                usernameLabel.innerText = "Mã Học Sinh / Số Điện Thoại";
-                studentIdInput.placeholder = "Ví dụ: E6-03 hoặc SĐT phụ huynh";
-                formSubtitle.innerText = "Chào mừng bạn quay trở lại! Vui lòng điền thông tin để vào lớp học.";
+                usernameLabel.innerText = "Mã Học Sinh";
+                studentIdInput.placeholder = "Ví dụ: E9-01 hoặc E6-03";
+                formSubtitle.innerText = "Không gian học tập, luyện 5 kỹ năng và làm bài thi trực tuyến.";
+            } else if (role === 'parent') {
+                if (tabParent) tabParent.classList.add('active');
+                usernameLabel.innerText = "Mã Học Sinh Của Con / Số Điện Thoại";
+                studentIdInput.placeholder = "Ví dụ: E9-01 hoặc SĐT phụ huynh đã đăng ký";
+                formSubtitle.innerText = "Cổng thông tin phụ huynh theo dõi tiến độ, lịch sử làm bài và năng lực của con.";
             } else {
                 tabTeacher.classList.add('active');
-                tabStudent.classList.remove('active');
-                usernameLabel.innerText = "Tài Khoản Giáo Viên / Email";
+                usernameLabel.innerText = "Tài Khoản Giáo Viên / Email Quản Trị";
                 studentIdInput.placeholder = "hoangson.cantho@gmail.com";
-                formSubtitle.innerText = "Khu vực quản trị lớp học dành cho Giáo viên bộ môn.";
+                formSubtitle.innerText = "Khu vực quản trị chuyên môn và khảo thí toàn diện 12 khối lớp của Thầy Sơn.";
             }
         }
 
@@ -778,8 +789,15 @@
 
                     // Hiển thị thông báo thành công màu xanh lá vào thẻ #login-message
                     msgBox.className = 'success';
-                    const welcomeName = data.name ? `Chào mừng em <strong>${data.name}</strong>` : 'Đăng nhập thành công';
-                    msgBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>🎉 ${welcomeName}! Đang chuyển hướng vào phòng học...</span>`;
+                    let welcomeName = 'Đăng nhập thành công';
+                    if (currentRole === 'teacher') {
+                        welcomeName = `Kính chào <strong>Thầy Nguyễn Hoàng Sơn</strong>`;
+                    } else if (currentRole === 'parent') {
+                        welcomeName = `Kính chào Quý phụ huynh em <strong>${data.name || ''}</strong>`;
+                    } else {
+                        welcomeName = `Chào mừng em <strong>${data.name || ''}</strong>`;
+                    }
+                    msgBox.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>🎉 ${welcomeName}! Đang chuyển hướng...</span>`;
                     msgBox.style.display = 'flex';
 
                     // Đợi 1.5 giây rồi tự động chuyển hướng sang trang classroom.html
