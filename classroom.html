@@ -1457,7 +1457,7 @@
                         </div>
                     </div>
 
-                    <a href="quiz.html?de=anh9-giuaky1" id="btnExamMock" class="btn-start-exam btn-exam-mock">
+                    <a href="quiz.html?de=anh9-gk1-de03" id="btnExamMock" class="btn-start-exam btn-exam-mock">
                         <i class="fa-solid fa-rocket"></i>
                         <span>Làm Bài Khảo Sát 40 Câu</span>
                     </a>
@@ -1811,14 +1811,22 @@
                 if (btnReading) btnReading.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
                 if (btnWriting) btnWriting.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
                 if (btnPeriodical) btnPeriodical.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-grammar`;
-                if (btnMock) btnMock.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnMock) {
+                    if (gradeNum === 9) {
+                        btnMock.href = `quiz.html?de=anh9-gk1-de03`;
+                    } else {
+                        btnMock.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                    }
+                }
             }
         }
 
         // 4.1. Hiển thị lịch sử làm bài thi thời gian thực cho Phụ huynh
         function renderParentHistory() {
             try {
-                const history = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+                const examHistory = JSON.parse(localStorage.getItem('stm_exam_history') || '[]');
+                const quizHistory = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+                const history = [...examHistory, ...quizHistory];
                 const tableBody = document.getElementById('parentHistoryTableBody');
                 const latestScoreEl = document.getElementById('parentLatestScore');
 
@@ -1846,11 +1854,15 @@
                                 note = 'Cần xem lại kỹ phần giải thích chi tiết của Thầy Sơn.';
                             }
 
+                            const dateDisplay = item.dateStr || item.date || 'Hôm nay';
+                            const gradeDisplay = item.studentClass || (item.grade ? `Lớp ${item.grade}` : 'Lớp 9');
+                            const correctDisplay = item.total ? `${item.correct}/${item.total} câu` : `${item.correct} câu`;
+
                             html += `
                                 <tr>
-                                    <td><strong>${item.examTitle}</strong><br><small style="color: var(--text-muted);">${item.date || ''}</small></td>
-                                    <td>Lớp ${item.grade}</td>
-                                    <td><span style="font-weight: 800; color: #0284c7; font-size: 1.1rem;">${item.score} / 10</span> (${item.correct}/${item.total} câu)</td>
+                                    <td><strong>${item.examTitle}</strong><br><small style="color: var(--text-muted);">${dateDisplay}</small></td>
+                                    <td>${gradeDisplay}</td>
+                                    <td><span style="font-weight: 800; color: #0284c7; font-size: 1.1rem;">${item.score} / 10</span> (${correctDisplay})</td>
                                     <td><span style="${badgeStyle} padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">${statusText}</span></td>
                                     <td>${note}</td>
                                 </tr>
