@@ -1,1390 +1,1340 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Khảo thí Động STM English - Thầy Nguyễn Hoàng Sơn</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --primary: #0284c7;
-            --primary-dark: #0369a1;
-            --primary-light: #e0f2fe;
-            --success: #059669;
-            --success-light: #d1fae5;
-            --danger: #dc2626;
-            --danger-light: #fee2e2;
-            --warning: #d97706;
-            --warning-light: #fef3c7;
-            --bg-page: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07);
-            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.08);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khảo Thí Đánh Giá Năng Lực Trực Tuyến — STM English</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --secondary: #0f172a;
+      --accent: #dc2626;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --radius: 14px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-page); color: var(--text-main); min-height: 100vh; padding: 1.5rem 1rem; }
-        
-        .quiz-container { max-width: 920px; margin: 0 auto; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 90px;
+    }
 
-        /* Header Bar */
-        .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            color: var(--primary-dark);
-            font-size: 1.15rem;
-        }
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        .exam-meta-title {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-        .student-badge {
-            background: var(--primary-light);
-            color: var(--primary-dark);
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.88rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    /* Top Sticky Header */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+    }
+    .brand-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1.2;
+    }
+    .brand-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      color: var(--accent);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Lexend', monospace;
+    }
+    .timer-badge.warning {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #b45309;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: #f1f5f9;
+      color: #334155;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-back-home:hover {
+      background: #e2e8f0;
+      color: var(--secondary);
+    }
 
-        /* Info Bar & Progress */
-        .info-bar {
-            background: white;
-            padding: 1rem 1.5rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-        .info-bar-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.8rem;
-            font-weight: 700;
-        }
-        .timer-badge {
-            background: #fff1f2;
-            color: var(--danger);
-            border: 1px solid #fecdd3;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1.05rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-        .progress-indicator {
-            color: var(--primary-dark);
-            font-size: 0.95rem;
-        }
-        .progress-track {
-            width: 100%;
-            height: 8px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), #38bdf8);
-            border-radius: 10px;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 0 20px;
+    }
 
-        /* Question Palette (Lưới các câu hỏi để nhảy nhanh) */
-        .palette-toggle-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px dashed var(--border);
-        }
-        .palette-btn {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .palette-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 0.8rem;
-            padding: 0.8rem;
-            background: #f8fafc;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-        }
-        .palette-item {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 700;
-            background: white;
-            border: 1.5px solid var(--border);
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .palette-item:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        .palette-item.answered {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
-        .palette-item.current {
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
-            font-weight: 800;
-        }
+    /* Hero Card */
+    .hero-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(13,148,136,0.3) 0%, rgba(0,0,0,0) 70%);
+      border-radius: 50%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.25);
+      border: 1px solid var(--primary);
+      color: #5eead4;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .hero-desc {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
 
-        /* Khung câu hỏi */
-        .question-card {
-            background: white;
-            padding: 2.2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-        .question-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #f1f5f9;
-            color: var(--text-muted);
-            padding: 0.35rem 0.9rem;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid #e2e8f0;
-        }
-        .question-title {
-            font-size: 1.22rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            color: var(--text-main);
-        }
+    /* Student Info Form */
+    .student-form {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 16px 20px;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--secondary);
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+    }
 
-        /* Dạng đề Listening & Reading */
-        .audio-box {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            padding: 1.2rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 1.5rem;
-        }
-        .audio-box p {
-            font-size: 0.88rem;
-            font-weight: 700;
-            color: #166534;
-            margin-bottom: 0.6rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .audio-player {
-            width: 100%;
-            height: 40px;
-            outline: none;
-        }
-        .reading-box {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            border-radius: var(--radius-md);
-            margin-bottom: 1.5rem;
-            max-height: 240px;
-            overflow-y: auto;
-            line-height: 1.8;
-            font-size: 0.96rem;
-            color: #334155;
-        }
+    /* Audio Player Section */
+    .audio-card {
+      background: #ffffff;
+      border: 1.5px solid #99f6e4;
+      border-left: 5px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin: 16px 0 20px 0;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .audio-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .audio-content {
+      flex-grow: 1;
+    }
+    .audio-content h4 {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .audio-content p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    audio {
+      width: 100%;
+      height: 38px;
+      border-radius: 20px;
+    }
 
-        /* 4 Thẻ đáp án */
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .option-item {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            padding: 1.1rem 1.4rem;
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: var(--radius-md);
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            color: var(--text-main);
-        }
-        .option-item:hover {
-            border-color: #7dd3fc;
-            background: #f0f9ff;
-            transform: translateY(-1px);
-        }
-        .option-item.selected {
-            border-color: var(--primary);
-            background: #f0f9ff;
-            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
-        }
-        .option-circle {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            border: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        .option-item.selected .option-circle {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
+    /* Section Header */
+    .section-header {
+      background: linear-gradient(135deg, #f0fdfa 0%, #e6fffa 100%);
+      border-left: 5px solid var(--primary);
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin: 32px 0 18px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section-badge {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(13, 148, 136, 0.2);
+    }
 
-        /* Nút điều hướng */
-        .nav-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .btn {
-            padding: 0.85rem 1.8rem;
-            border-radius: var(--radius-md);
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.96rem;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            outline: none;
-        }
-        .btn-outline {
-            background: white;
-            border: 2px solid var(--border);
-            color: var(--text-muted);
-        }
-        .btn-outline:hover {
-            background: #f1f5f9;
-            color: var(--text-main);
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
-        }
-        .btn-primary:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
-        }
-        .btn-submit {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
-        }
-        .btn-submit:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
-        }
+    /* Callout & Passage Box */
+    .passage-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #3b82f6;
+      padding: 18px 22px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #1e293b;
+    }
+    .notice-box {
+      background: #fffbeb;
+      border: 1.5px dashed #f59e0b;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      text-align: center;
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #92400e;
+    }
 
-        /* Màn hình kết quả & Lời giải */
-        #result-screen {
-            display: none;
-        }
-        .score-hero-card {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: white;
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-lg);
-        }
-        .score-hero-card h2 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-        .score-big {
-            font-size: 4.2rem;
-            font-weight: 800;
-            line-height: 1;
-            margin: 1.2rem 0;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        .score-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .score-stat-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-        }
-        .score-stat-box span {
-            display: block;
-            font-size: 0.85rem;
-            opacity: 0.9;
-            margin-bottom: 4px;
-        }
-        .score-stat-box strong {
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
+    /* Question Card */
+    .q-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+    .q-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.08);
+    }
+    .q-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .q-num {
+      background: var(--secondary);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .q-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+    .arrangement-box {
+      margin-top: 10px;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      font-weight: 500;
+      color: #334155;
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+    .arr-item {
+      margin-bottom: 5px;
+    }
+    .arr-item:last-child {
+      margin-bottom: 0;
+    }
+    .arr-item b {
+      color: var(--primary-dark);
+      font-weight: 700;
+      margin-right: 6px;
+    }
 
-        /* Khu vực Lời giải chi tiết */
-        .review-section {
-            margin-top: 2.5rem;
-            text-align: left;
-        }
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid var(--border);
-        }
-        .review-header h3 {
-            font-size: 1.3rem;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .review-card {
-            background: white;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
-        }
-        .review-card.correct {
-            border-color: #86efac;
-            background: #f0fdf4;
-        }
-        .review-card.incorrect {
-            border-color: #fca5a5;
-            background: #fff5f5;
-        }
-        .review-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.8rem;
-        }
-        .status-badge {
-            font-size: 0.82rem;
-            font-weight: 800;
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-        }
-        .status-badge.correct {
-            background: var(--success-light);
-            color: var(--success);
-        }
-        .status-badge.incorrect {
-            background: var(--danger-light);
-            color: var(--danger);
-        }
-        .review-question {
-            font-weight: 700;
-            font-size: 1.05rem;
-            margin-bottom: 1rem;
-        }
-        .review-answer-box {
-            background: white;
-            padding: 0.9rem 1.2rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .explanation-box {
-            background: #f0f9ff;
-            border-left: 4px solid var(--primary);
-            padding: 1rem 1.2rem;
-            border-radius: 6px;
-            font-size: 0.92rem;
-            line-height: 1.6;
-            color: #0369a1;
-        }
+    /* Option Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14.5px;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+    .option-label:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .option-label input[type="radio"] {
+      margin-right: 12px;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+    .option-label.selected {
+      background: #f0fdfa;
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
 
-        /* Màn hình Báo lỗi khi không tìm thấy đề */
-        #error-screen {
-            display: none;
-            background: white;
-            padding: 3rem 2rem;
-            border-radius: var(--radius-lg);
-            text-align: center;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-md);
-        }
-        .available-exams-list {
-            margin: 2rem 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            text-align: left;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .exam-link-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.2rem;
-            background: #f8fafc;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 700;
-            transition: all 0.2s;
-        }
-        .exam-link-card:hover {
-            border-color: var(--primary);
-            background: #f0f9ff;
-            color: var(--primary);
-        }
-    </style>
+    /* Review Mode Classes */
+    .q-card.correct {
+      border-color: var(--success);
+      background: #f0fdf4;
+    }
+    .q-card.incorrect {
+      border-color: var(--accent);
+      background: #fef2f2;
+    }
+    .option-label.is-correct {
+      background: #dcfce7 !important;
+      border-color: var(--success) !important;
+      color: #14532d !important;
+      font-weight: 700 !important;
+    }
+    .option-label.is-wrong {
+      background: #fee2e2 !important;
+      border-color: var(--accent) !important;
+      color: #7f1d1d !important;
+      text-decoration: line-through;
+    }
+    .explanation-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      font-size: 13.5px;
+      color: var(--secondary);
+      display: none;
+      line-height: 1.6;
+    }
+    .explanation-box.show {
+      display: block;
+    }
+    .exp-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+
+    /* Floating Submit Bar */
+    .submit-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+      z-index: 99;
+    }
+    .progress-info {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .progress-bar-bg {
+      width: 180px;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #059669);
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(13, 148, 136, 0.4);
+    }
+
+    /* Score Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-card {
+      background: white;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 20px;
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px auto;
+      box-shadow: 0 10px 20px rgba(13, 148, 136, 0.35);
+    }
+    .score-num {
+      font-size: 38px;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .score-max {
+      font-size: 13px;
+      opacity: 0.85;
+      font-weight: 600;
+    }
+    .modal-card h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 6px;
+    }
+    .modal-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .stat-item {
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .stat-val {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--secondary);
+    }
+    .btn-review {
+      width: 100%;
+      background: var(--secondary);
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .btn-review:hover {
+      background: #1e293b;
+    }
+
+    /* Màn hình Báo lỗi */
+    #error-container {
+      display: none;
+      background: white;
+      padding: 40px 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      text-align: center;
+      margin-top: 24px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <!-- Header chung -->
-    <header class="quiz-header">
-        <div class="logo-area">
-            <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div>
-                <div>STM English</div>
-                <div class="exam-meta-title" id="exam-header-title">Đang tải đề thi...</div>
-            </div>
-        </div>
-        <div class="student-badge" id="student-name">
-            <i class="fa-regular fa-user"></i> Thí sinh
-        </div>
-    </header>
+  <!-- Top Sticky Navigation Bar -->
+  <header class="top-bar">
+    <a href="classroom.html" class="brand" title="Quay lại Phòng học STM">
+      <div class="brand-logo">STM</div>
+      <div class="brand-info">
+        <h2 id="topBrandTitle">Hệ Thống Khảo Thí STM English</h2>
+        <p id="topBrandSubtitle">Đang chuẩn bị đề thi...</p>
+      </div>
+    </a>
+    <div class="top-actions">
+      <a href="classroom.html" class="btn-back-home">
+        <i class="fa-solid fa-arrow-left"></i> Về Phòng Học
+      </a>
+      <div class="timer-badge" id="timerBadge">
+        <span>⏱</span>
+        <span id="timerDisplay">60:00</span>
+      </div>
+    </div>
+  </header>
 
-    <!-- MÀN HÌNH LÀM BÀI CHÍNH -->
-    <div id="quiz-screen">
-        <div class="info-bar">
-            <div class="info-bar-top">
-                <div class="progress-indicator" id="progress-text">Câu 1 / 10</div>
-                <div class="timer-badge">
-                    <i class="fa-regular fa-clock"></i>
-                    <span id="timer-display">60:00</span>
-                </div>
-            </div>
-            <div class="progress-track">
-                <div class="progress-fill" id="progress-bar"></div>
-            </div>
-            <div class="palette-toggle-bar">
-                <button class="palette-btn" onclick="togglePalette()">
-                    <i class="fa-solid fa-table-cells"></i> <span id="palette-btn-text">Hiện danh sách câu hỏi</span>
-                </button>
-                <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
-                    Đã làm: <span id="answered-count" style="color: var(--primary); font-weight: 800;">0</span> câu
-                </div>
-            </div>
-            <div class="palette-grid" id="question-palette" style="display: none;">
-                <!-- JavaScript sẽ render lưới các câu hỏi vào đây -->
-            </div>
-        </div>
+  <main class="container">
+    <!-- Hero Card -->
+    <section class="hero-card" id="heroCard">
+      <span class="hero-tag" id="heroTag">KIỂM TRA ĐÁNH GIÁ NĂNG LỰC ĐỊNH KỲ</span>
+      <h1 class="hero-title" id="heroTitle">ĐỀ KIỂM TRA ĐÁNH GIÁ NĂNG LỰC</h1>
+      <p class="hero-desc" id="heroDesc">
+        Đề thi chuẩn hóa theo định dạng đánh giá năng lực của Sở GD&ĐT Cần Thơ (Global Success). 
+        Thời gian làm bài: 60 phút (40 câu hỏi trắc nghiệm tự động chấm điểm và phản hồi sư phạm chi tiết).
+      </p>
 
-        <!-- Khung Câu hỏi -->
-        <div class="question-card" id="question-box">
-            <!-- Nội dung câu hỏi sẽ được render động -->
+      <form class="student-form" id="studentForm" onsubmit="event.preventDefault();">
+        <div class="form-group">
+          <label for="studentName">Họ và Tên Học Sinh (*)</label>
+          <input type="text" id="studentName" class="form-control" placeholder="Nhập họ và tên của em..." required autocomplete="name">
         </div>
+        <div class="form-group">
+          <label for="studentClass">Lớp Học (*)</label>
+          <select id="studentClass" class="form-control" required>
+            <option value="Lớp 9">Lớp 9</option>
+            <option value="Lớp 8">Lớp 8</option>
+            <option value="Lớp 7">Lớp 7</option>
+            <option value="Lớp 6">Lớp 6</option>
+            <option value="Lớp 1">Lớp 1</option>
+            <option value="Lớp 2">Lớp 2</option>
+            <option value="Lớp 3">Lớp 3</option>
+            <option value="Lớp 4">Lớp 4</option>
+            <option value="Lớp 5">Lớp 5</option>
+            <option value="Lớp 10">Lớp 10</option>
+            <option value="Lớp 11">Lớp 11</option>
+            <option value="Lớp 12">Lớp 12</option>
+          </select>
+        </div>
+      </form>
+    </section>
 
-        <!-- Các nút điều hướng -->
-        <div class="nav-actions">
-            <button class="btn btn-outline" id="btn-prev" onclick="goToPrevQuestion()">
-                <i class="fa-solid fa-arrow-left"></i> Quay lại
-            </button>
-            <button class="btn btn-primary" id="btn-next" onclick="goToNextQuestion()">
-                Tiếp theo <i class="fa-solid fa-arrow-right"></i>
-            </button>
-            <button class="btn btn-submit" id="btn-submit" onclick="submitExam()" style="display: none;">
-                <i class="fa-solid fa-paper-plane"></i> Nộp Bài Thi
-            </button>
-        </div>
+    <!-- Màn hình Báo lỗi nếu không tải được đề -->
+    <div id="error-container">
+      <i class="fa-solid fa-triangle-exclamation" style="font-size: 40px; color: #f59e0b; margin-bottom: 12px;"></i>
+      <h3 style="color: var(--secondary); margin-bottom: 8px;">Không tìm thấy mã đề thi yêu cầu</h3>
+      <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;" id="error-desc">
+        Hệ thống không tìm thấy file dữ liệu cho đề này.
+      </p>
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <a href="quiz.html?de=anh9-gk1-de03" class="btn-submit" style="text-decoration: none;">Thi Thử Đề Chuẩn 03</a>
+        <a href="classroom.html" class="btn-review" style="text-decoration: none; width: auto;">Quay Lại Lớp Học</a>
+      </div>
     </div>
 
-    <!-- MÀN HÌNH KẾT QUẢ & LỜI GIẢI CHI TIẾT -->
-    <div id="result-screen">
-        <div class="score-hero-card">
-            <div style="font-size: 2.8rem; margin-bottom: 0.8rem; color: #fde047;">
-                <i class="fa-solid fa-award"></i>
-            </div>
-            <h2 id="result-exam-title">KẾT QUẢ BÀI THI</h2>
-            <p id="result-exam-desc" style="opacity: 0.9; font-size: 0.95rem;">Hệ thống Khảo thí Độc lập STM English</p>
-            
-            <div class="score-big" id="result-score">0.0</div>
-            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;" id="result-rating">Xuất Sắc</div>
+    <!-- Questions Container -->
+    <div id="questionsContainer"></div>
+  </main>
 
-            <div class="score-grid">
-                <div class="score-stat-box">
-                    <span>Số câu đúng</span>
-                    <strong id="result-correct">0 / 0</strong>
-                </div>
-                <div class="score-stat-box">
-                    <span>Tỷ lệ chính xác</span>
-                    <strong id="result-percentage">0%</strong>
-                </div>
-                <div class="score-stat-box">
-                    <span>Thời gian hoàn thành</span>
-                    <strong id="result-time-spent">00:00</strong>
-                </div>
-            </div>
-        </div>
-
-        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
-            <button class="btn btn-primary" onclick="scrollToReview()">
-                <i class="fa-solid fa-list-check"></i> Xem Lời Giải Chi Tiết Của Thầy Sơn
-            </button>
-            <button class="btn btn-outline" onclick="window.location.href='classroom.html'">
-                <i class="fa-solid fa-door-open"></i> Quay Lại Lớp Học
-            </button>
-        </div>
-
-        <!-- Danh sách lời giải chi tiết -->
-        <div class="review-section" id="review-container">
-            <div class="review-header">
-                <h3><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> Phân Tích Lỗi Sai & Lời Giải Chi Tiết</h3>
-                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Biên soạn: Thầy Nguyễn Hoàng Sơn</span>
-            </div>
-            <div id="review-cards-list">
-                <!-- JavaScript sẽ render danh sách đáp án đối chiếu tại đây -->
-            </div>
-            <div style="text-align: center; margin: 2rem 0;">
-                <button class="btn btn-primary" onclick="window.location.href='classroom.html'">
-                    <i class="fa-solid fa-door-open"></i> Hoàn Thành & Quay Lại Lớp Học
-                </button>
-            </div>
-        </div>
+  <!-- Floating Submit Bar -->
+  <aside class="submit-bar" id="submitBar">
+    <div>
+      <div class="progress-info" id="progressInfo">Đã trả lời: 0 / 40 câu</div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
     </div>
+    <button type="button" class="btn-submit" id="submitBtn" onclick="submitExam()">NỘP BÀI THI</button>
+  </aside>
 
-    <!-- MÀN HÌNH BÁO LỖI (KHI KHÔNG TÌM THẤY ĐỀ) -->
-    <div id="error-screen">
-        <div style="font-size: 3.5rem; color: #ef4444; margin-bottom: 1rem;">
-            <i class="fa-solid fa-triangle-exclamation"></i>
+  <!-- Result Modal -->
+  <div class="modal-overlay" id="scoreModal">
+    <div class="modal-card">
+      <div class="score-circle">
+        <span class="score-num" id="modalScore">0.0</span>
+        <span class="score-max">/ 10.0</span>
+      </div>
+      <h3 id="modalGreeting">Hoàn Thành Bài Thi!</h3>
+      <p id="modalSub">Kết quả làm bài đã được ghi nhận vào hệ thống E CLASS</p>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-label">Số câu đúng</div>
+          <div class="stat-val" id="statCorrect">0 / 40 câu</div>
         </div>
-        <h2 style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--text-main);">Không Tìm Thấy Đề Thi Này!</h2>
-        <p style="color: var(--text-muted); line-height: 1.6; max-width: 550px; margin: 0 auto;">
-            Mã đề thi <strong id="missing-exam-id" style="color: var(--danger);"></strong> chưa được kích hoạt hoặc đường dẫn không hợp lệ. Vui lòng chọn một trong các bộ đề sẵn sàng dưới đây:
-        </p>
-
-        <div class="available-exams-list" id="available-exams-list">
-            <!-- JavaScript nạp các đề sẵn có -->
+        <div class="stat-item">
+          <div class="stat-label">Tỷ lệ chính xác</div>
+          <div class="stat-val" id="statPercent">0%</div>
         </div>
+        <div class="stat-item">
+          <div class="stat-label">Thời gian làm bài</div>
+          <div class="stat-val" id="statTime">00:00</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Xếp loại năng lực</div>
+          <div class="stat-val" id="statRank">Đạt</div>
+        </div>
+      </div>
 
-        <button class="btn btn-primary" onclick="window.location.href='classroom.html'">
-            <i class="fa-solid fa-arrow-left"></i> Quay lại Phòng Học
-        </button>
+      <button type="button" class="btn-review" onclick="closeModalAndReview()">XEM LỜI GIẢI CHI TIẾT CỦA THẦY SƠN</button>
     </div>
-</div>
+  </div>
 
-<script>
+  <script>
     /**
      * =========================================================================
-     * THƯ VIỆN ĐỀ THI TÍCH HỢP SẴN (BUILT-IN EXAMS DATABASE)
-     * Dùng để chạy trực tiếp (Offline / file:///), Fallback an toàn khi chưa kịp tạo JSON
+     * CẤU HÌNH & TRẠNG THÁI TOÀN CỤC CỦA BÀI THI
      * =========================================================================
      */
-    const BUILTIN_EXAMS = {
-        "anh9-giuaky1": {
-            id: "anh9-giuaky1",
-            title: "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 9",
-            grade: 9,
-            subject: "Tiếng Anh (Global Success)",
-            timeMinutes: 60,
-            description: "Đề thi khảo sát năng lực toàn diện bám sát chuẩn ma trận đề thi Sở GD&ĐT Cần Thơ (Gồm Listening, Grammar, Reading và Writing trắc nghiệm hóa).",
-            questions: [
-                {
-                    id: 1, type: "listening", tag: "Listening • Part 1 (Trip to Bat Trang)",
-                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                    question: "How did Nam and Sarah travel to Bat Trang pottery village on their weekend trip?",
-                    options: ["By electric bus", "By bicycle", "By private car", "By sky train"],
-                    correct_answer: "By electric bus",
-                    explanation: "Dẫn chứng từ Audio Script: Nam chia sẻ rằng họ đã đi bằng xe buýt điện công cộng (electric bus) để bảo vệ môi trường làng nghề."
-                },
-                {
-                    id: 2, type: "listening", tag: "Listening • Part 1 (Trip to Bat Trang)",
-                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-                    question: "What traditional craft product did Sarah try moulding with clay on the potter's wheel?",
-                    options: ["A small clay vase", "A ceramic tea cup", "A decorative plate", "A flower pot"],
-                    correct_answer: "A small clay vase",
-                    explanation: "Dẫn chứng Audio Script: Sarah kể lại rằng nghệ nhân đã hướng dẫn bạn nặn một chiếc bình gốm nhỏ (a small clay vase)."
-                },
-                {
-                    id: 3, type: "listening", tag: "Listening • Part 2 (Teen Stress & Pressure)",
-                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-                    question: "According to the school psychologist, what represents the primary cause of stress among middle school students?",
-                    options: [
-                        "Heavy academic expectations and upcoming exams",
-                        "Difficulties in making new school friends",
-                        "Lack of modern electronic entertainment devices",
-                        "Daily arguments with neighborhood helpers"
-                    ],
-                    correct_answer: "Heavy academic expectations and upcoming exams",
-                    explanation: "Dẫn chứng Audio Script: Chuyên gia tâm lý học đường khẳng định áp lực kỳ vọng điểm số và các kỳ thi sắp tới (heavy academic expectations and upcoming exams) là nguyên nhân hàng đầu gây căng thẳng ở tuổi vị thành niên."
-                },
-                {
-                    id: 4, type: "grammar", tag: "Phrasal Verbs • Unit 1 (Local Community)",
-                    question: "Experienced artisans in Bat Trang always ______ their traditional pottery-making techniques to the younger generation.",
-                    options: ["pass down", "turn down", "look up", "close down"],
-                    correct_answer: "pass down",
-                    explanation: "Kiến thức Cụm động từ (Phrasal Verbs): 'pass down' có nghĩa là truyền lại cho thế hệ sau. 'turn down' (từ chối/vặn nhỏ), 'look up' (tra cứu), 'close down' (phá sản/đóng cửa vĩnh viễn)."
-                },
-                {
-                    id: 5, type: "grammar", tag: "Vocabulary • Unit 2 (City Life)",
-                    question: "The municipal authority is constructing an elevated sky train line to tackle heavy traffic ______ during rush hours.",
-                    options: ["congestion", "distraction", "priority", "relaxation"],
-                    correct_answer: "congestion",
-                    explanation: "Kiến thức Từ vựng kết hợp (Collocation): 'traffic congestion' = tình trạng ùn tắc giao thông nghiêm trọng. Các từ còn lại: distraction (sự xao nhãng), priority (sự ưu tiên), relaxation (sự thư giãn)."
-                },
-                {
-                    id: 6, type: "grammar", tag: "Vocabulary • Unit 3 (Healthy Living)",
-                    question: "To maintain optimal fitness and mental sharpness, adolescents should pursue a ______ diet rich in green vegetables and lean protein.",
-                    options: ["well-balanced", "fattening", "depressed", "stressful"],
-                    correct_answer: "well-balanced",
-                    explanation: "Cụm danh từ: 'a well-balanced diet' = chế độ ăn uống cân bằng, đầy đủ dưỡng chất. 'fattening' (gây béo phì), 'depressed' (chán nản), 'stressful' (căng thẳng)."
-                },
-                {
-                    id: 7, type: "grammar", tag: "Grammar • Question word + to-infinitive",
-                    question: "Lan felt completely confused and stressed because she had no idea ______ to consult for advice on her science project.",
-                    options: ["who", "which", "what", "where"],
-                    correct_answer: "who",
-                    explanation: "Cấu trúc 'Wh-word + to V': Động từ 'consult' (tham vấn/hỏi ý kiến) cần một tân ngữ chỉ người, do đó ta dùng 'who to consult' (hỏi ai/tham vấn ai)."
-                },
-                {
-                    id: 8, type: "grammar", tag: "Grammar • Double Comparative (So sánh kép)",
-                    question: "______ you practice speaking English with native speakers, the more fluent and natural you become.",
-                    options: ["The more regularly", "The most regularly", "More regularly than", "As regularly as"],
-                    correct_answer: "The more regularly",
-                    explanation: "Công thức So sánh kép (The + comparative + S + V, the + comparative + S + V): 'regularly' là trạng từ dài vần → 'The more regularly you practice...' (Bạn càng luyện tập thường xuyên bao nhiêu, bạn càng lưu loát bấy nhiêu)."
-                },
-                {
-                    id: 9, type: "reading", tag: "Reading Comprehension • Adolescent Mental Health",
-                    passage: "Adolescence is a transformative stage of psychological and physical growth, but it frequently subjects young individuals to notable emotional turbulence. In contemporary urban society, scholastic pressure stands out as one of the most prominent sources of stress. Secondary school pupils routinely spend eight to ten hours daily attending academic lectures and supplementary tutorials. The persistent apprehension of attaining unsatisfactory grades or failing parental expectations readily precipitates chronic exhaustion, mood swings, and insomnia.",
-                    question: "According to the passage, what consequence is directly precipitated by the persistent fear of low grades?",
-                    options: [
-                        "Chronic exhaustion, mood swings, and insomnia.",
-                        "An immediate desire to abandon all digital devices.",
-                        "An inclination to participate extensively in athletic clubs.",
-                        "A total lack of interest in attending family reunions."
-                    ],
-                    correct_answer: "Chronic exhaustion, mood swings, and insomnia.",
-                    explanation: "Dẫn chứng từ câu cuối bài đọc: 'The persistent apprehension of attaining unsatisfactory grades or failing parental expectations readily precipitates chronic exhaustion, mood swings, and insomnia' (Sự lo sợ liên tục về điểm số kém dẫn đến kiệt sức mạn tính, thay đổi tâm trạng thất thường và mất ngủ)."
-                },
-                {
-                    id: 10, type: "writing", tag: "Sentence Transformation • Trắc nghiệm hóa",
-                    passage: "Câu gốc đề bài: As urban dwellers drive more private vehicles, the air quality in the city center deteriorates significantly.",
-                    question: "Choose the sentence that best rewrites the original statement using a Double Comparative structure:",
-                    options: [
-                        "The more private vehicles urban dwellers drive, the worse the air quality in the city center deteriorates.",
-                        "The most private vehicles urban dwellers drive, the worst the air quality deteriorates.",
-                        "The more private vehicles urban dwellers drive, the better the air quality in the city center becomes.",
-                        "The fewer private vehicles urban dwellers drive, the worse the air quality becomes."
-                    ],
-                    correct_answer: "The more private vehicles urban dwellers drive, the worse the air quality in the city center deteriorates.",
-                    explanation: "Cấu trúc so sánh kép nguyên nhân - hệ quả: 'The more + N + S + V, the worse + S + V'. Càng nhiều xe cá nhân lưu thông thì chất lượng không khí trung tâm thành phố càng suy giảm tồi tệ hơn."
-                }
-            ]
-        },
-        "anh8-giuaky1": {
-            id: "anh8-giuaky1",
-            title: "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 8",
-            grade: 8,
-            subject: "Tiếng Anh (Global Success)",
-            timeMinutes: 60,
-            description: "Đề khảo sát năng lực Lớp 8 cấu trúc chuẩn Cần Thơ gồm các chủ điểm Life in the countryside, Our communities & Teenagers.",
-            questions: [
-                {
-                    id: 1, type: "listening", tag: "Listening • Life in the Countryside",
-                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-                    question: "What activity did Minh enjoy most during his summer holiday at his grandparents' farm in the Mekong Delta?",
-                    options: [
-                        "Herding cattle and flying kites in the open paddy field",
-                        "Playing modern video games at the cyber cafe",
-                        "Shopping at the air-conditioned supermarket",
-                        "Driving a tractor along the paved highway"
-                    ],
-                    correct_answer: "Herding cattle and flying kites in the open paddy field",
-                    explanation: "Dẫn chứng Script: Minh kể lại rằng trải nghiệm chăn trâu và thả diều trên cánh đồng lúa bát ngát là hoạt động tuyệt vời nhất trong kỳ nghỉ hè."
-                },
-                {
-                    id: 2, type: "grammar", tag: "Verbs of liking + Gerund (Unit 1)",
-                    question: "Most adolescents nowadays are keen ______ making DIY handicrafts and origami figures in their spare time.",
-                    options: ["on", "about", "with", "in"],
-                    correct_answer: "on",
-                    explanation: "Cụm tính từ cố định: 'be keen on + V-ing/N' = say mê, thích thú điều gì."
-                },
-                {
-                    id: 3, type: "grammar", tag: "Comparative Adverbs • Unit 2 (Life in the Countryside)",
-                    question: "During harvest season, local farmers have to work ______ than usual from dawn till dusk.",
-                    options: ["harder", "more hard", "hardliest", "more hardly"],
-                    correct_answer: "harder",
-                    explanation: "'Hard' là trạng từ bất quy tắc (hard → harder, không dùng more hard hay hardly)."
-                },
-                {
-                    id: 4, type: "grammar", tag: "Compound Sentences • Unit 3 (Teenagers)",
-                    question: "Minh practiced playing the guitar relentlessly, ______ he won first prize in the school talent competition.",
-                    options: ["so", "but", "for", "or"],
-                    correct_answer: "so",
-                    explanation: "Liên từ chỉ kết quả: 'so' (vì vậy, do đó). Minh luyện tập đàn miệt mài, VÌ VẬY bạn ấy đã đoạt giải nhất."
-                },
-                {
-                    id: 5, type: "reading", tag: "Reading Comprehension • Peaceful Countryside Life",
-                    passage: "Living in the tranquil countryside provides numerous benefits that urban centers cannot offer. Firstly, the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories. People who reside in rural hamlets typically cultivate their own organic produce, including fresh herbs, leafy vegetables, and tropical fruits. Furthermore, the social bonds between neighbors are genuinely heartwarming; everyone is eager to lend a sympathetic hand during rice harvesting season.",
-                    question: "Why is the rural atmosphere refreshingly pure according to the text?",
-                    options: [
-                        "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.",
-                        "Because all roads are paved with solid asphalt.",
-                        "Because residents rarely step outdoors in the morning.",
-                        "Because there are numerous high-rise commercial complexes."
-                    ],
-                    correct_answer: "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.",
-                    explanation: "Dẫn chứng bài đọc: 'the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories' (bầu không khí trong lành vì không có khói thải dày đặc từ xe cộ và nhà máy)."
-                }
-            ]
-        },
-        "anh9-u1-phonetics": {
-            id: "anh9-u1-phonetics",
-            title: "Luyện Tập Kỹ Năng 1: Ngữ Âm (Phonetics) • Unit 1 Lớp 9",
-            grade: 9,
-            subject: "Tiếng Anh (Global Success)",
-            timeMinutes: 15,
-            description: "Bài luyện tập phát âm nguyên âm, phụ âm và quy tắc đánh trọng âm từ 2-3 âm tiết bám sát Unit 1: Local Community.",
-            questions: [
-                {
-                    id: 1, type: "phonetics", tag: "Pronunciation • Underlying sound /æ/ vs /eɪ/",
-                    question: "Choose the word whose underlined part is pronounced differently from the others:",
-                    options: ["c<u>a</u>ndle", "tr<u>a</u>vel", "f<u>a</u>mous", "st<u>a</u>tue"],
-                    correct_answer: "f<u>a</u>mous",
-                    explanation: "Từ 'famous' phát âm là /ˈfeɪməs/ (nguyên âm đôi /eɪ/), trong khi ba từ còn lại phát âm là /æ/."
-                },
-                {
-                    id: 2, type: "phonetics", tag: "Stress • 2-syllable Nouns and Verbs",
-                    question: "Choose the word whose main stress is placed differently from the others:",
-                    options: ["pottery", "artisan", "suburb", "attraction"],
-                    correct_answer: "attraction",
-                    explanation: "'attraction' /əˈtrækʃn/ trọng âm rơi vào âm tiết thứ 2 (hậu tố -tion). Ba từ còn lại trọng âm rơi vào âm tiết thứ 1."
-                },
-                {
-                    id: 3, type: "phonetics", tag: "Pronunciation • Ending sound -ed",
-                    question: "Choose the word whose underlined '-ed' ending is pronounced as /ɪd/:",
-                    options: ["remind<u>ed</u>", "pass<u>ed</u>", "look<u>ed</u>", "carv<u>ed</u>"],
-                    correct_answer: "remind<u>ed</u>",
-                    explanation: "Động từ tận cùng bằng âm /t/ hoặc /d/ (remind) khi thêm đuôi -ed sẽ phát âm là /ɪd/ → reminded /rɪˈmaɪndɪd/."
-                },
-                {
-                    id: 4, type: "phonetics", tag: "Stress • 3-syllable Words",
-                    question: "Choose the word whose primary stress pattern differs from the other three:",
-                    options: ["community", "facility", "electrician", "delivery"],
-                    correct_answer: "electrician",
-                    explanation: "'electrician' /ɪˌlekˈtrɪʃn/ có trọng âm chính ở âm tiết thứ 3 (hậu tố -ian). Các từ còn lại có trọng âm chính ở âm tiết thứ 2."
-                }
-            ]
-        },
-        "anh9-u1-grammar": {
-            id: "anh9-u1-grammar",
-            title: "Luyện Tập Kỹ Năng 2: Ngữ Pháp & Từ Vựng (Grammar & Lexicon) • Unit 1 Lớp 9",
-            grade: 9,
-            subject: "Tiếng Anh (Global Success)",
-            timeMinutes: 15,
-            description: "Hệ thống từ vựng theo ngữ cảnh làng nghề, cụm động từ (Phrasal verbs) và cấu trúc Wh-word + to-infinitive.",
-            questions: [
-                {
-                    id: 1, type: "grammar", tag: "Phrasal Verbs • Unit 1",
-                    question: "My grandparents have decided to ______ the family silk-weaving business to my uncle because of their advancing age.",
-                    options: ["hand down", "live on", "break down", "come back"],
-                    correct_answer: "hand down",
-                    explanation: "'hand down' = truyền lại, bàn giao lại qua nhiều thế hệ (đồng nghĩa với pass down)."
-                },
-                {
-                    id: 2, type: "grammar", tag: "Vocabulary • Traditional Crafts",
-                    question: "Con Non village in Hue is internationally renowned for producing exquisite conical ______ made from dried palm leaves.",
-                    options: ["hats", "scarves", "sweaters", "baskets"],
-                    correct_answer: "hats",
-                    explanation: "Từ vựng kết hợp: 'conical hats' = nón lá truyền thống Việt Nam."
-                },
-                {
-                    id: 3, type: "grammar", tag: "Question word + to-infinitive",
-                    question: "The newly arrived foreign tourist asked the receptionist ______ to exchange international currency safely.",
-                    options: ["where", "which", "what", "whose"],
-                    correct_answer: "where",
-                    explanation: "Cấu trúc 'Wh-word + to V': Vế sau chỉ địa điểm đổi ngoại tệ ('to exchange international currency') nên ta dùng 'where to exchange'."
-                },
-                {
-                    id: 4, type: "grammar", tag: "Phrasal Verbs • Unit 1",
-                    question: "Due to the economic recession and lack of tourism, the century-old pottery workshop unfortunately had to ______.",
-                    options: ["close down", "face up to", "turn down", "look round"],
-                    correct_answer: "close down",
-                    explanation: "'close down' = đóng cửa dừng hoạt động kinh doanh vĩnh viễn (phá sản/ngừng sản xuất)."
-                }
-            ]
-        }
-    };
+    const URL_NHAN_DIEM = "https://script.google.com/macros/s/AKfycbywF3afxl8E2_c8cKkfPC7FjLO-2kTFIlcSgJftZT4dyRraswwPlZ8zcFw725S4Mwx_/exec";
+    const BUILTIN_EXAMS = {"anh9-gk1-de03": {"id": "anh9-gk1-de03", "title": "Đề Kiểm Tra Giữa Kỳ 1 (2026-2027) • Đề Số 03 - Tiếng Anh 9", "grade": 9, "subject": "Tiếng Anh (Global Success)", "timeMinutes": 60, "description": "Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ (Gồm Listening, Multiple Choice, Cloze test, Reading và Tự luận trắc nghiệm hóa 100%).", "questions": [{"id": 1, "type": "listening", "tag": "Part 1. Short Conversation", "question": "What was the main activity of the \"Green Neighborhood\" project last weekend?", "options": ["Painting classroom walls", "Cleaning up trash and planting trees along the canal", "Selling handicrafts to tourists", "Repairing old street lamps"], "correct_answer": "Cleaning up trash and planting trees along the canal", "explanation": "Chọn B — Thông tin nghe (Track 1): '...the students collected plastic debris and cleared weeds along the embankment... planted forty blooming bougainvillea trees...'", "audio_url": "https://raw.githubusercontent.com/hoangsoncantho-dotcom/stmenglish/main/audio/03_De_03_Track_1_Green_Neighborhood.mp3"}, {"id": 2, "type": "listening", "tag": "Part 1. Short Conversation", "question": "How many student volunteers joined the campaign?", "options": ["Over thirty students", "Exactly fifty students", "More than seventy students", "Nearly one hundred students"], "correct_answer": "More than seventy students", "explanation": "Chọn C — Thông tin nghe (Track 1): 'Over seventy student volunteers gathered at 7:00 a.m. along the Nhieu Loc canal.'"}, {"id": 3, "type": "listening", "tag": "Part 1. Short Conversation", "question": "Who provided the volunteers with protective gloves and trash bags?", "options": ["Local sanitation workers and the ward council", "A foreign tourist company", "The school library staff", "An online shopping store"], "correct_answer": "Local sanitation workers and the ward council", "explanation": "Chọn A — Thông tin nghe (Track 1): '...provided by local sanitation workers and the ward council...'"}, {"id": 4, "type": "listening", "tag": "Part 1. Short Conversation", "question": "What will the volunteer group do next Sunday?", "options": ["Host a free English club for underprivileged children", "Organize a cooking contest", "Travel to a mountainous craft village", "Build a new sports stadium Part 2. Listen to a talk by a paediatrician about how excessive smartphone use damages adolescent sleep. Choose the correct answer A, B, C, or D for each question. You will hear the recording twice."], "correct_answer": "Host a free English club for underprivileged children", "explanation": "Chọn A — Thông tin nghe (Track 1): '...next Sunday, the volunteers will organize a free conversational English club for underprivileged children...'"}, {"id": 5, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "What percentage of secondary school students admit to taking smartphones to bed?", "options": ["Around twenty percent", "Nearly forty percent", "Over seventy percent", "Exactly ninety-five percent"], "correct_answer": "Over seventy percent", "explanation": "Chọn C — Thông tin nghe (Track 2): '...over seventy percent of secondary school students admit to bringing smartphones into their beds every night.'", "audio_url": "https://raw.githubusercontent.com/hoangsoncantho-dotcom/stmenglish/main/audio/03_De_03_Track_2_Screen_Time_And_Sleep.mp3"}, {"id": 6, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "How does blue light from electronic screens harm the brain?", "options": ["It tricks the brain into thinking it is daytime and blocks melatonin", "It makes the ears sensitive to soft sounds", "It causes immediate stomach ache", "It reduces oxygen levels in the lungs"], "correct_answer": "It tricks the brain into thinking it is daytime and blocks melatonin", "explanation": "Chọn A — Thông tin nghe (Track 2): '...blue light radiating from phone screens tricks the human brain into thinking it is still broad daylight... halts the production of melatonin...'"}, {"id": 7, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "What is a common symptom seen in sleep-deprived students at school?", "options": ["Extreme hunger during breaks", "Impaired memory and reduced attention span", "Outstanding physical endurance", "Rapid reading speed"], "correct_answer": "Impaired memory and reduced attention span", "explanation": "Chọn B — Thông tin nghe (Track 2): '...chronically sleep-deprived adolescents suffer from impaired memory retention, reduced concentration spans...'"}, {"id": 8, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "What does the doctor advise parents to establish in their houses?", "options": ["Strict computer gaming rooms", "Screen-free zones in bedrooms", "Homework checkpoints every hour", "Loud alarm clocks in every corner"], "correct_answer": "Screen-free zones in bedrooms", "explanation": "Chọn B — Thông tin nghe (Track 2): '...strongly urge families to establish strict \"screen-free zones\" in bedrooms.'"}, {"id": 9, "type": "grammar", "tag": "Language Focus", "question": "Garbage collectors and sanitation workers are essential ______ who help keep our neighborhood clean and hygienic.", "options": ["community helpers", "craft artisans", "foreign tourists", "delivery persons"], "correct_answer": "community helpers", "explanation": "Chọn A — Từ vựng (Unit 1): 'community helpers' (những người phục vụ cộng đồng như nhân viên vệ sinh, người thu gom rác)."}, {"id": 10, "type": "grammar", "tag": "Language Focus", "question": "During adolescence, young people frequently experience peer ______ to conform to their classmates' fashion trends.", "options": ["pressure", "amenity", "leisure", "suburb"], "correct_answer": "pressure", "explanation": "Chọn A — Từ vựng (Unit 3): 'peer pressure' (áp lực đồng trang lứa)."}, {"id": 11, "type": "grammar", "tag": "Language Focus", "question": "The new residents had no idea ______ to contact when an unexpected electrical blackout occurred.", "options": ["who", "which", "what", "where"], "correct_answer": "who", "explanation": "Chọn A — Ngữ pháp (Unit 1): Cấu trúc Wh-word + to-V. Chỉ người cần liên hệ hỗ trợ: 'who to contact'."}, {"id": 12, "type": "grammar", "tag": "Language Focus", "question": "Because of a sudden drop in tourist numbers, the family pottery workshop had to ______ permanently.", "options": ["close down", "pass down", "look around", "carry out"], "correct_answer": "close down", "explanation": "Chọn A — Cụm động từ (Unit 1): 'close down' (đóng cửa vĩnh viễn do ế ẩm)."}, {"id": 13, "type": "grammar", "tag": "Language Focus", "question": "The more attentively students listen to the lesson, ______ they comprehend the complex grammar formulas.", "options": ["the more easily", "the easier", "more easy", "easily than"], "correct_answer": "the more easily", "explanation": "Chọn A — So sánh kép (Unit 2): Bổ nghĩa cho động từ 'comprehend' cần trạng từ 'easily', dạng so sánh hơn là 'the more easily'."}, {"id": 14, "type": "grammar", "tag": "Everyday Communication", "question": "Jack: \"Shall we join the weekend community clean-up campaign along the canal?\"", "options": ["Count me in! That sounds very meaningful.", "No, you can't join it.", "It doesn't matter to you.", "Thanks for the money."], "correct_answer": "Count me in! That sounds very meaningful.", "explanation": "Chọn A — Giao tiếp xã hội: 'Count me in! That sounds very meaningful.' (Cho mình tham gia với! Nghe rất ý nghĩa)."}, {"id": 15, "type": "grammar", "tag": "Everyday Communication", "question": "Helen: \"I can't fall asleep because I keep worrying about tomorrow's presentation.\"", "options": ["Try taking deep breaths and listening to some soothing music.", "That's fantastic news! Congratulations!", "You should drink some strong black coffee.", "Never mind your presentation."], "correct_answer": "Try taking deep breaths and listening to some soothing music.", "explanation": "Chọn A — Giao tiếp xã hội: Đưa ra lời khuyên thư giãn khi bạn lo lắng trước bài thuyết trình: 'Try taking deep breaths and listening to some soothing music.'"}, {"id": 16, "type": "grammar", "tag": "Signs & Notices", "question": "What does this safety sign in the school science lab mean?", "options": ["Students are required to wear eye protection while conducting experiments.", "You can buy sunglasses inside the chemistry laboratory.", "Chemicals can be touched with bare hands.", "Only teachers are allowed to wear goggles."], "correct_answer": "Students are required to wear eye protection while conducting experiments.", "explanation": "Chọn A — Biển báo an toàn: 'Safety goggles must be worn' nghĩa là bắt buộc phải đeo kính bảo hộ trong phòng thí nghiệm hóa học."}, {"id": 17, "type": "grammar", "tag": "Signs & Notices", "question": "What does this street sign near the hospital indicate?", "options": ["Vehicles parked here will be removed because this bay is for ambulances.", "Free parking is available for hospital visitors.", "Ambulances are not allowed to stop in this area.", "You can park your car here for fifteen minutes."], "correct_answer": "Vehicles parked here will be removed because this bay is for ambulances.", "explanation": "Chọn A — Biển báo giao thông: 'Tow-away zone' tại khu vực cấp cứu bệnh viện nghĩa là phương tiện đỗ sai quy định sẽ bị cẩu kéo đi nơi khác."}, {"id": 18, "type": "grammar", "tag": "Closest Meaning", "question": "\"Which route should I take to avoid morning traffic jams?\" my father wondered.", "options": ["My father wondered which route to take to avoid morning traffic jams.", "My father asked me which route I took to avoid morning traffic jams.", "My father explained which route he had taken to avoid traffic jams.", "My father told me how to avoid morning traffic jams."], "correct_answer": "My father wondered which route to take to avoid morning traffic jams.", "explanation": "Chọn A — Tìm câu đồng nghĩa: Rút gọn câu hỏi gián tiếp sang 'which route to take to avoid morning traffic jams'."}, {"id": 19, "type": "grammar", "tag": "Sentence Combining", "question": "You spend more time scrolling on social media. You become more distracted from your studies.", "options": ["The more time you spend scrolling on social media, the more distracted you become from your studies.", "Because you spend more time on social media, you concentrate better on your studies.", "You are too distracted to spend time scrolling on social media.", "The less time you spend on social media, the more distracted you become."], "correct_answer": "The more time you spend scrolling on social media, the more distracted you become from your studies.", "explanation": "Chọn A — Kết hợp câu: So sánh kép 'The more time you spend scrolling on social media, the more distracted you become from your studies.'"}, {"id": 20, "type": "grammar", "tag": "Sentence Arrangement", "question": "Arrange the following sentences to make a complete conversation:", "options": ["c - a - e - b - d", "c - e - a - b - d", "a - c - b - e - d", "c - a - b - e - d"], "correct_answer": "c - a - e - b - d", "explanation": "Chọn A — Sắp xếp hội thoại: c (Rủ đi tình nguyện ở bếp ăn từ thiện) -> a (Hào hứng hỏi giờ và địa điểm) -> e (Giải thích công việc nấu ăn cho người già) -> b (Hẹn 8:00 sáng tại thư viện) -> d (Chốt mang tạp dề và gặp mặt)."}, {"id": 21, "type": "grammar", "tag": "Sentence Arrangement", "question": "Arrange the following sentences to make a coherent paragraph about waste collectors:", "options": ["a - c - e - b - d", "a - b - c - e - d", "c - e - a - b - d", "a - c - b - e - d"], "correct_answer": "a - c - e - b - d", "explanation": "Chọn A — Sắp xếp đoạn văn: a (Chủ đề: vai trò công nhân vệ sinh) -> c (Làm việc đêm hôm mưa gió) -> e (Thu gom hàng tấn rác trước giờ cao điểm) -> b (Nếu thiếu họ đường phố sẽ ngập rác) -> d (Kết luận: người dân cần biết ơn và phân loại rác)."}, {"id": 22, "type": "reading", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(22)</b> trong đoạn văn trên:", "options": ["risk", "lose", "give", "take"], "correct_answer": "risk", "explanation": "Chọn A — Đọc điền từ: Cụm từ cố định 'risk their lives' (liều mình, xả thân cứu người).", "passage": "<b>ĐỌC ĐOẠN VĂN SAU VÀ CHỌN TỪ THÍCH HỢP ĐIỀN VÀO CHỖ TRỐNG (CÂU 22 - 26):</b><br><br>In every neighbourhood, community helpers play a vital role in ensuring social security, public sanitation, and local well-being. From early dawn, street cleaners sweep public streets and collect domestic garbage, keeping our living environment fresh and pleasant. Traffic police officers monitor major intersections to keep traffic flowing smoothly during rush hours. In emergencies, brave firefighters (22)______ their lives to protect people from raging fires. Besides civil servants, local volunteer groups actively participate in community support. Many high school students dedicate their weekends (23)______ teaching free classes for disadvantaged children or planting green trees in public parks. These noble actions create a (24)______ sense of social solidarity among residents. (25)______, youth centers organize workshops to equip teens with practical life skills. If every citizen (26)______ a small effort to assist their neighbours, our community will become a much warmer and happier home."}, {"id": 23, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(23)</b> trong đoạn văn trên:", "options": ["to", "for", "in", "with"], "correct_answer": "to", "explanation": "Chọn A — Đọc điền từ: Cấu trúc 'dedicate time to V-ing' (dành thời gian cho việc dạy học/trồng cây)."}, {"id": 24, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(24)</b> trong đoạn văn trên:", "options": ["stronger", "strongest", "strongly", "strength"], "correct_answer": "stronger", "explanation": "Chọn A — Đọc điền từ: Dạng so sánh hơn 'a stronger sense of social solidarity' (tinh thần đoàn kết xã hội mạnh mẽ hơn)."}, {"id": 25, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(25)</b> trong đoạn văn trên:", "options": ["Furthermore", "However", "Although", "Otherwise"], "correct_answer": "Furthermore", "explanation": "Chọn A — Đọc điền từ: Liên từ bổ sung thông tin tích cực: 'Furthermore' (Hơn nữa, Thêm vào đó)."}, {"id": 26, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(26)</b> trong đoạn văn trên:", "options": ["makes", "made", "will make", "is making"], "correct_answer": "makes", "explanation": "Chọn A — Đọc điền từ: Mệnh đề If loại 1, chủ ngữ 'every citizen' là danh từ số ít chia 'makes'."}, {"id": 27, "type": "reading", "tag": "Reading Comprehension", "question": "What is the central topic of the passage?", "options": ["The severe hazards of excessive screen time on adolescent health.", "The historical development of computer software engineering.", "How to purchase modern smartphones and laptops at low prices.", "Popular outdoor sports and athletic games for high schoolers."], "correct_answer": "The severe hazards of excessive screen time on adolescent health.", "explanation": "Chọn A — Đọc hiểu - Ý chính: Các tác hại khôn lường của việc sử dụng thiết bị màn hình quá mức đối với sức khỏe thanh thiếu niên.", "passage": "<b>ĐỌC ĐOẠN VĂN SAU VÀ CHỌN PHƯƠNG ÁN ĐÚNG NHẤT CHO CÁC CÂU HỎI (CÂU 27 - 31):</b><br><br>In the modern digital era, personal smartphones and tablets have become ubiquitous among teenagers. While these gadgets offer immense educational resources and instant connectivity, excessive screen exposure has sparked grave health concerns among medical professionals worldwide. Recent international surveys reveal that an alarming percentage of adolescents spend over six hours daily in front of screens, predominantly gaming, watching short video clips, and messaging on social networks. The most direct consequence of excessive screen time is severe sleep deprivation. The short-wavelength blue light radiated by electronic displays tricks the human brain into thinking it is still daytime, thereby suppressing the secretion of melatonin, the sleep-inducing hormone. Consequently, teenagers who operate phones in bed struggle to fall asleep, suffer from fragmented slumber, and wake up chronically fatigued. In the classroom, sleep-deprived students exhibit reduced attention spans, impaired memory retention, and noticeable irritability. Furthermore, excessive digital consumption is closely linked to sedentary living and adolescent mental health issues. Spending hours sitting motionless with devices increases the risk of early obesity, posture deformities, and chronic eye strain. On an emotional level, constant exposure to idealized online lifestyles often breeds feelings of inadequacy and fear of missing out (FOMO). To combat these digital hazards, paediatricians strongly recommend establishing \"screen-free zones\" in bedrooms and replacing virtual entertainment with outdoor sports, reading physical books, and engaging in face-to-face family conversations."}, {"id": 28, "type": "grammar", "tag": "Reading Comprehension", "question": "According to paragraph 2, why does blue light from phone screens disrupt sleep?", "options": ["Because it tricks the brain and suppresses melatonin secretion.", "Because it generates loud vibration noises during the night.", "Because it causes sudden high fevers in young children.", "Because it damages phone battery life very quickly."], "correct_answer": "Because it tricks the brain and suppresses melatonin secretion.", "explanation": "Chọn A — Đọc hiểu - Chi tiết: Dẫn chứng đoạn 2: '...short-wavelength blue light radiated by electronic displays tricks the human brain... thereby suppressing the secretion of melatonin...'"}, {"id": 29, "type": "grammar", "tag": "Reading Comprehension", "question": "The word \"fatigued\" in paragraph 2 is closest in meaning to:", "options": ["exhausted", "excited", "cheerful", "confident"], "correct_answer": "exhausted", "explanation": "Chọn A — Đọc hiểu - Từ vựng: 'fatigued' (kiệt sức, vô cùng mệt mỏi = 'exhausted')."}, {"id": 30, "type": "grammar", "tag": "Reading Comprehension", "question": "The word \"these\" in paragraph 1 refers to:", "options": ["smartphones and tablets", "medical professionals", "international surveys", "educational resources"], "correct_answer": "smartphones and tablets", "explanation": "Chọn A — Đọc hiểu - Đại từ: Từ 'these' trong câu 'While these gadgets offer immense educational resources...' thay thế cho 'smartphones and tablets' ở câu trước."}, {"id": 31, "type": "grammar", "tag": "Reading Comprehension", "question": "Which of the following is recommended by paediatricians in the final paragraph?", "options": ["Establishing screen-free zones in bedrooms and playing outdoor sports.", "Watching video clips on smartphones until falling asleep.", "Spending more time gaming to relieve exam tension.", "Avoiding all conversations with family members."], "correct_answer": "Establishing screen-free zones in bedrooms and playing outdoor sports.", "explanation": "Chọn A — Đọc hiểu - Thông tin đúng: Dẫn chứng đoạn 3: '...establishing \"screen-free zones\" in bedrooms and replacing virtual entertainment with outdoor sports...'"}, {"id": 32, "type": "writing", "tag": "Part 1. Word Formation", "question": "Chia đúng dạng từ trong ngoặc: <i>Da Nang is considered one of the most _________ cities in Vietnam thanks to its clean beaches. (LIVE)</i>", "options": ["liveable", "lively", "living", "live"], "correct_answer": "liveable", "explanation": "Chọn A — Sau 'the most' cần tính từ mang nghĩa đáng sống: live (v) -> liveable (adj: đáng sống). (Cách viết 'livable' cũng được chấp nhận)."}, {"id": 33, "type": "writing", "tag": "Part 1. Word Formation", "question": "Chia đúng dạng từ trong ngoặc: <i>Working long hours under tight deadlines makes office workers feel extremely _________. (STRESS)</i>", "options": ["stressful", "stress", "stressfully", "unstress"], "correct_answer": "stressful", "explanation": "Chọn A — Sau trạng từ 'extremely' cần tính từ miêu tả: stress (n) -> stressful (adj: căng thẳng, áp lực)."}, {"id": 34, "type": "writing", "tag": "Part 1. Word Formation", "question": "Chia đúng dạng từ trong ngoặc: <i>The local government is investing in the _________ of historical pagodas and temples. (PRESERVE)</i>", "options": ["preservation", "preserve", "preservative", "preserved"], "correct_answer": "preservation", "explanation": "Chọn A — Sau mạo từ 'the' và trước giới từ 'of' cần danh từ: preserve (v) -> preservation (n: sự bảo tồn)."}, {"id": 35, "type": "writing", "tag": "Part 2. Sentence Transformation", "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>\"Which route should I take to avoid traffic jams?\" Peter asked his father.</i>", "options": ["Peter asked his father which route to take to avoid traffic jams.", "Peter asked his father which route should he take to avoid traffic jams.", "Peter asked his father which route taking to avoid traffic jams.", "Peter asked his father which route to taken to avoid traffic jams."], "correct_answer": "Peter asked his father which route to take to avoid traffic jams.", "explanation": "Chọn A — Rút gọn mệnh đề danh từ: Wh-word + to-infinitive -> 'which route to take to avoid traffic jams'."}, {"id": 36, "type": "writing", "tag": "Part 2. Sentence Transformation", "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>Put on a warm coat or you will come down with a bad cold.</i>", "options": ["If you don't put on a warm coat, you will come down with a bad cold.", "If you put on a warm coat, you will come down with a bad cold.", "If you didn't put on a warm coat, you would come down with a bad cold.", "If you don't put on a warm coat, you won't come down with a bad cold."], "correct_answer": "If you don't put on a warm coat, you will come down with a bad cold.", "explanation": "Chọn A — Chuyển câu mệnh lệnh 'or' sang câu điều kiện loại 1 phủ định: 'If you don't put on a warm coat, you will come down with a bad cold.'"}, {"id": 37, "type": "writing", "tag": "Part 2. Sentence Transformation", "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>As you spend more time on social media, you become more distracted.</i>", "options": ["The more time you spend on social media, the more distracted you become.", "The more you spend time on social media, the most distracted you become.", "The much time you spend on social media, the more distracted you become.", "The more time you spend on social media, the distracted more you become."], "correct_answer": "The more time you spend on social media, the more distracted you become.", "explanation": "Chọn A — Cấu trúc so sánh kép: 'The more time you spend on social media, the more distracted you become.'"}, {"id": 38, "type": "writing", "tag": "Part 3. Sentence Building", "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>They / have / no / idea / when / start / the / volunteer / project.</i>", "options": ["They have no idea when to start the volunteer project.", "They have no idea when starting the volunteer project.", "They have no idea when start the volunteer project.", "They has no idea when to start the volunteer project."], "correct_answer": "They have no idea when to start the volunteer project.", "explanation": "Chọn A — Cụm 'have no idea' kết hợp cấu trúc 'when to start the volunteer project'."}, {"id": 39, "type": "writing", "tag": "Part 3. Sentence Building", "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>The / more / vegetables / you / eat, / the / good / your / health / be.</i>", "options": ["The more vegetables you eat, the better your health is.", "The more vegetables you eat, the gooder your health is.", "The more vegetables you eat, the best your health is.", "The more vegetables you eat, the more good your health is."], "correct_answer": "The more vegetables you eat, the better your health is.", "explanation": "Chọn A — So sánh kép: good -> better. 'The more vegetables you eat, the better your health is.'"}, {"id": 40, "type": "writing", "tag": "Part 3. Sentence Building", "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>Local artisans / pass / down / their / embroidery / skills / for / generations.</i>", "options": ["Local artisans have passed down their embroidery skills for generations.", "Local artisans passed down their embroidery skills for generations ago.", "Local artisans has passed down their embroidery skills for generations.", "Local artisans are passing down their embroidery skills for generations."], "correct_answer": "Local artisans have passed down their embroidery skills for generations.", "explanation": "Chọn A — Dấu hiệu 'for generations' chia thì Hiện tại hoàn thành với chủ ngữ số nhiều 'Local artisans' -> 'have passed down'."}]}, "anh9-giuaky1": {"id": "anh9-gk1-de03", "title": "Đề Kiểm Tra Giữa Kỳ 1 (2026-2027) • Đề Số 03 - Tiếng Anh 9", "grade": 9, "subject": "Tiếng Anh (Global Success)", "timeMinutes": 60, "description": "Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ (Gồm Listening, Multiple Choice, Cloze test, Reading và Tự luận trắc nghiệm hóa 100%).", "questions": [{"id": 1, "type": "listening", "tag": "Part 1. Short Conversation", "question": "What was the main activity of the \"Green Neighborhood\" project last weekend?", "options": ["Painting classroom walls", "Cleaning up trash and planting trees along the canal", "Selling handicrafts to tourists", "Repairing old street lamps"], "correct_answer": "Cleaning up trash and planting trees along the canal", "explanation": "Chọn B — Thông tin nghe (Track 1): '...the students collected plastic debris and cleared weeds along the embankment... planted forty blooming bougainvillea trees...'", "audio_url": "https://raw.githubusercontent.com/hoangsoncantho-dotcom/stmenglish/main/audio/03_De_03_Track_1_Green_Neighborhood.mp3"}, {"id": 2, "type": "listening", "tag": "Part 1. Short Conversation", "question": "How many student volunteers joined the campaign?", "options": ["Over thirty students", "Exactly fifty students", "More than seventy students", "Nearly one hundred students"], "correct_answer": "More than seventy students", "explanation": "Chọn C — Thông tin nghe (Track 1): 'Over seventy student volunteers gathered at 7:00 a.m. along the Nhieu Loc canal.'"}, {"id": 3, "type": "listening", "tag": "Part 1. Short Conversation", "question": "Who provided the volunteers with protective gloves and trash bags?", "options": ["Local sanitation workers and the ward council", "A foreign tourist company", "The school library staff", "An online shopping store"], "correct_answer": "Local sanitation workers and the ward council", "explanation": "Chọn A — Thông tin nghe (Track 1): '...provided by local sanitation workers and the ward council...'"}, {"id": 4, "type": "listening", "tag": "Part 1. Short Conversation", "question": "What will the volunteer group do next Sunday?", "options": ["Host a free English club for underprivileged children", "Organize a cooking contest", "Travel to a mountainous craft village", "Build a new sports stadium Part 2. Listen to a talk by a paediatrician about how excessive smartphone use damages adolescent sleep. Choose the correct answer A, B, C, or D for each question. You will hear the recording twice."], "correct_answer": "Host a free English club for underprivileged children", "explanation": "Chọn A — Thông tin nghe (Track 1): '...next Sunday, the volunteers will organize a free conversational English club for underprivileged children...'"}, {"id": 5, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "What percentage of secondary school students admit to taking smartphones to bed?", "options": ["Around twenty percent", "Nearly forty percent", "Over seventy percent", "Exactly ninety-five percent"], "correct_answer": "Over seventy percent", "explanation": "Chọn C — Thông tin nghe (Track 2): '...over seventy percent of secondary school students admit to bringing smartphones into their beds every night.'", "audio_url": "https://raw.githubusercontent.com/hoangsoncantho-dotcom/stmenglish/main/audio/03_De_03_Track_2_Screen_Time_And_Sleep.mp3"}, {"id": 6, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "How does blue light from electronic screens harm the brain?", "options": ["It tricks the brain into thinking it is daytime and blocks melatonin", "It makes the ears sensitive to soft sounds", "It causes immediate stomach ache", "It reduces oxygen levels in the lungs"], "correct_answer": "It tricks the brain into thinking it is daytime and blocks melatonin", "explanation": "Chọn A — Thông tin nghe (Track 2): '...blue light radiating from phone screens tricks the human brain into thinking it is still broad daylight... halts the production of melatonin...'"}, {"id": 7, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "What is a common symptom seen in sleep-deprived students at school?", "options": ["Extreme hunger during breaks", "Impaired memory and reduced attention span", "Outstanding physical endurance", "Rapid reading speed"], "correct_answer": "Impaired memory and reduced attention span", "explanation": "Chọn B — Thông tin nghe (Track 2): '...chronically sleep-deprived adolescents suffer from impaired memory retention, reduced concentration spans...'"}, {"id": 8, "type": "listening", "tag": "Part 2. Talk / Presentation", "question": "What does the doctor advise parents to establish in their houses?", "options": ["Strict computer gaming rooms", "Screen-free zones in bedrooms", "Homework checkpoints every hour", "Loud alarm clocks in every corner"], "correct_answer": "Screen-free zones in bedrooms", "explanation": "Chọn B — Thông tin nghe (Track 2): '...strongly urge families to establish strict \"screen-free zones\" in bedrooms.'"}, {"id": 9, "type": "grammar", "tag": "Language Focus", "question": "Garbage collectors and sanitation workers are essential ______ who help keep our neighborhood clean and hygienic.", "options": ["community helpers", "craft artisans", "foreign tourists", "delivery persons"], "correct_answer": "community helpers", "explanation": "Chọn A — Từ vựng (Unit 1): 'community helpers' (những người phục vụ cộng đồng như nhân viên vệ sinh, người thu gom rác)."}, {"id": 10, "type": "grammar", "tag": "Language Focus", "question": "During adolescence, young people frequently experience peer ______ to conform to their classmates' fashion trends.", "options": ["pressure", "amenity", "leisure", "suburb"], "correct_answer": "pressure", "explanation": "Chọn A — Từ vựng (Unit 3): 'peer pressure' (áp lực đồng trang lứa)."}, {"id": 11, "type": "grammar", "tag": "Language Focus", "question": "The new residents had no idea ______ to contact when an unexpected electrical blackout occurred.", "options": ["who", "which", "what", "where"], "correct_answer": "who", "explanation": "Chọn A — Ngữ pháp (Unit 1): Cấu trúc Wh-word + to-V. Chỉ người cần liên hệ hỗ trợ: 'who to contact'."}, {"id": 12, "type": "grammar", "tag": "Language Focus", "question": "Because of a sudden drop in tourist numbers, the family pottery workshop had to ______ permanently.", "options": ["close down", "pass down", "look around", "carry out"], "correct_answer": "close down", "explanation": "Chọn A — Cụm động từ (Unit 1): 'close down' (đóng cửa vĩnh viễn do ế ẩm)."}, {"id": 13, "type": "grammar", "tag": "Language Focus", "question": "The more attentively students listen to the lesson, ______ they comprehend the complex grammar formulas.", "options": ["the more easily", "the easier", "more easy", "easily than"], "correct_answer": "the more easily", "explanation": "Chọn A — So sánh kép (Unit 2): Bổ nghĩa cho động từ 'comprehend' cần trạng từ 'easily', dạng so sánh hơn là 'the more easily'."}, {"id": 14, "type": "grammar", "tag": "Everyday Communication", "question": "Jack: \"Shall we join the weekend community clean-up campaign along the canal?\"", "options": ["Count me in! That sounds very meaningful.", "No, you can't join it.", "It doesn't matter to you.", "Thanks for the money."], "correct_answer": "Count me in! That sounds very meaningful.", "explanation": "Chọn A — Giao tiếp xã hội: 'Count me in! That sounds very meaningful.' (Cho mình tham gia với! Nghe rất ý nghĩa)."}, {"id": 15, "type": "grammar", "tag": "Everyday Communication", "question": "Helen: \"I can't fall asleep because I keep worrying about tomorrow's presentation.\"", "options": ["Try taking deep breaths and listening to some soothing music.", "That's fantastic news! Congratulations!", "You should drink some strong black coffee.", "Never mind your presentation."], "correct_answer": "Try taking deep breaths and listening to some soothing music.", "explanation": "Chọn A — Giao tiếp xã hội: Đưa ra lời khuyên thư giãn khi bạn lo lắng trước bài thuyết trình: 'Try taking deep breaths and listening to some soothing music.'"}, {"id": 16, "type": "grammar", "tag": "Signs & Notices", "question": "What does this safety sign in the school science lab mean?", "options": ["Students are required to wear eye protection while conducting experiments.", "You can buy sunglasses inside the chemistry laboratory.", "Chemicals can be touched with bare hands.", "Only teachers are allowed to wear goggles."], "correct_answer": "Students are required to wear eye protection while conducting experiments.", "explanation": "Chọn A — Biển báo an toàn: 'Safety goggles must be worn' nghĩa là bắt buộc phải đeo kính bảo hộ trong phòng thí nghiệm hóa học."}, {"id": 17, "type": "grammar", "tag": "Signs & Notices", "question": "What does this street sign near the hospital indicate?", "options": ["Vehicles parked here will be removed because this bay is for ambulances.", "Free parking is available for hospital visitors.", "Ambulances are not allowed to stop in this area.", "You can park your car here for fifteen minutes."], "correct_answer": "Vehicles parked here will be removed because this bay is for ambulances.", "explanation": "Chọn A — Biển báo giao thông: 'Tow-away zone' tại khu vực cấp cứu bệnh viện nghĩa là phương tiện đỗ sai quy định sẽ bị cẩu kéo đi nơi khác."}, {"id": 18, "type": "grammar", "tag": "Closest Meaning", "question": "\"Which route should I take to avoid morning traffic jams?\" my father wondered.", "options": ["My father wondered which route to take to avoid morning traffic jams.", "My father asked me which route I took to avoid morning traffic jams.", "My father explained which route he had taken to avoid traffic jams.", "My father told me how to avoid morning traffic jams."], "correct_answer": "My father wondered which route to take to avoid morning traffic jams.", "explanation": "Chọn A — Tìm câu đồng nghĩa: Rút gọn câu hỏi gián tiếp sang 'which route to take to avoid morning traffic jams'."}, {"id": 19, "type": "grammar", "tag": "Sentence Combining", "question": "You spend more time scrolling on social media. You become more distracted from your studies.", "options": ["The more time you spend scrolling on social media, the more distracted you become from your studies.", "Because you spend more time on social media, you concentrate better on your studies.", "You are too distracted to spend time scrolling on social media.", "The less time you spend on social media, the more distracted you become."], "correct_answer": "The more time you spend scrolling on social media, the more distracted you become from your studies.", "explanation": "Chọn A — Kết hợp câu: So sánh kép 'The more time you spend scrolling on social media, the more distracted you become from your studies.'"}, {"id": 20, "type": "grammar", "tag": "Sentence Arrangement", "question": "Arrange the following sentences to make a complete conversation:", "options": ["c - a - e - b - d", "c - e - a - b - d", "a - c - b - e - d", "c - a - b - e - d"], "correct_answer": "c - a - e - b - d", "explanation": "Chọn A — Sắp xếp hội thoại: c (Rủ đi tình nguyện ở bếp ăn từ thiện) -> a (Hào hứng hỏi giờ và địa điểm) -> e (Giải thích công việc nấu ăn cho người già) -> b (Hẹn 8:00 sáng tại thư viện) -> d (Chốt mang tạp dề và gặp mặt)."}, {"id": 21, "type": "grammar", "tag": "Sentence Arrangement", "question": "Arrange the following sentences to make a coherent paragraph about waste collectors:", "options": ["a - c - e - b - d", "a - b - c - e - d", "c - e - a - b - d", "a - c - b - e - d"], "correct_answer": "a - c - e - b - d", "explanation": "Chọn A — Sắp xếp đoạn văn: a (Chủ đề: vai trò công nhân vệ sinh) -> c (Làm việc đêm hôm mưa gió) -> e (Thu gom hàng tấn rác trước giờ cao điểm) -> b (Nếu thiếu họ đường phố sẽ ngập rác) -> d (Kết luận: người dân cần biết ơn và phân loại rác)."}, {"id": 22, "type": "reading", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(22)</b> trong đoạn văn trên:", "options": ["risk", "lose", "give", "take"], "correct_answer": "risk", "explanation": "Chọn A — Đọc điền từ: Cụm từ cố định 'risk their lives' (liều mình, xả thân cứu người).", "passage": "<b>ĐỌC ĐOẠN VĂN SAU VÀ CHỌN TỪ THÍCH HỢP ĐIỀN VÀO CHỖ TRỐNG (CÂU 22 - 26):</b><br><br>In every neighbourhood, community helpers play a vital role in ensuring social security, public sanitation, and local well-being. From early dawn, street cleaners sweep public streets and collect domestic garbage, keeping our living environment fresh and pleasant. Traffic police officers monitor major intersections to keep traffic flowing smoothly during rush hours. In emergencies, brave firefighters (22)______ their lives to protect people from raging fires. Besides civil servants, local volunteer groups actively participate in community support. Many high school students dedicate their weekends (23)______ teaching free classes for disadvantaged children or planting green trees in public parks. These noble actions create a (24)______ sense of social solidarity among residents. (25)______, youth centers organize workshops to equip teens with practical life skills. If every citizen (26)______ a small effort to assist their neighbours, our community will become a much warmer and happier home."}, {"id": 23, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(23)</b> trong đoạn văn trên:", "options": ["to", "for", "in", "with"], "correct_answer": "to", "explanation": "Chọn A — Đọc điền từ: Cấu trúc 'dedicate time to V-ing' (dành thời gian cho việc dạy học/trồng cây)."}, {"id": 24, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(24)</b> trong đoạn văn trên:", "options": ["stronger", "strongest", "strongly", "strength"], "correct_answer": "stronger", "explanation": "Chọn A — Đọc điền từ: Dạng so sánh hơn 'a stronger sense of social solidarity' (tinh thần đoàn kết xã hội mạnh mẽ hơn)."}, {"id": 25, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(25)</b> trong đoạn văn trên:", "options": ["Furthermore", "However", "Although", "Otherwise"], "correct_answer": "Furthermore", "explanation": "Chọn A — Đọc điền từ: Liên từ bổ sung thông tin tích cực: 'Furthermore' (Hơn nữa, Thêm vào đó)."}, {"id": 26, "type": "grammar", "tag": "Cloze-test (Reading)", "question": "Chọn từ/cụm từ thích hợp nhất để điền vào chỗ trống <b>(26)</b> trong đoạn văn trên:", "options": ["makes", "made", "will make", "is making"], "correct_answer": "makes", "explanation": "Chọn A — Đọc điền từ: Mệnh đề If loại 1, chủ ngữ 'every citizen' là danh từ số ít chia 'makes'."}, {"id": 27, "type": "reading", "tag": "Reading Comprehension", "question": "What is the central topic of the passage?", "options": ["The severe hazards of excessive screen time on adolescent health.", "The historical development of computer software engineering.", "How to purchase modern smartphones and laptops at low prices.", "Popular outdoor sports and athletic games for high schoolers."], "correct_answer": "The severe hazards of excessive screen time on adolescent health.", "explanation": "Chọn A — Đọc hiểu - Ý chính: Các tác hại khôn lường của việc sử dụng thiết bị màn hình quá mức đối với sức khỏe thanh thiếu niên.", "passage": "<b>ĐỌC ĐOẠN VĂN SAU VÀ CHỌN PHƯƠNG ÁN ĐÚNG NHẤT CHO CÁC CÂU HỎI (CÂU 27 - 31):</b><br><br>In the modern digital era, personal smartphones and tablets have become ubiquitous among teenagers. While these gadgets offer immense educational resources and instant connectivity, excessive screen exposure has sparked grave health concerns among medical professionals worldwide. Recent international surveys reveal that an alarming percentage of adolescents spend over six hours daily in front of screens, predominantly gaming, watching short video clips, and messaging on social networks. The most direct consequence of excessive screen time is severe sleep deprivation. The short-wavelength blue light radiated by electronic displays tricks the human brain into thinking it is still daytime, thereby suppressing the secretion of melatonin, the sleep-inducing hormone. Consequently, teenagers who operate phones in bed struggle to fall asleep, suffer from fragmented slumber, and wake up chronically fatigued. In the classroom, sleep-deprived students exhibit reduced attention spans, impaired memory retention, and noticeable irritability. Furthermore, excessive digital consumption is closely linked to sedentary living and adolescent mental health issues. Spending hours sitting motionless with devices increases the risk of early obesity, posture deformities, and chronic eye strain. On an emotional level, constant exposure to idealized online lifestyles often breeds feelings of inadequacy and fear of missing out (FOMO). To combat these digital hazards, paediatricians strongly recommend establishing \"screen-free zones\" in bedrooms and replacing virtual entertainment with outdoor sports, reading physical books, and engaging in face-to-face family conversations."}, {"id": 28, "type": "grammar", "tag": "Reading Comprehension", "question": "According to paragraph 2, why does blue light from phone screens disrupt sleep?", "options": ["Because it tricks the brain and suppresses melatonin secretion.", "Because it generates loud vibration noises during the night.", "Because it causes sudden high fevers in young children.", "Because it damages phone battery life very quickly."], "correct_answer": "Because it tricks the brain and suppresses melatonin secretion.", "explanation": "Chọn A — Đọc hiểu - Chi tiết: Dẫn chứng đoạn 2: '...short-wavelength blue light radiated by electronic displays tricks the human brain... thereby suppressing the secretion of melatonin...'"}, {"id": 29, "type": "grammar", "tag": "Reading Comprehension", "question": "The word \"fatigued\" in paragraph 2 is closest in meaning to:", "options": ["exhausted", "excited", "cheerful", "confident"], "correct_answer": "exhausted", "explanation": "Chọn A — Đọc hiểu - Từ vựng: 'fatigued' (kiệt sức, vô cùng mệt mỏi = 'exhausted')."}, {"id": 30, "type": "grammar", "tag": "Reading Comprehension", "question": "The word \"these\" in paragraph 1 refers to:", "options": ["smartphones and tablets", "medical professionals", "international surveys", "educational resources"], "correct_answer": "smartphones and tablets", "explanation": "Chọn A — Đọc hiểu - Đại từ: Từ 'these' trong câu 'While these gadgets offer immense educational resources...' thay thế cho 'smartphones and tablets' ở câu trước."}, {"id": 31, "type": "grammar", "tag": "Reading Comprehension", "question": "Which of the following is recommended by paediatricians in the final paragraph?", "options": ["Establishing screen-free zones in bedrooms and playing outdoor sports.", "Watching video clips on smartphones until falling asleep.", "Spending more time gaming to relieve exam tension.", "Avoiding all conversations with family members."], "correct_answer": "Establishing screen-free zones in bedrooms and playing outdoor sports.", "explanation": "Chọn A — Đọc hiểu - Thông tin đúng: Dẫn chứng đoạn 3: '...establishing \"screen-free zones\" in bedrooms and replacing virtual entertainment with outdoor sports...'"}, {"id": 32, "type": "writing", "tag": "Part 1. Word Formation", "question": "Chia đúng dạng từ trong ngoặc: <i>Da Nang is considered one of the most _________ cities in Vietnam thanks to its clean beaches. (LIVE)</i>", "options": ["liveable", "lively", "living", "live"], "correct_answer": "liveable", "explanation": "Chọn A — Sau 'the most' cần tính từ mang nghĩa đáng sống: live (v) -> liveable (adj: đáng sống). (Cách viết 'livable' cũng được chấp nhận)."}, {"id": 33, "type": "writing", "tag": "Part 1. Word Formation", "question": "Chia đúng dạng từ trong ngoặc: <i>Working long hours under tight deadlines makes office workers feel extremely _________. (STRESS)</i>", "options": ["stressful", "stress", "stressfully", "unstress"], "correct_answer": "stressful", "explanation": "Chọn A — Sau trạng từ 'extremely' cần tính từ miêu tả: stress (n) -> stressful (adj: căng thẳng, áp lực)."}, {"id": 34, "type": "writing", "tag": "Part 1. Word Formation", "question": "Chia đúng dạng từ trong ngoặc: <i>The local government is investing in the _________ of historical pagodas and temples. (PRESERVE)</i>", "options": ["preservation", "preserve", "preservative", "preserved"], "correct_answer": "preservation", "explanation": "Chọn A — Sau mạo từ 'the' và trước giới từ 'of' cần danh từ: preserve (v) -> preservation (n: sự bảo tồn)."}, {"id": 35, "type": "writing", "tag": "Part 2. Sentence Transformation", "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>\"Which route should I take to avoid traffic jams?\" Peter asked his father.</i>", "options": ["Peter asked his father which route to take to avoid traffic jams.", "Peter asked his father which route should he take to avoid traffic jams.", "Peter asked his father which route taking to avoid traffic jams.", "Peter asked his father which route to taken to avoid traffic jams."], "correct_answer": "Peter asked his father which route to take to avoid traffic jams.", "explanation": "Chọn A — Rút gọn mệnh đề danh từ: Wh-word + to-infinitive -> 'which route to take to avoid traffic jams'."}, {"id": 36, "type": "writing", "tag": "Part 2. Sentence Transformation", "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>Put on a warm coat or you will come down with a bad cold.</i>", "options": ["If you don't put on a warm coat, you will come down with a bad cold.", "If you put on a warm coat, you will come down with a bad cold.", "If you didn't put on a warm coat, you would come down with a bad cold.", "If you don't put on a warm coat, you won't come down with a bad cold."], "correct_answer": "If you don't put on a warm coat, you will come down with a bad cold.", "explanation": "Chọn A — Chuyển câu mệnh lệnh 'or' sang câu điều kiện loại 1 phủ định: 'If you don't put on a warm coat, you will come down with a bad cold.'"}, {"id": 37, "type": "writing", "tag": "Part 2. Sentence Transformation", "question": "Viết lại câu sau sao cho nghĩa không đổi: <i>As you spend more time on social media, you become more distracted.</i>", "options": ["The more time you spend on social media, the more distracted you become.", "The more you spend time on social media, the most distracted you become.", "The much time you spend on social media, the more distracted you become.", "The more time you spend on social media, the distracted more you become."], "correct_answer": "The more time you spend on social media, the more distracted you become.", "explanation": "Chọn A — Cấu trúc so sánh kép: 'The more time you spend on social media, the more distracted you become.'"}, {"id": 38, "type": "writing", "tag": "Part 3. Sentence Building", "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>They / have / no / idea / when / start / the / volunteer / project.</i>", "options": ["They have no idea when to start the volunteer project.", "They have no idea when starting the volunteer project.", "They have no idea when start the volunteer project.", "They has no idea when to start the volunteer project."], "correct_answer": "They have no idea when to start the volunteer project.", "explanation": "Chọn A — Cụm 'have no idea' kết hợp cấu trúc 'when to start the volunteer project'."}, {"id": 39, "type": "writing", "tag": "Part 3. Sentence Building", "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>The / more / vegetables / you / eat, / the / good / your / health / be.</i>", "options": ["The more vegetables you eat, the better your health is.", "The more vegetables you eat, the gooder your health is.", "The more vegetables you eat, the best your health is.", "The more vegetables you eat, the more good your health is."], "correct_answer": "The more vegetables you eat, the better your health is.", "explanation": "Chọn A — So sánh kép: good -> better. 'The more vegetables you eat, the better your health is.'"}, {"id": 40, "type": "writing", "tag": "Part 3. Sentence Building", "question": "Dựng câu hoàn chỉnh từ các gợi ý: <i>Local artisans / pass / down / their / embroidery / skills / for / generations.</i>", "options": ["Local artisans have passed down their embroidery skills for generations.", "Local artisans passed down their embroidery skills for generations ago.", "Local artisans has passed down their embroidery skills for generations.", "Local artisans are passing down their embroidery skills for generations."], "correct_answer": "Local artisans have passed down their embroidery skills for generations.", "explanation": "Chọn A — Dấu hiệu 'for generations' chia thì Hiện tại hoàn thành với chủ ngữ số nhiều 'Local artisans' -> 'have passed down'."}]}, "anh8-giuaky1": {"id": "anh8-giuaky1", "title": "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 8", "grade": 8, "subject": "Tiếng Anh (Global Success)", "timeMinutes": 60, "description": "Đề khảo sát năng lực Lớp 8 cấu trúc chuẩn Cần Thơ gồm các chủ điểm Life in the countryside, Our communities & Teenagers.", "questions": [{"id": 1, "type": "listening", "tag": "Listening • Life in the Countryside", "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", "question": "What activity did Minh enjoy most during his summer holiday at his grandparents' farm in the Mekong Delta?", "options": ["Herding cattle and flying kites in the open paddy field", "Playing modern video games at the cyber cafe", "Shopping at the air-conditioned supermarket", "Driving a tractor along the paved highway"], "correct_answer": "Herding cattle and flying kites in the open paddy field", "explanation": "Dẫn chứng Script: Minh kể lại rằng trải nghiệm chăn trâu và thả diều trên cánh đồng lúa bát ngát là hoạt động tuyệt vời nhất trong kỳ nghỉ hè."}, {"id": 2, "type": "grammar", "tag": "Verbs of liking + Gerund (Unit 1)", "question": "Most adolescents nowadays are keen ______ making DIY handicrafts and origami figures in their spare time.", "options": ["on", "about", "with", "in"], "correct_answer": "on", "explanation": "Cụm tính từ cố định: 'be keen on + V-ing/N' = say mê, thích thú điều gì. 'be interested in', 'be fond of'."}, {"id": 3, "type": "grammar", "tag": "Comparative Adverbs • Unit 2 (Life in the Countryside)", "question": "During harvest season, local farmers have to work ______ than usual from dawn till dusk.", "options": ["harder", "more hard", "hardliest", "more hardly"], "correct_answer": "harder", "explanation": "'Hard' là trạng từ bất quy tắc (hard $\\rightarrow$ harder, không dùng more hard hay hardly vì hardly = hiếm khi)."}, {"id": 4, "type": "grammar", "tag": "Compound Sentences • Unit 3 (Teenagers)", "question": "Minh practiced playing the guitar relentlessly, ______ he won first prize in the school talent competition.", "options": ["so", "but", "for", "or"], "correct_answer": "so", "explanation": "Liên từ chỉ kết quả: 'so' (vì vậy, do đó). Minh luyện tập đàn miệt mài, VÌ VẬY bạn ấy đã đoạt giải nhất."}, {"id": 5, "type": "reading", "tag": "Reading Comprehension • Peaceful Countryside Life", "passage": "Living in the tranquil countryside provides numerous benefits that urban centers cannot offer. Firstly, the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories. People who reside in rural hamlets typically cultivate their own organic produce, including fresh herbs, leafy vegetables, and tropical fruits. Furthermore, the social bonds between neighbors are genuinely heartwarming; everyone is eager to lend a sympathetic hand during rice harvesting season.", "question": "Why is the rural atmosphere refreshingly pure according to the text?", "options": ["Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.", "Because all roads are paved with solid asphalt.", "Because residents rarely step outdoors in the morning.", "Because there are numerous high-rise commercial complexes."], "correct_answer": "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.", "explanation": "Dẫn chứng bài đọc: 'the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories' (bầu không khí trong lành vì không có khói thải dày đặc từ xe cộ và nhà máy)."}]}, "anh9-u1-phonetics": {"id": "anh9-u1-phonetics", "title": "Luyện Tập Kỹ Năng 1: Ngữ Âm (Phonetics) • Unit 1 Lớp 9", "grade": 9, "subject": "Tiếng Anh (Global Success)", "timeMinutes": 15, "description": "Bài luyện tập phát âm nguyên âm, phụ âm và quy tắc đánh trọng âm từ 2-3 âm tiết bám sát Unit 1: Local Community.", "questions": [{"id": 1, "type": "phonetics", "tag": "Pronunciation • Underlying sound /æ/ vs /eɪ/", "question": "Choose the word whose underlined part is pronounced differently from the others:", "options": ["c<u>a</u>ndle", "tr<u>a</u>vel", "f<u>a</u>mous", "st<u>a</u>tue"], "correct_answer": "f<u>a</u>mous", "explanation": "Từ 'famous' phát âm là /ˈfeɪməs/ (nguyên âm đôi /eɪ/), trong khi ba từ còn lại có phần gạch dưới phát âm là /æ/: candle /ˈkændl/, travel /ˈtrævl/, statue /ˈstætʃuː/."}, {"id": 2, "type": "phonetics", "tag": "Stress • 2-syllable Nouns and Verbs", "question": "Choose the word whose main stress is placed differently from the others:", "options": ["pottery", "artisan", "suburb", "attraction"], "correct_answer": "attraction", "explanation": "'attraction' /əˈtrækʃn/ có trọng âm rơi vào âm tiết thứ 2 (hậu tố -tion làm trọng âm rơi vào âm tiết ngay trước nó). Ba từ còn lại trọng âm rơi vào âm tiết thứ 1: pottery /ˈpɒtəri/, artisan /ˈɑːtɪzæn/, suburb /ˈsʌbɜːb/."}, {"id": 3, "type": "phonetics", "tag": "Pronunciation • Ending sound -ed", "question": "Choose the word whose underlined '-ed' ending is pronounced as /ɪd/:", "options": ["remind<u>ed</u>", "pass<u>ed</u>", "look<u>ed</u>", "carv<u>ed</u>"], "correct_answer": "remind<u>ed</u>", "explanation": "Quy tắc phát âm đuôi -ed: Các động từ tận cùng bằng âm /t/ hoặc /d/ (như remind) khi thêm đuôi -ed sẽ phát âm là /ɪd/ $\\rightarrow$ reminded /rɪˈmaɪndɪd/. 'passed' /t/, 'looked' /t/, 'carved' /d/."}, {"id": 4, "type": "phonetics", "tag": "Stress • 3-syllable Words", "question": "Choose the word whose primary stress pattern differs from the other three:", "options": ["community", "facility", "electrician", "delivery"], "correct_answer": "electrician", "explanation": "'electrician' /ɪˌlekˈtrɪʃn/ có trọng âm chính ở âm tiết thứ 3 (hậu tố -ian). Các từ còn lại có trọng âm chính ở âm tiết thứ 2: community /kəˈmjuːnəti/, facility /fəˈsɪləti/, delivery /dɪˈlɪvəri/."}]}, "anh9-u1-grammar": {"id": "anh9-u1-grammar", "title": "Luyện Tập Kỹ Năng 2: Ngữ Pháp & Từ Vựng (Grammar & Lexicon) • Unit 1 Lớp 9", "grade": 9, "subject": "Tiếng Anh (Global Success)", "timeMinutes": 15, "description": "Hệ thống từ vựng theo ngữ cảnh làng nghề, cụm động từ (Phrasal verbs) và cấu trúc Wh-word + to-infinitive.", "questions": [{"id": 1, "type": "grammar", "tag": "Phrasal Verbs • Unit 1", "question": "My grandparents have decided to ______ the family silk-weaving business to my uncle because of their advancing age.", "options": ["hand down", "live on", "break down", "come back"], "correct_answer": "hand down", "explanation": "'hand down' = truyền lại, bàn giao lại qua nhiều thế hệ (đồng nghĩa với pass down). 'live on' (sống dựa vào), 'break down' (hỏng hóc/suy sụp)."}, {"id": 2, "type": "grammar", "tag": "Vocabulary • Traditional Crafts", "question": "Con Non village in Hue is internationally renowned for producing exquisite conical ______ made from dried palm leaves.", "options": ["hats", "scarves", "sweaters", "baskets"], "correct_answer": "hats", "explanation": "Từ vựng kết hợp: 'conical hats' = nón lá truyền thống Việt Nam. Các sản phẩm nón lá nức tiếng được làm từ lá cọ phơi khô."}, {"id": 3, "type": "grammar", "tag": "Question word + to-infinitive", "question": "The newly arrived foreign tourist asked the receptionist ______ to exchange international currency safely.", "options": ["where", "which", "what", "whose"], "correct_answer": "where", "explanation": "Cấu trúc 'Wh-word + to V': Vế sau chỉ địa điểm đổi ngoại tệ ('to exchange international currency') nên ta dùng từ để hỏi chỉ nơi chốn là 'where to exchange' (đổi ở đâu)."}, {"id": 4, "type": "grammar", "tag": "Phrasal Verbs • Unit 1", "question": "Due to the economic recession and lack of tourism, the century-old pottery workshop unfortunately had to ______.", "options": ["close down", "face up to", "turn down", "look round"], "correct_answer": "close down", "explanation": "'close down' = đóng cửa dừng hoạt động kinh doanh vĩnh viễn (phá sản/ngừng sản xuất). 'face up to' (đối mặt với), 'turn down' (từ chối), 'look round' (đi ngắm nhìn xung quanh)."}]}};
 
-    /**
-     * =========================================================================
-     * CORE LOGIC: BIẾN TOÀN CỤC & QUẢN LÝ TRẠNG THÁI
-     * =========================================================================
-     */
+    
     let currentExam = null;
-    let questionsList = [];
-    let currentQuestionIndex = 0;
-    let userAnswers = [];
+    let questionsData = [];
+    let userAnswers = {};
+    let isSubmitted = false;
+    let totalSecondsRemaining = 60 * 60;
+    let timeSpentSeconds = 0;
     let timerInterval = null;
-    let timeRemaining = 0;
-    let totalExamSeconds = 0;
-
-    // Trộn ngẫu nhiên (Fisher-Yates)
-    function shuffle(array) {
-        let arr = [...array];
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
-    }
-
-    // Khởi chạy khi tải trang
-    document.addEventListener("DOMContentLoaded", async () => {
-        // 1. Tên học sinh
-        const studentName = localStorage.getItem('stm_user') || localStorage.getItem('student_name') || "Học viên STM English";
-        document.getElementById('student-name').innerHTML = `<i class="fa-regular fa-user"></i> ${studentName}`;
-
-        // 2. Lấy mã đề từ URL (?de=anh9-giuaky1)
-        const urlParams = new URLSearchParams(window.location.search);
-        const examId = urlParams.get('de') || 'anh9-giuaky1';
-
-        // 3. Tải dữ liệu đề thi
-        await loadExamData(examId);
-    });
 
     /**
-     * =========================================================================
-     * HÀM TẢI ĐỀ THI ĐỘNG (MULTI-TIER EXAM LOADER)
-     * =========================================================================
+     * Lấy tham số truy vấn trên thanh URL (?de=anh9-gk1-de03)
      */
-    async function loadExamData(examId) {
-        let loadedExam = null;
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
 
-        // Tầng 1: Thử tải file JSON độc lập từ thư mục ./data/exams/[examId].json
+    /**
+     * Tự động nhận diện thông tin học sinh đã đăng nhập
+     */
+    function loadSavedStudentInfo() {
+      const savedUser = localStorage.getItem('stm_current_user') || sessionStorage.getItem('stm_current_user');
+      if (savedUser) {
         try {
-            const res = await fetch(`./data/exams/${examId}.json`);
-            if (res.ok) {
-                loadedExam = await res.json();
+          const u = JSON.parse(savedUser);
+          if (u.name && u.name !== 'Thí sinh') {
+            document.getElementById('studentName').value = u.name;
+          }
+          if (u.grade || u.class) {
+            const classVal = `Lớp ${u.grade || u.class}`;
+            const sel = document.getElementById('studentClass');
+            for (let i = 0; i < sel.options.length; i++) {
+              if (sel.options[i].value === classVal) {
+                sel.selectedIndex = i;
+                break;
+              }
             }
-        } catch (err) {
-            // Trường hợp chạy offline (file:///) hoặc lỗi mạng
-            console.log("Fallback sang Built-in Database:", err);
-        }
-
-        // Tầng 2: Kiểm tra đề thi do Thầy tạo trong Trang Quản Trị (stm_custom_exams)
-        if (!loadedExam) {
-            try {
-                const customExams = JSON.parse(localStorage.getItem('stm_custom_exams') || '{}');
-                if (customExams[examId]) {
-                    loadedExam = customExams[examId];
-                }
-            } catch (e) {
-                console.log("Lỗi đọc custom exams:", e);
-            }
-        }
-
-        // Tầng 3: Nếu chưa tải được, tìm trong Thư viện Built-in Database
-        if (!loadedExam && BUILTIN_EXAMS[examId]) {
-            loadedExam = BUILTIN_EXAMS[examId];
-        }
-
-        // Tầng 4: Nếu vẫn không tìm thấy -> Hiển thị màn hình báo lỗi
-        if (!loadedExam) {
-            showErrorScreen(examId);
-            return;
-        }
-
-        // Khởi tạo đề thi thành công
-        initExam(loadedExam);
+          }
+        } catch(e) {}
+      }
     }
 
     /**
-     * =========================================================================
-     * KHỞI TẠO ĐỀ THI & RENDER GIAO DIỆN
-     * =========================================================================
+     * Tự động suy luận Section và Badge chuẩn Sở Cần Thơ nếu file JSON chưa có
      */
-    function initExam(exam) {
-        currentExam = exam;
-        document.title = `${exam.title} - STM English`;
-        document.getElementById('exam-header-title').innerText = `${exam.title} (Khối ${exam.grade})`;
+    function normalizeQuestion(q, idx) {
+      const qNum = idx + 1;
+      let section = q.section || '';
+      let sectionBadge = q.sectionBadge || q.tag || '';
 
-        // Trộn các câu hỏi
-        questionsList = shuffle(exam.questions);
-        userAnswers = new Array(questionsList.length).fill(null);
-        currentQuestionIndex = 0;
-
-        // Xáo trộn đáp án của từng câu một lần duy nhất
-        questionsList.forEach(q => {
-            q.shuffledOptions = shuffle(q.options);
-        });
-
-        // Thiết lập thời gian làm bài
-        const durationMinutes = exam.timeMinutes || 60;
-        totalExamSeconds = durationMinutes * 60;
-        timeRemaining = totalExamSeconds;
-
-        // Render lưới Palette
-        renderPalette();
-
-        // Render câu hỏi đầu tiên
-        renderCurrentQuestion();
-
-        // Bắt đầu đếm ngược thời gian
-        startTimer();
-    }
-
-    /**
-     * =========================================================================
-     * RENDER CÂU HỎI HIỆN TẠI
-     * =========================================================================
-     */
-    function renderCurrentQuestion() {
-        const q = questionsList[currentQuestionIndex];
-        const container = document.getElementById('question-box');
-
-        let html = `
-            <div class="question-badge">
-                <i class="fa-solid fa-tag"></i> ${q.tag || 'Trắc nghiệm 4 lựa chọn'}
-            </div>
-        `;
-
-        // Nếu là bài nghe (Listening)
-        if (q.type === 'listening' && q.audio_url) {
-            html += `
-                <div class="audio-box">
-                    <p><i class="fa-solid fa-headphones"></i> BÀI NGHE AUDIO (Nghe kỹ và chọn câu trả lời đúng):</p>
-                    <audio controls class="audio-player">
-                        <source src="${q.audio_url}" type="audio/mpeg">
-                        Trình duyệt của bạn không hỗ trợ trình phát âm thanh.
-                    </audio>
-                </div>
-            `;
-        }
-
-        // Nếu là bài đọc (Reading) hoặc có đoạn văn
-        if (q.passage) {
-            html += `
-                <div class="reading-box">
-                    <strong><i class="fa-solid fa-book-open"></i> ĐOẠN VĂN THAM KHẢO:</strong><br>
-                    ${q.passage}
-                </div>
-            `;
-        }
-
-        // Câu hỏi chính
-        html += `
-            <div class="question-title">
-                Câu ${currentQuestionIndex + 1}: ${q.question}
-            </div>
-        `;
-
-        // 4 Lựa chọn A, B, C, D
-        html += `<div class="options-list">`;
-        const optionMarkers = ['A', 'B', 'C', 'D'];
-        q.shuffledOptions.forEach((optText, idx) => {
-            const isSelected = userAnswers[currentQuestionIndex] === optText ? 'selected' : '';
-            // Escape ký tự nháy đơn để tránh lỗi JS
-            const escapedOpt = optText.replace(/'/g, "\\'");
-            html += `
-                <div class="option-item ${isSelected}" onclick="chooseOption('${escapedOpt}')">
-                    <div class="option-circle">${optionMarkers[idx]}</div>
-                    <div style="flex: 1;">${optText}</div>
-                </div>
-            `;
-        });
-        html += `</div>`;
-
-        container.innerHTML = html;
-
-        // Cập nhật thanh tiến độ
-        const currentNum = currentQuestionIndex + 1;
-        const totalNum = questionsList.length;
-        document.getElementById('progress-text').innerText = `Câu ${currentNum} / ${totalNum}`;
-        const pct = Math.round((currentNum / totalNum) * 100);
-        document.getElementById('progress-bar').style.width = `${pct}%`;
-
-        // Cập nhật số câu đã làm
-        const answeredCount = userAnswers.filter(a => a !== null).length;
-        document.getElementById('answered-count').innerText = answeredCount;
-
-        // Cập nhật nút điều hướng
-        document.getElementById('btn-prev').style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
-        if (currentQuestionIndex === totalNum - 1) {
-            document.getElementById('btn-next').style.display = 'none';
-            document.getElementById('btn-submit').style.display = 'inline-flex';
+      if (!section) {
+        if (qNum <= 8 || q.type === 'listening') {
+          section = 'PHẦN I: LISTENING (NGHE HIỂU)';
+          if (!sectionBadge) {
+            sectionBadge = qNum <= 4 ? 'Part 1. Short Conversation' : 'Part 2. Talk / Presentation';
+          }
+        } else if (qNum <= 31) {
+          section = 'PHẦN II: MULTIPLE CHOICE (TRẮC NGHIỆM)';
+          if (!sectionBadge) {
+            if (qNum <= 13) sectionBadge = 'Language Focus';
+            else if (qNum <= 15) sectionBadge = 'Everyday Communication';
+            else if (qNum <= 17) sectionBadge = 'Signs & Notices';
+            else if (qNum === 18) sectionBadge = 'Closest Meaning';
+            else if (qNum === 19) sectionBadge = 'Sentence Combining';
+            else if (qNum <= 21) sectionBadge = 'Sentence Arrangement';
+            else if (qNum <= 26) sectionBadge = 'Cloze-test (Reading)';
+            else sectionBadge = 'Reading Comprehension';
+          }
         } else {
-            document.getElementById('btn-next').style.display = 'inline-flex';
-            document.getElementById('btn-submit').style.display = 'none';
+          section = 'PHẦN III: WRITTEN TEST (TỰ LUẬN TRẮC NGHIỆM HÓA)';
+          if (!sectionBadge) {
+            if (qNum <= 34) sectionBadge = 'Part 1. Word Formation';
+            else if (qNum <= 37) sectionBadge = 'Part 2. Sentence Transformation';
+            else sectionBadge = 'Part 3. Sentence Building';
+          }
         }
+      }
 
-        // Cập nhật màu sắc trên Palette
-        updatePaletteState();
-    }
-
-    /**
-     * =========================================================================
-     * THAO TÁC CHỌN ĐÁP ÁN & ĐIỀU HƯỚNG
-     * =========================================================================
-     */
-    function chooseOption(optionText) {
-        userAnswers[currentQuestionIndex] = optionText;
-        renderCurrentQuestion();
-    }
-
-    function goToNextQuestion() {
-        if (currentQuestionIndex < questionsList.length - 1) {
-            currentQuestionIndex++;
-            renderCurrentQuestion();
-        }
-    }
-
-    function goToPrevQuestion() {
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            renderCurrentQuestion();
-        }
-    }
-
-    function jumpToQuestion(index) {
-        currentQuestionIndex = index;
-        renderCurrentQuestion();
-    }
-
-    /**
-     * =========================================================================
-     * QUESTION PALETTE (LƯỚI CÂU HỎI)
-     * =========================================================================
-     */
-    function renderPalette() {
-        const palette = document.getElementById('question-palette');
-        let html = '';
-        questionsList.forEach((_, idx) => {
-            html += `<div class="palette-item" id="pal-item-${idx}" onclick="jumpToQuestion(${idx})">${idx + 1}</div>`;
+      // Chuẩn hóa cấu trúc options: luôn là mảng [{key: "A", text: "..."}]
+      let normOptions = [];
+      if (Array.isArray(q.options)) {
+        normOptions = q.options.map((opt, oIdx) => {
+          const keys = ['A', 'B', 'C', 'D'];
+          if (typeof opt === 'string') {
+            return { key: keys[oIdx] || `Opt${oIdx+1}`, text: opt };
+          } else if (typeof opt === 'object' && opt !== null) {
+            return { key: opt.key || keys[oIdx], text: opt.text || opt.content || '' };
+          }
+          return { key: keys[oIdx], text: String(opt) };
         });
-        palette.innerHTML = html;
-    }
+      }
 
-    function updatePaletteState() {
-        questionsList.forEach((_, idx) => {
-            const el = document.getElementById(`pal-item-${idx}`);
-            if (!el) return;
-            el.className = 'palette-item';
-            if (userAnswers[idx] !== null) {
-                el.classList.add('answered');
-            }
-            if (idx === currentQuestionIndex) {
-                el.classList.add('current');
-            }
-        });
-    }
-
-    function togglePalette() {
-        const p = document.getElementById('question-palette');
-        const btnText = document.getElementById('palette-btn-text');
-        if (p.style.display === 'none') {
-            p.style.display = 'flex';
-            btnText.innerText = 'Thu gọn danh sách';
+      // Chuẩn hóa đáp án đúng (correct): đưa về "A", "B", "C", "D"
+      let correctKey = q.correct || '';
+      if (!correctKey && q.correct_answer) {
+        const found = normOptions.find(o => o.text.trim().toLowerCase() === q.correct_answer.trim().toLowerCase());
+        if (found) {
+          correctKey = found.key;
+        } else if (['A', 'B', 'C', 'D'].includes(q.correct_answer.trim().toUpperCase())) {
+          correctKey = q.correct_answer.trim().toUpperCase();
         } else {
-            p.style.display = 'none';
-            btnText.innerText = 'Hiện danh sách câu hỏi';
+          correctKey = 'A'; // Fallback mặc định
         }
+      }
+      if (!correctKey) correctKey = 'A';
+
+      // Xử lý Audio Track
+      let audioTrack = q.audioTrack || null;
+      if (!audioTrack && q.audio_url) {
+        audioTrack = {
+          file: q.audio_url,
+          title: qNum <= 4 ? "BÀI NGHE 1: CONVERSATION (TRACK 1)" : "BÀI NGHE 2: TALK / INTERVIEW (TRACK 2)",
+          desc: qNum <= 4 
+            ? "Listen to the conversation. Choose the correct answer A, B, C, or D for each question. (Em được nghe 2 lần)."
+            : "Listen to the recording. Choose the correct answer A, B, C, or D for each question. (Em được nghe 2 lần)."
+        };
+      }
+
+      return {
+        id: qNum,
+        rawId: q.id,
+        section: section,
+        sectionBadge: sectionBadge,
+        audioTrack: audioTrack,
+        passage: q.passage || '',
+        notice: q.notice || '',
+        arrangement: q.arrangement || [],
+        question: q.question || 'Choose the correct answer:',
+        options: normOptions,
+        correct: correctKey,
+        explanation: q.explanation || 'Đáp án chính xác được chứng minh theo ngữ pháp và ngữ cảnh đề bài.'
+      };
     }
 
     /**
      * =========================================================================
-     * ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN
+     * TẢI DỮ LIỆU ĐỀ THI
+     * =========================================================================
+     */
+    async function loadExamData() {
+      let examId = getQueryParam('de');
+      if (!examId) {
+        examId = 'anh9-gk1-de03'; // Mặc định Đề 03 chuẩn 40 câu
+      }
+
+      let exam = null;
+
+      // 1. Ưu tiên lấy từ BUILTIN_EXAMS (chạy offline file:/// không bao giờ bị lỗi CORS)
+      if (typeof BUILTIN_EXAMS !== 'undefined' && BUILTIN_EXAMS[examId]) {
+        exam = BUILTIN_EXAMS[examId];
+      }
+
+      // 2. Thử fetch file JSON từ ./data/exams/[de].json (khi có server localhost hoặc online GitHub Pages)
+      if (!exam) {
+        try {
+          const res = await fetch(`./data/exams/${examId}.json`);
+          if (res.ok) {
+            exam = await res.json();
+          }
+        } catch (e) {
+          console.warn("Fetch failed (offline file:///):", e);
+        }
+      }
+
+      // 3. Thử lấy từ LocalStorage do Thầy tạo trong Trang Quản Trị
+      if (!exam) {
+        try {
+          const customExams = JSON.parse(localStorage.getItem('stm_custom_exams') || '{}');
+          if (customExams[examId]) {
+            exam = customExams[examId];
+          }
+        } catch(e) {}
+      }
+
+      // 4. Fallback thông minh: nếu là đề Anh 9 hoặc Giữa kỳ 1 -> tự động nạp Đề 03 chuẩn 40 câu
+      if (!exam && (examId.includes('anh9') || examId.includes('giuaky1') || examId.includes('de03'))) {
+        if (typeof BUILTIN_EXAMS !== 'undefined' && BUILTIN_EXAMS['anh9-gk1-de03']) {
+          exam = BUILTIN_EXAMS['anh9-gk1-de03'];
+        }
+      }
+
+      // 5. Nếu vẫn không thấy, báo lỗi
+      if (!exam || !exam.questions || exam.questions.length === 0) {
+        document.getElementById('questionsContainer').style.display = 'none';
+        document.getElementById('submitBar').style.display = 'none';
+        document.getElementById('heroCard').style.display = 'none';
+        document.getElementById('error-container').style.display = 'block';
+        document.getElementById('error-desc').innerText = `Mã đề "${examId}" chưa sẵn sàng hoặc đường dẫn không hợp lệ.`;
+        return;
+      }
+
+      currentExam = exam;
+
+      // Cập nhật thông tin Header & Hero Card
+      document.title = `${exam.title || 'Đề Kiểm Tra Tiếng Anh'} — STM English`;
+      document.getElementById('topBrandTitle').innerText = exam.title || "Đề Kiểm Tra Tiếng Anh Chuẩn Cần Thơ";
+      document.getElementById('topBrandSubtitle').innerText = `${exam.subject || 'Tiếng Anh Global Success'} • ${exam.questions.length} Câu Hỏi Khảo Thí`;
+      document.getElementById('heroTitle').innerText = exam.title || "ĐỀ KIỂM TRA ĐÁNH GIÁ NĂNG LỰC";
+      if (exam.description) {
+        document.getElementById('heroDesc').innerText = exam.description;
+      }
+      if (exam.grade) {
+        const sel = document.getElementById('studentClass');
+        const targetVal = `Lớp ${exam.grade}`;
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === targetVal) {
+            sel.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      // Thiết lập thời gian đếm ngược
+      const durationMins = exam.timeMinutes || 60;
+      totalSecondsRemaining = durationMins * 60;
+      timeSpentSeconds = 0;
+
+      // Chuẩn hóa danh sách câu hỏi: TUYỆT ĐỐI GIỮ NGUYÊN THỨ TỰ 1 ĐẾN 40 (KHÔNG XÁO TRỘN)
+      questionsData = exam.questions.map((q, idx) => normalizeQuestion(q, idx));
+
+      // Hiển thị ra giao diện chuẩn mực vàng
+      renderQuestions();
+      updateProgress();
+      startTimer();
+    }
+
+    /**
+     * =========================================================================
+     * BỘ ĐẾM NGƯỢC THỜI GIAN
      * =========================================================================
      */
     function startTimer() {
-        const timerDisplay = document.getElementById('timer-display');
-        
-        timerInterval = setInterval(() => {
-            let mins = Math.floor(timeRemaining / 60);
-            let secs = timeRemaining % 60;
+      const timerDisplay = document.getElementById('timerDisplay');
+      const timerBadge = document.getElementById('timerBadge');
 
-            mins = mins < 10 ? '0' + mins : mins;
-            secs = secs < 10 ? '0' + secs : secs;
-            timerDisplay.innerText = `${mins}:${secs}`;
+      if (timerInterval) clearInterval(timerInterval);
 
-            if (--timeRemaining < 0) {
-                clearInterval(timerInterval);
-                alert("⏰ Đã hết thời gian làm bài! Hệ thống tự động nộp bài và chấm điểm.");
-                submitExam();
-            }
-        }, 1000);
+      timerInterval = setInterval(() => {
+        if (isSubmitted) {
+          clearInterval(timerInterval);
+          return;
+        }
+
+        timeSpentSeconds++;
+        totalSecondsRemaining--;
+
+        if (totalSecondsRemaining <= 0) {
+          clearInterval(timerInterval);
+          alert('Đã hết 60 phút làm bài! Hệ thống E CLASS sẽ tự động nộp bài.');
+          submitExam();
+          return;
+        }
+
+        const minutes = Math.floor(totalSecondsRemaining / 60);
+        const seconds = totalSecondsRemaining % 60;
+        timerDisplay.innerText = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (totalSecondsRemaining < 300) {
+          timerBadge.classList.add('warning');
+        }
+      }, 1000);
     }
 
     /**
      * =========================================================================
-     * NỘP BÀI THI & CHẤM ĐIỂM TỨC THÌ
+     * RENDER DANH SÁCH CÂU HỎI THEO BỐ CỤC CHUẨN DE901
+     * =========================================================================
+     */
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      let currentSection = '';
+      let html = '';
+
+      questionsData.forEach((q) => {
+        // Render Section Header khi sang phần mới
+        if (q.section !== currentSection) {
+          currentSection = q.section;
+          html += `
+            <div class="section-header">
+              <span class="section-title">${currentSection}</span>
+              <span class="section-badge">${q.sectionBadge || 'Trọng tâm kiến thức'}</span>
+            </div>
+          `;
+
+          // Nếu là phần thi nghe, thêm Banner phát Full Audio 8 câu chuẩn phòng thi
+          if (currentSection.includes('LISTENING')) {
+            html += `
+              <div class="audio-card" style="background:#f0fdf4; border-color:#86efac; border-left-color:#16a34a; margin-bottom: 20px;">
+                <div class="audio-icon" style="background:#dcfce7; color:#15803d;"><i class="fa-solid fa-volume-high"></i></div>
+                <div class="audio-content">
+                  <h4 style="color:#15803d;">BẢN GHI ÂM TOÀN BỘ PHẦN THI NGHE (FULL AUDIO - 8 CÂU)</h4>
+                  <p>Bản ghi âm hoàn chỉnh toàn bộ bài thi nghe liền mạch (Part 1 + Part 2 có hướng dẫn và khoảng nghỉ chuẩn Sở GD&ĐT Cần Thơ).</p>
+                  <audio controls preload="auto">
+                    <source src="./audio/03_De_03_Listening_Full_Audio.mp3" type="audio/mpeg">
+                    <source src="audio/03_De_03_Listening_Full_Audio.mp3" type="audio/mpeg">
+                    <source src="../E9/01_Bo_05_De_Thi_GK1_Tieng_Anh_9_Can_Tho/Audio_Listening/03_De_03_Listening_Full_Audio.mp3" type="audio/mpeg">
+                    Trình duyệt của bạn không hỗ trợ phát âm thanh HTML5.
+                  </audio>
+                </div>
+              </div>
+            `;
+          }
+        }
+
+        // Render Audio Player nếu câu có Track Audio
+        if (q.audioTrack) {
+          const rawFile = q.audioTrack.file || '';
+          const fileName = rawFile.split('/').pop().split('?')[0];
+
+          html += `
+            <div class="audio-card">
+              <div class="audio-icon"><i class="fa-solid fa-headphones"></i></div>
+              <div class="audio-content">
+                <h4>${q.audioTrack.title}</h4>
+                <p>${q.audioTrack.desc}</p>
+                <audio controls preload="auto">
+                  <source src="./audio/${fileName}" type="audio/mpeg">
+                  <source src="audio/${fileName}" type="audio/mpeg">
+                  <source src="../E9/01_Bo_05_De_Thi_GK1_Tieng_Anh_9_Can_Tho/Audio_Listening/${fileName}" type="audio/mpeg">
+                  <source src="${rawFile}" type="audio/mpeg">
+                  Trình duyệt của bạn không hỗ trợ phát âm thanh HTML5.
+                </audio>
+              </div>
+            </div>
+          `;
+        }
+
+        // Render Đoạn văn đọc hiểu (Passage Box)
+        if (q.passage) {
+          html += `<div class="passage-box">${q.passage}</div>`;
+        }
+
+        // Render Thông báo / Biển báo (Notice Box)
+        if (q.notice) {
+          html += `<div class="notice-box">${q.notice}</div>`;
+        }
+
+        // Render Hộp sắp xếp câu (Arrangement Box)
+        let arrangementHtml = '';
+        if (q.arrangement && q.arrangement.length > 0) {
+          arrangementHtml = `<div class="arrangement-box">` +
+            q.arrangement.map(item => `<div class="arr-item"><b>${item.label}</b> ${item.text}</div>`).join('') +
+            `</div>`;
+        }
+
+        // Render Lưới lựa chọn A, B, C, D
+        const optionsHtml = q.options.map(opt => `
+          <label class="option-label" id="optLabel_${q.id}_${opt.key}" onclick="selectOption(${q.id}, '${opt.key}')">
+            <input type="radio" name="question_${q.id}" value="${opt.key}" id="radio_${q.id}_${opt.key}">
+            <span><b>${opt.key}.</b> ${opt.text}</span>
+          </label>
+        `).join('');
+
+        // Thẻ câu hỏi hoàn chỉnh
+        html += `
+          <div class="q-card" id="qCard_${q.id}">
+            <div class="q-header">
+              <span class="q-num">CÂU ${q.id}</span>
+              <div class="q-text">
+                ${q.question}
+                ${arrangementHtml}
+              </div>
+            </div>
+            <div class="options-grid">
+              ${optionsHtml}
+            </div>
+            <div class="explanation-box" id="exp_${q.id}">
+              <div class="exp-title">💡 Giải thích chi tiết của Thầy Sơn:</div>
+              <div>${q.explanation}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    /**
+     * =========================================================================
+     * THAO TÁC CHỌN ĐÁP ÁN
+     * =========================================================================
+     */
+    function selectOption(qId, key) {
+      if (isSubmitted) return;
+
+      userAnswers[qId] = key;
+      const radio = document.getElementById(`radio_${qId}_${key}`);
+      if (radio) radio.checked = true;
+
+      const q = questionsData.find(item => item.id === qId);
+      if (q) {
+        q.options.forEach(opt => {
+          const label = document.getElementById(`optLabel_${qId}_${opt.key}`);
+          if (label) {
+            if (opt.key === key) {
+              label.classList.add('selected');
+            } else {
+              label.classList.remove('selected');
+            }
+          }
+        });
+      }
+
+      updateProgress();
+    }
+
+    /**
+     * =========================================================================
+     * CẬP NHẬT TIẾN ĐỘ LÀM BÀI TRÊN THANH SUBMIT BAR
+     * =========================================================================
+     */
+    function updateProgress() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const totalCount = questionsData.length;
+      const pct = totalCount > 0 ? (answeredCount / totalCount) * 100 : 0;
+
+      document.getElementById('progressInfo').innerText = `Đã trả lời: ${answeredCount} / ${totalCount} câu`;
+      document.getElementById('progressBar').style.width = `${pct}%`;
+    }
+
+    /**
+     * =========================================================================
+     * NỘP BÀI THI & CHẤM ĐIỂM TỰ ĐỘNG
      * =========================================================================
      */
     function submitExam() {
-        // Dừng đếm ngược
-        if (timerInterval) clearInterval(timerInterval);
+      if (isSubmitted) return;
 
-        // Tính toán kết quả
-        let correctCount = 0;
-        questionsList.forEach((q, idx) => {
-            // So khớp text chuẩn xác (loại bỏ khoảng trắng thừa)
-            const userChoice = (userAnswers[idx] || "").trim();
-            const correctChoice = (q.correct_answer || "").trim();
-            if (userChoice === correctChoice) {
-                correctCount++;
+      const nameInput = document.getElementById('studentName');
+      const classSelect = document.getElementById('studentClass');
+      const name = nameInput.value.trim();
+      const studentClass = classSelect.value;
+
+      if (!name) {
+        alert('Vui lòng nhập đầy đủ Họ và Tên của em trước khi nộp bài!');
+        nameInput.focus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < questionsData.length) {
+        const confirmSubmit = confirm(`Em mới trả lời ${answeredCount} / ${questionsData.length} câu. Em có chắc chắn muốn nộp bài thi ngay bây giờ không?`);
+        if (!confirmSubmit) return;
+      }
+
+      isSubmitted = true;
+      if (timerInterval) clearInterval(timerInterval);
+
+      // Chấm điểm từng câu
+      let correctCount = 0;
+      questionsData.forEach(q => {
+        const userKey = userAnswers[q.id];
+        const card = document.getElementById(`qCard_${q.id}`);
+        const expBox = document.getElementById(`exp_${q.id}`);
+
+        if (userKey === q.correct) {
+          correctCount++;
+          if (card) card.classList.add('correct');
+        } else {
+          if (card) card.classList.add('incorrect');
+        }
+
+        q.options.forEach(opt => {
+          const label = document.getElementById(`optLabel_${q.id}_${opt.key}`);
+          if (label) {
+            if (opt.key === q.correct) {
+              label.classList.add('is-correct');
+            } else if (opt.key === userKey) {
+              label.classList.add('is-wrong');
             }
+          }
         });
 
-        const totalQ = questionsList.length;
-        const score10 = ((correctCount / totalQ) * 10).toFixed(1);
-        const percentage = Math.round((correctCount / totalQ) * 100);
+        if (expBox) expBox.classList.add('show');
+      });
 
-        // Tính thời gian làm bài
-        const timeSpentSeconds = totalExamSeconds - Math.max(0, timeRemaining);
-        const spentMins = Math.floor(timeSpentSeconds / 60);
-        const spentSecs = timeSpentSeconds % 60;
-        const timeSpentStr = `${spentMins < 10 ? '0' + spentMins : spentMins}:${spentSecs < 10 ? '0' + spentSecs : spentSecs}`;
+      const totalCount = questionsData.length;
+      const score = ((correctCount / totalCount) * 10).toFixed(2);
+      const percent = Math.round((correctCount / totalCount) * 100);
 
-        // Đánh giá xếp loại
-        let rating = "Cần Cố Gắng";
-        let ratingColor = "#ef4444";
-        if (score10 >= 9.0) {
-            rating = "Xuất Sắc (Excellent)";
-            ratingColor = "#10b981";
-        } else if (score10 >= 8.0) {
-            rating = "Giỏi (Very Good)";
-            ratingColor = "#3b82f6";
-        } else if (score10 >= 6.5) {
-            rating = "Khá (Good)";
-            ratingColor = "#d97706";
-        } else if (score10 >= 5.0) {
-            rating = "Đạt Yêu Cầu (Passed)";
-            ratingColor = "#64748b";
-        }
+      let rank = "Cần cố gắng";
+      if (score >= 8.5) rank = "Xuất sắc";
+      else if (score >= 7.0) rank = "Giỏi";
+      else if (score >= 5.0) rank = "Khá";
 
-        // Ẩn màn hình làm bài, hiện màn hình kết quả
-        document.getElementById('quiz-screen').style.display = 'none';
-        document.getElementById('result-screen').style.display = 'block';
+      const mSpent = Math.floor(timeSpentSeconds / 60);
+      const sSpent = timeSpentSeconds % 60;
+      const timeStr = `${mSpent} phút ${sSpent} giây`;
 
-        // Điền dữ liệu vào Scoreboard
-        document.getElementById('result-exam-title').innerText = currentExam.title;
-        document.getElementById('result-exam-desc').innerText = `Khối ${currentExam.grade} • Thầy Nguyễn Hoàng Sơn (STM English)`;
-        document.getElementById('result-score').innerText = score10;
-        document.getElementById('result-rating').innerText = rating;
-        document.getElementById('result-rating').style.color = ratingColor;
-        document.getElementById('result-correct').innerText = `${correctCount} / ${totalQ}`;
-        document.getElementById('result-percentage').innerText = `${percentage}%`;
-        document.getElementById('result-time-spent').innerText = timeSpentStr;
+      // Cập nhật Modal kết quả
+      document.getElementById('modalScore').innerText = score;
+      document.getElementById('modalGreeting').innerText = `Chúc mừng em ${name}!`;
+      document.getElementById('statCorrect').innerText = `${correctCount} / ${totalCount} câu`;
+      document.getElementById('statPercent').innerText = `${percent}%`;
+      document.getElementById('statTime').innerText = timeStr;
+      document.getElementById('statRank').innerText = rank;
 
-        // Lưu vào localStorage để Phụ huynh xem được ở classroom.html
-        saveHistoryToLocalStorage(score10, correctCount, totalQ, timeSpentStr);
+      document.getElementById('scoreModal').classList.add('open');
 
-        // Render phần giải thích chi tiết
-        renderReviewDetails();
+      // Tên bài thi để ghi sổ
+      const examTitle = currentExam ? (currentExam.title || 'Đề Khảo Thí Tiếng Anh') : 'Đề Khảo Thí STM English';
+
+      // Lưu kết quả vào LocalStorage để Phụ huynh vào classroom.html xem được ngay
+      try {
+        const examHistory = JSON.parse(localStorage.getItem('stm_exam_history') || '[]');
+        examHistory.unshift({
+          examTitle: examTitle,
+          studentName: name,
+          studentClass: studentClass,
+          score: score,
+          correct: `${correctCount}/${totalCount}`,
+          percent: percent,
+          timeSpent: timeStr,
+          timestamp: new Date().toISOString(),
+          dateStr: new Date().toLocaleString('vi-VN')
+        });
+        localStorage.setItem('stm_exam_history', JSON.stringify(examHistory));
+      } catch(e) {}
+
+      // Gửi đồng bộ lên Google Sheets của Thầy Sơn
+      const allData = {
+        tenHocSinh: name,
+        hoTenHocSinh: name,
+        hoTen: name,
+        name: name,
+        lopHoc: studentClass,
+        lop: studentClass,
+        tenBaiHoc: examTitle,
+        tenBai: examTitle,
+        baiHoc: examTitle,
+        diemSo: score,
+        diem: score,
+        score: score,
+        soCauDung: correctCount,
+        tongSoCau: totalCount,
+        so_cau_dung: `${correctCount}/${totalCount}`,
+        thoiGianNop: new Date().toLocaleString('vi-VN'),
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const queryParams = new URLSearchParams(allData).toString();
+        const submitUrl = `${URL_NHAN_DIEM}?${queryParams}`;
+
+        fetch(submitUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(allData)
+        }).then(() => {
+          console.log('Kết quả đã được gửi thành công về Google Sheets của Thầy Sơn.');
+        }).catch(err => {
+          console.warn('Fetch fallback sendBeacon:', err);
+          try {
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon(submitUrl, JSON.stringify(allData));
+            }
+          } catch(e) {}
+        });
+      } catch (err) {
+        console.error('Error submitting exam:', err);
+      }
+
+      // Đổi trạng thái nút Nộp bài
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = 'ĐÃ NỘP BÀI';
+      submitBtn.style.opacity = '0.6';
+      submitBtn.disabled = true;
     }
 
     /**
      * =========================================================================
-     * LƯU LỊCH SỬ LÀM BÀI VÀO LOCALSTORAGE
+     * ĐÓNG MODAL VÀ XEM LỜI GIẢI CHI TIẾT
      * =========================================================================
      */
-    function saveHistoryToLocalStorage(score, correct, total, timeSpent) {
-        try {
-            const studentName = localStorage.getItem('stm_user') || localStorage.getItem('student_name') || "Học viên";
-            let history = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
-            
-            const newRecord = {
-                id: Date.now(),
-                examId: currentExam.id,
-                examTitle: currentExam.title,
-                grade: currentExam.grade,
-                score: score,
-                correct: correct,
-                total: total,
-                timeSpent: timeSpent,
-                date: new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}),
-                studentName: studentName
-            };
-
-            // Thêm vào đầu danh sách
-            history.unshift(newRecord);
-            // Giữ tối đa 20 bài làm gần nhất
-            if (history.length > 20) history = history.slice(0, 20);
-            localStorage.setItem('stm_quiz_history', JSON.stringify(history));
-        } catch (e) {
-            console.error("Không thể lưu lịch sử vào localStorage:", e);
-        }
+    function closeModalAndReview() {
+      document.getElementById('scoreModal').classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /**
-     * =========================================================================
-     * RENDER DANH SÁCH LỜI GIẢI CHI TIẾT
-     * =========================================================================
-     */
-    function renderReviewDetails() {
-        const container = document.getElementById('review-cards-list');
-        let html = '';
-
-        questionsList.forEach((q, idx) => {
-            const userChoice = (userAnswers[idx] || "Chưa chọn đáp án").trim();
-            const correctChoice = (q.correct_answer || "").trim();
-            const isCorrect = userChoice === correctChoice;
-
-            html += `
-                <div class="review-card ${isCorrect ? 'correct' : 'incorrect'}">
-                    <div class="review-card-top">
-                        <span style="font-weight: 800; color: var(--text-main);">Câu ${idx + 1} • ${q.tag || 'Trắc nghiệm'}</span>
-                        <span class="status-badge ${isCorrect ? 'correct' : 'incorrect'}">
-                            ${isCorrect ? '<i class="fa-solid fa-check"></i> Làm đúng' : '<i class="fa-solid fa-xmark"></i> Chưa chính xác'}
-                        </span>
-                    </div>
-
-                    <div class="review-question">${q.question}</div>
-
-                    <div class="review-answer-box">
-                        <div style="margin-bottom: 6px;">
-                            <strong>Bài làm của em:</strong> 
-                            <span style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; font-weight: 700;">
-                                ${userChoice}
-                            </span>
-                        </div>
-                        <div>
-                            <strong>Đáp án chuẩn của Thầy Sơn:</strong> 
-                            <span style="color: var(--success); font-weight: 800;">
-                                ${correctChoice}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="explanation-box">
-                        <i class="fa-solid fa-lightbulb"></i> <strong>Lời giải thích chi tiết:</strong><br>
-                        ${q.explanation || 'Đáp án chính xác theo quy chuẩn ngữ pháp và ngữ cảnh bài học.'}
-                    </div>
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-    }
-
-    function scrollToReview() {
-        document.getElementById('review-container').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    /**
-     * =========================================================================
-     * MÀN HÌNH BÁO LỖI KHI MÃ ĐỀ KHÔNG TỒN TẠI
-     * =========================================================================
-     */
-    function showErrorScreen(missingId) {
-        document.getElementById('quiz-screen').style.display = 'none';
-        document.getElementById('result-screen').style.display = 'none';
-        document.getElementById('error-screen').style.display = 'block';
-        document.getElementById('missing-exam-id').innerText = `"${missingId}"`;
-
-        const listContainer = document.getElementById('available-exams-list');
-        let html = '';
-        Object.keys(BUILTIN_EXAMS).forEach(key => {
-            const ex = BUILTIN_EXAMS[key];
-            html += `
-                <a href="quiz.html?de=${ex.id}" class="exam-link-card">
-                    <div>
-                        <div style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase;">Khối ${ex.grade} • ${ex.timeMinutes} phút</div>
-                        <div>${ex.title}</div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right" style="color: var(--primary);"></i>
-                </a>
-            `;
-        });
-        listContainer.innerHTML = html;
-    }
-</script>
-
+    // Khởi chạy khi tải xong trang
+    window.onload = () => {
+      loadSavedStudentInfo();
+      loadExamData();
+    };
+  </script>
 </body>
 </html>
