@@ -538,6 +538,106 @@
             color: white;
             padding: 2rem;
         }
+    
+        /* SECTION-BASED EXAM BUILDER */
+        .section-builder-card {
+            background: #ffffff;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        .section-builder-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: var(--shadow-md);
+        }
+        .section-builder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 1.2rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        .section-type-badge {
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+        .type-listening { background: #e0f2fe; color: #0284c7; }
+        .type-reading { background: #dbeafe; color: #1d4ed8; }
+        .type-grammar { background: #f0fdf4; color: #16a34a; }
+        .type-writing { background: #fef3c7; color: #d97706; }
+
+        .passage-editor-box {
+            background: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-left: 5px solid #3b82f6;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .audio-editor-box {
+            background: #f0fdfa;
+            border: 1.5px solid #99f6e4;
+            border-left: 5px solid var(--teal);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .arrangement-editor-box {
+            background: #fffbeb;
+            border: 1.5px dashed #f59e0b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .notice-editor-box {
+            background: #fef2f2;
+            border: 1.5px dashed #ef4444;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .q-sub-card {
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .q-sub-card:hover {
+            border-color: #94a3b8;
+            background: #ffffff;
+        }
+        .btn-compile-hero {
+            background: linear-gradient(135deg, var(--teal), #059669);
+            color: white;
+            padding: 14px 28px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
+            transition: all 0.2s;
+        }
+        .btn-compile-hero:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(13, 148, 136, 0.45);
+        }
+
     </style>
 </head>
 <body>
@@ -727,132 +827,146 @@
 
             </div>
 
-            <!-- ========================================================
-                 TAB 2: TRÌNH TẠO ĐỀ THI TRẮC NGHIỆM ĐỘNG (EXAM BUILDER)
+                        <!-- ========================================================
+                 TAB 2: TRÌNH SOẠN THẢO ĐỀ THI TRẮC NGHIỆM ĐỘNG (SECTION-BASED BUILDER)
                  ======================================================== -->
             <div class="tab-panel" id="tab-exam-creator">
                 <div class="section-box">
-                    <div class="section-header">
+                    
+                    <!-- TIÊU ĐỀ MODULE & THANH CÔNG CỤ NHANH -->
+                    <div class="section-header" style="align-items: flex-start;">
                         <div>
-                            <h3><i class="fa-solid fa-file-circle-plus" style="color: var(--primary);"></i> Trình Soạn Thảo Đề Thi Trắc Nghiệm Động</h3>
-                            <p>Tạo bộ đề thi mới, tự động biên dịch sang chuẩn JSON và nạp trực tiếp vào hệ thống khảo thí</p>
+                            <h3 style="font-size: 1.3rem; display: flex; align-items: center; gap: 10px;">
+                                <i class="fa-solid fa-layer-group" style="color: var(--teal);"></i>
+                                Trình Soạn Thảo Đề Thi Theo Khối (Section-Based Builder)
+                            </h3>
+                            <p style="margin-top: 4px;">
+                                Soạn đề chuẩn hóa theo từng Phần & bảo toàn ngữ cảnh (Reading Passage, Listening Track, Signs & Notices, Arrangement). 
+                                Tự động biên dịch sang mã nguồn HTML chuẩn mực vàng file de901_gk1_2627.html.
+                            </p>
                         </div>
-                        <div style="display: flex; gap: 8px;">
-                            <button type="button" class="btn btn-outline" onclick="loadSampleExamTemplate()">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Nạp Đề Mẫu
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-emerald" onclick="loadCanTho40Template()">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Nạp Khung Chuẩn 40 Câu Sở Cần Thơ
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="addBlankSection()">
+                                <i class="fa-solid fa-plus"></i> Thêm Phần Mới
                             </button>
                         </div>
                     </div>
 
-                    <!-- THÔNG TIN CHUNG BỘ ĐỀ -->
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>Mã Định Danh Đề Thi (ID không dấu, gạch ngang) *</label>
-                            <input type="text" id="examId" class="form-control" placeholder="Ví dụ: anh9-u2-grammar, anh8-giuaky1" value="anh9-u2-test">
+                    <!-- KHỐI 1: THÔNG TIN CHUNG BỘ ĐỀ -->
+                    <div style="background: #f8fafc; border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2rem;">
+                        <h4 style="font-weight: 800; color: var(--navy); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i>
+                            Khối 1: Thông Tin Chung Đề Thi
+                        </h4>
+                        
+                        <div class="form-grid" style="grid-template-columns: 1.5fr 2fr 1fr 1fr; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label>Mã Đề Thi (ID không dấu) *</label>
+                                <input type="text" id="examId" class="form-control" placeholder="Ví dụ: anh9-gk1-de04" value="anh9-gk1-de04">
+                            </div>
+                            <div class="form-group">
+                                <label>Tiêu Đề Bài Thi Khảo Thí *</label>
+                                <input type="text" id="examTitle" class="form-control" placeholder="Ví dụ: Đề Kiểm Tra Đánh Giá Năng Lực Giữa Kỳ 1 • Đề 04" value="Đề Kiểm Tra Đánh Giá Năng Lực Giữa Kỳ 1 (2026–2027) • Đề Số 04 - Tiếng Anh 9">
+                            </div>
+                            <div class="form-group">
+                                <label>Khối Lớp *</label>
+                                <select id="examGrade" class="form-control">
+                                    <option value="1">Lớp 1</option>
+                                    <option value="2">Lớp 2</option>
+                                    <option value="3">Lớp 3</option>
+                                    <option value="4">Lớp 4</option>
+                                    <option value="5">Lớp 5</option>
+                                    <option value="6">Lớp 6</option>
+                                    <option value="7">Lớp 7</option>
+                                    <option value="8">Lớp 8</option>
+                                    <option value="9" selected>Lớp 9</option>
+                                    <option value="10">Lớp 10</option>
+                                    <option value="11">Lớp 11</option>
+                                    <option value="12">Lớp 12</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Thời Gian (Phút) *</label>
+                                <input type="number" id="examTime" class="form-control" value="60" min="5" max="180">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Tiêu Đề Bài Thi Khảo Thí *</label>
-                            <input type="text" id="examTitle" class="form-control" placeholder="Ví dụ: Đề Kiểm Tra Định Kỳ Unit 2 - Tiếng Anh 9" value="Đề Kiểm Tra Định Kỳ Unit 2: City Life - Tiếng Anh 9">
-                        </div>
-                        <div class="form-group">
-                            <label>Khối Lớp *</label>
-                            <select id="examGrade" class="form-control">
-                                <option value="1">Lớp 1</option>
-                                <option value="2">Lớp 2</option>
-                                <option value="3">Lớp 3</option>
-                                <option value="4">Lớp 4</option>
-                                <option value="5">Lớp 5</option>
-                                <option value="6">Lớp 6</option>
-                                <option value="7">Lớp 7</option>
-                                <option value="8">Lớp 8</option>
-                                <option value="9" selected>Lớp 9</option>
-                                <option value="10">Lớp 10</option>
-                                <option value="11">Lớp 11</option>
-                                <option value="12">Lớp 12</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Thời Gian Làm Bài (Phút) *</label>
-                            <input type="number" id="examTime" class="form-control" value="15" min="5" max="120">
+
+                        <div class="form-grid" style="grid-template-columns: 2fr 2fr;">
+                            <div class="form-group">
+                                <label>Mô Tả & Hướng Dẫn Bài Thi</label>
+                                <input type="text" id="examDesc" class="form-control" value="Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ (Gồm Listening, Multiple Choice, Cloze test, Reading và Tự luận trắc nghiệm hóa 100%)." placeholder="Mô tả nội dung trọng tâm của đề...">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa-solid fa-volume-high" style="color: var(--teal);"></i> Tên File / Link Audio MP3 Toàn Bài (Full Audio)</label>
+                                <input type="text" id="examFullAudio" class="form-control" value="04_De_04_Listening_Full_Audio.mp3" placeholder="Ví dụ: 04_De_04_Listening_Full_Audio.mp3 hoặc link online">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group" style="margin-bottom: 2rem;">
-                        <label>Mô Tả & Hướng Dẫn Bài Thi</label>
-                        <input type="text" id="examDesc" class="form-control" value="Kiểm tra mức độ nắm vững từ vựng đời sống đô thị và cấu trúc so sánh kép (Double Comparative)." placeholder="Mô tả nội dung trọng tâm của đề...">
+                    <!-- KHỐI 2: KHU VỰC NHẬP LIỆU THEO PHẦN (SECTION-BASED BUILDER) -->
+                    <div style="margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+                            <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--navy); display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-list-check" style="color: var(--teal);"></i>
+                                Khối 2: Cấu Trúc Các Phần Thi & Câu Hỏi 
+                                (<span id="totalSectionsCount">0</span> Phần • <span id="totalQuestionsCount">0</span> Câu)
+                            </h4>
+                            <button type="button" class="btn btn-teal" onclick="addBlankSection()">
+                                <i class="fa-solid fa-plus"></i> Thêm Phần Mới
+                            </button>
+                        </div>
+
+                        <!-- CONTAINER CHỨA CÁC SECTION CARDS -->
+                        <div id="sectionsContainer">
+                            <!-- Các section sẽ render động ở đây -->
+                        </div>
                     </div>
 
-                    <!-- KHỐI CÔNG CỤ: TẢI FILE WORD HOẶC DÁN CẢ ĐỀ THI ĐỂ TỰ ĐỘNG CHUYỂN ĐỔI -->
-                    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 2px dashed #059669; border-radius: var(--radius-lg); padding: 1.8rem; margin-bottom: 2rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem;">
+                    <!-- KHỐI 3: CƠ CHẾ BIÊN DỊCH & XUẤT FILE HOÀN CHỈNH -->
+                    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-lg);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
                             <div>
-                                <h4 style="font-size: 1.15rem; font-weight: 800; color: #065f46; display: flex; align-items: center; gap: 8px;">
-                                    <i class="fa-solid fa-wand-magic-sparkles" style="color: #059669;"></i>
-                                    Trình Bóc Tách Đề Thi Tự Động (Tải File Word .docx Hoặc Dán Cả Đề)
-                                </h4>
-                                <p style="font-size: 0.88rem; color: #047857; margin-top: 4px;">
-                                    Thầy không cần copy từng câu! Chỉ cần chọn file Word đề thi hoặc dán toàn bộ văn bản đề vào đây, hệ thống sẽ tự động bóc tách 100% câu hỏi, 4 phương án A-B-C-D và đáp án đúng.
+                                <span style="background: rgba(13, 148, 136, 0.3); border: 1px solid var(--teal); color: #5eead4; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;">
+                                    Khối 3: Compiler & Export Engine
+                                </span>
+                                <h3 style="font-size: 1.35rem; font-weight: 800; margin: 8px 0 4px 0;">
+                                    Biên Dịch & Xuất Bản Đề Thi Độc Lập
+                                </h3>
+                                <p style="font-size: 0.88rem; color: #cbd5e1; max-width: 600px;">
+                                    Hệ thống sẽ biên dịch toàn bộ cấu trúc và câu hỏi trên thành một file HTML hoàn chỉnh 100% chuẩn giao diện file de901_gk1_2627.html (có thanh timer, player audio, chấm điểm tự động và gửi điểm về Google Sheets).
                                 </p>
                             </div>
-                            <div style="display: flex; gap: 8px;">
-                                <input type="file" id="bulkWordFileInput" accept=".docx" style="display: none;" onchange="handleBulkWordUpload(this)">
-                                <button type="button" class="btn btn-emerald" onclick="document.getElementById('bulkWordFileInput').click()">
-                                    <i class="fa-solid fa-file-word"></i> Tải File Word (.docx) Lên
-                                </button>
+                            <button type="button" class="btn-compile-hero" onclick="compileAndExportHTML()">
+                                <i class="fa-solid fa-bolt"></i> Biên Dịch & Tạo Đề Thi (.html)
+                            </button>
+                        </div>
+
+                        <!-- Khung kết quả sau khi biên dịch -->
+                        <div id="compileResultBox" style="display: none; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-md); padding: 1.2rem; margin-top: 1rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                                <div>
+                                    <div style="font-weight: 800; color: #5eead4; font-size: 1rem;" id="compileStatusText">
+                                        🎉 ĐÃ BIÊN DỊCH THÀNH CÔNG ĐỀ THI!
+                                    </div>
+                                    <div style="font-size: 0.82rem; color: #cbd5e1; margin-top: 2px;" id="compileDetailText">
+                                        File HTML hoàn chỉnh đã sẵn sàng để tải về hoặc thi thử trực tiếp.
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button type="button" class="btn btn-emerald" onclick="downloadCompiledHTML()">
+                                        <i class="fa-solid fa-download"></i> Tải File HTML Về Máy
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="downloadCompiledJSON()">
+                                        <i class="fa-solid fa-file-code"></i> Tải File Dữ Liệu JSON
+                                    </button>
+                                    <button type="button" class="btn btn-outline" style="background: white; color: var(--navy);" onclick="previewCompiledExam()">
+                                        <i class="fa-solid fa-eye"></i> Thi Thử Trực Tiếp Ngay
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- Khung dán văn bản toàn bộ đề -->
-                        <div class="form-group" style="margin-bottom: 1rem;">
-                            <label style="color: #065f46; font-weight: 700;">Hoặc dán toàn bộ nội dung đề thi vào khung bên dưới:</label>
-                            <textarea id="bulkExamTextInput" class="form-control" style="min-height: 140px; background: white; font-size: 0.9rem; line-height: 1.6;" placeholder="Ví dụ nội dung đề thi:
-Câu 1: What did Nam and Sarah do in Bat Trang village?
-A. Made a small clay vase
-B. Played football
-C. Went swimming
-D. Watched TV
-Đáp án: A
-
-Câu 2: ..."></textarea>
-                        </div>
-
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                            <div style="font-size: 0.85rem; color: #047857; font-weight: 600;">
-                                <i class="fa-solid fa-circle-info"></i> Hệ thống tự động nhận diện: "Câu 1:", "Question 1:", "1.", các lựa chọn "A.", "B.", "C.", "D." và bảng đáp án ở cuối đề.
-                            </div>
-                            <button type="button" class="btn btn-primary" onclick="executeBulkParseExam()">
-                                <i class="fa-solid fa-bolt"></i> Bóc Tách Tự Động & Đổ Dữ Liệu Vào Đề Thi
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- DANH SÁCH CÂU HỎI -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h4 style="font-weight: 800; font-size: 1.1rem; color: var(--navy);">
-                            Danh Sách Câu Hỏi (<span id="totalQuestionsCount">1</span> câu)
-                        </h4>
-                        <button type="button" class="btn btn-teal" onclick="addNewQuestion()">
-                            <i class="fa-solid fa-plus"></i> Thêm Câu Hỏi Mới
-                        </button>
-                    </div>
-
-                    <div id="questionsContainer">
-                        <!-- Các card câu hỏi sẽ render ở đây -->
-                    </div>
-
-                    <!-- KHỐI HÀNH ĐỘNG XUẤT ĐỀ -->
-                    <div style="margin-top: 2rem; padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                        <div>
-                            <strong style="color: var(--navy); display: block; font-size: 1rem;">Xuất Bản Đề Thi Động</strong>
-                            <span style="font-size: 0.88rem; color: var(--text-muted);">Tải file JSON để lưu vào data/exams/ hoặc lưu ngay vào trình duyệt để test lập tức!</span>
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button type="button" class="btn btn-primary" onclick="exportExamJSON()">
-                                <i class="fa-solid fa-download"></i> Tải File JSON Về Máy
-                            </button>
-                            <button type="button" class="btn btn-emerald" onclick="saveAndTestExam()">
-                                <i class="fa-solid fa-rocket"></i> Lưu & Thi Thử Ngay
-                            </button>
                         </div>
                     </div>
 
@@ -1069,6 +1183,7 @@ Câu 2: ..."></textarea>
     </main>
 
     <script>
+
         /**
          * =========================================================================
          * 1. BẢO MẬT & KIỂM TRA PHÂN QUYỀN GIÁO VIÊN
@@ -1168,455 +1283,10 @@ Câu 2: ..."></textarea>
 
         /**
          * =========================================================================
-         * 3. LOGIC TRÌNH TẠO ĐỀ THI TRẮC NGHIỆM ĐỘNG (EXAM CREATOR)
+         * 3. SECTION-BASED EXAM BUILDER & STANDALONE HTML COMPILER
+         * Logic được tách biệt chuyên nghiệp và nạp độc lập từ file admin_exam_builder.js
          * =========================================================================
          */
-        let questionCounter = 0;
-
-        function addNewQuestion(data = null) {
-            questionCounter++;
-            const container = document.getElementById('questionsContainer');
-            const qDiv = document.createElement('div');
-            qDiv.className = 'question-item-card';
-            qDiv.id = `qCard_${questionCounter}`;
-
-            const defaultQ = data || {
-                tag: 'Grammar • Multiple Choice',
-                type: 'grammar',
-                question: '',
-                optA: '',
-                optB: '',
-                optC: '',
-                optD: '',
-                correct: 'A',
-                explanation: ''
-            };
-
-            qDiv.innerHTML = `
-                <div class="question-item-header">
-                    <span class="q-number-badge">Câu Hỏi #${questionCounter}</span>
-                    <button type="button" class="btn-del-question" onclick="deleteQuestion(${questionCounter})">
-                        <i class="fa-solid fa-trash-can"></i> Xóa câu này
-                    </button>
-                </div>
-
-                <div class="form-grid" style="grid-template-columns: 2fr 1fr; margin-bottom: 1rem;">
-                    <div class="form-group">
-                        <label>Dạng bài / Nhãn chuyên môn (Tag)</label>
-                        <input type="text" class="form-control q-tag" value="${defaultQ.tag}" placeholder="Ví dụ: Phrasal Verbs, Phonetics, Reading...">
-                    </div>
-                    <div class="form-group">
-                        <label>Phân loại câu hỏi</label>
-                        <select class="form-control q-type" onchange="handleQuestionTypeChange(${questionCounter}, this.value)">
-                            <option value="grammar" ${defaultQ.type === 'grammar' ? 'selected' : ''}>Ngữ pháp / Từ vựng</option>
-                            <option value="phonetics" ${defaultQ.type === 'phonetics' ? 'selected' : ''}>Ngữ âm / Trọng âm</option>
-                            <option value="listening" ${defaultQ.type === 'listening' ? 'selected' : ''}>Nghe hiểu (Listening)</option>
-                            <option value="reading" ${defaultQ.type === 'reading' ? 'selected' : ''}>Đọc hiểu / Điền từ (Reading)</option>
-                            <option value="writing" ${defaultQ.type === 'writing' ? 'selected' : ''}>Viết câu (Writing)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Ô nhập Đoạn văn ngữ cảnh (Dành cho bài Đọc hiểu / Điền khuyết Cloze-test) -->
-                <div class="form-group q-passage-box" id="qPassageBox_${questionCounter}" style="margin-bottom: 1rem; ${defaultQ.passage ? 'display: block;' : 'display: none;'}">
-                    <label style="color: var(--primary-dark); font-weight: 700; display: flex; justify-content: space-between;">
-                        <span><i class="fa-solid fa-book-open"></i> Đoạn Văn Ngữ Cảnh / Bài Đọc Tham Khảo (Passage)</span>
-                        <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 500;">Hiển thị ở khung cuộn bên trên câu hỏi</span>
-                    </label>
-                    <textarea class="form-control q-passage" style="min-height: 80px; font-size: 0.9rem;" placeholder="Dán đoạn văn bài đọc hoặc bài đọc điền khuyết vào đây...">${defaultQ.passage || ''}</textarea>
-                </div>
-
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <label style="margin-bottom: 0;">Nội dung câu hỏi đề bài *</label>
-                        <button type="button" class="btn btn-outline" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="togglePassageField(${questionCounter})">
-                            <i class="fa-solid fa-file-lines"></i> ${defaultQ.passage ? 'Ẩn Bài Đọc' : '+ Thêm Bài Đọc Cho Câu Này'}
-                        </button>
-                    </div>
-                    <textarea class="form-control q-question" placeholder="Nhập câu hỏi tiếng Anh vào đây...">${defaultQ.question}</textarea>
-                </div>
-
-                <div class="form-grid" style="margin-bottom: 1rem;">
-                    <div class="form-group">
-                        <label>Lựa chọn [A] *</label>
-                        <input type="text" class="form-control q-optA" value="${defaultQ.optA}" placeholder="Đáp án A">
-                    </div>
-                    <div class="form-group">
-                        <label>Lựa chọn [B] *</label>
-                        <input type="text" class="form-control q-optB" value="${defaultQ.optB}" placeholder="Đáp án B">
-                    </div>
-                    <div class="form-group">
-                        <label>Lựa chọn [C] *</label>
-                        <input type="text" class="form-control q-optC" value="${defaultQ.optC}" placeholder="Đáp án C">
-                    </div>
-                    <div class="form-group">
-                        <label>Lựa chọn [D] *</label>
-                        <input type="text" class="form-control q-optD" value="${defaultQ.optD}" placeholder="Đáp án D">
-                    </div>
-                </div>
-
-                <div class="form-grid" style="grid-template-columns: 1fr 3fr;">
-                    <div class="form-group">
-                        <label>Đáp Án Đúng *</label>
-                        <select class="form-control q-correct" style="font-weight: 800; color: var(--emerald);">
-                            <option value="A" ${defaultQ.correct === 'A' ? 'selected' : ''}>Đáp án A</option>
-                            <option value="B" ${defaultQ.correct === 'B' ? 'selected' : ''}>Đáp án B</option>
-                            <option value="C" ${defaultQ.correct === 'C' ? 'selected' : ''}>Đáp án C</option>
-                            <option value="D" ${defaultQ.correct === 'D' ? 'selected' : ''}>Đáp án D</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Lời Giải Thích Chi Tiết Của Thầy Sơn</label>
-                        <input type="text" class="form-control q-explanation" value="${defaultQ.explanation}" placeholder="Giải thích ngữ pháp, dịch nghĩa câu tiếng Việt...">
-                    </div>
-                </div>
-            `;
-
-            container.appendChild(qDiv);
-            updateQuestionsCount();
-        }
-
-        function deleteQuestion(id) {
-            const card = document.getElementById(`qCard_${id}`);
-            if (card) {
-                card.remove();
-                updateQuestionsCount();
-            }
-        }
-
-        function togglePassageField(id) {
-            const box = document.getElementById(`qPassageBox_${id}`);
-            if (box) {
-                box.style.display = box.style.display === 'none' ? 'block' : 'none';
-            }
-        }
-
-        function handleQuestionTypeChange(id, type) {
-            const box = document.getElementById(`qPassageBox_${id}`);
-            if (box && type === 'reading') {
-                box.style.display = 'block';
-            }
-        }
-
-        function updateQuestionsCount() {
-            const total = document.querySelectorAll('.question-item-card').length;
-            document.getElementById('totalQuestionsCount').innerText = total;
-        }
-
-        // Tạo cấu trúc dữ liệu JSON từ Form
-        function compileExamObject() {
-            const examId = document.getElementById('examId').value.trim() || 'anh-exam';
-            const title = document.getElementById('examTitle').value.trim() || 'Đề Khảo Sát Tiếng Anh';
-            const grade = parseInt(document.getElementById('examGrade').value, 10) || 9;
-            const timeMinutes = parseInt(document.getElementById('examTime').value, 10) || 15;
-            const description = document.getElementById('examDesc').value.trim();
-
-            const cards = document.querySelectorAll('.question-item-card');
-            const questions = [];
-
-            cards.forEach((card, idx) => {
-                const tag = card.querySelector('.q-tag').value.trim();
-                const type = card.querySelector('.q-type').value;
-                let questionText = card.querySelector('.q-question').value.trim();
-                const passage = card.querySelector('.q-passage') ? card.querySelector('.q-passage').value.trim() : '';
-                const optA = card.querySelector('.q-optA').value.trim();
-                const optB = card.querySelector('.q-optB').value.trim();
-                const optC = card.querySelector('.q-optC').value.trim();
-                const optD = card.querySelector('.q-optD').value.trim();
-                const correctLetter = card.querySelector('.q-correct').value;
-                const explanation = card.querySelector('.q-explanation').value.trim();
-
-                const optionsMap = { 'A': optA, 'B': optB, 'C': optC, 'D': optD };
-                const correctChoiceText = optionsMap[correctLetter] || optA;
-
-                // Chuẩn hóa câu lệnh sư phạm rõ ràng nếu câu hỏi bị rỗng
-                if (!questionText || questionText.indexOf('Câu hỏi trắc nghiệm số') !== -1) {
-                    if (passage) {
-                        questionText = `Choose the correct word or phrase to fill in blank (${idx + 1}) in the passage:`;
-                    } else {
-                        questionText = `Choose the correct answer for question ${idx + 1}:`;
-                    }
-                }
-
-                const qObj = {
-                    id: idx + 1,
-                    type: type,
-                    tag: tag || `Câu Hỏi ${idx + 1}`,
-                    question: questionText,
-                    options: [optA || "Lựa chọn A", optB || "Lựa chọn B", optC || "Lựa chọn C", optD || "Lựa chọn D"],
-                    correct_answer: correctChoiceText,
-                    explanation: explanation || "Đáp án chính xác theo chương trình học."
-                };
-
-                if (passage) {
-                    qObj.passage = passage;
-                }
-
-                questions.push(qObj);
-            });
-
-            return {
-                id: examId,
-                title: title,
-                grade: grade,
-                subject: "Tiếng Anh (Global Success)",
-                timeMinutes: timeMinutes,
-                description: description,
-                questions: questions
-            };
-        }
-
-        // Tải file JSON về máy tính
-        function exportExamJSON() {
-            const examObj = compileExamObject();
-            if (examObj.questions.length === 0) {
-                alert("Vui lòng thêm ít nhất 1 câu hỏi!");
-                return;
-            }
-
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(examObj, null, 2));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", `${examObj.id}.json`);
-            document.body.appendChild(dlAnchor);
-            dlAnchor.click();
-            dlAnchor.remove();
-
-            alert(`✅ Đã xuất file "${examObj.id}.json" thành công! Thầy chỉ cần thả file này vào thư mục data/exams/ là hệ thống nhận ngay.`);
-        }
-
-        // Lưu vào localStorage và Mở thi thử ngay trên quiz.html
-        function saveAndTestExam() {
-            const examObj = compileExamObject();
-            if (examObj.questions.length === 0) {
-                alert("Vui lòng thêm ít nhất 1 câu hỏi!");
-                return;
-            }
-
-            // Lưu trực tiếp vào danh sách đề thi của trình duyệt
-            let customExams = JSON.parse(localStorage.getItem('stm_custom_exams') || '{}');
-            customExams[examObj.id] = examObj;
-            localStorage.setItem('stm_custom_exams', JSON.stringify(customExams));
-
-            const testUrl = `quiz.html?de=${examObj.id}`;
-            if (confirm(`✅ Đã lưu bộ đề "${examObj.title}" vào hệ thống!\n\nThầy có muốn mở làm bài thi thử ngay bây giờ không?`)) {
-                window.open(testUrl, '_blank');
-            }
-        }
-
-        // Nạp mẫu đề thi nhanh
-        function loadSampleExamTemplate() {
-            document.getElementById('questionsContainer').innerHTML = '';
-            questionCounter = 0;
-
-            addNewQuestion({
-                tag: 'Vocabulary • Unit 2 (City Life)',
-                type: 'grammar',
-                question: 'The city center is always packed with tourists and vehicles, leading to heavy traffic ______ during rush hours.',
-                optA: 'congestion',
-                optB: 'attraction',
-                optC: 'entertainment',
-                optD: 'distraction',
-                correct: 'A',
-                explanation: "Cụm danh từ: 'traffic congestion' = tình trạng ùn tắc giao thông."
-            });
-
-            addNewQuestion({
-                tag: 'Grammar • Double Comparative',
-                type: 'grammar',
-                question: '______ you revise your vocabulary, the more confident you will feel in the examination room.',
-                optA: 'The more diligently',
-                optB: 'The most diligently',
-                optC: 'More diligently',
-                optD: 'As diligently as',
-                correct: 'A',
-                explanation: "Công thức so sánh kép: The + comparative + S + V, the + comparative + S + V."
-            });
-        }
-
-        /**
-         * =========================================================================
-         * 3.1. TRÌNH BÓC TÁCH TỰ ĐỘNG TỪ FILE WORD (.DOCX) HOẶC VĂN BẢN TOÀN BỘ ĐỀ
-         * =========================================================================
-         */
-        function handleBulkWordUpload(input) {
-            if (!input.files || !input.files[0]) return;
-            const file = input.files[0];
-
-            if (typeof mammoth === 'undefined') {
-                alert("Đang tải thư viện đọc file Word, vui lòng thử lại sau vài giây!");
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const arrayBuffer = e.target.result;
-                mammoth.extractRawText({ arrayBuffer: arrayBuffer })
-                    .then(function(result) {
-                        const rawText = result.value;
-                        document.getElementById('bulkExamTextInput').value = rawText;
-                        executeBulkParseExam();
-                    })
-                    .catch(function(err) {
-                        alert("Không thể đọc file Word: " + err.message + "\nThầy có thể mở file Word, copy toàn bộ nội dung và dán vào ô bên dưới nhé!");
-                    });
-            };
-            reader.readAsArrayBuffer(file);
-        }
-
-        function executeBulkParseExam() {
-            const rawText = document.getElementById('bulkExamTextInput').value.trim();
-            if (!rawText) {
-                alert("Vui lòng tải file Word (.docx) hoặc dán nội dung đề thi vào khung trước khi bấm bóc tách!");
-                return;
-            }
-
-            // 1. Chuẩn hóa xuống dòng
-            let cleanText = rawText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-
-            // 2. Tìm bảng đáp án ở cuối nếu có (ví dụ: "ĐÁP ÁN: 1.A, 2.B..." hoặc "1-A 2-B")
-            const answerKeyMap = {};
-            const keySectionMatch = cleanText.match(/(?:ĐÁP\s*ÁN|ANSWER\s*KEY|KEY|BẢNG\s*ĐÁP\s*ÁN)[\s\S]*$/i);
-            if (keySectionMatch) {
-                const keyText = keySectionMatch[0];
-                const keyMatches = keyText.matchAll(/(\d+)[\.\s\:\-]+([A-D])/gi);
-                for (const km of keyMatches) {
-                    answerKeyMap[parseInt(km[1], 10)] = km[2].toUpperCase();
-                }
-            }
-
-            // 3. Tách từng khối câu hỏi theo định dạng: "Câu 1:", "Question 1:", "1.", "[1]"...
-            const lines = cleanText.split('\n');
-            const questionBlocks = [];
-            let currentBlock = null;
-            let currentPassage = ""; // Lưu trữ đoạn văn bài đọc gần nhất
-
-            const qStartRegex = /^(?:Câu|Question|\b)\s*(\d+)[\.\:\)]\s*(.*)$/i;
-
-            lines.forEach(line => {
-                const trimmed = line.trim();
-                const qMatch = trimmed.match(qStartRegex);
-
-                if (qMatch) {
-                    if (currentBlock) questionBlocks.push(currentBlock);
-                    currentBlock = {
-                        num: parseInt(qMatch[1], 10),
-                        content: qMatch[2] + '\n',
-                        passage: currentPassage
-                    };
-                } else if (currentBlock) {
-                    // Nếu gặp dòng mở đầu bảng đáp án thì dừng
-                    if (/^(?:ĐÁP\s*ÁN|ANSWER\s*KEY|BẢNG\s*ĐÁP\s*ÁN)/i.test(trimmed)) {
-                        questionBlocks.push(currentBlock);
-                        currentBlock = null;
-                    } else {
-                        currentBlock.content += line + '\n';
-                    }
-                } else {
-                    // Nếu chưa vào câu hỏi mà có đoạn văn bản dài (bài đọc hiểu/bài đọc điền từ)
-                    if (trimmed.length > 50 && !/^(?:ĐỀ|MÔN|THỜI GIAN|HỌ VÀ TÊN)/i.test(trimmed)) {
-                        currentPassage += line + '\n';
-                    }
-                }
-            });
-            if (currentBlock) questionBlocks.push(currentBlock);
-
-            if (questionBlocks.length === 0) {
-                alert("Không nhận diện được câu hỏi nào! Vui lòng đảm bảo các câu hỏi bắt đầu bằng dạng 'Câu 1:', 'Question 1:' hoặc '1.' kèm các lựa chọn A, B, C, D.");
-                return;
-            }
-
-            // 4. Xóa danh sách câu hỏi cũ để nạp danh sách câu mới
-            document.getElementById('questionsContainer').innerHTML = '';
-            questionCounter = 0;
-
-            let parsedCount = 0;
-
-            questionBlocks.forEach(block => {
-                const body = block.content;
-                let questionText = body;
-                let optA = '', optB = '', optC = '', optD = '';
-                let correctOpt = answerKeyMap[block.num] || 'A';
-                let explanation = '';
-                let passage = block.passage || '';
-
-                // Bóc tách đáp án trực tiếp trong câu nếu có dòng "Đáp án: B"
-                const inlineAnsMatch = body.match(/(?:Đáp\s*án|Key|Answer)[\s\:\-]+([A-D])/i);
-                if (inlineAnsMatch) {
-                    correctOpt = inlineAnsMatch[1].toUpperCase();
-                }
-
-                // Bóc tách Lời giải thích nếu có dòng "Giải thích: ..."
-                const expMatch = body.match(/(?:Giải\s*thích|Explanation)[\s\:\-]+(.*)$/im);
-                if (expMatch) {
-                    explanation = expMatch[1].trim();
-                }
-
-                // Tách 4 lựa chọn A, B, C, D bằng Regex
-                const optAReg = /(?:^|\s|\n)A[\.\:\)]\s*([\s\S]*?)(?=(?:\s[B-D][\.\:\)]|\n[B-D][\.\:\)]|$))/i;
-                const optBReg = /(?:^|\s|\n)B[\.\:\)]\s*([\s\S]*?)(?=(?:\s[C-D][\.\:\)]|\n[C-D][\.\:\)]|$))/i;
-                const optCReg = /(?:^|\s|\n)C[\.\:\)]\s*([\s\S]*?)(?=(?:\sD[\.\:\)]|\n[D][\.\:\)]|$))/i;
-                const optDReg = /(?:^|\s|\n)D[\.\:\)]\s*([\s\S]*?)(?=(?:\n(?:Đáp\s*án|Key|Giải\s*thích)|$))/i;
-
-                const matchA = body.match(optAReg);
-                const matchB = body.match(optBReg);
-                const matchC = body.match(optCReg);
-                const matchD = body.match(optDReg);
-
-                if (matchA) optA = matchA[1].trim();
-                if (matchB) optB = matchB[1].trim();
-                if (matchC) optC = matchC[1].trim();
-                if (matchD) optD = matchD[1].trim();
-
-                // Lấy phần đề bài (phần text đứng trước A.)
-                const aPos = body.search(/(?:^|\s|\n)A[\.\:\)]/i);
-                if (aPos !== -1) {
-                    questionText = body.substring(0, aPos).trim();
-                }
-
-                // Làm sạch các dòng thừa
-                questionText = questionText.replace(/^(?:Câu|Question|\b)\s*\d+[\.\:\)]\s*/i, '').trim();
-
-                // NÂNG CẤP SƯ PHẠM ĐỘT PHÁ: Nếu câu hỏi bị rỗng (dạng bài Cloze-test điền từ vào chỗ trống)
-                if (!questionText || questionText.length < 3) {
-                    questionText = `Choose the correct word or phrase that best fits blank (${block.num}) in the passage:`;
-                }
-
-                // Nhận diện phân loại câu
-                let qType = 'grammar';
-                let tag = `Câu Hỏi ${block.num} • Multiple Choice`;
-                if (/listen|nghe|audio/i.test(questionText)) {
-                    qType = 'listening';
-                    tag = `Listening • Part ${block.num}`;
-                } else if (/blank\s*\(\d+\)|read|đọc|passage/i.test(questionText) || passage.length > 50 || questionText.length > 250) {
-                    qType = 'reading';
-                    tag = (passage.length > 50 && questionText.indexOf('blank') !== -1) ? `Cloze-Test • Blank (${block.num})` : `Reading • Câu ${block.num}`;
-                } else if (/pronounce|stress|trọng âm|phát âm/i.test(questionText)) {
-                    qType = 'phonetics';
-                    tag = `Phonetics • Câu ${block.num}`;
-                } else if (/rewrite|viết lại|closest meaning|transformation/i.test(questionText)) {
-                    qType = 'writing';
-                    tag = `Sentence Transformation • Câu ${block.num}`;
-                }
-
-                addNewQuestion({
-                    tag: tag,
-                    type: qType,
-                    passage: passage,
-                    question: questionText,
-                    optA: optA || 'Lựa chọn A',
-                    optB: optB || 'Lựa chọn B',
-                    optC: optC || 'Lựa chọn C',
-                    optD: optD || 'Lựa chọn D',
-                    correct: correctOpt,
-                    explanation: explanation || 'Đáp án chính xác theo chương trình học.'
-                });
-
-                parsedCount++;
-            });
-
-            alert(`🎉 TUYỆT VỜI! Hệ thống đã tự động bóc tách thành công ${parsedCount} câu hỏi từ tài liệu của Thầy!\nThầy có thể cuộn xuống xem lại, chỉnh sửa đáp án hoặc bấm "Lưu & Thi Thử Ngay" nhé!`);
-        }
 
         /**
          * =========================================================================
