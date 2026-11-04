@@ -1692,11 +1692,13 @@
                 if (teacherToolbar) teacherToolbar.style.display = 'none';
                 if (parentDashboard) {
                     parentDashboard.style.display = 'block';
-                    document.getElementById('parentChildName').innerText = studentName;
+                    const childName = localStorage.getItem('parent_child_name') || studentName;
+                    document.getElementById('parentChildName').innerText = childName;
                     document.getElementById('parentChildGrade').innerText = gradeTitle;
                 }
 
-                heroSubtitle.innerHTML = `Kính chào Quý phụ huynh em <strong>${studentName}</strong> (${gradeTitle}). Hệ thống cập nhật tiến độ học tập và kết quả bài thi trực tuyến của con.`;
+                const childDisplayName = localStorage.getItem('parent_child_name') || studentName;
+                heroSubtitle.innerHTML = `Kính chào Quý phụ huynh em <strong>${childDisplayName}</strong> (${gradeTitle}). Hệ thống cập nhật tiến độ học tập và kết quả bài thi trực tuyến của con.`;
 
             } else {
                 // ==========================================

@@ -757,10 +757,11 @@
             msgBox.style.display = 'none';
             msgBox.className = '';
 
-            // Chuẩn bị dữ liệu form gửi đi
+            // Chuẩn bị dữ liệu form gửi đi (kèm theo vai trò student / parent / teacher)
             const formData = new FormData();
             formData.append('student_id', studentId);
             formData.append('password', password);
+            formData.append('role', currentRole);
 
             // Gửi dữ liệu (phương thức POST, dạng FormData) tới API Endpoint
             fetch(LOGIN_API_URL, {
@@ -776,23 +777,28 @@
             .then(data => {
                 // Xử lý kết quả JSON trả về từ Google Sheets
                 if (data.success === true) {
-                    // Thành công: Lưu thông tin học sinh vào localStorage
+                    const finalRole = data.role || currentRole;
+
+                    // Thành công: Lưu thông tin người dùng vào localStorage
                     if (data.name) {
                         localStorage.setItem('student_name', data.name);
-                        localStorage.setItem('stm_user', data.name); // Đồng bộ lời chào tại classroom.html
+                        localStorage.setItem('stm_user', data.name); // Đồng bộ lời chào
                     }
                     if (data.className) {
                         localStorage.setItem('student_class', data.className);
                     }
+                    if (data.childName) {
+                        localStorage.setItem('parent_child_name', data.childName);
+                    }
                     localStorage.setItem('student_id', studentId);
-                    localStorage.setItem('stm_role', currentRole);
+                    localStorage.setItem('stm_role', finalRole);
 
                     // Hiển thị thông báo thành công màu xanh lá vào thẻ #login-message
                     msgBox.className = 'success';
                     let welcomeName = 'Đăng nhập thành công';
-                    if (currentRole === 'teacher') {
+                    if (finalRole === 'teacher') {
                         welcomeName = `Kính chào <strong>Thầy Nguyễn Hoàng Sơn</strong>`;
-                    } else if (currentRole === 'parent') {
+                    } else if (finalRole === 'parent') {
                         welcomeName = `Kính chào Quý phụ huynh em <strong>${data.name || ''}</strong>`;
                     } else {
                         welcomeName = `Chào mừng em <strong>${data.name || ''}</strong>`;
