@@ -958,12 +958,24 @@
             console.log("Fallback sang Built-in Database:", err);
         }
 
-        // Tầng 2: Nếu chưa tải được qua fetch, tìm trong Thư viện Built-in Database
+        // Tầng 2: Kiểm tra đề thi do Thầy tạo trong Trang Quản Trị (stm_custom_exams)
+        if (!loadedExam) {
+            try {
+                const customExams = JSON.parse(localStorage.getItem('stm_custom_exams') || '{}');
+                if (customExams[examId]) {
+                    loadedExam = customExams[examId];
+                }
+            } catch (e) {
+                console.log("Lỗi đọc custom exams:", e);
+            }
+        }
+
+        // Tầng 3: Nếu chưa tải được, tìm trong Thư viện Built-in Database
         if (!loadedExam && BUILTIN_EXAMS[examId]) {
             loadedExam = BUILTIN_EXAMS[examId];
         }
 
-        // Tầng 3: Nếu vẫn không tìm thấy -> Hiển thị màn hình báo lỗi
+        // Tầng 4: Nếu vẫn không tìm thấy -> Hiển thị màn hình báo lỗi
         if (!loadedExam) {
             showErrorScreen(examId);
             return;

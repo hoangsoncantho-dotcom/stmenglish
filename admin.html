@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung Tâm Quản Trị Hệ Thống - Thầy Nguyễn Hoàng Sơn | STM English</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --navy: #0f172a;
+            --navy-light: #1e293b;
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --teal: #0d9488;
+            --teal-light: #ccfbf1;
+            --emerald: #059669;
+            --emerald-light: #d1fae5;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --bg-page: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-page); color: var(--text-main); min-height: 100vh; display: flex; }
+
+        /* SIDEBAR QUẢN TRỊ */
+        .sidebar {
+            width: 280px;
+            background: var(--navy);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+        }
+        .sidebar-brand {
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--teal));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+        }
+        .brand-info h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+        .brand-info p {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* Teacher Profile Card in Sidebar */
+        .teacher-badge-box {
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 1rem 1.2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .teacher-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: white;
+        }
+        .teacher-meta h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+        .teacher-meta span {
+            font-size: 0.75rem;
+            color: #38bdf8;
+            font-weight: 600;
+            display: block;
+        }
+
+        /* Menu điều hướng */
+        .nav-menu {
+            list-style: none;
+            padding: 0.5rem 1rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .nav-item {
+            margin-bottom: 0.4rem;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.85rem 1.2rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+        }
+        .nav-link i {
+            width: 20px;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 1.2rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .btn-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-view-class {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        .btn-view-class:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .btn-logout {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-logout:hover {
+            background: #dc2626;
+        }
+
+        /* KHU VỰC NỘI DUNG CHÍNH (MAIN WRAPPER) */
+        .main-wrapper {
+            margin-left: 280px;
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Header */
+        .top-navbar {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .page-title h2 {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--navy);
+        }
+        .page-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--emerald-light);
+            color: var(--emerald);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--emerald);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        /* CONTENT CONTAINER */
+        .content-container {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* CARDS & TILES */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .stat-info h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1.1;
+        }
+        .stat-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* TAB PANELS */
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECTION BOX */
+        .section-box {
+            background: white;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-header h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* FORM CONTROLS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-group label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        .form-control {
+            padding: 0.8rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        }
+        textarea.form-control {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+        }
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+        .btn-teal {
+            background: linear-gradient(135deg, var(--teal), #0f766e);
+            color: white;
+            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.25);
+        }
+        .btn-teal:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+        .btn-emerald {
+            background: linear-gradient(135deg, var(--emerald), #047857);
+            color: white;
+            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+        }
+        .btn-emerald:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: white;
+            border: 1.5px solid var(--border);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            background: #f8fafc;
+            border-color: var(--navy);
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: var(--danger);
+        }
+
+        /* QUESTION BUILDER CARDS */
+        .question-item-card {
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+        .question-item-card:hover {
+            border-color: var(--primary);
+        }
+        .question-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .q-number-badge {
+            background: var(--navy);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+        .btn-del-question {
+            background: none;
+            border: none;
+            color: #ef4444;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-del-question:hover {
+            text-decoration: underline;
+        }
+
+        /* TABLE STYLING */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+        .admin-table th {
+            background: #f8fafc;
+            padding: 1rem 1.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            border-bottom: 2px solid var(--border);
+        }
+        .admin-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+        }
+        .admin-table tr:hover td {
+            background: #f8fafc;
+        }
+
+        /* JSON OUTPUT MODAL */
+        .code-preview-box {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 1.2rem;
+            border-radius: var(--radius-md);
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.88rem;
+            max-height: 320px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin: 1rem 0;
+            border: 1px solid #334155;
+        }
+
+        /* ACCESS DENIED OVERLAY */
+        #access-denied-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY BẢO VỆ PHÂN QUYỀN (CHỈ DÀNH CHO GIÁO VIÊN) -->
+    <div id="access-denied-overlay">
+        <div style="max-width: 500px; background: white; color: var(--navy); padding: 3rem 2rem; border-radius: 20px; box-shadow: var(--shadow-lg);">
+            <div style="font-size: 4rem; color: #ef4444; margin-bottom: 1rem;">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.8rem;">Yêu Cầu Quyền Quản Trị Viên</h2>
+            <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem;">
+                Trang này dành riêng cho Giáo viên phụ trách chuyên môn (<strong>Thầy Nguyễn Hoàng Sơn</strong>). Vui lòng đăng nhập bằng tài khoản Giáo viên để tiếp tục.
+            </p>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'">
+                <i class="fa-solid fa-right-to-bracket"></i> Đến Trang Đăng Nhập Giáo Viên
+            </button>
+        </div>
+    </div>
+
+    <!-- SIDEBAR BÊN TRÁI -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <div class="brand-info">
+                <h1>STM English</h1>
+                <p>Hệ Thống Quản Trị Đào Tạo</p>
+            </div>
+        </div>
+
+        <div class="teacher-badge-box">
+            <div class="teacher-avatar">S</div>
+            <div class="teacher-meta">
+                <h4>Thầy Hoàng Sơn</h4>
+                <span><i class="fa-solid fa-crown"></i> Quản Trị Hệ Thống</span>
+            </div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" onclick="switchTab('dashboard')">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Tổng Quan Hệ Thống</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchTab('exam-creator')">
+                    <i class="fa-solid fa-file-circle-plus"></i>
+                    <span>Tạo Đề Thi Trắc Nghiệm</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchTab('materials')">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Tải Bài Vở & Bài Giảng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchTab('submissions')">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Bài Tập Về Nhà (Drive 5TB)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="switchTab('gradebook')">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Sổ Điểm & Báo Cáo Khảo Thí</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <a href="classroom.html" class="btn-side btn-view-class">
+                <i class="fa-solid fa-door-open"></i> Đến Phòng Học
+            </a>
+            <button class="btn-side btn-logout" onclick="handleLogout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng Xuất
+            </button>
+        </div>
+    </aside>
+
+    <!-- WRAPPER NỘI DUNG CHÍNH -->
+    <main class="main-wrapper">
+        
+        <!-- TOP NAVBAR -->
+        <header class="top-navbar">
+            <div class="page-title">
+                <h2 id="currentTabHeading">Tổng Quan Hệ Thống</h2>
+                <p>Bàn làm việc điều hành & quản trị học liệu của Thầy Nguyễn Hoàng Sơn</p>
+            </div>
+            <div class="top-actions">
+                <div class="status-pill">
+                    <div class="status-dot"></div>
+                    <span>Hệ thống trực tuyến</span>
+                </div>
+                <div style="font-size: 0.88rem; font-weight: 700; color: var(--navy);" id="liveClock">
+                    <!-- Thời gian thực -->
+                </div>
+            </div>
+        </header>
+
+        <div class="content-container">
+
+            <!-- ========================================================
+                 TAB 1: TỔNG QUAN HỆ THỐNG (DASHBOARD)
+                 ======================================================== -->
+            <div class="tab-panel active" id="tab-dashboard">
+                
+                <!-- 4 Thẻ thống kê chính -->
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);">
+                            <i class="fa-solid fa-school"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Khối Lớp Quản Lý (1 - 12)</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--teal-light); color: var(--teal);">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>144</h3>
+                            <p>Đơn Vị Bài Học (Units)</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--emerald-light); color: var(--emerald);">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="statTotalExams">4</h3>
+                            <p>Bộ Đề Khảo Thí Động</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--warning-light); color: var(--warning);">
+                            <i class="fa-solid fa-hard-drive"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>5,000 GB</h3>
+                            <p>Kho Lưu Trữ Google Drive</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lối tắt quản trị nhanh -->
+                <div class="section-box">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-compass" style="color: var(--primary);"></i> Lối Tắt Quản Trị Cốt Lõi</h3>
+                            <p>Truy cập nhanh các hạ tầng đám mây liên kết của STM English</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
+                        <div style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1.5px solid var(--border);">
+                            <div style="font-size: 1.8rem; color: #0284c7; margin-bottom: 0.8rem;"><i class="fa-brands fa-google-drive"></i></div>
+                            <h4 style="font-weight: 800; margin-bottom: 0.4rem;">Thư Mục Bài Tập Về Nhà 5TB</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem;">Truy cập trực tiếp thư mục Google Drive tiếp nhận file học sinh nộp hàng tuần.</p>
+                            <a href="https://drive.google.com" target="_blank" class="btn btn-outline" style="font-size: 0.85rem;">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Google Drive
+                            </a>
+                        </div>
+
+                        <div style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1.5px solid var(--border);">
+                            <div style="font-size: 1.8rem; color: #10b981; margin-bottom: 0.8rem;"><i class="fa-solid fa-table"></i></div>
+                            <h4 style="font-weight: 800; margin-bottom: 0.4rem;">Sổ Quản Lý Tài Khoản STM</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem;">Xem và cập nhật danh sách tài khoản học sinh, phân quyền phụ huynh trên Google Sheets.</p>
+                            <a href="https://docs.google.com/spreadsheets/d/1bfJgXquUTvEVAeHRDwZDwf3Q3zYYccBWJK2SxAsSrD4/edit" target="_blank" class="btn btn-outline" style="font-size: 0.85rem;">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Google Sheets
+                            </a>
+                        </div>
+
+                        <div style="padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1.5px solid var(--border);">
+                            <div style="font-size: 1.8rem; color: #d97706; margin-bottom: 0.8rem;"><i class="fa-solid fa-code"></i></div>
+                            <h4 style="font-weight: 800; margin-bottom: 0.4rem;">Backend Google Apps Script</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1.2rem;">Quản lý API Web App xác thực đăng nhập phân quyền RBAC và tiếp nhận tải file.</p>
+                            <a href="https://script.google.com" target="_blank" class="btn btn-outline" style="font-size: 0.85rem;">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Apps Script
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========================================================
+                 TAB 2: TRÌNH TẠO ĐỀ THI TRẮC NGHIỆM ĐỘNG (EXAM BUILDER)
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-exam-creator">
+                <div class="section-box">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-file-circle-plus" style="color: var(--primary);"></i> Trình Soạn Thảo Đề Thi Trắc Nghiệm Động</h3>
+                            <p>Tạo bộ đề thi mới, tự động biên dịch sang chuẩn JSON và nạp trực tiếp vào hệ thống khảo thí</p>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn btn-outline" onclick="loadSampleExamTemplate()">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Nạp Đề Mẫu
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- THÔNG TIN CHUNG BỘ ĐỀ -->
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Mã Định Danh Đề Thi (ID không dấu, gạch ngang) *</label>
+                            <input type="text" id="examId" class="form-control" placeholder="Ví dụ: anh9-u2-grammar, anh8-giuaky1" value="anh9-u2-test">
+                        </div>
+                        <div class="form-group">
+                            <label>Tiêu Đề Bài Thi Khảo Thí *</label>
+                            <input type="text" id="examTitle" class="form-control" placeholder="Ví dụ: Đề Kiểm Tra Định Kỳ Unit 2 - Tiếng Anh 9" value="Đề Kiểm Tra Định Kỳ Unit 2: City Life - Tiếng Anh 9">
+                        </div>
+                        <div class="form-group">
+                            <label>Khối Lớp *</label>
+                            <select id="examGrade" class="form-control">
+                                <option value="1">Lớp 1</option>
+                                <option value="2">Lớp 2</option>
+                                <option value="3">Lớp 3</option>
+                                <option value="4">Lớp 4</option>
+                                <option value="5">Lớp 5</option>
+                                <option value="6">Lớp 6</option>
+                                <option value="7">Lớp 7</option>
+                                <option value="8">Lớp 8</option>
+                                <option value="9" selected>Lớp 9</option>
+                                <option value="10">Lớp 10</option>
+                                <option value="11">Lớp 11</option>
+                                <option value="12">Lớp 12</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Thời Gian Làm Bài (Phút) *</label>
+                            <input type="number" id="examTime" class="form-control" value="15" min="5" max="120">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label>Mô Tả & Hướng Dẫn Bài Thi</label>
+                        <input type="text" id="examDesc" class="form-control" value="Kiểm tra mức độ nắm vững từ vựng đời sống đô thị và cấu trúc so sánh kép (Double Comparative)." placeholder="Mô tả nội dung trọng tâm của đề...">
+                    </div>
+
+                    <!-- DANH SÁCH CÂU HỎI -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h4 style="font-weight: 800; font-size: 1.1rem; color: var(--navy);">
+                            Danh Sách Câu Hỏi (<span id="totalQuestionsCount">1</span> câu)
+                        </h4>
+                        <button type="button" class="btn btn-teal" onclick="addNewQuestion()">
+                            <i class="fa-solid fa-plus"></i> Thêm Câu Hỏi Mới
+                        </button>
+                    </div>
+
+                    <div id="questionsContainer">
+                        <!-- Các card câu hỏi sẽ render ở đây -->
+                    </div>
+
+                    <!-- KHỐI HÀNH ĐỘNG XUẤT ĐỀ -->
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: #f8fafc; border-radius: var(--radius-md); border: 1.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <strong style="color: var(--navy); display: block; font-size: 1rem;">Xuất Bản Đề Thi Động</strong>
+                            <span style="font-size: 0.88rem; color: var(--text-muted);">Tải file JSON để lưu vào data/exams/ hoặc lưu ngay vào trình duyệt để test lập tức!</span>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="btn btn-primary" onclick="exportExamJSON()">
+                                <i class="fa-solid fa-download"></i> Tải File JSON Về Máy
+                            </button>
+                            <button type="button" class="btn btn-emerald" onclick="saveAndTestExam()">
+                                <i class="fa-solid fa-rocket"></i> Lưu & Thi Thử Ngay
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ========================================================
+                 TAB 3: TẢI BÀI VỞ & TÀI LIỆU BÀI GIẢNG (MATERIALS)
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-materials">
+                <div class="section-box">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-cloud-arrow-up" style="color: var(--teal);"></i> Quản Trị Bài Giảng & Phiếu Bài Tập</h3>
+                            <p>Tải lên Slide PowerPoint (.pptx), Phiếu bài tập Word (.docx) hoặc Đề ôn tập PDF cho từng Khối lớp và Unit</p>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Chọn Khối Lớp Cần Tải Lên</label>
+                            <select id="matGradeSelect" class="form-control" onchange="updateMatUnitList()">
+                                <option value="9">Khối Lớp 9 (Global Success)</option>
+                                <option value="8">Khối Lớp 8 (Global Success)</option>
+                                <option value="7">Khối Lớp 7 (Global Success)</option>
+                                <option value="6">Khối Lớp 6 (Global Success)</option>
+                                <option value="5">Khối Lớp 5</option>
+                                <option value="4">Khối Lớp 4</option>
+                                <option value="3">Khối Lớp 3</option>
+                                <option value="2">Khối Lớp 2</option>
+                                <option value="1">Khối Lớp 1</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Chọn Đơn Vị Bài Học (Unit)</label>
+                            <select id="matUnitSelect" class="form-control">
+                                <option value="1">Unit 1: Local Community</option>
+                                <option value="2">Unit 2: City Life</option>
+                                <option value="3">Unit 3: Healthy Living</option>
+                                <option value="4">Unit 4: Remembering the Past</option>
+                                <option value="5">Unit 5: Our Experiences</option>
+                                <option value="6">Unit 6: Viet Nam: Then & Now</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- KHU VỰC UPLOAD FILE LÊN DRIVE 5TB -->
+                    <div style="background: #f8fafc; border: 2px dashed #93c5fd; border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; color: #0284c7; margin-bottom: 1rem;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h4 style="font-size: 1.2rem; font-weight: 800; color: var(--navy); margin-bottom: 0.5rem;">
+                            Tải Tệp Học Liệu Lên Kho Lưu Trữ Google Drive 5TB
+                        </h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            Hỗ trợ tệp bài giảng PowerPoint (<strong>.pptx</strong>), phiếu học tập Word (<strong>.docx</strong>), tệp tài liệu PDF (<strong>.pdf</strong>) hoặc file nghe Audio (<strong>.mp3</strong>). Tối đa 50MB.
+                        </p>
+
+                        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <input type="file" id="adminMatFileInput" style="display: none;" onchange="handleAdminFileSelected(this)">
+                            <button type="button" class="btn btn-primary" onclick="document.getElementById('adminMatFileInput').click()">
+                                <i class="fa-solid fa-folder-open"></i> Chọn Tệp Từ Máy Tính
+                            </button>
+                            <button type="button" class="btn btn-emerald" id="btnAdminUploadDrive" onclick="uploadAdminFileToDrive()" disabled>
+                                <i class="fa-solid fa-upload"></i> Bắt Đầu Tải Lên Google Drive
+                            </button>
+                        </div>
+
+                        <div id="adminUploadStatus" style="margin-top: 1.2rem; font-weight: 700; font-size: 0.95rem; display: none;"></div>
+                    </div>
+
+                    <!-- DANH SÁCH BÀI VỞ ĐÃ CÓ TRONG HỆ THỐNG -->
+                    <h4 style="font-weight: 800; font-size: 1.1rem; color: var(--navy); margin-bottom: 1rem;">
+                        Danh Sách Tài Liệu Hiện Có Tại Lớp Này
+                    </h4>
+
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Loại Tài Liệu</th>
+                                    <th>Tên File Học Liệu</th>
+                                    <th>Đơn Vị Bài Học</th>
+                                    <th>Dung Lượng</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="materialsTableBody">
+                                <tr>
+                                    <td><span style="background: #fee2e2; color: #dc2626; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">PPTX</span></td>
+                                    <td><strong>Unit 1 - Vocabulary & Grammar.pptx</strong></td>
+                                    <td>Unit 1: Local Community</td>
+                                    <td>12.5 MB</td>
+                                    <td><button class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: #e0f2fe; color: #0284c7; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">DOCX</span></td>
+                                    <td><strong>Phieu_Bai_Tap_Tu_Vung_Unit1.docx</strong></td>
+                                    <td>Unit 1: Local Community</td>
+                                    <td>450 KB</td>
+                                    <td><button class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span style="background: #fef3c7; color: #b45309; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">PDF</span></td>
+                                    <td><strong>De_Thi_Thu_Reading_Unit1.pdf</strong></td>
+                                    <td>Unit 1: Local Community</td>
+                                    <td>1.8 MB</td>
+                                    <td><button class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ========================================================
+                 TAB 4: BÀI TẬP VỀ NHÀ (DRIVE 5TB)
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-submissions">
+                <div class="section-box">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-box-archive" style="color: var(--primary);"></i> Bài Tập Về Nhà Học Sinh Đã Nộp</h3>
+                            <p>Toàn bộ file học sinh tải lên qua trang Lớp học được lưu trữ trực tiếp tại Google Drive 5TB của Thầy Sơn</p>
+                        </div>
+                        <a href="https://drive.google.com" target="_blank" class="btn btn-primary">
+                            <i class="fa-brands fa-google-drive"></i> Mở Trực Tiếp Folder Drive
+                        </a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Thời Gian Nộp</th>
+                                    <th>Họ Và Tên Học Sinh</th>
+                                    <th>Khối Lớp</th>
+                                    <th>Tên Tệp Đính Kèm</th>
+                                    <th>Tình Trạng</th>
+                                    <th>Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>04/11/2026 14:30</td>
+                                    <td><strong>Nguyễn Phương Minh</strong></td>
+                                    <td>Lớp 9</td>
+                                    <td><i class="fa-regular fa-file-word" style="color: #0284c7;"></i> BaiTap_Unit1_PhuongMinh.docx</td>
+                                    <td><span style="background: #d1fae5; color: #059669; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem;">Đã Lưu Drive</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-eye"></i> Chấm Bài</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>04/11/2026 15:10</td>
+                                    <td><strong>Huỳnh Ngọc Thịnh</strong></td>
+                                    <td>Lớp 8</td>
+                                    <td><i class="fa-regular fa-file-pdf" style="color: #dc2626;"></i> De_Cuong_Giua_Ky_Thinh.pdf</td>
+                                    <td><span style="background: #d1fae5; color: #059669; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem;">Đã Lưu Drive</span></td>
+                                    <td>
+                                        <button class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-eye"></i> Chấm Bài</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================
+                 TAB 5: SỔ ĐIỂM & BÁO CÁO KHẢO THÍ (GRADEBOOK)
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-gradebook">
+                <div class="section-box">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-trophy" style="color: var(--warning);"></i> Sổ Điểm Khảo Thí Trắc Nghiệm Tự Động</h3>
+                            <p>Kết quả làm bài thi của học sinh trên hệ thống khảo thí quiz.html được đồng bộ thời gian thực</p>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-outline" onclick="loadRealGradebook()">
+                                <i class="fa-solid fa-rotate"></i> Làm Mới Dữ Liệu
+                            </button>
+                            <button class="btn btn-primary" onclick="exportGradebookCSV()">
+                                <i class="fa-solid fa-file-excel"></i> Xuất File Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Thời Gian Thi</th>
+                                    <th>Họ Và Tên Thí Sinh</th>
+                                    <th>Khối Lớp</th>
+                                    <th>Tên Bài Khảo Thí</th>
+                                    <th>Số Câu Đúng</th>
+                                    <th>Điểm Số (10)</th>
+                                    <th>Xếp Loại</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gradebookTableBody">
+                                <!-- JavaScript render từ localStorage -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        /**
+         * =========================================================================
+         * 1. BẢO MẬT & KIỂM TRA PHÂN QUYỀN GIÁO VIÊN
+         * =========================================================================
+         */
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentRole = localStorage.getItem('stm_role') || 'student';
+            
+            // Nếu không phải là Giáo viên, hiển thị overlay cảnh báo
+            if (currentRole !== 'teacher') {
+                document.getElementById('access-denied-overlay').style.display = 'flex';
+                return;
+            }
+
+            // Cập nhật đồng hồ thời gian thực
+            updateLiveClock();
+            setInterval(updateLiveClock, 1000);
+
+            // Khởi tạo câu hỏi đầu tiên trong Form Tạo Đề
+            addNewQuestion();
+
+            // Nạp bảng điểm thật từ localStorage
+            loadRealGradebook();
+        });
+
+        function updateLiveClock() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('vi-VN');
+            const clockEl = document.getElementById('liveClock');
+            if (clockEl) clockEl.innerText = `${dateStr} • ${timeStr}`;
+        }
+
+        function handleLogout() {
+            if (confirm("Thầy có chắc chắn muốn đăng xuất khỏi Trung tâm Quản trị không?")) {
+                localStorage.removeItem('stm_user');
+                localStorage.removeItem('stm_role');
+                localStorage.removeItem('student_name');
+                window.location.href = 'login.html';
+            }
+        }
+
+        /**
+         * =========================================================================
+         * 2. CHUYỂN ĐỔI TAB ĐIỀU HƯỚNG
+         * =========================================================================
+         */
+        function switchTab(tabId) {
+            // Đổi class active ở nav link
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(l => l.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Đổi tab panel
+            const panels = document.querySelectorAll('.tab-panel');
+            panels.forEach(p => p.classList.remove('active'));
+            const targetPanel = document.getElementById(`tab-${tabId}`);
+            if (targetPanel) targetPanel.classList.add('active');
+
+            // Đổi tiêu đề header
+            const titles = {
+                'dashboard': 'Tổng Quan Hệ Thống',
+                'exam-creator': 'Trình Soạn Thảo Đề Thi Trắc Nghiệm Động',
+                'materials': 'Quản Trị Bài Giảng & Phiếu Bài Tập',
+                'submissions': 'Bài Tập Về Nhà Học Sinh Đã Nộp',
+                'gradebook': 'Sổ Điểm & Báo Cáo Khảo Thí'
+            };
+            document.getElementById('currentTabHeading').innerText = titles[tabId] || 'Quản Trị Hệ Thống';
+        }
+
+        /**
+         * =========================================================================
+         * 3. LOGIC TRÌNH TẠO ĐỀ THI TRẮC NGHIỆM ĐỘNG (EXAM CREATOR)
+         * =========================================================================
+         */
+        let questionCounter = 0;
+
+        function addNewQuestion(data = null) {
+            questionCounter++;
+            const container = document.getElementById('questionsContainer');
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item-card';
+            qDiv.id = `qCard_${questionCounter}`;
+
+            const defaultQ = data || {
+                tag: 'Grammar • Multiple Choice',
+                type: 'grammar',
+                question: '',
+                optA: '',
+                optB: '',
+                optC: '',
+                optD: '',
+                correct: 'A',
+                explanation: ''
+            };
+
+            qDiv.innerHTML = `
+                <div class="question-item-header">
+                    <span class="q-number-badge">Câu Hỏi #${questionCounter}</span>
+                    <button type="button" class="btn-del-question" onclick="deleteQuestion(${questionCounter})">
+                        <i class="fa-solid fa-trash-can"></i> Xóa câu này
+                    </button>
+                </div>
+
+                <div class="form-grid" style="grid-template-columns: 2fr 1fr; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label>Dạng bài / Nhãn chuyên môn (Tag)</label>
+                        <input type="text" class="form-control q-tag" value="${defaultQ.tag}" placeholder="Ví dụ: Phrasal Verbs, Phonetics, Reading...">
+                    </div>
+                    <div class="form-group">
+                        <label>Phân loại câu hỏi</label>
+                        <select class="form-control q-type">
+                            <option value="grammar" ${defaultQ.type === 'grammar' ? 'selected' : ''}>Ngữ pháp / Từ vựng</option>
+                            <option value="phonetics" ${defaultQ.type === 'phonetics' ? 'selected' : ''}>Ngữ âm / Trọng âm</option>
+                            <option value="listening" ${defaultQ.type === 'listening' ? 'selected' : ''}>Nghe hiểu (Listening)</option>
+                            <option value="reading" ${defaultQ.type === 'reading' ? 'selected' : ''}>Đọc hiểu (Reading)</option>
+                            <option value="writing" ${defaultQ.type === 'writing' ? 'selected' : ''}>Viết câu (Writing)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1rem;">
+                    <label>Nội dung câu hỏi đề bài *</label>
+                    <textarea class="form-control q-question" placeholder="Nhập câu hỏi tiếng Anh vào đây...">${defaultQ.question}</textarea>
+                </div>
+
+                <div class="form-grid" style="margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label>Lựa chọn [A] *</label>
+                        <input type="text" class="form-control q-optA" value="${defaultQ.optA}" placeholder="Đáp án A">
+                    </div>
+                    <div class="form-group">
+                        <label>Lựa chọn [B] *</label>
+                        <input type="text" class="form-control q-optB" value="${defaultQ.optB}" placeholder="Đáp án B">
+                    </div>
+                    <div class="form-group">
+                        <label>Lựa chọn [C] *</label>
+                        <input type="text" class="form-control q-optC" value="${defaultQ.optC}" placeholder="Đáp án C">
+                    </div>
+                    <div class="form-group">
+                        <label>Lựa chọn [D] *</label>
+                        <input type="text" class="form-control q-optD" value="${defaultQ.optD}" placeholder="Đáp án D">
+                    </div>
+                </div>
+
+                <div class="form-grid" style="grid-template-columns: 1fr 3fr;">
+                    <div class="form-group">
+                        <label>Đáp Án Đúng *</label>
+                        <select class="form-control q-correct" style="font-weight: 800; color: var(--emerald);">
+                            <option value="A" ${defaultQ.correct === 'A' ? 'selected' : ''}>Đáp án A</option>
+                            <option value="B" ${defaultQ.correct === 'B' ? 'selected' : ''}>Đáp án B</option>
+                            <option value="C" ${defaultQ.correct === 'C' ? 'selected' : ''}>Đáp án C</option>
+                            <option value="D" ${defaultQ.correct === 'D' ? 'selected' : ''}>Đáp án D</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Lời Giải Thích Chi Tiết Của Thầy Sơn</label>
+                        <input type="text" class="form-control q-explanation" value="${defaultQ.explanation}" placeholder="Giải thích ngữ pháp, dịch nghĩa câu tiếng Việt...">
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(qDiv);
+            updateQuestionsCount();
+        }
+
+        function deleteQuestion(id) {
+            const card = document.getElementById(`qCard_${id}`);
+            if (card) {
+                card.remove();
+                updateQuestionsCount();
+            }
+        }
+
+        function updateQuestionsCount() {
+            const total = document.querySelectorAll('.question-item-card').length;
+            document.getElementById('totalQuestionsCount').innerText = total;
+        }
+
+        // Tạo cấu trúc dữ liệu JSON từ Form
+        function compileExamObject() {
+            const examId = document.getElementById('examId').value.trim() || 'anh-exam';
+            const title = document.getElementById('examTitle').value.trim() || 'Đề Khảo Sát Tiếng Anh';
+            const grade = parseInt(document.getElementById('examGrade').value, 10) || 9;
+            const timeMinutes = parseInt(document.getElementById('examTime').value, 10) || 15;
+            const description = document.getElementById('examDesc').value.trim();
+
+            const cards = document.querySelectorAll('.question-item-card');
+            const questions = [];
+
+            cards.forEach((card, idx) => {
+                const tag = card.querySelector('.q-tag').value.trim();
+                const type = card.querySelector('.q-type').value;
+                const questionText = card.querySelector('.q-question').value.trim();
+                const optA = card.querySelector('.q-optA').value.trim();
+                const optB = card.querySelector('.q-optB').value.trim();
+                const optC = card.querySelector('.q-optC').value.trim();
+                const optD = card.querySelector('.q-optD').value.trim();
+                const correctLetter = card.querySelector('.q-correct').value;
+                const explanation = card.querySelector('.q-explanation').value.trim();
+
+                const optionsMap = { 'A': optA, 'B': optB, 'C': optC, 'D': optD };
+                const correctChoiceText = optionsMap[correctLetter] || optA;
+
+                questions.push({
+                    id: idx + 1,
+                    type: type,
+                    tag: tag,
+                    question: questionText || `Câu hỏi trắc nghiệm số ${idx + 1}`,
+                    options: [optA || "Lựa chọn A", optB || "Lựa chọn B", optC || "Lựa chọn C", optD || "Lựa chọn D"],
+                    correct_answer: correctChoiceText,
+                    explanation: explanation || "Đáp án chính xác theo chương trình học."
+                });
+            });
+
+            return {
+                id: examId,
+                title: title,
+                grade: grade,
+                subject: "Tiếng Anh (Global Success)",
+                timeMinutes: timeMinutes,
+                description: description,
+                questions: questions
+            };
+        }
+
+        // Tải file JSON về máy tính
+        function exportExamJSON() {
+            const examObj = compileExamObject();
+            if (examObj.questions.length === 0) {
+                alert("Vui lòng thêm ít nhất 1 câu hỏi!");
+                return;
+            }
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(examObj, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", `${examObj.id}.json`);
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+
+            alert(`✅ Đã xuất file "${examObj.id}.json" thành công! Thầy chỉ cần thả file này vào thư mục data/exams/ là hệ thống nhận ngay.`);
+        }
+
+        // Lưu vào localStorage và Mở thi thử ngay trên quiz.html
+        function saveAndTestExam() {
+            const examObj = compileExamObject();
+            if (examObj.questions.length === 0) {
+                alert("Vui lòng thêm ít nhất 1 câu hỏi!");
+                return;
+            }
+
+            // Lưu trực tiếp vào danh sách đề thi của trình duyệt
+            let customExams = JSON.parse(localStorage.getItem('stm_custom_exams') || '{}');
+            customExams[examObj.id] = examObj;
+            localStorage.setItem('stm_custom_exams', JSON.stringify(customExams));
+
+            const testUrl = `quiz.html?de=${examObj.id}`;
+            if (confirm(`✅ Đã lưu bộ đề "${examObj.title}" vào hệ thống!\n\nThầy có muốn mở làm bài thi thử ngay bây giờ không?`)) {
+                window.open(testUrl, '_blank');
+            }
+        }
+
+        // Nạp mẫu đề thi nhanh
+        function loadSampleExamTemplate() {
+            document.getElementById('questionsContainer').innerHTML = '';
+            questionCounter = 0;
+
+            addNewQuestion({
+                tag: 'Vocabulary • Unit 2 (City Life)',
+                type: 'grammar',
+                question: 'The city center is always packed with tourists and vehicles, leading to heavy traffic ______ during rush hours.',
+                optA: 'congestion',
+                optB: 'attraction',
+                optC: 'entertainment',
+                optD: 'distraction',
+                correct: 'A',
+                explanation: "Cụm danh từ: 'traffic congestion' = tình trạng ùn tắc giao thông."
+            });
+
+            addNewQuestion({
+                tag: 'Grammar • Double Comparative',
+                type: 'grammar',
+                question: '______ you revise your vocabulary, the more confident you will feel in the examination room.',
+                optA: 'The more diligently',
+                optB: 'The most diligently',
+                optC: 'More diligently',
+                optD: 'As diligently as',
+                correct: 'A',
+                explanation: "Công thức so sánh kép: The + comparative + S + V, the + comparative + S + V."
+            });
+        }
+
+        /**
+         * =========================================================================
+         * 4. HẠ TẦNG TẢI FILE HỌC LIỆU LÊN GOOGLE DRIVE
+         * =========================================================================
+         */
+        let selectedAdminFile = null;
+
+        function handleAdminFileSelected(input) {
+            if (input.files && input.files[0]) {
+                selectedAdminFile = input.files[0];
+                const btnUpload = document.getElementById('btnAdminUploadDrive');
+                btnUpload.disabled = false;
+                btnUpload.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Tải Lên "${selectedAdminFile.name}"`;
+            }
+        }
+
+        function uploadAdminFileToDrive() {
+            if (!selectedAdminFile) return;
+
+            const UPLOAD_API_URL = "https://script.google.com/macros/s/AKfycbxj1vmHrIlyAGZfKb9YERzIUhsspKrCBbUwUNyPJdGF72BqffVGHu1NGEgejLLbMo1ZNA/exec";
+            const btnUpload = document.getElementById('btnAdminUploadDrive');
+            const statusDiv = document.getElementById('adminUploadStatus');
+
+            btnUpload.disabled = true;
+            btnUpload.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang tải lên Drive 5TB...`;
+            statusDiv.style.display = 'block';
+            statusDiv.style.color = '#0284c7';
+            statusDiv.innerText = 'Đang chuyển đổi tệp và truyền lên Google Drive...';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result.split(',')[1];
+                const payload = {
+                    fileName: selectedAdminFile.name,
+                    mimeType: selectedAdminFile.type || 'application/octet-stream',
+                    base64: base64Data
+                };
+
+                fetch(UPLOAD_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload),
+                    redirect: 'follow'
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        statusDiv.style.color = '#059669';
+                        statusDiv.innerHTML = `🎉 Tải lên thành công! Tệp đã lưu an toàn vào Google Drive của Thầy.`;
+                        
+                        // Thêm vào bảng danh sách
+                        const tbody = document.getElementById('materialsTableBody');
+                        const newRow = `
+                            <tr>
+                                <td><span style="background: #d1fae5; color: #059669; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">MỚI</span></td>
+                                <td><strong>${selectedAdminFile.name}</strong></td>
+                                <td>Unit Vừa Chọn</td>
+                                <td>${(selectedAdminFile.size / (1024*1024)).toFixed(2)} MB</td>
+                                <td><a href="${data.fileUrl}" target="_blank" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Drive</a></td>
+                            </tr>
+                        `;
+                        tbody.insertAdjacentHTML('afterbegin', newRow);
+                    } else {
+                        statusDiv.style.color = '#dc2626';
+                        statusDiv.innerText = 'Lỗi từ máy chủ: ' + (data.message || 'Không thể tải lên');
+                    }
+                })
+                .catch(err => {
+                    statusDiv.style.color = '#dc2626';
+                    statusDiv.innerText = 'Lỗi kết nối máy chủ Drive: ' + err.message;
+                })
+                .finally(() => {
+                    btnUpload.disabled = false;
+                    btnUpload.innerHTML = `<i class="fa-solid fa-upload"></i> Tải Thêm Tệp Khác`;
+                });
+            };
+            reader.readAsDataURL(selectedAdminFile);
+        }
+
+        /**
+         * =========================================================================
+         * 5. SỔ ĐIỂM & BÁO CÁO KHẢO THÍ THẬT TỪ LOCALSTORAGE
+         * =========================================================================
+         */
+        function loadRealGradebook() {
+            const tableBody = document.getElementById('gradebookTableBody');
+            if (!tableBody) return;
+
+            const history = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+
+            if (history.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                            <i class="fa-regular fa-clipboard"></i> Chưa có lượt làm bài khảo thí nào được ghi nhận. Học sinh làm bài trên <strong>quiz.html</strong> sẽ tự động hiển thị tại đây!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            let html = '';
+            history.forEach(item => {
+                let badgeClass = 'background: #f0fdf4; color: #16a34a;';
+                let rating = 'Xuất Sắc';
+                const score = parseFloat(item.score);
+
+                if (score >= 9.0) {
+                    rating = 'Xuất Sắc';
+                    badgeClass = 'background: #d1fae5; color: #059669;';
+                } else if (score >= 8.0) {
+                    rating = 'Giỏi';
+                    badgeClass = 'background: #e0f2fe; color: #0284c7;';
+                } else if (score >= 6.5) {
+                    rating = 'Khá';
+                    badgeClass = 'background: #fef3c7; color: #d97706;';
+                } else {
+                    rating = 'Cần Cố Gắng';
+                    badgeClass = 'background: #fee2e2; color: #dc2626;';
+                }
+
+                html += `
+                    <tr>
+                        <td>${item.date || 'Hôm nay'}</td>
+                        <td><strong>${item.studentName || 'Học viên'}</strong></td>
+                        <td>Khối ${item.grade || '9'}</td>
+                        <td>${item.examTitle || 'Bài Khảo Thí Tiếng Anh'}</td>
+                        <td>${item.correct} / ${item.total}</td>
+                        <td><span style="font-weight: 800; font-size: 1.1rem; color: #0284c7;">${item.score}</span></td>
+                        <td><span style="${badgeClass} padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">${rating}</span></td>
+                    </tr>
+                `;
+            });
+
+            tableBody.innerHTML = html;
+        }
+
+        function exportGradebookCSV() {
+            const history = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+            if (history.length === 0) {
+                alert("Chưa có dữ liệu bài thi để xuất báo cáo!");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // UTF-8 BOM
+            csvContent += "Thời Gian,Thí Sinh,Khối Lớp,Tên Bài Thi,Số Câu Đúng,Tổng Câu,Điểm Số,Thời Gian Làm\n";
+
+            history.forEach(row => {
+                csvContent += `"${row.date}","${row.studentName}","${row.grade}","${row.examTitle}","${row.correct}","${row.total}","${row.score}","${row.timeSpent}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Bang_Diem_Khao_Thi_STM_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
+    </script>
+
+</body>
+</html>
+

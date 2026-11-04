@@ -1,0 +1,67 @@
+{
+  "id": "anh9-u1-grammar",
+  "title": "Luyện Tập Kỹ Năng 2: Ngữ Pháp & Từ Vựng (Grammar & Lexicon) • Unit 1 Lớp 9",
+  "grade": 9,
+  "subject": "Tiếng Anh (Global Success)",
+  "timeMinutes": 15,
+  "description": "Hệ thống từ vựng theo ngữ cảnh làng nghề, cụm động từ (Phrasal verbs) và cấu trúc Wh-word + to-infinitive.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "grammar",
+      "tag": "Phrasal Verbs • Unit 1",
+      "question": "My grandparents have decided to ______ the family silk-weaving business to my uncle because of their advancing age.",
+      "options": [
+        "hand down",
+        "live on",
+        "break down",
+        "come back"
+      ],
+      "correct_answer": "hand down",
+      "explanation": "'hand down' = truyền lại, bàn giao lại qua nhiều thế hệ (đồng nghĩa với pass down). 'live on' (sống dựa vào), 'break down' (hỏng hóc/suy sụp)."
+    },
+    {
+      "id": 2,
+      "type": "grammar",
+      "tag": "Vocabulary • Traditional Crafts",
+      "question": "Con Non village in Hue is internationally renowned for producing exquisite conical ______ made from dried palm leaves.",
+      "options": [
+        "hats",
+        "scarves",
+        "sweaters",
+        "baskets"
+      ],
+      "correct_answer": "hats",
+      "explanation": "Từ vựng kết hợp: 'conical hats' = nón lá truyền thống Việt Nam. Các sản phẩm nón lá nức tiếng được làm từ lá cọ phơi khô."
+    },
+    {
+      "id": 3,
+      "type": "grammar",
+      "tag": "Question word + to-infinitive",
+      "question": "The newly arrived foreign tourist asked the receptionist ______ to exchange international currency safely.",
+      "options": [
+        "where",
+        "which",
+        "what",
+        "whose"
+      ],
+      "correct_answer": "where",
+      "explanation": "Cấu trúc 'Wh-word + to V': Vế sau chỉ địa điểm đổi ngoại tệ ('to exchange international currency') nên ta dùng từ để hỏi chỉ nơi chốn là 'where to exchange' (đổi ở đâu)."
+    },
+    {
+      "id": 4,
+      "type": "grammar",
+      "tag": "Phrasal Verbs • Unit 1",
+      "question": "Due to the economic recession and lack of tourism, the century-old pottery workshop unfortunately had to ______.",
+      "options": [
+        "close down",
+        "face up to",
+        "turn down",
+        "look round"
+      ],
+      "correct_answer": "close down",
+      "explanation": "'close down' = đóng cửa dừng hoạt động kinh doanh vĩnh viễn (phá sản/ngừng sản xuất). 'face up to' (đối mặt với), 'turn down' (từ chối), 'look round' (đi ngắm nhìn xung quanh)."
+    }
+  ]
+}
+

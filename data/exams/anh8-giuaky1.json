@@ -1,0 +1,83 @@
+{
+  "id": "anh8-giuaky1",
+  "title": "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 8",
+  "grade": 8,
+  "subject": "Tiếng Anh (Global Success)",
+  "timeMinutes": 60,
+  "description": "Đề khảo sát năng lực Lớp 8 cấu trúc chuẩn Cần Thơ gồm các chủ điểm Life in the countryside, Our communities & Teenagers.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "listening",
+      "tag": "Listening • Life in the Countryside",
+      "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+      "question": "What activity did Minh enjoy most during his summer holiday at his grandparents' farm in the Mekong Delta?",
+      "options": [
+        "Herding cattle and flying kites in the open paddy field",
+        "Playing modern video games at the cyber cafe",
+        "Shopping at the air-conditioned supermarket",
+        "Driving a tractor along the paved highway"
+      ],
+      "correct_answer": "Herding cattle and flying kites in the open paddy field",
+      "explanation": "Dẫn chứng Script: Minh kể lại rằng trải nghiệm chăn trâu và thả diều trên cánh đồng lúa bát ngát là hoạt động tuyệt vời nhất trong kỳ nghỉ hè."
+    },
+    {
+      "id": 2,
+      "type": "grammar",
+      "tag": "Verbs of liking + Gerund (Unit 1)",
+      "question": "Most adolescents nowadays are keen ______ making DIY handicrafts and origami figures in their spare time.",
+      "options": [
+        "on",
+        "about",
+        "with",
+        "in"
+      ],
+      "correct_answer": "on",
+      "explanation": "Cụm tính từ cố định: 'be keen on + V-ing/N' = say mê, thích thú điều gì. 'be interested in', 'be fond of'."
+    },
+    {
+      "id": 3,
+      "type": "grammar",
+      "tag": "Comparative Adverbs • Unit 2 (Life in the Countryside)",
+      "question": "During harvest season, local farmers have to work ______ than usual from dawn till dusk.",
+      "options": [
+        "harder",
+        "more hard",
+        "hardliest",
+        "more hardly"
+      ],
+      "correct_answer": "harder",
+      "explanation": "'Hard' là trạng từ bất quy tắc (hard $\\rightarrow$ harder, không dùng more hard hay hardly vì hardly = hiếm khi)."
+    },
+    {
+      "id": 4,
+      "type": "grammar",
+      "tag": "Compound Sentences • Unit 3 (Teenagers)",
+      "question": "Minh practiced playing the guitar relentlessly, ______ he won first prize in the school talent competition.",
+      "options": [
+        "so",
+        "but",
+        "for",
+        "or"
+      ],
+      "correct_answer": "so",
+      "explanation": "Liên từ chỉ kết quả: 'so' (vì vậy, do đó). Minh luyện tập đàn miệt mài, VÌ VẬY bạn ấy đã đoạt giải nhất."
+    },
+    {
+      "id": 5,
+      "type": "reading",
+      "tag": "Reading Comprehension • Peaceful Countryside Life",
+      "passage": "Living in the tranquil countryside provides numerous benefits that urban centers cannot offer. Firstly, the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories. People who reside in rural hamlets typically cultivate their own organic produce, including fresh herbs, leafy vegetables, and tropical fruits. Furthermore, the social bonds between neighbors are genuinely heartwarming; everyone is eager to lend a sympathetic hand during rice harvesting season.",
+      "question": "Why is the rural atmosphere refreshingly pure according to the text?",
+      "options": [
+        "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.",
+        "Because all roads are paved with solid asphalt.",
+        "Because residents rarely step outdoors in the morning.",
+        "Because there are numerous high-rise commercial complexes."
+      ],
+      "correct_answer": "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.",
+      "explanation": "Dẫn chứng bài đọc: 'the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories' (bầu không khí trong lành vì không có khói thải dày đặc từ xe cộ và nhà máy)."
+    }
+  ]
+}
+

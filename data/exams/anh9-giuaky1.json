@@ -1,0 +1,156 @@
+{
+  "id": "anh9-giuaky1",
+  "title": "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 9",
+  "grade": 9,
+  "subject": "Tiếng Anh (Global Success)",
+  "timeMinutes": 60,
+  "description": "Đề thi khảo sát năng lực toàn diện bám sát chuẩn ma trận đề thi Sở GD&ĐT Cần Thơ (Gồm Listening, Grammar, Reading và Writing trắc nghiệm hóa).",
+  "questions": [
+    {
+      "id": 1,
+      "type": "listening",
+      "tag": "Listening • Part 1 (Trip to Bat Trang)",
+      "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      "question": "How did Nam and Sarah travel to Bat Trang pottery village on their weekend trip?",
+      "options": [
+        "By electric bus",
+        "By bicycle",
+        "By private car",
+        "By sky train"
+      ],
+      "correct_answer": "By electric bus",
+      "explanation": "Dẫn chứng từ Audio Script: Nam chia sẻ rằng họ đã đi bằng xe buýt điện công cộng (electric bus) để bảo vệ môi trường làng nghề."
+    },
+    {
+      "id": 2,
+      "type": "listening",
+      "tag": "Listening • Part 1 (Trip to Bat Trang)",
+      "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+      "question": "What traditional craft product did Sarah try moulding with clay on the potter's wheel?",
+      "options": [
+        "A small clay vase",
+        "A ceramic tea cup",
+        "A decorative plate",
+        "A flower pot"
+      ],
+      "correct_answer": "A small clay vase",
+      "explanation": "Dẫn chứng Audio Script: Sarah hào hứng kể lại rằng nghệ nhân đã hướng dẫn bạn nặn một chiếc bình gốm nhỏ (a small clay vase)."
+    },
+    {
+      "id": 3,
+      "type": "listening",
+      "tag": "Listening • Part 2 (Teen Stress & Pressure)",
+      "audio_url": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+      "question": "According to the school psychologist, what represents the primary cause of stress among middle school students?",
+      "options": [
+        "Heavy academic expectations and upcoming exams",
+        "Difficulties in making new school friends",
+        "Lack of modern electronic entertainment devices",
+        "Daily arguments with neighborhood helpers"
+      ],
+      "correct_answer": "Heavy academic expectations and upcoming exams",
+      "explanation": "Dẫn chứng Audio Script: Chuyên gia tâm lý học đường khẳng định áp lực kỳ vọng điểm số và các kỳ thi sắp tới (heavy academic expectations and upcoming exams) là nguyên nhân hàng đầu gây căng thẳng ở tuổi vị thành niên."
+    },
+    {
+      "id": 4,
+      "type": "grammar",
+      "tag": "Phrasal Verbs • Unit 1 (Local Community)",
+      "question": "Experienced artisans in Bat Trang always ______ their traditional pottery-making techniques to the younger generation.",
+      "options": [
+        "pass down",
+        "turn down",
+        "look up",
+        "close down"
+      ],
+      "correct_answer": "pass down",
+      "explanation": "Kiến thức Cụm động từ (Phrasal Verbs): 'pass down' có nghĩa là truyền lại cho thế hệ sau. 'turn down' (từ chối/vặn nhỏ), 'look up' (tra cứu), 'close down' (phá sản/đóng cửa vĩnh viễn)."
+    },
+    {
+      "id": 5,
+      "type": "grammar",
+      "tag": "Vocabulary • Unit 2 (City Life)",
+      "question": "The municipal authority is constructing an elevated sky train line to tackle heavy traffic ______ during rush hours.",
+      "options": [
+        "congestion",
+        "distraction",
+        "priority",
+        "relaxation"
+      ],
+      "correct_answer": "congestion",
+      "explanation": "Kiến thức Từ vựng kết hợp (Collocation): 'traffic congestion' = tình trạng ùn tắc giao thông nghiêm trọng. Các từ còn lại: distraction (sự xao nhãng), priority (sự ưu tiên), relaxation (sự thư giãn)."
+    },
+    {
+      "id": 6,
+      "type": "grammar",
+      "tag": "Vocabulary • Unit 3 (Healthy Living)",
+      "question": "To maintain optimal fitness and mental sharpness, adolescents should pursue a ______ diet rich in green vegetables and lean protein.",
+      "options": [
+        "well-balanced",
+        "fattening",
+        "depressed",
+        "stressful"
+      ],
+      "correct_answer": "well-balanced",
+      "explanation": "Cụm danh từ: 'a well-balanced diet' = chế độ ăn uống cân bằng, đầy đủ dưỡng chất. 'fattening' (gây béo phì), 'depressed' (chán nản), 'stressful' (căng thẳng)."
+    },
+    {
+      "id": 7,
+      "type": "grammar",
+      "tag": "Grammar • Question word + to-infinitive",
+      "question": "Lan felt completely confused and stressed because she had no idea ______ to consult for advice on her science project.",
+      "options": [
+        "who",
+        "which",
+        "what",
+        "where"
+      ],
+      "correct_answer": "who",
+      "explanation": "Cấu trúc 'Wh-word + to V': Động từ 'consult' (tham vấn/hỏi ý kiến) cần một tân ngữ chỉ người, do đó ta dùng 'who to consult' (hỏi ai/tham vấn ai)."
+    },
+    {
+      "id": 8,
+      "type": "grammar",
+      "tag": "Grammar • Double Comparative (So sánh kép)",
+      "question": "______ you practice speaking English with native speakers, the more fluent and natural you become.",
+      "options": [
+        "The more regularly",
+        "The most regularly",
+        "More regularly than",
+        "As regularly as"
+      ],
+      "correct_answer": "The more regularly",
+      "explanation": "Công thức So sánh kép (The + comparative + S + V, the + comparative + S + V): 'regularly' là trạng từ dài vần $\\rightarrow$ 'The more regularly you practice...' (Bạn càng luyện tập thường xuyên bao nhiêu, bạn càng lưu loát bấy nhiêu)."
+    },
+    {
+      "id": 9,
+      "type": "reading",
+      "tag": "Reading Comprehension • Adolescent Mental Health",
+      "passage": "Adolescence is a transformative stage of psychological and physical growth, but it frequently subjects young individuals to notable emotional turbulence. In contemporary urban society, scholastic pressure stands out as one of the most prominent sources of stress. Secondary school pupils routinely spend eight to ten hours daily attending academic lectures and supplementary tutorials. The persistent apprehension of attaining unsatisfactory grades or failing parental expectations readily precipitates chronic exhaustion, mood swings, and insomnia.",
+      "question": "According to the passage, what consequence is directly precipitated by the persistent fear of low grades?",
+      "options": [
+        "Chronic exhaustion, mood swings, and insomnia.",
+        "An immediate desire to abandon all digital devices.",
+        "An inclination to participate extensively in athletic clubs.",
+        "A total lack of interest in attending family reunions."
+      ],
+      "correct_answer": "Chronic exhaustion, mood swings, and insomnia.",
+      "explanation": "Dẫn chứng từ câu cuối bài đọc: 'The persistent apprehension of attaining unsatisfactory grades or failing parental expectations readily precipitates chronic exhaustion, mood swings, and insomnia' (Sự lo sợ liên tục về điểm số kém dẫn đến kiệt sức mạn tính, thay đổi tâm trạng thất thường và mất ngủ)."
+    },
+    {
+      "id": 10,
+      "type": "writing",
+      "tag": "Sentence Transformation • Trắc nghiệm hóa",
+      "passage": "Câu gốc đề bài: As urban dwellers drive more private vehicles, the air quality in the city center deteriorates significantly.",
+      "question": "Choose the sentence that best rewrites the original statement using a Double Comparative structure:",
+      "options": [
+        "The more private vehicles urban dwellers drive, the worse the air quality in the city center deteriorates.",
+        "The most private vehicles urban dwellers drive, the worst the air quality deteriorates.",
+        "The more private vehicles urban dwellers drive, the better the air quality in the city center becomes.",
+        "The fewer private vehicles urban dwellers drive, the worse the air quality becomes."
+      ],
+      "correct_answer": "The more private vehicles urban dwellers drive, the worse the air quality in the city center deteriorates.",
+      "explanation": "Cấu trúc so sánh kép nguyên nhân - hệ quả: 'The more + N + S + V, the worse + S + V'. Càng nhiều xe cá nhân lưu thông thì chất lượng không khí trung tâm thành phố càng suy giảm tồi tệ hơn."
+    }
+  ]
+}
+

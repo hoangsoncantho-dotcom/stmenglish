@@ -1,0 +1,67 @@
+{
+  "id": "anh9-u1-phonetics",
+  "title": "Luyện Tập Kỹ Năng 1: Ngữ Âm (Phonetics) • Unit 1 Lớp 9",
+  "grade": 9,
+  "subject": "Tiếng Anh (Global Success)",
+  "timeMinutes": 15,
+  "description": "Bài luyện tập phát âm nguyên âm, phụ âm và quy tắc đánh trọng âm từ 2-3 âm tiết bám sát Unit 1: Local Community.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "phonetics",
+      "tag": "Pronunciation • Underlying sound /æ/ vs /eɪ/",
+      "question": "Choose the word whose underlined part is pronounced differently from the others:",
+      "options": [
+        "c<u>a</u>ndle",
+        "tr<u>a</u>vel",
+        "f<u>a</u>mous",
+        "st<u>a</u>tue"
+      ],
+      "correct_answer": "f<u>a</u>mous",
+      "explanation": "Từ 'famous' phát âm là /ˈfeɪməs/ (nguyên âm đôi /eɪ/), trong khi ba từ còn lại có phần gạch dưới phát âm là /æ/: candle /ˈkændl/, travel /ˈtrævl/, statue /ˈstætʃuː/."
+    },
+    {
+      "id": 2,
+      "type": "phonetics",
+      "tag": "Stress • 2-syllable Nouns and Verbs",
+      "question": "Choose the word whose main stress is placed differently from the others:",
+      "options": [
+        "pottery",
+        "artisan",
+        "suburb",
+        "attraction"
+      ],
+      "correct_answer": "attraction",
+      "explanation": "'attraction' /əˈtrækʃn/ có trọng âm rơi vào âm tiết thứ 2 (hậu tố -tion làm trọng âm rơi vào âm tiết ngay trước nó). Ba từ còn lại trọng âm rơi vào âm tiết thứ 1: pottery /ˈpɒtəri/, artisan /ˈɑːtɪzæn/, suburb /ˈsʌbɜːb/."
+    },
+    {
+      "id": 3,
+      "type": "phonetics",
+      "tag": "Pronunciation • Ending sound -ed",
+      "question": "Choose the word whose underlined '-ed' ending is pronounced as /ɪd/:",
+      "options": [
+        "remind<u>ed</u>",
+        "pass<u>ed</u>",
+        "look<u>ed</u>",
+        "carv<u>ed</u>"
+      ],
+      "correct_answer": "remind<u>ed</u>",
+      "explanation": "Quy tắc phát âm đuôi -ed: Các động từ tận cùng bằng âm /t/ hoặc /d/ (như remind) khi thêm đuôi -ed sẽ phát âm là /ɪd/ $\\rightarrow$ reminded /rɪˈmaɪndɪd/. 'passed' /t/, 'looked' /t/, 'carved' /d/."
+    },
+    {
+      "id": 4,
+      "type": "phonetics",
+      "tag": "Stress • 3-syllable Words",
+      "question": "Choose the word whose primary stress pattern differs from the other three:",
+      "options": [
+        "community",
+        "facility",
+        "electrician",
+        "delivery"
+      ],
+      "correct_answer": "electrician",
+      "explanation": "'electrician' /ɪˌlekˈtrɪʃn/ có trọng âm chính ở âm tiết thứ 3 (hậu tố -ian). Các từ còn lại có trọng âm chính ở âm tiết thứ 2: community /kəˈmjuːnəti/, facility /fəˈsɪləti/, delivery /dɪˈlɪvəri/."
+    }
+  ]
+}
+
