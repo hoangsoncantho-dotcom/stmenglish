@@ -112,7 +112,144 @@
 <script>
     // 1. NGÂN HÀNG DỮ LIỆU ĐỀ THI (Cấu trúc mới hỗ trợ trộn đề)
     // Lưu ý: correct_answer phải ghi chính xác chữ của đáp án đúng.
+    // 1. NGÂN HÀNG DỮ LIỆU ĐỀ THI (Tiếng Anh 8 - Global Success - Giữa kỳ 1)
     const rawQuizData = [
+        // --- PHẦN PHÁT ÂM & TRỌNG ÂM ---
+        {
+            type: "grammar", tag: "Phát âm /ʊ/ vs /uː/",
+            question: "Mark the letter A, B, C, or D to indicate the word whose underlined part differs from the other three in pronunciation:<br><br><b>A.</b> c<u>oo</u>k &nbsp;&nbsp; <b>B.</b> f<u>oo</u>t &nbsp;&nbsp; <b>C.</b> b<u>oo</u>k &nbsp;&nbsp; <b>D.</b> p<u>oo</u>l",
+            options: ["cook", "foot", "book", "pool"],
+            correct_answer: "pool"
+        },
+        {
+            type: "grammar", tag: "Trọng âm",
+            question: "Mark the letter A, B, C, or D to indicate the word that differs from the other three in the position of primary stress:<br><br><b>A.</b> origami &nbsp;&nbsp; <b>B.</b> hospitable &nbsp;&nbsp; <b>C.</b> activity &nbsp;&nbsp; <b>D.</b> traditional",
+            options: ["origami", "hospitable", "activity", "traditional"],
+            correct_answer: "origami"
+        },
+
+        // --- PHẦN TỪ VỰNG & NGỮ PHÁP ---
+        {
+            type: "grammar", tag: "Từ vựng (Sở thích)",
+            question: "My younger sister is very ______ on doing DIY projects, especially making handmade greeting cards.",
+            options: ["fond", "keen", "hooked", "interested"],
+            correct_answer: "keen"
+        },
+        {
+            type: "grammar", tag: "Ngữ pháp (So sánh hơn trạng từ)",
+            question: "During the harvest season, the local farmers have to work much ______ than usual.",
+            options: ["more hard", "harder", "hardest", "more hardly"],
+            correct_answer: "harder"
+        },
+        {
+            type: "grammar", tag: "Ngữ pháp (Verbs of liking)",
+            question: "Many teenagers adore ______ to pop music when they are relaxing in their bedrooms.",
+            options: ["listen", "listening", "listened", "to listening"],
+            correct_answer: "listening"
+        },
+        {
+            type: "grammar", tag: "Từ vựng đồng nghĩa",
+            question: "Mark the word(s) CLOSEST in meaning to the underlined word:<br>Life in my grandparents' village is very <u>tranquil</u> and free from heavy traffic jams.",
+            options: ["peaceful", "noisy", "hectic", "crowded"],
+            correct_answer: "peaceful"
+        },
+        {
+            type: "grammar", tag: "Tìm lỗi sai",
+            question: "Indicate the underlined part that needs correction:<br>Nam told me that he really <u>fancies</u> <u>to play</u> online games with his friends.",
+            options: ["told", "fancies", "to play", "with"],
+            correct_answer: "to play"
+        },
+
+        // --- PHẦN GIAO TIẾP ---
+        {
+            type: "grammar", tag: "Giao tiếp xã hội",
+            question: "<b>Minh:</b> \"Would you like to join our school chess club this Friday?\"<br><b>Lan:</b> \"______\"",
+            options: [
+                "Yes, I'd love to. Thanks!", 
+                "Not at all.", 
+                "You're welcome.", 
+                "No, I don't think so."
+            ],
+            correct_answer: "Yes, I'd love to. Thanks!"
+        },
+
+        // --- PHẦN ĐỌC ĐIỀN TỪ (CLOZE TEST) ---
+        {
+            type: "reading", tag: "Đọc điền từ (Câu 1)",
+            passage: "Leisure activities play a vital role in teenage life. In the past, young people often spent their spare time playing traditional games, making (1) ______ like paper kites, or helping their families with farming tasks. Today, the way teenagers spend their free time has changed dramatically.",
+            question: "Choose the correct word for blank (1):",
+            options: ["crafts", "crops", "cattle", "puzzles"],
+            correct_answer: "crafts"
+        },
+        {
+            type: "reading", tag: "Đọc điền từ (Câu 2)",
+            passage: "With the development of modern technology, many teens prefer (2) ______ through social media feeds and playing video games on smartphones. While digital entertainment can be fun, spending too much screen time can lead to health problems.",
+            question: "Choose the correct word for blank (2):",
+            options: ["scroll", "scrolling", "scrolled", "to scrolling"],
+            correct_answer: "scrolling"
+        },
+
+        // --- PHẦN ĐỌC HIỂU (READING COMPREHENSION) ---
+        {
+            type: "reading", tag: "Đọc hiểu (Ý chính)",
+            passage: "Growing up in a Vietnamese rural village offers children a childhood filled with memorable experiences. Unlike urban kids who often stay indoors with computers and air-conditioned rooms, village children spend most of their after-school hours outdoors in the vast open spaces.<br><br>During the summer months, the village is filled with laughter. Children often gather on the dykes to fly colourful paper kites or play folk games such as hide-and-seek and tug-of-war. In the late afternoon, they often help their parents herd water buffaloes back to the sheds or take them to the local river for a bath. Swimming in cool, clean canals is also a favourite pastime on sweltering days.",
+            question: "What is the main topic of the passage?",
+            options: [
+                "Modern farming equipment in Vietnam.", 
+                "The daily life and leisure of rural children in Vietnam.", 
+                "The disadvantages of living in big cities.", 
+                "How to fly paper kites on village dykes."
+            ],
+            correct_answer: "The daily life and leisure of rural children in Vietnam."
+        },
+        {
+            type: "reading", tag: "Đọc hiểu (Chi tiết)",
+            passage: "During the summer months, the village is filled with laughter. Children often gather on the dykes to fly colourful paper kites or play folk games such as hide-and-seek and tug-of-war. In the late afternoon, they often help their parents herd water buffaloes back to the sheds or take them to the local river for a bath.",
+            question: "According to the passage, what do children often do on the dykes in summer?",
+            options: [
+                "Study for their midterm examinations.", 
+                "Fly paper kites and play folk games.", 
+                "Drive combine harvesters.", 
+                "Watch films on their smartphones."
+            ],
+            correct_answer: "Fly paper kites and play folk games."
+        },
+
+        // --- PHẦN VIẾT TRẮC NGHIỆM HÓA (SENTENCE TRANSFORMATION) ---
+        {
+            type: "writing_mcq", tag: "Viết (Biến đổi câu)",
+            question: "Choose the sentence that has the CLOSEST meaning to the original one:<br><b>I enjoy making origami animals in my spare time.</b>",
+            options: [
+                "I am tired of making origami animals in my spare time.", 
+                "I am interested in making origami animals in my spare time.", 
+                "I hate making origami animals in my spare time.", 
+                "I am afraid of making origami animals in my spare time."
+            ],
+            correct_answer: "I am interested in making origami animals in my spare time."
+        },
+        {
+            type: "writing_mcq", tag: "Viết (Biến đổi câu)",
+            question: "Choose the sentence that has the CLOSEST meaning to the original one:<br><b>Nam runs faster than any other student in his secondary school.</b>",
+            options: [
+                "No student in Nam's secondary school runs faster than him.", 
+                "Every student in Nam's secondary school runs faster than him.", 
+                "Nam runs as fast as other students in his secondary school.", 
+                "Nam is the slowest student in his secondary school."
+            ],
+            correct_answer: "No student in Nam's secondary school runs faster than him."
+        },
+        {
+            type: "writing_mcq", tag: "Viết (Biến đổi câu)",
+            question: "Choose the sentence that has the CLOSEST meaning to the original one:<br><b>Work hard or you will not pass the upcoming midterm test.</b>",
+            options: [
+                "If you work hard, you will not pass the upcoming midterm test.", 
+                "If you don't work hard, you will pass the upcoming midterm test.", 
+                "If you don't work hard, you will not pass the upcoming midterm test.", 
+                "Unless you don't work hard, you will not pass the upcoming midterm test."
+            ],
+            correct_answer: "If you don't work hard, you will not pass the upcoming midterm test."
+        }
+    ]; = [
         {
             type: "listening",
             tag: "Nghe hiểu",
