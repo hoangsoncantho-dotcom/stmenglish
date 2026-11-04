@@ -1029,12 +1029,28 @@
          * =========================================================================
          */
         document.addEventListener("DOMContentLoaded", () => {
-            const currentRole = localStorage.getItem('stm_role') || 'student';
-            
+            const currentRole = localStorage.getItem('stm_role');
+            const studentName = localStorage.getItem('student_name') || localStorage.getItem('stm_user') || '';
+            const studentId = (localStorage.getItem('student_id') || '').toLowerCase();
+
+            // Nhận diện linh hoạt Giáo viên Thầy Sơn qua Role hoặc Tên hoặc Mã tài khoản
+            const isTeacher = (currentRole === 'teacher') || 
+                              (studentName.indexOf('Thầy') !== -1) || 
+                              (studentName.indexOf('Hoàng Sơn') !== -1) || 
+                              (studentName.indexOf('hoangson') !== -1) || 
+                              (studentId === 'hoangson') || 
+                              (studentId === 'gv');
+
             // Nếu không phải là Giáo viên, hiển thị overlay cảnh báo
-            if (currentRole !== 'teacher') {
+            if (!isTeacher) {
                 document.getElementById('access-denied-overlay').style.display = 'flex';
                 return;
+            } else {
+                // Tự động chuẩn hóa stm_role thành teacher vào localStorage
+                localStorage.setItem('stm_role', 'teacher');
+                if (!studentName || studentName.indexOf('Thầy') === -1) {
+                    localStorage.setItem('student_name', 'Thầy Nguyễn Hoàng Sơn');
+                }
             }
 
             // Cập nhật đồng hồ thời gian thực
