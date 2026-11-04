@@ -215,7 +215,7 @@
     <!-- Thanh điều hướng -->
     <nav class="navbar">
         <a href="index.html" class="logo">⬅ Quay lại Trang Chủ</a>
-        <div class="user-profile">👋 Xin chào, Phương Minh</div>
+        <div class="user-profile" id="userProfileDisplay">👋 Xin chào, Phương Minh</div>
     </nav>
 
     <!-- Nội dung lớp học -->
@@ -287,87 +287,130 @@
 
     <!-- KẾT NỐI GOOGLE DRIVE BACKEND (GOOGLE APPS SCRIPT) -->
     <script>
-        // Đường dẫn Google Apps Script Web App của Thầy Sơn (Đã kết nối thành công)
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyn9ymkPRFsc1wxEsaNqLmmsutnJO2UFs-aaw8LZC7bUIry0X_mpKaGYvDLyNjlcC5-aQ/exec";
+        // 1. Cấu hình API Endpoint Google Apps Script tải bài lên Google Drive của Thầy Sơn
+        const UPLOAD_API_URL = "https://script.google.com/macros/s/AKfycbxj1vmHrIlyAGZfKb9YERzIUhsspKrCBbUwUNyPJdGF72BqffVGHu1NGEgejLLbMo1ZNA/exec";
 
-        const btnSubmit = document.querySelector('.btn-submit');
         const fileInput = document.getElementById('file-upload');
+        const btnSubmit = document.querySelector('.btn-submit');
         const fileLabel = document.querySelector('label[for="file-upload"]');
 
-        // Hiển thị tên file ngay khi học sinh vừa chọn xong
-        fileInput.addEventListener('change', () => {
-            if (fileInput.files && fileInput.files[0]) {
+        // Tạo sẵn thẻ thông báo trạng thái ngay dưới nút bấm
+        let statusMsg = document.getElementById('upload-status-msg');
+        if (!statusMsg && btnSubmit) {
+            statusMsg = document.createElement('div');
+            statusMsg.id = 'upload-status-msg';
+            statusMsg.style.marginTop = '12px';
+            statusMsg.style.fontSize = '0.95rem';
+            statusMsg.style.fontWeight = '600';
+            statusMsg.style.display = 'none';
+            btnSubmit.parentNode.appendChild(statusMsg);
+        }
+
+        // 2. Bắt sự kiện khi học sinh chọn file để hiển thị tên file
+        if (fileInput) {
+            fileInput.addEventListener('change', () => {
+                if (statusMsg) statusMsg.style.display = 'none';
+                if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    if (fileLabel) {
+                        fileLabel.innerHTML = `📄 <strong>${file.name}</strong> (${sizeMB} MB) - Bấm để chọn lại`;
+                        fileLabel.style.color = "#059669";
+                    }
+                }
+            });
+        }
+
+        // 3. Bắt sự kiện bấm nút 'Gửi Bài Làm'
+        if (btnSubmit) {
+            btnSubmit.addEventListener('click', () => {
                 const file = fileInput.files[0];
-                const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                fileLabel.innerHTML = `📄 <strong>${file.name}</strong> (${sizeMB} MB) - Bấm để chọn file khác`;
-                fileLabel.style.color = "#059669";
-            }
-        });
 
-        // Xử lý sự kiện nộp bài lên Google Drive của Thầy Sơn
-        btnSubmit.addEventListener('click', () => {
-            const file = fileInput.files[0];
-            
-            // Kiểm tra xem học sinh đã chọn file chưa
-            if (!file) {
-                alert("Vui lòng chọn file bài tập trước khi nộp!");
-                return;
-            }
+                // Kiểm tra nếu chưa chọn file
+                if (!file) {
+                    if (statusMsg) {
+                        statusMsg.innerText = 'Vui lòng chọn file bài làm trước khi nộp!';
+                        statusMsg.style.color = '#dc2626';
+                        statusMsg.style.display = 'block';
+                    } else {
+                        alert('Vui lòng chọn file bài làm trước khi nộp!');
+                    }
+                    return;
+                }
 
-            if (GOOGLE_SCRIPT_URL === "THAY_BANG_LINK_WEB_APP_CUA_THAY") {
-                alert("Thầy Sơn ơi, Thầy hãy dán đường link Web App Apps Script vào biến GOOGLE_SCRIPT_URL trong code nhé!");
-                return;
-            }
+                // Đổi chữ trên nút thành 'Đang tải lên...' và vô hiệu hóa nút bấm
+                const originalBtnText = btnSubmit.innerText;
+                btnSubmit.innerText = 'Đang tải lên...';
+                btnSubmit.disabled = true;
+                btnSubmit.style.opacity = '0.7';
 
-            if (file.size > 25 * 1024 * 1024) {
-                alert("Dung lượng file vượt quá giới hạn 25MB!");
-                return;
-            }
+                if (statusMsg) statusMsg.style.display = 'none';
 
-            // Tiến hành đọc file và đẩy lên Google Drive
-            btnSubmit.innerText = "Đang tải lên Google Drive...";
-            btnSubmit.style.background = "#6c757d";
-            btnSubmit.disabled = true;
+                // Đọc file bằng FileReader và mã hóa thành Base64
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Loại bỏ phần tiền tố data:MIME_TYPE;base64, chỉ giữ lại dữ liệu gốc
+                    const base64Data = e.target.result.split(',')[1];
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const base64Data = e.target.result.split(',')[1];
-                const payload = {
-                    fileName: file.name,
-                    mimeType: file.type || "application/octet-stream",
-                    base64: base64Data
+                    // Chuỗi JSON chứa 3 trường: fileName, mimeType, base64
+                    const payload = {
+                        fileName: file.name,
+                        mimeType: file.type || "application/octet-stream",
+                        base64: base64Data
+                    };
+
+                    // Gửi dữ liệu bằng hàm fetch (phương thức POST, redirect: "follow")
+                    fetch(UPLOAD_API_URL, {
+                        method: 'POST',
+                        redirect: 'follow',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Hiển thị dòng chữ thông báo màu xanh 'Nộp bài thành công!' ngay dưới nút bấm
+                        if (statusMsg) {
+                            statusMsg.innerText = 'Nộp bài thành công!';
+                            statusMsg.style.color = '#16a34a';
+                            statusMsg.style.display = 'block';
+                        }
+
+                        // Reset ô chọn file và đổi chữ label về ban đầu
+                        fileInput.value = '';
+                        if (fileLabel) {
+                            fileLabel.innerHTML = '📁 Bấm vào đây để chọn file từ máy tính';
+                            fileLabel.style.color = '#007bff';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi tải lên:', error);
+                        if (statusMsg) {
+                            statusMsg.innerText = 'Có lỗi xảy ra khi nộp bài. Vui lòng thử lại!';
+                            statusMsg.style.color = '#dc2626';
+                            statusMsg.style.display = 'block';
+                        }
+                    })
+                    .finally(() => {
+                        // Đổi chữ của nút về lại ban đầu và mở khóa nút
+                        btnSubmit.innerText = originalBtnText;
+                        btnSubmit.disabled = false;
+                        btnSubmit.style.opacity = '1';
+                    });
                 };
 
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
-                    body: JSON.stringify(payload)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === "success") {
-                        alert("🎉 Nộp bài thành công! File đã được lưu an toàn vào Google Drive của Thầy Sơn.");
-                        fileInput.value = "";
-                        fileLabel.innerHTML = "📁 Bấm vào đây để chọn file từ máy tính";
-                        fileLabel.style.color = "#007bff";
-                    } else {
-                        throw new Error(data.message || "Lỗi không xác định");
-                    }
-                })
-                .catch(err => {
-                    console.error("Lỗi tải lên:", err);
-                    alert("Có lỗi xảy ra trong quá trình nộp bài: " + err.message + "\nVui lòng thử lại!");
-                })
-                .finally(() => {
-                    btnSubmit.innerText = "Gửi Bài Làm";
-                    btnSubmit.style.background = "#007bff";
-                    btnSubmit.disabled = false;
-                });
-            };
+                reader.readAsDataURL(file);
+            });
+        }
 
-            reader.readAsDataURL(file);
+        // 4. Hiển thị tên học sinh đăng nhập từ localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('stm_user') || localStorage.getItem('student_name');
+            const profileDisplay = document.getElementById('userProfileDisplay');
+            if (savedUser && profileDisplay) {
+                profileDisplay.innerHTML = `👋 Xin chào, <strong>${savedUser}</strong>`;
+            }
         });
     </script>
 </body>
