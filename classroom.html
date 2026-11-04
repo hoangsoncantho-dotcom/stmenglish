@@ -1146,7 +1146,7 @@
                         <div class="lbl">Tỷ lệ Chuyên Cần</div>
                     </div>
                     <div class="parent-stat-item">
-                        <div class="val" style="color: #0284c7;">10.0</div>
+                        <div class="val" style="color: #0284c7;" id="parentLatestScore">10.0</div>
                         <div class="lbl">Điểm Khảo Sát Gần Nhất</div>
                     </div>
                     <div class="parent-stat-item">
@@ -1167,7 +1167,7 @@
                                 <th>Nhận Xét Sư Phạm Của Thầy Sơn</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="parentHistoryTableBody">
                             <tr>
                                 <td><strong>Đề Thi Khảo Sát Năng Lực Trực Tuyến</strong></td>
                                 <td>Lớp 9 (Global Success)</td>
@@ -1275,7 +1275,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
                             <i class="fa-regular fa-circle-question"></i> 20 câu hỏi trắc nghiệm
                         </div>
-                        <a href="quiz.html?skill=phonetics" class="btn-practice">
+                        <a href="quiz.html?de=anh9-u1-phonetics" id="btnSkillPhonetics" class="btn-practice">
                             <span>Luyện Ngữ Âm</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -1300,7 +1300,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
                             <i class="fa-regular fa-circle-question"></i> 35 câu hỏi phân hóa
                         </div>
-                        <a href="quiz.html?skill=grammar" class="btn-practice">
+                        <a href="quiz.html?de=anh9-u1-grammar" id="btnSkillGrammar" class="btn-practice">
                             <span>Luyện Ngữ Pháp</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -1325,7 +1325,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
                             <i class="fa-regular fa-circle-question"></i> 2 bài nghe • 8 câu hỏi
                         </div>
-                        <a href="quiz.html?skill=listening" class="btn-practice">
+                        <a href="quiz.html?de=anh9-giuaky1" id="btnSkillListening" class="btn-practice">
                             <span>Luyện Nghe Hiểu</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -1350,7 +1350,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
                             <i class="fa-regular fa-circle-question"></i> 2 đoạn văn • 10 câu hỏi
                         </div>
-                        <a href="quiz.html?skill=reading" class="btn-practice">
+                        <a href="quiz.html?de=anh9-giuaky1" id="btnSkillReading" class="btn-practice">
                             <span>Luyện Đọc Hiểu</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -1375,7 +1375,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
                             <i class="fa-regular fa-circle-question"></i> 15 câu trắc nghiệm câu
                         </div>
-                        <a href="quiz.html?skill=writing" class="btn-practice">
+                        <a href="quiz.html?de=anh9-giuaky1" id="btnSkillWriting" class="btn-practice">
                             <span>Luyện Viết Câu</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -1428,7 +1428,7 @@
                         </div>
                     </div>
 
-                    <a href="quiz.html?mode=periodical" class="btn-start-exam btn-exam-regular">
+                    <a href="quiz.html?de=anh9-u1-grammar" id="btnExamPeriodical" class="btn-start-exam btn-exam-regular">
                         <i class="fa-solid fa-play"></i>
                         <span>Vào Phòng Thi Định Kỳ</span>
                     </a>
@@ -1453,7 +1453,7 @@
                         </div>
                     </div>
 
-                    <a href="quiz.html" class="btn-start-exam btn-exam-mock">
+                    <a href="quiz.html?de=anh9-giuaky1" id="btnExamMock" class="btn-start-exam btn-exam-mock">
                         <i class="fa-solid fa-rocket"></i>
                         <span>Làm Bài Khảo Sát 40 Câu</span>
                     </a>
@@ -1630,6 +1630,7 @@
             initStudentSession();
             renderUnitTabs();
             updateCurrentUnitView(currentActiveUnitIndex);
+            renderParentHistory();
             initUploadService();
         });
 
@@ -1776,7 +1777,7 @@
             updateCurrentUnitView(index);
         }
 
-        // 4. Cập nhật thông tin chi tiết của Unit ở Tầng 2
+        // 4. Cập nhật thông tin chi tiết của Unit ở Tầng 2 & Đồng bộ link bài thi động sang quiz.html
         function updateCurrentUnitView(index) {
             const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
             const selectedUnit = units[index];
@@ -1787,6 +1788,86 @@
                     <span>${selectedUnit.code}: ${selectedUnit.name}</span>
                 `;
                 document.getElementById('currentUnitSubtitle').innerText = selectedUnit.subtitle;
+
+                // Cập nhật đường link bài thi động theo Khối Lớp và Unit hiện tại
+                const gradeNum = currentActiveGrade.replace('grade', '');
+                const unitNum = index + 1;
+
+                const btnPhonetics = document.getElementById('btnSkillPhonetics');
+                const btnGrammar = document.getElementById('btnSkillGrammar');
+                const btnListening = document.getElementById('btnSkillListening');
+                const btnReading = document.getElementById('btnSkillReading');
+                const btnWriting = document.getElementById('btnSkillWriting');
+                const btnPeriodical = document.getElementById('btnExamPeriodical');
+                const btnMock = document.getElementById('btnExamMock');
+
+                if (btnPhonetics) btnPhonetics.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-phonetics`;
+                if (btnGrammar) btnGrammar.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-grammar`;
+                if (btnListening) btnListening.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnReading) btnReading.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnWriting) btnWriting.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnPeriodical) btnPeriodical.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-grammar`;
+                if (btnMock) btnMock.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+            }
+        }
+
+        // 4.1. Hiển thị lịch sử làm bài thi thời gian thực cho Phụ huynh
+        function renderParentHistory() {
+            try {
+                const history = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+                const tableBody = document.getElementById('parentHistoryTableBody');
+                const latestScoreEl = document.getElementById('parentLatestScore');
+
+                if (history && history.length > 0) {
+                    if (latestScoreEl) {
+                        latestScoreEl.innerText = history[0].score;
+                    }
+
+                    if (tableBody) {
+                        let html = '';
+                        history.slice(0, 5).forEach(item => {
+                            let badgeStyle = 'background: #f0fdf4; color: #16a34a;';
+                            let statusText = 'Đạt Chuẩn';
+                            let note = 'Em hoàn thành tốt bài thi khảo sát năng lực.';
+
+                            if (parseFloat(item.score) >= 9.0) {
+                                statusText = 'Xuất Sắc';
+                                note = 'Nắm rất vững kiến thức và kỹ năng làm bài.';
+                            } else if (parseFloat(item.score) >= 8.0) {
+                                statusText = 'Giỏi';
+                                note = 'Bài làm tốt, cần rà soát thêm một số câu bẫy.';
+                            } else if (parseFloat(item.score) < 5.0) {
+                                badgeStyle = 'background: #fef2f2; color: #dc2626;';
+                                statusText = 'Cần Cố Gắng';
+                                note = 'Cần xem lại kỹ phần giải thích chi tiết của Thầy Sơn.';
+                            }
+
+                            html += `
+                                <tr>
+                                    <td><strong>${item.examTitle}</strong><br><small style="color: var(--text-muted);">${item.date || ''}</small></td>
+                                    <td>Lớp ${item.grade}</td>
+                                    <td><span style="font-weight: 800; color: #0284c7; font-size: 1.1rem;">${item.score} / 10</span> (${item.correct}/${item.total} câu)</td>
+                                    <td><span style="${badgeStyle} padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">${statusText}</span></td>
+                                    <td>${note}</td>
+                                </tr>
+                            `;
+                        });
+
+                        // Thêm bài nộp về nhà cố định
+                        html += `
+                            <tr>
+                                <td><strong>Bài Tập Về Nhà Lên Google Drive</strong></td>
+                                <td>Lớp 9</td>
+                                <td><span style="font-weight: 700; color: #0284c7;">Đã Chấm Điểm</span></td>
+                                <td><span style="background: #f0f9ff; color: #0284c7; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">Đã Lưu Drive 5TB</span></td>
+                                <td>File làm bài sạch đẹp, trình bày rõ ràng từng câu chữ.</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML = html;
+                    }
+                }
+            } catch (e) {
+                console.error("Lỗi khi đọc lịch sử phụ huynh:", e);
             }
         }
 

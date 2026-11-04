@@ -3,330 +3,1376 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Khảo thí STM English - Tiếng Anh 9</title>
+    <title>Hệ thống Khảo thí Động STM English - Thầy Nguyễn Hoàng Sơn</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
             --primary: #0284c7;
             --primary-dark: #0369a1;
-            --bg-page: #f0f4f8;
+            --primary-light: #e0f2fe;
+            --success: #059669;
+            --success-light: #d1fae5;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #d97706;
+            --warning-light: #fef3c7;
+            --bg-page: #f8fafc;
             --bg-card: #ffffff;
             --text-main: #0f172a;
             --text-muted: #64748b;
             --border: #e2e8f0;
             --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.08);
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-page); color: var(--text-main); min-height: 100vh; padding: 2rem 1rem; }
+        body { background-color: var(--bg-page); color: var(--text-main); min-height: 100vh; padding: 1.5rem 1rem; }
         
-        .quiz-container { max-width: 800px; margin: 0 auto; }
-        
-        /* Header & Info Bar */
-        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .logo-area { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--primary-dark); font-size: 1.2rem; }
-        .student-badge { background: #e0f2fe; color: var(--primary-dark); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
-        
-        .info-bar { display: flex; justify-content: space-between; background: white; padding: 1rem 1.5rem; border-radius: var(--radius-lg); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 1.5rem; font-weight: 600; }
-        .timer { color: #dc2626; display: flex; align-items: center; gap: 8px; }
-        
+        .quiz-container { max-width: 920px; margin: 0 auto; }
+
+        /* Header Bar */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-size: 1.15rem;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .exam-meta-title {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .student-badge {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Info Bar & Progress */
+        .info-bar {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .info-bar-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+        .timer-badge {
+            background: #fff1f2;
+            color: var(--danger);
+            border: 1px solid #fecdd3;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        .progress-indicator {
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #38bdf8);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Question Palette (Lưới các câu hỏi để nhảy nhanh) */
+        .palette-toggle-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed var(--border);
+        }
+        .palette-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .palette-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        .palette-item {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: white;
+            border: 1.5px solid var(--border);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .palette-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .palette-item.answered {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        .palette-item.current {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+            font-weight: 800;
+        }
+
         /* Khung câu hỏi */
-        .question-card { background: white; padding: 2rem; border-radius: var(--radius-lg); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
-        .question-type-badge { display: inline-block; background: #f1f5f9; color: var(--text-muted); padding: 0.3rem 0.8rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .question-text { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; line-height: 1.5; }
-        
-        /* Hỗ trợ Listening & Reading */
-        .audio-player { width: 100%; margin-bottom: 1.5rem; outline: none; }
-        .reading-passage { background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 1.5rem; max-height: 220px; overflow-y: auto; line-height: 1.7; font-size: 0.95rem; }
-        
-        /* Các đáp án */
-        .options-grid { display: flex; flex-direction: column; gap: 1rem; }
-        .option-btn { display: flex; align-items: center; gap: 1rem; width: 100%; padding: 1rem 1.5rem; text-align: left; background: white; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 500; transition: all 0.2s; color: var(--text-main); }
-        .option-btn:hover { border-color: #bae6fd; background: #f0f9ff; }
-        .option-btn.selected { border-color: var(--primary); background: #f0f9ff; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1); }
-        
-        .option-marker { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; color: var(--text-muted); transition: all 0.2s; }
-        .option-btn.selected .option-marker { background: var(--primary); border-color: var(--primary); color: white; }
+        .question-card {
+            background: white;
+            padding: 2.2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .question-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f1f5f9;
+            color: var(--text-muted);
+            padding: 0.35rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid #e2e8f0;
+        }
+        .question-title {
+            font-size: 1.22rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        /* Dạng đề Listening & Reading */
+        .audio-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 1.2rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+        }
+        .audio-box p {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .audio-player {
+            width: 100%;
+            height: 40px;
+            outline: none;
+        }
+        .reading-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            max-height: 240px;
+            overflow-y: auto;
+            line-height: 1.8;
+            font-size: 0.96rem;
+            color: #334155;
+        }
+
+        /* 4 Thẻ đáp án */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding: 1.1rem 1.4rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+        .option-item:hover {
+            border-color: #7dd3fc;
+            background: #f0f9ff;
+            transform: translateY(-1px);
+        }
+        .option-item.selected {
+            border-color: var(--primary);
+            background: #f0f9ff;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+        }
+        .option-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .option-item.selected .option-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
 
         /* Nút điều hướng */
-        .nav-buttons { display: flex; justify-content: space-between; }
-        .btn { padding: 0.8rem 2rem; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: all 0.2s; border: none; }
-        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-muted); }
-        .btn-outline:hover { background: #f1f5f9; }
-        .btn-primary { background: var(--primary); color: white; display: flex; align-items: center; gap: 8px; }
-        .btn-primary:hover { background: var(--primary-dark); }
-        
-        /* Khung Kết quả */
-        #result-screen { display: none; text-align: center; }
-        .score-box { background: #f0f9ff; border: 2px solid #bae6fd; border-radius: var(--radius-lg); padding: 2rem; margin: 2rem 0; display: flex; justify-content: space-around; }
-        .score-item h3 { color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .score-item p { font-size: 3rem; font-weight: 800; color: var(--primary); }
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            padding: 0.85rem 1.8rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.96rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            outline: none;
+        }
+        .btn-outline {
+            background: white;
+            border: 2px solid var(--border);
+            color: var(--text-muted);
+        }
+        .btn-outline:hover {
+            background: #f1f5f9;
+            color: var(--text-main);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+        }
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+        }
+        .btn-submit:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        /* Màn hình kết quả & Lời giải */
+        #result-screen {
+            display: none;
+        }
+        .score-hero-card {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+        .score-hero-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .score-big {
+            font-size: 4.2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 1.2rem 0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .score-stat-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+        .score-stat-box span {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+        .score-stat-box strong {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        /* Khu vực Lời giải chi tiết */
+        .review-section {
+            margin-top: 2.5rem;
+            text-align: left;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--border);
+        }
+        .review-header h3 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .review-card {
+            background: white;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .review-card.correct {
+            border-color: #86efac;
+            background: #f0fdf4;
+        }
+        .review-card.incorrect {
+            border-color: #fca5a5;
+            background: #fff5f5;
+        }
+        .review-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        .status-badge {
+            font-size: 0.82rem;
+            font-weight: 800;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+        }
+        .status-badge.correct {
+            background: var(--success-light);
+            color: var(--success);
+        }
+        .status-badge.incorrect {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        .review-question {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+        .review-answer-box {
+            background: white;
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .explanation-box {
+            background: #f0f9ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #0369a1;
+        }
+
+        /* Màn hình Báo lỗi khi không tìm thấy đề */
+        #error-screen {
+            display: none;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+        }
+        .available-exams-list {
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .exam-link-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .exam-link-card:hover {
+            border-color: var(--primary);
+            background: #f0f9ff;
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
 
 <div class="quiz-container">
-    <!-- Header -->
+    <!-- Header chung -->
     <header class="quiz-header">
-        <div class="logo-area"><i class="fa-solid fa-graduation-cap"></i> STM English - Tiếng Anh 9</div>
-        <div class="student-badge" id="student-name"><i class="fa-regular fa-user"></i> Thí sinh</div>
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div>
+                <div>STM English</div>
+                <div class="exam-meta-title" id="exam-header-title">Đang tải đề thi...</div>
+            </div>
+        </div>
+        <div class="student-badge" id="student-name">
+            <i class="fa-regular fa-user"></i> Thí sinh
+        </div>
     </header>
 
-    <!-- Màn hình làm bài -->
+    <!-- MÀN HÌNH LÀM BÀI CHÍNH -->
     <div id="quiz-screen">
         <div class="info-bar">
-            <div id="progress">Câu 1 / 10</div>
-            <div class="timer"><i class="fa-regular fa-clock"></i> <span id="time">60:00</span></div>
+            <div class="info-bar-top">
+                <div class="progress-indicator" id="progress-text">Câu 1 / 10</div>
+                <div class="timer-badge">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timer-display">60:00</span>
+                </div>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-bar"></div>
+            </div>
+            <div class="palette-toggle-bar">
+                <button class="palette-btn" onclick="togglePalette()">
+                    <i class="fa-solid fa-table-cells"></i> <span id="palette-btn-text">Hiện danh sách câu hỏi</span>
+                </button>
+                <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">
+                    Đã làm: <span id="answered-count" style="color: var(--primary); font-weight: 800;">0</span> câu
+                </div>
+            </div>
+            <div class="palette-grid" id="question-palette" style="display: none;">
+                <!-- JavaScript sẽ render lưới các câu hỏi vào đây -->
+            </div>
         </div>
 
-        <div class="question-card" id="question-container">
-            <!-- Nội dung câu hỏi sẽ được JavaScript render vào đây -->
+        <!-- Khung Câu hỏi -->
+        <div class="question-card" id="question-box">
+            <!-- Nội dung câu hỏi sẽ được render động -->
         </div>
 
-        <div class="nav-buttons">
-            <button class="btn btn-outline" id="btn-prev" onclick="prevQuestion()">Quay lại</button>
-            <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Tiếp theo <i class="fa-solid fa-arrow-right"></i></button>
-            <button class="btn btn-primary" id="btn-submit" onclick="submitQuiz()" style="display: none;"><i class="fa-solid fa-paper-plane"></i> Nộp Bài</button>
+        <!-- Các nút điều hướng -->
+        <div class="nav-actions">
+            <button class="btn btn-outline" id="btn-prev" onclick="goToPrevQuestion()">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại
+            </button>
+            <button class="btn btn-primary" id="btn-next" onclick="goToNextQuestion()">
+                Tiếp theo <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button class="btn btn-submit" id="btn-submit" onclick="submitExam()" style="display: none;">
+                <i class="fa-solid fa-paper-plane"></i> Nộp Bài Thi
+            </button>
         </div>
     </div>
 
-    <!-- Màn hình kết quả -->
-    <div id="result-screen" class="question-card">
-        <div style="font-size: 3rem; color: #fbbf24; margin-bottom: 1rem;"><i class="fa-solid fa-trophy"></i></div>
-        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">KẾT QUẢ BÀI THI</h2>
-        <p style="color: var(--text-muted);">Hệ thống trắc nghiệm tự động STM English</p>
-        
-        <div class="score-box">
-            <div class="score-item"><h3>Điểm số (Thang 10)</h3><p id="final-score">0.0</p></div>
-            <div class="score-item" style="border-left: 2px solid #bae6fd; padding-left: 2rem;"><h3>Số câu đúng</h3><p id="correct-count" style="color: #10b981;">0 / 0</p></div>
+    <!-- MÀN HÌNH KẾT QUẢ & LỜI GIẢI CHI TIẾT -->
+    <div id="result-screen">
+        <div class="score-hero-card">
+            <div style="font-size: 2.8rem; margin-bottom: 0.8rem; color: #fde047;">
+                <i class="fa-solid fa-award"></i>
+            </div>
+            <h2 id="result-exam-title">KẾT QUẢ BÀI THI</h2>
+            <p id="result-exam-desc" style="opacity: 0.9; font-size: 0.95rem;">Hệ thống Khảo thí Độc lập STM English</p>
+            
+            <div class="score-big" id="result-score">0.0</div>
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;" id="result-rating">Xuất Sắc</div>
+
+            <div class="score-grid">
+                <div class="score-stat-box">
+                    <span>Số câu đúng</span>
+                    <strong id="result-correct">0 / 0</strong>
+                </div>
+                <div class="score-stat-box">
+                    <span>Tỷ lệ chính xác</span>
+                    <strong id="result-percentage">0%</strong>
+                </div>
+                <div class="score-stat-box">
+                    <span>Thời gian hoàn thành</span>
+                    <strong id="result-time-spent">00:00</strong>
+                </div>
+            </div>
         </div>
-        
-        <div style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; text-align: left; font-size: 0.95rem; line-height: 1.6;">
-            <i class="fa-solid fa-book-open" style="color: var(--primary);"></i> <strong>Thầy Nguyễn Hoàng Sơn nhắn nhủ:</strong> Hệ thống đã tự động ghi nhận kết quả rèn luyện của em. Chúc mừng em đã hoàn thành bài thi khảo sát năng lực!
+
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+            <button class="btn btn-primary" onclick="scrollToReview()">
+                <i class="fa-solid fa-list-check"></i> Xem Lời Giải Chi Tiết Của Thầy Sơn
+            </button>
+            <button class="btn btn-outline" onclick="window.location.href='classroom.html'">
+                <i class="fa-solid fa-door-open"></i> Quay Lại Lớp Học
+            </button>
         </div>
-        
-        <button class="btn btn-primary" style="margin: 0 auto;" onclick="window.location.href='classroom.html'"><i class="fa-solid fa-door-open"></i> Quay lại Lớp Học</button>
+
+        <!-- Danh sách lời giải chi tiết -->
+        <div class="review-section" id="review-container">
+            <div class="review-header">
+                <h3><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> Phân Tích Lỗi Sai & Lời Giải Chi Tiết</h3>
+                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">Biên soạn: Thầy Nguyễn Hoàng Sơn</span>
+            </div>
+            <div id="review-cards-list">
+                <!-- JavaScript sẽ render danh sách đáp án đối chiếu tại đây -->
+            </div>
+            <div style="text-align: center; margin: 2rem 0;">
+                <button class="btn btn-primary" onclick="window.location.href='classroom.html'">
+                    <i class="fa-solid fa-door-open"></i> Hoàn Thành & Quay Lại Lớp Học
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH BÁO LỖI (KHI KHÔNG TÌM THẤY ĐỀ) -->
+    <div id="error-screen">
+        <div style="font-size: 3.5rem; color: #ef4444; margin-bottom: 1rem;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2 style="font-size: 1.6rem; margin-bottom: 0.8rem; color: var(--text-main);">Không Tìm Thấy Đề Thi Này!</h2>
+        <p style="color: var(--text-muted); line-height: 1.6; max-width: 550px; margin: 0 auto;">
+            Mã đề thi <strong id="missing-exam-id" style="color: var(--danger);"></strong> chưa được kích hoạt hoặc đường dẫn không hợp lệ. Vui lòng chọn một trong các bộ đề sẵn sàng dưới đây:
+        </p>
+
+        <div class="available-exams-list" id="available-exams-list">
+            <!-- JavaScript nạp các đề sẵn có -->
+        </div>
+
+        <button class="btn btn-primary" onclick="window.location.href='classroom.html'">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại Phòng Học
+        </button>
     </div>
 </div>
 
 <script>
-    // 1. NGÂN HÀNG DỮ LIỆU ĐỀ THI TIẾNG ANH 9 (GLOBAL SUCCESS - GIỮA KỲ 1)
-    const rawQuizData = [
-        // --- PHẦN I: LISTENING ---
-        {
-            type: "listening", tag: "Listening - Part 1 (Trip to Bat Trang)",
-            audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-            question: "<b>[Audio Track 1]</b> How did Nam and Sarah travel to Bat Trang village?",
-            options: ["By electric bus", "By bicycle", "By private car", "By sky train"],
-            correct_answer: "By electric bus"
+    /**
+     * =========================================================================
+     * THƯ VIỆN ĐỀ THI TÍCH HỢP SẴN (BUILT-IN EXAMS DATABASE)
+     * Dùng để chạy trực tiếp (Offline / file:///), Fallback an toàn khi chưa kịp tạo JSON
+     * =========================================================================
+     */
+    const BUILTIN_EXAMS = {
+        "anh9-giuaky1": {
+            id: "anh9-giuaky1",
+            title: "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 9",
+            grade: 9,
+            subject: "Tiếng Anh (Global Success)",
+            timeMinutes: 60,
+            description: "Đề thi khảo sát năng lực toàn diện bám sát chuẩn ma trận đề thi Sở GD&ĐT Cần Thơ (Gồm Listening, Grammar, Reading và Writing trắc nghiệm hóa).",
+            questions: [
+                {
+                    id: 1, type: "listening", tag: "Listening • Part 1 (Trip to Bat Trang)",
+                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                    question: "How did Nam and Sarah travel to Bat Trang pottery village on their weekend trip?",
+                    options: ["By electric bus", "By bicycle", "By private car", "By sky train"],
+                    correct_answer: "By electric bus",
+                    explanation: "Dẫn chứng từ Audio Script: Nam chia sẻ rằng họ đã đi bằng xe buýt điện công cộng (electric bus) để bảo vệ môi trường làng nghề."
+                },
+                {
+                    id: 2, type: "listening", tag: "Listening • Part 1 (Trip to Bat Trang)",
+                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+                    question: "What traditional craft product did Sarah try moulding with clay on the potter's wheel?",
+                    options: ["A small clay vase", "A ceramic tea cup", "A decorative plate", "A flower pot"],
+                    correct_answer: "A small clay vase",
+                    explanation: "Dẫn chứng Audio Script: Sarah kể lại rằng nghệ nhân đã hướng dẫn bạn nặn một chiếc bình gốm nhỏ (a small clay vase)."
+                },
+                {
+                    id: 3, type: "listening", tag: "Listening • Part 2 (Teen Stress & Pressure)",
+                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+                    question: "According to the school psychologist, what represents the primary cause of stress among middle school students?",
+                    options: [
+                        "Heavy academic expectations and upcoming exams",
+                        "Difficulties in making new school friends",
+                        "Lack of modern electronic entertainment devices",
+                        "Daily arguments with neighborhood helpers"
+                    ],
+                    correct_answer: "Heavy academic expectations and upcoming exams",
+                    explanation: "Dẫn chứng Audio Script: Chuyên gia tâm lý học đường khẳng định áp lực kỳ vọng điểm số và các kỳ thi sắp tới (heavy academic expectations and upcoming exams) là nguyên nhân hàng đầu gây căng thẳng ở tuổi vị thành niên."
+                },
+                {
+                    id: 4, type: "grammar", tag: "Phrasal Verbs • Unit 1 (Local Community)",
+                    question: "Experienced artisans in Bat Trang always ______ their traditional pottery-making techniques to the younger generation.",
+                    options: ["pass down", "turn down", "look up", "close down"],
+                    correct_answer: "pass down",
+                    explanation: "Kiến thức Cụm động từ (Phrasal Verbs): 'pass down' có nghĩa là truyền lại cho thế hệ sau. 'turn down' (từ chối/vặn nhỏ), 'look up' (tra cứu), 'close down' (phá sản/đóng cửa vĩnh viễn)."
+                },
+                {
+                    id: 5, type: "grammar", tag: "Vocabulary • Unit 2 (City Life)",
+                    question: "The municipal authority is constructing an elevated sky train line to tackle heavy traffic ______ during rush hours.",
+                    options: ["congestion", "distraction", "priority", "relaxation"],
+                    correct_answer: "congestion",
+                    explanation: "Kiến thức Từ vựng kết hợp (Collocation): 'traffic congestion' = tình trạng ùn tắc giao thông nghiêm trọng. Các từ còn lại: distraction (sự xao nhãng), priority (sự ưu tiên), relaxation (sự thư giãn)."
+                },
+                {
+                    id: 6, type: "grammar", tag: "Vocabulary • Unit 3 (Healthy Living)",
+                    question: "To maintain optimal fitness and mental sharpness, adolescents should pursue a ______ diet rich in green vegetables and lean protein.",
+                    options: ["well-balanced", "fattening", "depressed", "stressful"],
+                    correct_answer: "well-balanced",
+                    explanation: "Cụm danh từ: 'a well-balanced diet' = chế độ ăn uống cân bằng, đầy đủ dưỡng chất. 'fattening' (gây béo phì), 'depressed' (chán nản), 'stressful' (căng thẳng)."
+                },
+                {
+                    id: 7, type: "grammar", tag: "Grammar • Question word + to-infinitive",
+                    question: "Lan felt completely confused and stressed because she had no idea ______ to consult for advice on her science project.",
+                    options: ["who", "which", "what", "where"],
+                    correct_answer: "who",
+                    explanation: "Cấu trúc 'Wh-word + to V': Động từ 'consult' (tham vấn/hỏi ý kiến) cần một tân ngữ chỉ người, do đó ta dùng 'who to consult' (hỏi ai/tham vấn ai)."
+                },
+                {
+                    id: 8, type: "grammar", tag: "Grammar • Double Comparative (So sánh kép)",
+                    question: "______ you practice speaking English with native speakers, the more fluent and natural you become.",
+                    options: ["The more regularly", "The most regularly", "More regularly than", "As regularly as"],
+                    correct_answer: "The more regularly",
+                    explanation: "Công thức So sánh kép (The + comparative + S + V, the + comparative + S + V): 'regularly' là trạng từ dài vần → 'The more regularly you practice...' (Bạn càng luyện tập thường xuyên bao nhiêu, bạn càng lưu loát bấy nhiêu)."
+                },
+                {
+                    id: 9, type: "reading", tag: "Reading Comprehension • Adolescent Mental Health",
+                    passage: "Adolescence is a transformative stage of psychological and physical growth, but it frequently subjects young individuals to notable emotional turbulence. In contemporary urban society, scholastic pressure stands out as one of the most prominent sources of stress. Secondary school pupils routinely spend eight to ten hours daily attending academic lectures and supplementary tutorials. The persistent apprehension of attaining unsatisfactory grades or failing parental expectations readily precipitates chronic exhaustion, mood swings, and insomnia.",
+                    question: "According to the passage, what consequence is directly precipitated by the persistent fear of low grades?",
+                    options: [
+                        "Chronic exhaustion, mood swings, and insomnia.",
+                        "An immediate desire to abandon all digital devices.",
+                        "An inclination to participate extensively in athletic clubs.",
+                        "A total lack of interest in attending family reunions."
+                    ],
+                    correct_answer: "Chronic exhaustion, mood swings, and insomnia.",
+                    explanation: "Dẫn chứng từ câu cuối bài đọc: 'The persistent apprehension of attaining unsatisfactory grades or failing parental expectations readily precipitates chronic exhaustion, mood swings, and insomnia' (Sự lo sợ liên tục về điểm số kém dẫn đến kiệt sức mạn tính, thay đổi tâm trạng thất thường và mất ngủ)."
+                },
+                {
+                    id: 10, type: "writing", tag: "Sentence Transformation • Trắc nghiệm hóa",
+                    passage: "Câu gốc đề bài: As urban dwellers drive more private vehicles, the air quality in the city center deteriorates significantly.",
+                    question: "Choose the sentence that best rewrites the original statement using a Double Comparative structure:",
+                    options: [
+                        "The more private vehicles urban dwellers drive, the worse the air quality in the city center deteriorates.",
+                        "The most private vehicles urban dwellers drive, the worst the air quality deteriorates.",
+                        "The more private vehicles urban dwellers drive, the better the air quality in the city center becomes.",
+                        "The fewer private vehicles urban dwellers drive, the worse the air quality becomes."
+                    ],
+                    correct_answer: "The more private vehicles urban dwellers drive, the worse the air quality in the city center deteriorates.",
+                    explanation: "Cấu trúc so sánh kép nguyên nhân - hệ quả: 'The more + N + S + V, the worse + S + V'. Càng nhiều xe cá nhân lưu thông thì chất lượng không khí trung tâm thành phố càng suy giảm tồi tệ hơn."
+                }
+            ]
         },
-        {
-            type: "listening", tag: "Listening - Part 1 (Trip to Bat Trang)",
-            audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-            question: "<b>[Audio Track 1]</b> What traditional product did Sarah try making on the potter's wheel?",
-            options: ["A ceramic tea cup", "A small clay vase", "A decorative plate", "A flower pot"],
-            correct_answer: "A small clay vase"
+        "anh8-giuaky1": {
+            id: "anh8-giuaky1",
+            title: "Đề Khảo Sát Năng Lực Giữa Học Kỳ 1 - Tiếng Anh 8",
+            grade: 8,
+            subject: "Tiếng Anh (Global Success)",
+            timeMinutes: 60,
+            description: "Đề khảo sát năng lực Lớp 8 cấu trúc chuẩn Cần Thơ gồm các chủ điểm Life in the countryside, Our communities & Teenagers.",
+            questions: [
+                {
+                    id: 1, type: "listening", tag: "Listening • Life in the Countryside",
+                    audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+                    question: "What activity did Minh enjoy most during his summer holiday at his grandparents' farm in the Mekong Delta?",
+                    options: [
+                        "Herding cattle and flying kites in the open paddy field",
+                        "Playing modern video games at the cyber cafe",
+                        "Shopping at the air-conditioned supermarket",
+                        "Driving a tractor along the paved highway"
+                    ],
+                    correct_answer: "Herding cattle and flying kites in the open paddy field",
+                    explanation: "Dẫn chứng Script: Minh kể lại rằng trải nghiệm chăn trâu và thả diều trên cánh đồng lúa bát ngát là hoạt động tuyệt vời nhất trong kỳ nghỉ hè."
+                },
+                {
+                    id: 2, type: "grammar", tag: "Verbs of liking + Gerund (Unit 1)",
+                    question: "Most adolescents nowadays are keen ______ making DIY handicrafts and origami figures in their spare time.",
+                    options: ["on", "about", "with", "in"],
+                    correct_answer: "on",
+                    explanation: "Cụm tính từ cố định: 'be keen on + V-ing/N' = say mê, thích thú điều gì."
+                },
+                {
+                    id: 3, type: "grammar", tag: "Comparative Adverbs • Unit 2 (Life in the Countryside)",
+                    question: "During harvest season, local farmers have to work ______ than usual from dawn till dusk.",
+                    options: ["harder", "more hard", "hardliest", "more hardly"],
+                    correct_answer: "harder",
+                    explanation: "'Hard' là trạng từ bất quy tắc (hard → harder, không dùng more hard hay hardly)."
+                },
+                {
+                    id: 4, type: "grammar", tag: "Compound Sentences • Unit 3 (Teenagers)",
+                    question: "Minh practiced playing the guitar relentlessly, ______ he won first prize in the school talent competition.",
+                    options: ["so", "but", "for", "or"],
+                    correct_answer: "so",
+                    explanation: "Liên từ chỉ kết quả: 'so' (vì vậy, do đó). Minh luyện tập đàn miệt mài, VÌ VẬY bạn ấy đã đoạt giải nhất."
+                },
+                {
+                    id: 5, type: "reading", tag: "Reading Comprehension • Peaceful Countryside Life",
+                    passage: "Living in the tranquil countryside provides numerous benefits that urban centers cannot offer. Firstly, the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories. People who reside in rural hamlets typically cultivate their own organic produce, including fresh herbs, leafy vegetables, and tropical fruits. Furthermore, the social bonds between neighbors are genuinely heartwarming; everyone is eager to lend a sympathetic hand during rice harvesting season.",
+                    question: "Why is the rural atmosphere refreshingly pure according to the text?",
+                    options: [
+                        "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.",
+                        "Because all roads are paved with solid asphalt.",
+                        "Because residents rarely step outdoors in the morning.",
+                        "Because there are numerous high-rise commercial complexes."
+                    ],
+                    correct_answer: "Because it is devoid of dense exhaust fumes from motor vehicles and industrial plants.",
+                    explanation: "Dẫn chứng bài đọc: 'the atmosphere is refreshingly pure, devoid of dense exhaust fumes from motorbikes and factories' (bầu không khí trong lành vì không có khói thải dày đặc từ xe cộ và nhà máy)."
+                }
+            ]
         },
-        {
-            type: "listening", tag: "Listening - Part 2 (Coping with Stress)",
-            audio_url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-            question: "<b>[Audio Track 2]</b> According to the school psychologist, what is the primary cause of teen stress?",
-            options: [
-                "Heavy academic expectations and upcoming exams",
-                "Difficulties in making new school friends",
-                "Lack of modern electronic devices",
-                "Conflict with neighborhood helpers"
-            ],
-            correct_answer: "Heavy academic expectations and upcoming exams"
+        "anh9-u1-phonetics": {
+            id: "anh9-u1-phonetics",
+            title: "Luyện Tập Kỹ Năng 1: Ngữ Âm (Phonetics) • Unit 1 Lớp 9",
+            grade: 9,
+            subject: "Tiếng Anh (Global Success)",
+            timeMinutes: 15,
+            description: "Bài luyện tập phát âm nguyên âm, phụ âm và quy tắc đánh trọng âm từ 2-3 âm tiết bám sát Unit 1: Local Community.",
+            questions: [
+                {
+                    id: 1, type: "phonetics", tag: "Pronunciation • Underlying sound /æ/ vs /eɪ/",
+                    question: "Choose the word whose underlined part is pronounced differently from the others:",
+                    options: ["c<u>a</u>ndle", "tr<u>a</u>vel", "f<u>a</u>mous", "st<u>a</u>tue"],
+                    correct_answer: "f<u>a</u>mous",
+                    explanation: "Từ 'famous' phát âm là /ˈfeɪməs/ (nguyên âm đôi /eɪ/), trong khi ba từ còn lại phát âm là /æ/."
+                },
+                {
+                    id: 2, type: "phonetics", tag: "Stress • 2-syllable Nouns and Verbs",
+                    question: "Choose the word whose main stress is placed differently from the others:",
+                    options: ["pottery", "artisan", "suburb", "attraction"],
+                    correct_answer: "attraction",
+                    explanation: "'attraction' /əˈtrækʃn/ trọng âm rơi vào âm tiết thứ 2 (hậu tố -tion). Ba từ còn lại trọng âm rơi vào âm tiết thứ 1."
+                },
+                {
+                    id: 3, type: "phonetics", tag: "Pronunciation • Ending sound -ed",
+                    question: "Choose the word whose underlined '-ed' ending is pronounced as /ɪd/:",
+                    options: ["remind<u>ed</u>", "pass<u>ed</u>", "look<u>ed</u>", "carv<u>ed</u>"],
+                    correct_answer: "remind<u>ed</u>",
+                    explanation: "Động từ tận cùng bằng âm /t/ hoặc /d/ (remind) khi thêm đuôi -ed sẽ phát âm là /ɪd/ → reminded /rɪˈmaɪndɪd/."
+                },
+                {
+                    id: 4, type: "phonetics", tag: "Stress • 3-syllable Words",
+                    question: "Choose the word whose primary stress pattern differs from the other three:",
+                    options: ["community", "facility", "electrician", "delivery"],
+                    correct_answer: "electrician",
+                    explanation: "'electrician' /ɪˌlekˈtrɪʃn/ có trọng âm chính ở âm tiết thứ 3 (hậu tố -ian). Các từ còn lại có trọng âm chính ở âm tiết thứ 2."
+                }
+            ]
         },
-
-        // --- PHẦN II: MULTIPLE CHOICE ---
-        {
-            type: "grammar", tag: "Phrasal Verb (Unit 1)",
-            question: "Experienced artisans in Bat Trang always ______ their traditional pottery-making techniques to the younger generation.",
-            options: ["pass down", "turn down", "look up", "close down"],
-            correct_answer: "pass down"
-        },
-        {
-            type: "grammar", tag: "Vocabulary (Unit 2)",
-            question: "The municipal authority is constructing a new elevated sky train line to tackle heavy traffic ______ during peak hours.",
-            options: ["congestion", "distraction", "priority", "relaxation"],
-            correct_answer: "congestion"
-        },
-        {
-            type: "grammar", tag: "Vocabulary (Unit 3)",
-            question: "To stay in good shape, teenagers should maintain a ______ diet rich in green vegetables, lean protein, and fresh fruits.",
-            options: ["well-balanced", "fattening", "depressed", "stressful"],
-            correct_answer: "well-balanced"
-        },
-        {
-            type: "grammar", tag: "Grammar (Wh-word + to-V)",
-            question: "Lan felt completely confused because she had no idea ______ to ask for guidance on her science project.",
-            options: ["who", "which", "what", "where"],
-            correct_answer: "who"
-        },
-        {
-            type: "grammar", tag: "Double Comparative (Unit 2)",
-            question: "______ you revise your lessons for the midterm exam, the more confident you will feel in the examination room.",
-            options: ["The harder", "The hardest", "Harder than", "More hard"],
-            correct_answer: "The harder"
-        },
-
-        // --- PHẦN III: READING COMPREHENSION ---
-        {
-            type: "reading", tag: "Reading Comprehension",
-            passage: "Adolescence is a transformative stage of life, but it also exposes teenagers to significant physical and emotional pressures. In modern society, academic expectations represent one of the primary causes of teen stress. Middle school students often spend between eight and ten hours a day studying at school and attending extra tuition classes. The constant fear of receiving low marks or disappointing their parents triggers chronic anxiety and sleep disorders.",
-            question: "According to the passage, what triggers chronic anxiety and sleep disorders in teenagers?",
-            options: [
-                "The constant fear of receiving low marks or disappointing parents.",
-                "Eating too many green vegetables and fresh fruits.",
-                "Having excessive free time during summer weekends.",
-                "Joining too many outdoor sports clubs after school."
-            ],
-            correct_answer: "The constant fear of receiving low marks or disappointing parents."
-        },
-        {
-            type: "reading", tag: "Written Test (Trắc nghiệm hóa)",
-            passage: "As the city gets more crowded, traffic congestion becomes worse.",
-            question: "Choose the sentence that has the CLOSEST meaning using Double Comparative:<br><b>As the city gets more crowded, traffic congestion becomes worse.</b>",
-            options: [
-                "The more crowded the city gets, the worse traffic congestion becomes.",
-                "The most crowded the city gets, the worst traffic congestion becomes.",
-                "The more crowded the city gets, the more traffic congestion becomes.",
-                "The less crowded the city gets, the worse traffic congestion becomes."
-            ],
-            correct_answer: "The more crowded the city gets, the worse traffic congestion becomes."
+        "anh9-u1-grammar": {
+            id: "anh9-u1-grammar",
+            title: "Luyện Tập Kỹ Năng 2: Ngữ Pháp & Từ Vựng (Grammar & Lexicon) • Unit 1 Lớp 9",
+            grade: 9,
+            subject: "Tiếng Anh (Global Success)",
+            timeMinutes: 15,
+            description: "Hệ thống từ vựng theo ngữ cảnh làng nghề, cụm động từ (Phrasal verbs) và cấu trúc Wh-word + to-infinitive.",
+            questions: [
+                {
+                    id: 1, type: "grammar", tag: "Phrasal Verbs • Unit 1",
+                    question: "My grandparents have decided to ______ the family silk-weaving business to my uncle because of their advancing age.",
+                    options: ["hand down", "live on", "break down", "come back"],
+                    correct_answer: "hand down",
+                    explanation: "'hand down' = truyền lại, bàn giao lại qua nhiều thế hệ (đồng nghĩa với pass down)."
+                },
+                {
+                    id: 2, type: "grammar", tag: "Vocabulary • Traditional Crafts",
+                    question: "Con Non village in Hue is internationally renowned for producing exquisite conical ______ made from dried palm leaves.",
+                    options: ["hats", "scarves", "sweaters", "baskets"],
+                    correct_answer: "hats",
+                    explanation: "Từ vựng kết hợp: 'conical hats' = nón lá truyền thống Việt Nam."
+                },
+                {
+                    id: 3, type: "grammar", tag: "Question word + to-infinitive",
+                    question: "The newly arrived foreign tourist asked the receptionist ______ to exchange international currency safely.",
+                    options: ["where", "which", "what", "whose"],
+                    correct_answer: "where",
+                    explanation: "Cấu trúc 'Wh-word + to V': Vế sau chỉ địa điểm đổi ngoại tệ ('to exchange international currency') nên ta dùng 'where to exchange'."
+                },
+                {
+                    id: 4, type: "grammar", tag: "Phrasal Verbs • Unit 1",
+                    question: "Due to the economic recession and lack of tourism, the century-old pottery workshop unfortunately had to ______.",
+                    options: ["close down", "face up to", "turn down", "look round"],
+                    correct_answer: "close down",
+                    explanation: "'close down' = đóng cửa dừng hoạt động kinh doanh vĩnh viễn (phá sản/ngừng sản xuất)."
+                }
+            ]
         }
-    ];
+    };
 
-    // 2. THUẬT TOÁN TRỘN ĐỀ (SHUFFLE)
-    function shuffleArray(array) {
-        let shuffled = [...array];
-        for (let i = shuffled.length - 1; i > 0; i--) {
+    /**
+     * =========================================================================
+     * CORE LOGIC: BIẾN TOÀN CỤC & QUẢN LÝ TRẠNG THÁI
+     * =========================================================================
+     */
+    let currentExam = null;
+    let questionsList = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let timerInterval = null;
+    let timeRemaining = 0;
+    let totalExamSeconds = 0;
+
+    // Trộn ngẫu nhiên (Fisher-Yates)
+    function shuffle(array) {
+        let arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-        return shuffled;
+        return arr;
     }
 
-    let quizData = shuffleArray(rawQuizData);
-    let currentQuestionIndex = 0;
-    let userAnswers = new Array(quizData.length).fill(null);
+    // Khởi chạy khi tải trang
+    document.addEventListener("DOMContentLoaded", async () => {
+        // 1. Tên học sinh
+        const studentName = localStorage.getItem('stm_user') || localStorage.getItem('student_name') || "Học viên STM English";
+        document.getElementById('student-name').innerHTML = `<i class="fa-regular fa-user"></i> ${studentName}`;
 
-    // 3. HIỂN THỊ TÊN HỌC SINH TỪ LOCALSTORAGE
-    document.addEventListener("DOMContentLoaded", () => {
-        const studentName = localStorage.getItem('stm_user') || localStorage.getItem('student_name');
-        if (studentName) {
-            document.getElementById('student-name').innerHTML = `<i class="fa-regular fa-user"></i> ${studentName}`;
-        }
-        renderQuestion();
-        startTimer(60 * 60); // Đếm ngược 60 phút
+        // 2. Lấy mã đề từ URL (?de=anh9-giuaky1)
+        const urlParams = new URLSearchParams(window.location.search);
+        const examId = urlParams.get('de') || 'anh9-giuaky1';
+
+        // 3. Tải dữ liệu đề thi
+        await loadExamData(examId);
     });
 
-    // 4. HÀM VẼ GIAO DIỆN CÂU HỎI
-    function renderQuestion() {
-        const q = quizData[currentQuestionIndex];
-        const container = document.getElementById('question-container');
-        
-        if (!q.shuffledOptions) {
-            q.shuffledOptions = shuffleArray(q.options);
+    /**
+     * =========================================================================
+     * HÀM TẢI ĐỀ THI ĐỘNG (MULTI-TIER EXAM LOADER)
+     * =========================================================================
+     */
+    async function loadExamData(examId) {
+        let loadedExam = null;
+
+        // Tầng 1: Thử tải file JSON độc lập từ thư mục ./data/exams/[examId].json
+        try {
+            const res = await fetch(`./data/exams/${examId}.json`);
+            if (res.ok) {
+                loadedExam = await res.json();
+            }
+        } catch (err) {
+            // Trường hợp chạy offline (file:///) hoặc lỗi mạng
+            console.log("Fallback sang Built-in Database:", err);
         }
-        const optionsList = q.shuffledOptions;
-        
-        let html = `<div class="question-type-badge">${q.tag}</div>`;
-        
-        if (q.type === "listening" && q.audio_url) {
-            html += `<audio controls class="audio-player"><source src="${q.audio_url}" type="audio/mpeg">Trình duyệt không hỗ trợ audio.</audio>`;
+
+        // Tầng 2: Nếu chưa tải được qua fetch, tìm trong Thư viện Built-in Database
+        if (!loadedExam && BUILTIN_EXAMS[examId]) {
+            loadedExam = BUILTIN_EXAMS[examId];
         }
-        
-        if (q.type === "reading" && q.passage) {
-            html += `<div class="reading-passage">${q.passage}</div>`;
+
+        // Tầng 3: Nếu vẫn không tìm thấy -> Hiển thị màn hình báo lỗi
+        if (!loadedExam) {
+            showErrorScreen(examId);
+            return;
         }
-        
-        html += `<div class="question-text">${currentQuestionIndex + 1}. ${q.question}</div>`;
-        html += `<div class="options-grid">`;
-        
-        const labels = ['A', 'B', 'C', 'D'];
-        optionsList.forEach((opt, index) => {
-            const isSelected = userAnswers[currentQuestionIndex] === opt ? 'selected' : '';
+
+        // Khởi tạo đề thi thành công
+        initExam(loadedExam);
+    }
+
+    /**
+     * =========================================================================
+     * KHỞI TẠO ĐỀ THI & RENDER GIAO DIỆN
+     * =========================================================================
+     */
+    function initExam(exam) {
+        currentExam = exam;
+        document.title = `${exam.title} - STM English`;
+        document.getElementById('exam-header-title').innerText = `${exam.title} (Khối ${exam.grade})`;
+
+        // Trộn các câu hỏi
+        questionsList = shuffle(exam.questions);
+        userAnswers = new Array(questionsList.length).fill(null);
+        currentQuestionIndex = 0;
+
+        // Xáo trộn đáp án của từng câu một lần duy nhất
+        questionsList.forEach(q => {
+            q.shuffledOptions = shuffle(q.options);
+        });
+
+        // Thiết lập thời gian làm bài
+        const durationMinutes = exam.timeMinutes || 60;
+        totalExamSeconds = durationMinutes * 60;
+        timeRemaining = totalExamSeconds;
+
+        // Render lưới Palette
+        renderPalette();
+
+        // Render câu hỏi đầu tiên
+        renderCurrentQuestion();
+
+        // Bắt đầu đếm ngược thời gian
+        startTimer();
+    }
+
+    /**
+     * =========================================================================
+     * RENDER CÂU HỎI HIỆN TẠI
+     * =========================================================================
+     */
+    function renderCurrentQuestion() {
+        const q = questionsList[currentQuestionIndex];
+        const container = document.getElementById('question-box');
+
+        let html = `
+            <div class="question-badge">
+                <i class="fa-solid fa-tag"></i> ${q.tag || 'Trắc nghiệm 4 lựa chọn'}
+            </div>
+        `;
+
+        // Nếu là bài nghe (Listening)
+        if (q.type === 'listening' && q.audio_url) {
             html += `
-                <div class="option-btn ${isSelected}" onclick="selectOption('${opt.replace(/'/g, "\\'")}')">
-                    <div class="option-marker">${labels[index]}</div>
-                    <div>${opt}</div>
+                <div class="audio-box">
+                    <p><i class="fa-solid fa-headphones"></i> BÀI NGHE AUDIO (Nghe kỹ và chọn câu trả lời đúng):</p>
+                    <audio controls class="audio-player">
+                        <source src="${q.audio_url}" type="audio/mpeg">
+                        Trình duyệt của bạn không hỗ trợ trình phát âm thanh.
+                    </audio>
+                </div>
+            `;
+        }
+
+        // Nếu là bài đọc (Reading) hoặc có đoạn văn
+        if (q.passage) {
+            html += `
+                <div class="reading-box">
+                    <strong><i class="fa-solid fa-book-open"></i> ĐOẠN VĂN THAM KHẢO:</strong><br>
+                    ${q.passage}
+                </div>
+            `;
+        }
+
+        // Câu hỏi chính
+        html += `
+            <div class="question-title">
+                Câu ${currentQuestionIndex + 1}: ${q.question}
+            </div>
+        `;
+
+        // 4 Lựa chọn A, B, C, D
+        html += `<div class="options-list">`;
+        const optionMarkers = ['A', 'B', 'C', 'D'];
+        q.shuffledOptions.forEach((optText, idx) => {
+            const isSelected = userAnswers[currentQuestionIndex] === optText ? 'selected' : '';
+            // Escape ký tự nháy đơn để tránh lỗi JS
+            const escapedOpt = optText.replace(/'/g, "\\'");
+            html += `
+                <div class="option-item ${isSelected}" onclick="chooseOption('${escapedOpt}')">
+                    <div class="option-circle">${optionMarkers[idx]}</div>
+                    <div style="flex: 1;">${optText}</div>
                 </div>
             `;
         });
-        
         html += `</div>`;
+
         container.innerHTML = html;
-        
-        document.getElementById('progress').innerText = `Câu ${currentQuestionIndex + 1} / ${quizData.length}`;
+
+        // Cập nhật thanh tiến độ
+        const currentNum = currentQuestionIndex + 1;
+        const totalNum = questionsList.length;
+        document.getElementById('progress-text').innerText = `Câu ${currentNum} / ${totalNum}`;
+        const pct = Math.round((currentNum / totalNum) * 100);
+        document.getElementById('progress-bar').style.width = `${pct}%`;
+
+        // Cập nhật số câu đã làm
+        const answeredCount = userAnswers.filter(a => a !== null).length;
+        document.getElementById('answered-count').innerText = answeredCount;
+
+        // Cập nhật nút điều hướng
         document.getElementById('btn-prev').style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
-        
-        if (currentQuestionIndex === quizData.length - 1) {
+        if (currentQuestionIndex === totalNum - 1) {
             document.getElementById('btn-next').style.display = 'none';
-            document.getElementById('btn-submit').style.display = 'flex';
+            document.getElementById('btn-submit').style.display = 'inline-flex';
         } else {
-            document.getElementById('btn-next').style.display = 'flex';
+            document.getElementById('btn-next').style.display = 'inline-flex';
             document.getElementById('btn-submit').style.display = 'none';
         }
+
+        // Cập nhật màu sắc trên Palette
+        updatePaletteState();
     }
 
-    function selectOption(selectedText) {
-        userAnswers[currentQuestionIndex] = selectedText;
-        renderQuestion();
+    /**
+     * =========================================================================
+     * THAO TÁC CHỌN ĐÁP ÁN & ĐIỀU HƯỚNG
+     * =========================================================================
+     */
+    function chooseOption(optionText) {
+        userAnswers[currentQuestionIndex] = optionText;
+        renderCurrentQuestion();
     }
 
-    function nextQuestion() {
-        if (currentQuestionIndex < quizData.length - 1) {
+    function goToNextQuestion() {
+        if (currentQuestionIndex < questionsList.length - 1) {
             currentQuestionIndex++;
-            renderQuestion();
+            renderCurrentQuestion();
         }
     }
 
-    function prevQuestion() {
+    function goToPrevQuestion() {
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--;
-            renderQuestion();
+            renderCurrentQuestion();
         }
     }
 
-    function submitQuiz() {
-        let correctCount = 0;
-        for (let i = 0; i < quizData.length; i++) {
-            if (userAnswers[i] === quizData[i].correct_answer) {
-                correctCount++;
+    function jumpToQuestion(index) {
+        currentQuestionIndex = index;
+        renderCurrentQuestion();
+    }
+
+    /**
+     * =========================================================================
+     * QUESTION PALETTE (LƯỚI CÂU HỎI)
+     * =========================================================================
+     */
+    function renderPalette() {
+        const palette = document.getElementById('question-palette');
+        let html = '';
+        questionsList.forEach((_, idx) => {
+            html += `<div class="palette-item" id="pal-item-${idx}" onclick="jumpToQuestion(${idx})">${idx + 1}</div>`;
+        });
+        palette.innerHTML = html;
+    }
+
+    function updatePaletteState() {
+        questionsList.forEach((_, idx) => {
+            const el = document.getElementById(`pal-item-${idx}`);
+            if (!el) return;
+            el.className = 'palette-item';
+            if (userAnswers[idx] !== null) {
+                el.classList.add('answered');
             }
-        }
-        
-        const score10 = ((correctCount / quizData.length) * 10).toFixed(1);
-        
-        document.getElementById('quiz-screen').style.display = 'none';
-        document.getElementById('result-screen').style.display = 'block';
-        
-        document.getElementById('correct-count').innerText = `${correctCount} / ${quizData.length}`;
-        document.getElementById('final-score').innerText = score10;
+            if (idx === currentQuestionIndex) {
+                el.classList.add('current');
+            }
+        });
     }
 
-    function startTimer(durationInSeconds) {
-        let timer = durationInSeconds;
-        const timeDisplay = document.getElementById('time');
+    function togglePalette() {
+        const p = document.getElementById('question-palette');
+        const btnText = document.getElementById('palette-btn-text');
+        if (p.style.display === 'none') {
+            p.style.display = 'flex';
+            btnText.innerText = 'Thu gọn danh sách';
+        } else {
+            p.style.display = 'none';
+            btnText.innerText = 'Hiện danh sách câu hỏi';
+        }
+    }
+
+    /**
+     * =========================================================================
+     * ĐỒNG HỒ ĐẾM NGƯỢC THỜI GIAN
+     * =========================================================================
+     */
+    function startTimer() {
+        const timerDisplay = document.getElementById('timer-display');
         
-        const interval = setInterval(() => {
-            let minutes = parseInt(timer / 60, 10);
-            let seconds = parseInt(timer % 60, 10);
-            
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            timeDisplay.innerText = minutes + ":" + seconds;
-            
-            if (--timer < 0) {
-                clearInterval(interval);
-                alert("Hết thời gian làm bài! Hệ thống sẽ tự động nộp bài.");
-                submitQuiz();
+        timerInterval = setInterval(() => {
+            let mins = Math.floor(timeRemaining / 60);
+            let secs = timeRemaining % 60;
+
+            mins = mins < 10 ? '0' + mins : mins;
+            secs = secs < 10 ? '0' + secs : secs;
+            timerDisplay.innerText = `${mins}:${secs}`;
+
+            if (--timeRemaining < 0) {
+                clearInterval(timerInterval);
+                alert("⏰ Đã hết thời gian làm bài! Hệ thống tự động nộp bài và chấm điểm.");
+                submitExam();
             }
         }, 1000);
     }
+
+    /**
+     * =========================================================================
+     * NỘP BÀI THI & CHẤM ĐIỂM TỨC THÌ
+     * =========================================================================
+     */
+    function submitExam() {
+        // Dừng đếm ngược
+        if (timerInterval) clearInterval(timerInterval);
+
+        // Tính toán kết quả
+        let correctCount = 0;
+        questionsList.forEach((q, idx) => {
+            // So khớp text chuẩn xác (loại bỏ khoảng trắng thừa)
+            const userChoice = (userAnswers[idx] || "").trim();
+            const correctChoice = (q.correct_answer || "").trim();
+            if (userChoice === correctChoice) {
+                correctCount++;
+            }
+        });
+
+        const totalQ = questionsList.length;
+        const score10 = ((correctCount / totalQ) * 10).toFixed(1);
+        const percentage = Math.round((correctCount / totalQ) * 100);
+
+        // Tính thời gian làm bài
+        const timeSpentSeconds = totalExamSeconds - Math.max(0, timeRemaining);
+        const spentMins = Math.floor(timeSpentSeconds / 60);
+        const spentSecs = timeSpentSeconds % 60;
+        const timeSpentStr = `${spentMins < 10 ? '0' + spentMins : spentMins}:${spentSecs < 10 ? '0' + spentSecs : spentSecs}`;
+
+        // Đánh giá xếp loại
+        let rating = "Cần Cố Gắng";
+        let ratingColor = "#ef4444";
+        if (score10 >= 9.0) {
+            rating = "Xuất Sắc (Excellent)";
+            ratingColor = "#10b981";
+        } else if (score10 >= 8.0) {
+            rating = "Giỏi (Very Good)";
+            ratingColor = "#3b82f6";
+        } else if (score10 >= 6.5) {
+            rating = "Khá (Good)";
+            ratingColor = "#d97706";
+        } else if (score10 >= 5.0) {
+            rating = "Đạt Yêu Cầu (Passed)";
+            ratingColor = "#64748b";
+        }
+
+        // Ẩn màn hình làm bài, hiện màn hình kết quả
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        // Điền dữ liệu vào Scoreboard
+        document.getElementById('result-exam-title').innerText = currentExam.title;
+        document.getElementById('result-exam-desc').innerText = `Khối ${currentExam.grade} • Thầy Nguyễn Hoàng Sơn (STM English)`;
+        document.getElementById('result-score').innerText = score10;
+        document.getElementById('result-rating').innerText = rating;
+        document.getElementById('result-rating').style.color = ratingColor;
+        document.getElementById('result-correct').innerText = `${correctCount} / ${totalQ}`;
+        document.getElementById('result-percentage').innerText = `${percentage}%`;
+        document.getElementById('result-time-spent').innerText = timeSpentStr;
+
+        // Lưu vào localStorage để Phụ huynh xem được ở classroom.html
+        saveHistoryToLocalStorage(score10, correctCount, totalQ, timeSpentStr);
+
+        // Render phần giải thích chi tiết
+        renderReviewDetails();
+    }
+
+    /**
+     * =========================================================================
+     * LƯU LỊCH SỬ LÀM BÀI VÀO LOCALSTORAGE
+     * =========================================================================
+     */
+    function saveHistoryToLocalStorage(score, correct, total, timeSpent) {
+        try {
+            const studentName = localStorage.getItem('stm_user') || localStorage.getItem('student_name') || "Học viên";
+            let history = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+            
+            const newRecord = {
+                id: Date.now(),
+                examId: currentExam.id,
+                examTitle: currentExam.title,
+                grade: currentExam.grade,
+                score: score,
+                correct: correct,
+                total: total,
+                timeSpent: timeSpent,
+                date: new Date().toLocaleDateString('vi-VN') + ' ' + new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}),
+                studentName: studentName
+            };
+
+            // Thêm vào đầu danh sách
+            history.unshift(newRecord);
+            // Giữ tối đa 20 bài làm gần nhất
+            if (history.length > 20) history = history.slice(0, 20);
+            localStorage.setItem('stm_quiz_history', JSON.stringify(history));
+        } catch (e) {
+            console.error("Không thể lưu lịch sử vào localStorage:", e);
+        }
+    }
+
+    /**
+     * =========================================================================
+     * RENDER DANH SÁCH LỜI GIẢI CHI TIẾT
+     * =========================================================================
+     */
+    function renderReviewDetails() {
+        const container = document.getElementById('review-cards-list');
+        let html = '';
+
+        questionsList.forEach((q, idx) => {
+            const userChoice = (userAnswers[idx] || "Chưa chọn đáp án").trim();
+            const correctChoice = (q.correct_answer || "").trim();
+            const isCorrect = userChoice === correctChoice;
+
+            html += `
+                <div class="review-card ${isCorrect ? 'correct' : 'incorrect'}">
+                    <div class="review-card-top">
+                        <span style="font-weight: 800; color: var(--text-main);">Câu ${idx + 1} • ${q.tag || 'Trắc nghiệm'}</span>
+                        <span class="status-badge ${isCorrect ? 'correct' : 'incorrect'}">
+                            ${isCorrect ? '<i class="fa-solid fa-check"></i> Làm đúng' : '<i class="fa-solid fa-xmark"></i> Chưa chính xác'}
+                        </span>
+                    </div>
+
+                    <div class="review-question">${q.question}</div>
+
+                    <div class="review-answer-box">
+                        <div style="margin-bottom: 6px;">
+                            <strong>Bài làm của em:</strong> 
+                            <span style="color: ${isCorrect ? 'var(--success)' : 'var(--danger)'}; font-weight: 700;">
+                                ${userChoice}
+                            </span>
+                        </div>
+                        <div>
+                            <strong>Đáp án chuẩn của Thầy Sơn:</strong> 
+                            <span style="color: var(--success); font-weight: 800;">
+                                ${correctChoice}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <i class="fa-solid fa-lightbulb"></i> <strong>Lời giải thích chi tiết:</strong><br>
+                        ${q.explanation || 'Đáp án chính xác theo quy chuẩn ngữ pháp và ngữ cảnh bài học.'}
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function scrollToReview() {
+        document.getElementById('review-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /**
+     * =========================================================================
+     * MÀN HÌNH BÁO LỖI KHI MÃ ĐỀ KHÔNG TỒN TẠI
+     * =========================================================================
+     */
+    function showErrorScreen(missingId) {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('error-screen').style.display = 'block';
+        document.getElementById('missing-exam-id').innerText = `"${missingId}"`;
+
+        const listContainer = document.getElementById('available-exams-list');
+        let html = '';
+        Object.keys(BUILTIN_EXAMS).forEach(key => {
+            const ex = BUILTIN_EXAMS[key];
+            html += `
+                <a href="quiz.html?de=${ex.id}" class="exam-link-card">
+                    <div>
+                        <div style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase;">Khối ${ex.grade} • ${ex.timeMinutes} phút</div>
+                        <div>${ex.title}</div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right" style="color: var(--primary);"></i>
+                </a>
+            `;
+        });
+        listContainer.innerHTML = html;
+    }
 </script>
+
 </body>
 </html>
