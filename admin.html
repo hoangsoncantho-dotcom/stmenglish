@@ -578,31 +578,31 @@
 
         <ul class="nav-menu">
             <li class="nav-item">
-                <a class="nav-link active" onclick="switchTab('dashboard')">
+                <a class="nav-link active" data-tab="dashboard" onclick="switchTab('dashboard', event)">
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Tổng Quan Hệ Thống</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" onclick="switchTab('exam-creator')">
+                <a class="nav-link" data-tab="exam-creator" onclick="switchTab('exam-creator', event)">
                     <i class="fa-solid fa-file-circle-plus"></i>
                     <span>Tạo Đề Thi Trắc Nghiệm</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" onclick="switchTab('materials')">
+                <a class="nav-link" data-tab="materials" onclick="switchTab('materials', event)">
                     <i class="fa-solid fa-cloud-arrow-up"></i>
                     <span>Tải Bài Vở & Bài Giảng</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" onclick="switchTab('submissions')">
+                <a class="nav-link" data-tab="submissions" onclick="switchTab('submissions', event)">
                     <i class="fa-solid fa-box-archive"></i>
                     <span>Bài Tập Về Nhà (Drive 5TB)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" onclick="switchTab('gradebook')">
+                <a class="nav-link" data-tab="gradebook" onclick="switchTab('gradebook', event)">
                     <i class="fa-solid fa-trophy"></i>
                     <span>Sổ Điểm & Báo Cáo Khảo Thí</span>
                 </a>
@@ -1132,17 +1132,25 @@ Câu 2: ..."></textarea>
          * 2. CHUYỂN ĐỔI TAB ĐIỀU HƯỚNG
          * =========================================================================
          */
-        function switchTab(tabId) {
-            // Đổi class active ở nav link
+        function switchTab(tabId, ev) {
+            // Đổi class active ở nav link an toàn
             const links = document.querySelectorAll('.nav-link');
             links.forEach(l => l.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            
+            // Tìm nav-link tương ứng với tabId hoặc theo element được click
+            const activeLink = document.querySelector(`.nav-link[data-tab="${tabId}"]`) || 
+                               (ev && (ev.currentTarget || ev.target).closest('.nav-link'));
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
 
             // Đổi tab panel
             const panels = document.querySelectorAll('.tab-panel');
             panels.forEach(p => p.classList.remove('active'));
             const targetPanel = document.getElementById(`tab-${tabId}`);
-            if (targetPanel) targetPanel.classList.add('active');
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
 
             // Đổi tiêu đề header
             const titles = {
@@ -1152,7 +1160,10 @@ Câu 2: ..."></textarea>
                 'submissions': 'Bài Tập Về Nhà Học Sinh Đã Nộp',
                 'gradebook': 'Sổ Điểm & Báo Cáo Khảo Thí'
             };
-            document.getElementById('currentTabHeading').innerText = titles[tabId] || 'Quản Trị Hệ Thống';
+            const headingEl = document.getElementById('currentTabHeading');
+            if (headingEl) {
+                headingEl.innerText = titles[tabId] || 'Quản Trị Hệ Thống';
+            }
         }
 
         /**
