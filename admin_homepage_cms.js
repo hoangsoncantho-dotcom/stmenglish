@@ -508,8 +508,7 @@ async function saveCmsContentLive() {
             } catch(e) {}
         }
 
-        // Tự động tải file JSON về máy để Thầy chỉ cần kéo thả lên GitHub
-        downloadBlob(jsonStr, 'homepage_content.json', 'application/json');
+        // Dữ liệu đã lưu trực tiếp vào LocalStorage và Cloud, không tự động tải file để tránh hiện popup Save As
 
         if (typeof showStatusMessage === 'function') {
             showStatusMessage('Đã cập nhật diện mạo mới lên Trang Chủ thành công! Thầy mở tab Trang Chủ và bấm Ctrl + F5 để xem thay đổi ngay.', 'success');
