@@ -209,6 +209,53 @@
             transform: translateY(-1px);
         }
 
+        /* Tối ưu bộ chọn Khối Lớp (Teacher Quick Grade Select) */
+        #gradeQuickSelect {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 0.45rem 1.1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+            transition: var(--transition);
+        }
+
+        #gradeQuickSelect:hover,
+        #gradeQuickSelect:focus {
+            background: linear-gradient(135deg, #0369a1, #075985);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+        }
+
+        /* KHẮC PHỤC TRIỆT ĐỂ LỖI TRÙNG MÀU CHỮ & NỀN TRONG DROPDOWN WINDOWS */
+        #gradeQuickSelect option {
+            background-color: #ffffff !important;
+            color: #0f172a !important; /* Xanh Navy đậm cực kỳ rõ nét */
+            font-size: 0.9rem !important;
+            font-weight: 700 !important;
+            padding: 8px 14px !important;
+            line-height: 1.6 !important;
+        }
+
+        #gradeQuickSelect option:checked {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+        }
+
+        #gradeQuickSelect optgroup {
+            background-color: #f1f5f9 !important;
+            color: #0369a1 !important; /* Xanh dương đậm phân nhóm */
+            font-size: 0.8rem !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+            padding: 8px 12px 4px 12px !important;
+        }
+
         /* ========================================================
            3. BANNER CHÀO MỪNG (DASHBOARD HERO BANNER)
            ======================================================== */
@@ -1623,24 +1670,24 @@
                     <span style="font-size: 0.78rem; font-weight: 800; color: #dc2626; text-transform: uppercase;">
                         <i class="fa-solid fa-chalkboard-user"></i> Xem Phòng:
                     </span>
-                    <select id="gradeQuickSelect" onchange="switchGradeManually(this.value)" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: white; border: none; padding: 0.45rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; cursor: pointer; outline: none; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);">
-                        <optgroup label="Khối Tiểu Học">
-                            <option value="grade1">Lớp 1 (Tiểu Học)</option>
-                            <option value="grade2">Lớp 2 (Tiểu Học)</option>
-                            <option value="grade3">Lớp 3 (Tiểu Học)</option>
-                            <option value="grade4">Lớp 4 (Tiểu Học)</option>
-                            <option value="grade5">Lớp 5 (Tiểu Học)</option>
+                    <select id="gradeQuickSelect" onchange="switchGradeManually(this.value)" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.35); padding: 0.45rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; cursor: pointer; outline: none; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);">
+                        <optgroup label="Khối Tiểu Học" style="background-color: #f1f5f9; color: #0284c7; font-weight: 800; text-transform: uppercase;">
+                            <option value="grade1" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 1 (Tiểu Học)</option>
+                            <option value="grade2" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 2 (Tiểu Học)</option>
+                            <option value="grade3" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 3 (Tiểu Học)</option>
+                            <option value="grade4" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 4 (Tiểu Học)</option>
+                            <option value="grade5" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 5 (Tiểu Học)</option>
                         </optgroup>
-                        <optgroup label="Khối THCS (Global Success)">
-                            <option value="grade6">Lớp 6 (THCS)</option>
-                            <option value="grade7">Lớp 7 (THCS)</option>
-                            <option value="grade8">Lớp 8 (THCS)</option>
-                            <option value="grade9" selected>Lớp 9 (THCS)</option>
+                        <optgroup label="Khối THCS (Global Success)" style="background-color: #f1f5f9; color: #0284c7; font-weight: 800; text-transform: uppercase;">
+                            <option value="grade6" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 6 (THCS)</option>
+                            <option value="grade7" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 7 (THCS)</option>
+                            <option value="grade8" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 8 (THCS)</option>
+                            <option value="grade9" selected style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 9 (THCS)</option>
                         </optgroup>
-                        <optgroup label="Khối THPT (Global Success)">
-                            <option value="grade10">Lớp 10 (THPT)</option>
-                            <option value="grade11">Lớp 11 (THPT)</option>
-                            <option value="grade12">Lớp 12 (THPT)</option>
+                        <optgroup label="Khối THPT (Global Success)" style="background-color: #f1f5f9; color: #0284c7; font-weight: 800; text-transform: uppercase;">
+                            <option value="grade10" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 10 (THPT)</option>
+                            <option value="grade11" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 11 (THPT)</option>
+                            <option value="grade12" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 12 (THPT)</option>
                         </optgroup>
                     </select>
                 </div>

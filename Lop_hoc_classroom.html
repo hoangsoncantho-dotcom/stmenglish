@@ -1,0 +1,3778 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Không Gian Học Tập Trực Tuyến - STM English</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Lexend -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 6 Icon CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ========================================================
+           1. THIẾT LẬP NỀN TẢNG & BIẾN MÀU SẮC ĐỒNG BỘ
+           ======================================================== */
+        :root {
+            --primary: #0284c7;         /* Xanh dương chủ đạo (#0284c7) */
+            --primary-dark: #0369a1;    /* Xanh dương đậm */
+            --primary-deep: #0c4a6e;    /* Xanh navy biển sâu */
+            --navy-dark: #0f172a;       /* Chữ tiêu đề chính */
+            --bg-page: #f8fafc;         /* Nền xám xanh dịu mắt */
+            --bg-card: #ffffff;         /* Nền thẻ trắng tinh khiết */
+            --border-color: #e2e8f0;    /* Viền tinh tế */
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            
+            --emerald: #10b981;         /* Xanh lục bảo thành công */
+            --emerald-bg: #f0fdf4;
+            --amber: #f59e0b;           /* Vàng cam đếm giờ / khảo thí */
+            --amber-bg: #fffbeb;
+            --purple: #8b5cf6;          /* Tím kỹ năng Writing */
+            --purple-bg: #f5f3ff;
+            --rose: #f43f5e;            /* Đỏ hồng kỹ năng Phonetics */
+            --rose-bg: #fff1f2;
+            --blue: #3b82f6;            /* Xanh kỹ năng Grammar */
+            --blue-bg: #eff6ff;
+            --cyan: #06b6d4;            /* Xanh ngọc Listening */
+            --cyan-bg: #ecfeff;
+
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 10px 25px rgba(2, 132, 199, 0.08);
+            --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.08);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ========================================================
+           2. THANH NAVBAR ĐA NĂNG (TOP NAVBAR)
+           ======================================================== */
+        .classroom-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0.85rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .navbar-brand-group {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.5rem 0.9rem;
+            border-radius: var(--radius-full);
+            background: #f1f5f9;
+            transition: var(--transition);
+        }
+
+        .btn-back-home:hover {
+            color: var(--primary);
+            background: #e0f2fe;
+            transform: translateX(-2px);
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .brand-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+        }
+
+        .brand-title-text h1 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+            line-height: 1.1;
+        }
+
+        .brand-title-text h1 span {
+            color: var(--primary);
+        }
+
+        .brand-title-text p {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Khối thông tin Thí sinh & Nút Đăng xuất */
+        .user-nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .grade-badge {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            padding: 0.4rem 0.95rem;
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+        }
+
+        .user-greeting-card {
+            background: #f0f9ff;
+            color: var(--primary-deep);
+            padding: 0.45rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid #bae6fd;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-logout {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-logout:hover {
+            background: #fee2e2;
+            transform: translateY(-1px);
+        }
+
+        /* Tối ưu bộ chọn Khối Lớp (Teacher Quick Grade Select) */
+        #gradeQuickSelect {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 0.45rem 1.1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 800;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+            transition: var(--transition);
+        }
+
+        #gradeQuickSelect:hover,
+        #gradeQuickSelect:focus {
+            background: linear-gradient(135deg, #0369a1, #075985);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+        }
+
+        /* KHẮC PHỤC TRIỆT ĐỂ LỖI TRÙNG MÀU CHỮ & NỀN TRONG DROPDOWN WINDOWS */
+        #gradeQuickSelect option {
+            background-color: #ffffff !important;
+            color: #0f172a !important; /* Xanh Navy đậm cực kỳ rõ nét */
+            font-size: 0.9rem !important;
+            font-weight: 700 !important;
+            padding: 8px 14px !important;
+            line-height: 1.6 !important;
+        }
+
+        #gradeQuickSelect option:checked {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+            font-weight: 800 !important;
+        }
+
+        #gradeQuickSelect optgroup {
+            background-color: #f1f5f9 !important;
+            color: #0369a1 !important; /* Xanh dương đậm phân nhóm */
+            font-size: 0.8rem !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+            padding: 8px 12px 4px 12px !important;
+        }
+
+        /* ========================================================
+           3. BANNER CHÀO MỪNG (DASHBOARD HERO BANNER)
+           ======================================================== */
+        .dashboard-hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, #0369a1 100%);
+            color: white;
+            padding: 2.2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-welcome-info h2 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+        }
+
+        .hero-welcome-info h2 span {
+            color: #38bdf8;
+        }
+
+        .hero-welcome-info p {
+            font-size: 0.98rem;
+            color: #e2e8f0;
+            max-width: 680px;
+            line-height: 1.5;
+        }
+
+        .hero-stats-group {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .stat-pill {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .stat-pill .number {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: #38bdf8;
+            line-height: 1.1;
+        }
+
+        .stat-pill .label {
+            font-size: 0.75rem;
+            color: #cbd5e1;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        /* ========================================================
+           4. MAIN CONTENT CONTAINER
+           ======================================================== */
+        .main-container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+        }
+
+        /* ========================================================
+           5. TẦNG 1: CỔNG PHÂN LUỒNG & CHUYỂN UNIT (UNIT TABS)
+           ======================================================== */
+        .layer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+        }
+
+        .layer-title-box {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .layer-badge {
+            background: #e0f2fe;
+            color: var(--primary-deep);
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .layer-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+        }
+
+        /* Thanh cuộn ngang các Unit */
+        .units-nav-scroller {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.6rem;
+            scrollbar-width: thin;
+        }
+
+        .units-nav-scroller::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .units-nav-scroller::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 9999px;
+        }
+
+        .unit-tab-btn {
+            background: white;
+            border: 1.5px solid var(--border-color);
+            padding: 0.85rem 1.35rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+        }
+
+        .unit-tab-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .unit-tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary-dark);
+            color: white;
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+        }
+
+        .unit-tab-btn .unit-code {
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.85;
+        }
+
+        .unit-tab-btn.active .unit-code {
+            color: #bae6fd;
+        }
+
+        .unit-tab-btn .unit-name {
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        /* ========================================================
+           6. TẦNG 2: NGÂN HÀNG BÀI TẬP PHÂN RÃ THEO 5 KỸ NĂNG
+           ======================================================== */
+        .current-unit-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 1.8rem 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .unit-banner-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .unit-banner-title h3 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .unit-banner-title p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .unit-downloads {
+            display: flex;
+            gap: 0.65rem;
+        }
+
+        .btn-download-doc {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            color: var(--navy-dark);
+            text-decoration: none;
+            padding: 0.55rem 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-download-doc:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #f0f9ff;
+        }
+
+        /* LƯỚI 5 THẺ KỸ NĂNG */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .skill-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 1.3rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.1rem;
+        }
+
+        .skill-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+        }
+
+        .skill-badge {
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-name {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .skill-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 1.2rem;
+            min-height: 52px;
+        }
+
+        .btn-practice {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        /* Phối màu 5 kỹ năng chuyên biệt */
+        /* 1. Phonetics */
+        .card-phonetics { border-top: 4px solid var(--rose); }
+        .card-phonetics .skill-icon-box { background: var(--rose-bg); color: var(--rose); }
+        .card-phonetics .skill-badge { background: var(--rose-bg); color: var(--rose); }
+        .card-phonetics .btn-practice { background: var(--rose-bg); color: var(--rose); }
+        .card-phonetics .btn-practice:hover { background: var(--rose); color: white; }
+
+        /* 2. Grammar & Lexicon */
+        .card-grammar { border-top: 4px solid var(--blue); }
+        .card-grammar .skill-icon-box { background: var(--blue-bg); color: var(--blue); }
+        .card-grammar .skill-badge { background: var(--blue-bg); color: var(--blue); }
+        .card-grammar .btn-practice { background: var(--blue-bg); color: var(--blue); }
+        .card-grammar .btn-practice:hover { background: var(--blue); color: white; }
+
+        /* 3. Listening */
+        .card-listening { border-top: 4px solid var(--cyan); }
+        .card-listening .skill-icon-box { background: var(--cyan-bg); color: var(--cyan); }
+        .card-listening .skill-badge { background: var(--cyan-bg); color: var(--cyan); }
+        .card-listening .btn-practice { background: var(--cyan-bg); color: #0891b2; }
+        .card-listening .btn-practice:hover { background: #0891b2; color: white; }
+
+        /* 4. Reading */
+        .card-reading { border-top: 4px solid var(--emerald); }
+        .card-reading .skill-icon-box { background: var(--emerald-bg); color: var(--emerald); }
+        .card-reading .skill-badge { background: var(--emerald-bg); color: var(--emerald); }
+        .card-reading .btn-practice { background: var(--emerald-bg); color: var(--emerald); }
+        .card-reading .btn-practice:hover { background: var(--emerald); color: white; }
+
+        /* 5. Writing */
+        .card-writing { border-top: 4px solid var(--purple); }
+        .card-writing .skill-icon-box { background: var(--purple-bg); color: var(--purple); }
+        .card-writing .skill-badge { background: var(--purple-bg); color: var(--purple); }
+        .card-writing .btn-practice { background: var(--purple-bg); color: var(--purple); }
+        .card-writing .btn-practice:hover { background: var(--purple); color: white; }
+
+        /* ========================================================
+           7. TẦNG 3: KHU VỰC KHẢO THÍ & KIỂM TRA ĐỊNH KỲ
+           ======================================================== */
+        .exam-center-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #bae6fd;
+            border-radius: var(--radius-lg);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exam-center-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #ef4444, #0284c7);
+        }
+
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .exam-box {
+            background: white;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .exam-box:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .exam-box-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .exam-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .exam-box-title h4 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+            margin-bottom: 0.35rem;
+        }
+
+        .exam-box-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .exam-meta-pills {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .exam-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            background: #f1f5f9;
+            color: var(--text-muted);
+        }
+
+        .btn-start-exam {
+            padding: 0.85rem 1.4rem;
+            border-radius: var(--radius-sm);
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            transition: var(--transition);
+        }
+
+        .btn-exam-regular {
+            background: #fffbeb;
+            color: #b45309;
+            border: 1.5px solid #fde68a;
+        }
+
+        .btn-exam-regular:hover {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-exam-mock {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        .btn-exam-mock:hover {
+            background: linear-gradient(135deg, #0284c7, var(--primary-deep));
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+            transform: translateY(-1px);
+        }
+
+        /* ========================================================
+           8. KHỐI NỘP BÀI TẬP VỀ NHÀ (GOOGLE DRIVE BACKEND 5TB)
+           ======================================================== */
+        .upload-section-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-md);
+            border: 1.5px solid #bbf7d0;
+            border-left: 6px solid var(--emerald);
+        }
+
+        .upload-header {
+            margin-bottom: 1.2rem;
+        }
+
+        .upload-header h3 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #166534;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+        }
+
+        .upload-header p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .upload-dropzone {
+            background: #f0fdf4;
+            border: 2px dashed #86efac;
+            border-radius: var(--radius-md);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .upload-dropzone:hover {
+            border-color: var(--emerald);
+            background: #ecfdf5;
+        }
+
+        .upload-label {
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .upload-hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        .btn-submit-file {
+            margin-top: 1.2rem;
+            padding: 0.85rem 2.2rem;
+            background: var(--primary);
+            color: white;
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        .btn-submit-file:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* ========================================================
+           9. FOOTER CHÂN TRANG
+           ======================================================== */
+        .classroom-footer {
+            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        .classroom-footer strong {
+            color: var(--navy-dark);
+        }
+
+        /* Badge vai trò: Giáo viên / Học sinh / Phụ huynh */
+        .role-badge-tag {
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 0.35rem 0.8rem;
+            border-radius: var(--radius-full);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .role-badge-tag.teacher {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        .role-badge-tag.student {
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 1px solid #bae6fd;
+        }
+        .role-badge-tag.parent {
+            background: #f5f3ff;
+            color: #7c3aed;
+            border: 1px solid #ddd6fe;
+        }
+
+        /* Khối khóa lớp dành cho Học sinh & Phụ huynh */
+        .locked-grade-badge {
+            background: #f1f5f9;
+            color: var(--navy-dark);
+            padding: 0.45rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1.5px solid var(--border-color);
+        }
+        .locked-grade-badge i {
+            color: var(--primary);
+        }
+
+        /* Thanh tiện ích giáo viên */
+        .teacher-toolbar-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%);
+            border: 1.5px solid #fecaca;
+            border-left: 5px solid #dc2626;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Bảng điều khiển phụ huynh */
+        .parent-dashboard-card {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 2.2rem;
+            box-shadow: var(--shadow-md);
+            border: 1.5px solid #ddd6fe;
+            border-top: 5px solid #8b5cf6;
+        }
+
+        .parent-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        .parent-stat-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .parent-stat-item .val {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #7c3aed;
+        }
+
+        .parent-stat-item .lbl {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .parent-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.2rem;
+            font-size: 0.92rem;
+        }
+
+        .parent-history-table th {
+            background: #f5f3ff;
+            color: #6b21a8;
+            padding: 0.85rem 1rem;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #ddd6fe;
+        }
+
+        .parent-history-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--navy-dark);
+        }
+
+        .parent-history-table tr:hover {
+            background: #faf5ff;
+        }
+
+        /* ========================================================
+           10. RESPONSIVE CHO MOBILE & TABLET
+           ======================================================== */
+        @media (max-width: 768px) {
+            .navbar-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .user-nav-actions {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .hero-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero-stats-group {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .stat-pill {
+                flex: 1;
+                min-width: 0;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .exam-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+        /* ========================================================
+           MULTI-STEP LEARNING NAVIGATOR CSS (CHUẨN E CLASS)
+           ======================================================== */
+        .step-breadcrumb-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f1f5f9;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border-color);
+        }
+        .step-crumb-list {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .step-crumb-item.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .btn-back-step {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.4rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+        .btn-back-step:hover {
+            background: #e2e8f0;
+            color: var(--primary);
+        }
+        
+        .skill-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.25rem;
+        }
+        .skill-step-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+        .skill-step-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        .skill-step-card.active {
+            border-color: var(--primary);
+            background: #f0fdfa;
+            box-shadow: 0 0 0 2px var(--teal);
+        }
+
+        .exam-category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .exam-cat-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .exam-cat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--amber);
+            box-shadow: var(--shadow-md);
+            background: #fffbeb;
+        }
+        .exam-cat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .exercise-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .exercise-row-item {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+        .exercise-row-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            background: #f8fafc;
+        }
+        .ex-meta-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .ex-tags-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .ex-badge {
+            background: #e2e8f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Modal Iframe Popup khi làm bài */
+        .exam-modal-viewer {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            flex-direction: column;
+        }
+        .exam-modal-header {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+        }
+        .exam-iframe-wrap {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+        }
+        .exam-iframe-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+    
+        /* ========================================================
+           THƯ MỤC BÀI HỌC LÝ THUYẾT UNIT & TRÌNH XEM TÀI LIỆU TRỰC TIẾP
+           ======================================================== */
+        .unit-mode-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .unit-mode-btn {
+            padding: 0.65rem 1.4rem;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: 1.5px solid var(--border-color);
+            background: #ffffff;
+            color: var(--navy-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .unit-mode-btn:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: #f0fdfa;
+        }
+        .unit-mode-btn.active {
+            background: linear-gradient(135deg, var(--teal), var(--primary));
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+        }
+
+        /* Lưới 4 tài liệu trong thư mục Unit */
+        .theory-doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .theory-doc-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        .theory-doc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.12);
+        }
+        .theory-doc-card.card-word { border-top: 4px solid #0284c7; }
+        .theory-doc-card.card-word:hover { border-color: #0284c7; }
+        .theory-doc-card.card-pptx { border-top: 4px solid #ea580c; }
+        .theory-doc-card.card-pptx:hover { border-color: #ea580c; }
+        .theory-doc-card.card-pdf { border-top: 4px solid #dc2626; }
+        .theory-doc-card.card-pdf:hover { border-color: #dc2626; }
+        .theory-doc-card.card-excel { border-top: 4px solid #059669; }
+        .theory-doc-card.card-excel:hover { border-color: #059669; }
+
+        .doc-icon-wrap {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+        .icon-word { background: #e0f2fe; color: #0284c7; }
+        .icon-pptx { background: #ffedd5; color: #ea580c; }
+        .icon-pdf { background: #fee2e2; color: #dc2626; }
+        .icon-excel { background: #d1fae5; color: #059669; }
+
+        .doc-format-badge {
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-word { background: #e0f2fe; color: #0369a1; }
+        .badge-pptx { background: #ffedd5; color: #c2410c; }
+        .badge-pdf { background: #fee2e2; color: #b91c1c; }
+        .badge-excel { background: #d1fae5; color: #047857; }
+
+        .btn-view-doc {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-view-word { background: #0284c7; color: white; }
+        .btn-view-word:hover { background: #0369a1; }
+        .btn-view-pptx { background: #ea580c; color: white; }
+        .btn-view-pptx:hover { background: #c2410c; }
+        .btn-view-pdf { background: #dc2626; color: white; }
+        .btn-view-pdf:hover { background: #b91c1c; }
+        .btn-view-excel { background: #059669; color: white; }
+        .btn-view-excel:hover { background: #047857; }
+
+        /* MODAL XEM TRỰC TIẾP TÀI LIỆU */
+        .doc-viewer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            animation: fadeInViewer 0.25s ease-out;
+        }
+        @keyframes fadeInViewer {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .doc-viewer-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 94vh;
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .doc-viewer-container.fullscreen {
+            max-width: 100vw;
+            max-height: 100vh;
+            border-radius: 0;
+            height: 100vh;
+        }
+        .doc-viewer-header {
+            padding: 1.1rem 1.75rem;
+            background: var(--navy-dark);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .doc-viewer-title-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .doc-viewer-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .doc-viewer-title-box h4 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 0;
+            color: #ffffff;
+        }
+        .doc-viewer-title-box p {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin: 2px 0 0 0;
+        }
+        .doc-viewer-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .doc-viewer-badge {
+            background: rgba(13, 148, 136, 0.25);
+            color: #2dd4bf;
+            border: 1px solid #0d9488;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .btn-doc-action {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-doc-action:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .btn-doc-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: none;
+            background: #ef4444;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+        }
+        .btn-doc-close:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .doc-viewer-body {
+            flex: 1;
+            overflow-y: auto;
+            background: #f8fafc;
+            padding: 2rem;
+        }
+        .doc-viewer-footer {
+            padding: 0.8rem 1.75rem;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* 1. GIAO DIỆN WORD VIEWER */
+        .word-paper {
+            background: #ffffff;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 3rem 3.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            color: #1e293b;
+            line-height: 1.75;
+            font-size: 0.98rem;
+        }
+        .word-header-rule {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .word-rule-box {
+            background: #f0fdfa;
+            border-left: 4px solid var(--teal);
+            border-radius: 8px;
+            padding: 1.2rem 1.4rem;
+            margin: 1.5rem 0;
+        }
+
+        /* 2. GIAO DIỆN PPTX SLIDE VIEWER */
+        .pptx-stage {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #0f172a;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        .slide-frame {
+            background: #ffffff;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            padding: 2.5rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        .slide-controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+            color: white;
+            padding: 0 0.5rem;
+        }
+        .slide-nav-btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .slide-nav-btn:hover:not(:disabled) {
+            background: var(--teal);
+            border-color: var(--teal);
+        }
+        .slide-nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        /* 3. GIAO DIỆN PDF MINDMAP VIEWER */
+        .pdf-canvas {
+            background: #ffffff;
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .mindmap-node-center {
+            background: linear-gradient(135deg, var(--navy-dark), var(--primary-deep));
+            color: white;
+            padding: 1.25rem 2rem;
+            border-radius: 14px;
+            text-align: center;
+            margin: 0 auto 2rem auto;
+            max-width: 480px;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.25);
+        }
+        .mindmap-branches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .mindmap-branch-card {
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1.5px solid var(--border-color);
+        }
+
+        /* 4. GIAO DIỆN EXCEL VOCABULARY VIEWER */
+        .excel-sheet-wrap {
+            background: #ffffff;
+            max-width: 980px;
+            margin: 0 auto;
+            border-radius: 12px;
+            border: 1.5px solid #cbd5e1;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .excel-toolbar {
+            background: #f1f5f9;
+            padding: 0.85rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1.5px solid #cbd5e1;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .excel-search-input {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-size: 0.88rem;
+            width: 280px;
+            outline: none;
+        }
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        .excel-table th {
+            background: #e2e8f0;
+            color: #334155;
+            font-weight: 800;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid #cbd5e1;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+        }
+        .excel-table td {
+            padding: 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
+        }
+        .excel-table tr:hover td {
+            background: #f8fafc;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================
+         2. THANH NAVBAR ĐA NĂNG
+         ======================================================== -->
+    <header class="classroom-navbar">
+        <div class="navbar-inner">
+            
+            <div class="navbar-brand-group">
+                <a href="index.html" class="btn-back-home" title="Trở về Trang chủ">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Trang Chủ</span>
+                </a>
+
+                <a href="classroom.html" class="brand-box">
+                    <div class="brand-logo-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div class="brand-title-text">
+                        <h1>STM <span>English</span></h1>
+                        <p>Hệ Thống LMS Đa Tầng</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Khối thí sinh & Phân luồng Lớp -->
+            <div class="user-nav-actions">
+                <!-- Badge Vai trò: Giáo viên / Học sinh / Phụ huynh -->
+                <span id="userRoleBadge" class="role-badge-tag student">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <span>Học Sinh</span>
+                </span>
+
+                <!-- 1. DÀNH CHO GIÁO VIÊN: Bộ chọn chuyển đổi lớp tự do từ 1 đến 12 -->
+                <div id="teacherGradeControl" style="display: none; align-items: center; gap: 0.45rem;">
+                    <span style="font-size: 0.78rem; font-weight: 800; color: #dc2626; text-transform: uppercase;">
+                        <i class="fa-solid fa-chalkboard-user"></i> Xem Phòng:
+                    </span>
+                    <select id="gradeQuickSelect" onchange="switchGradeManually(this.value)" style="background: linear-gradient(135deg, #0284c7, #0369a1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.35); padding: 0.45rem 1rem; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 800; cursor: pointer; outline: none; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);">
+                        <optgroup label="Khối Tiểu Học" style="background-color: #f1f5f9; color: #0284c7; font-weight: 800; text-transform: uppercase;">
+                            <option value="grade1" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 1 (Tiểu Học)</option>
+                            <option value="grade2" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 2 (Tiểu Học)</option>
+                            <option value="grade3" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 3 (Tiểu Học)</option>
+                            <option value="grade4" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 4 (Tiểu Học)</option>
+                            <option value="grade5" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 5 (Tiểu Học)</option>
+                        </optgroup>
+                        <optgroup label="Khối THCS (Global Success)" style="background-color: #f1f5f9; color: #0284c7; font-weight: 800; text-transform: uppercase;">
+                            <option value="grade6" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 6 (THCS)</option>
+                            <option value="grade7" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 7 (THCS)</option>
+                            <option value="grade8" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 8 (THCS)</option>
+                            <option value="grade9" selected style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 9 (THCS)</option>
+                        </optgroup>
+                        <optgroup label="Khối THPT (Global Success)" style="background-color: #f1f5f9; color: #0284c7; font-weight: 800; text-transform: uppercase;">
+                            <option value="grade10" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 10 (THPT)</option>
+                            <option value="grade11" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 11 (THPT)</option>
+                            <option value="grade12" style="background-color: #ffffff; color: #0f172a; font-weight: 700;">Lớp 12 (THPT)</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <!-- 2. DÀNH CHO HỌC SINH & PHỤ HUYNH: Huy hiệu khóa cứng khối lớp -->
+                <div id="studentLockedGrade" class="locked-grade-badge" style="display: inline-flex;">
+                    <i class="fa-solid fa-lock"></i>
+                    <span id="studentLockedText">Khối Lớp 9</span>
+                </div>
+
+                <div class="user-greeting-card" id="userGreetingDisplay">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span>👋 Xin chào, <strong id="studentNameText">Học sinh</strong></span>
+                </div>
+
+                <button type="button" class="btn-logout" onclick="handleLogout()" title="Đăng xuất khỏi lớp học">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Thoát</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ========================================================
+         3. BANNER CHÀO MỪNG (DASHBOARD HERO BANNER)
+         ======================================================== -->
+    <section class="dashboard-hero">
+        <div class="hero-inner">
+            <div class="hero-welcome-info">
+                <h2>Không Gian Học Tập <span>E-Learning STM</span></h2>
+                <p id="heroSubtitle">
+                    Hệ thống bài tập phân rã 5 kỹ năng chuyên biệt và trung tâm khảo thí trực tuyến chuẩn khung chương trình Bộ GD&ĐT 2018.
+                </p>
+            </div>
+
+            <div class="hero-stats-group">
+                <div class="stat-pill">
+                    <div class="number" id="totalUnitsCount">6</div>
+                    <div class="label">Bài Học (Units)</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="number">5</div>
+                    <div class="label">Kỹ Năng Chuẩn</div>
+                </div>
+                <div class="stat-pill">
+                    <div class="number">100%</div>
+                    <div class="label">Tự Động Chấm</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         4. CONTAINER CHÍNH
+         ======================================================== -->
+    <main class="main-container">
+
+        <!-- A. THANH CÔNG CỤ DÀNH RIÊNG CHO GIÁO VIÊN (Thầy Nguyễn Hoàng Sơn) -->
+        <section id="teacherToolbarSection" style="display: none;">
+            <div class="teacher-toolbar-box">
+                <div style="display: flex; align-items: center; gap: 0.9rem;">
+                    <div style="width: 44px; height: 44px; background: #fee2e2; color: #dc2626; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem;">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-family: 'Lexend', sans-serif; font-size: 1.15rem; font-weight: 800; color: #991b1b;">
+                            Bàn Làm Việc Chuyên Môn Của Thầy Sơn
+                        </h3>
+                        <p style="font-size: 0.88rem; color: #b91c1c;">
+                            Đặc quyền quản trị: Bạn có thể chọn bất kỳ khối lớp nào ở góc trên để kiểm duyệt học liệu và đề thi.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <a href="admin.html" class="btn-download-doc" style="background: #0284c7; border-color: #0284c7; color: white;">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>Mở Trang Quản Trị Hệ Thống</span>
+                    </a>
+                    <a href="https://drive.google.com" target="_blank" class="btn-download-doc" style="background: white; border-color: #fca5a5; color: #b91c1c;">
+                        <i class="fa-brands fa-google-drive"></i>
+                        <span>Kho Drive Bài Nộp (5TB)</span>
+                    </a>
+                    <a href="https://docs.google.com/spreadsheets" target="_blank" class="btn-download-doc" style="background: white; border-color: #fca5a5; color: #b91c1c;">
+                        <i class="fa-solid fa-table"></i>
+                        <span>Sổ Điểm & Quản Lý Tài Khoản</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- B. BẢNG THEO DÕI NĂNG LỰC DÀNH RIÊNG CHO PHỤ HUYNH -->
+        <section id="parentDashboardSection" style="display: none;">
+            <div class="parent-dashboard-card">
+                <div class="layer-header" style="margin-bottom: 0.5rem;">
+                    <div class="layer-title-box">
+                        <span class="layer-badge" style="background: #f5f3ff; color: #7c3aed;">
+                            <i class="fa-solid fa-chart-line"></i> Dành Cho Phụ Huynh
+                        </span>
+                        <h2 class="layer-title">Sổ Theo Dõi Hoạt Động & Lịch Sử Làm Bài Của Con</h2>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #7c3aed; font-weight: 700; background: #faf5ff; padding: 0.4rem 0.9rem; border-radius: var(--radius-full); border: 1px solid #ddd6fe;">
+                        <i class="fa-solid fa-child-reaching"></i> Học sinh: <span id="parentChildName">Phương Minh</span> (<span id="parentChildGrade">Lớp 9</span>)
+                    </div>
+                </div>
+
+                <p style="font-size: 0.92rem; color: var(--text-muted);">
+                    Hệ thống cập nhật tức thời kết quả làm bài tập trắc nghiệm, tình trạng nộp bài tập về nhà và nhận xét sư phạm của Thầy Sơn.
+                </p>
+
+                <!-- Lưới 3 chỉ số theo dõi năng lực của con -->
+                <div class="parent-stats-grid">
+                    <div class="parent-stat-item">
+                        <div class="val" style="color: #059669;">100%</div>
+                        <div class="lbl">Tỷ lệ Chuyên Cần</div>
+                    </div>
+                    <div class="parent-stat-item">
+                        <div class="val" style="color: #0284c7;" id="parentLatestScore">10.0</div>
+                        <div class="lbl">Điểm Khảo Sát Gần Nhất</div>
+                    </div>
+                    <div class="parent-stat-item">
+                        <div class="val" style="color: #7c3aed;">Đã Nộp ✅</div>
+                        <div class="lbl">Bài Tập Về Nhà Mới Nhất</div>
+                    </div>
+                </div>
+
+                <!-- Bảng Lịch sử làm bài thi khảo sát của con -->
+                <div style="overflow-x: auto; margin-top: 1rem;">
+                    <table class="parent-history-table">
+                        <thead>
+                            <tr>
+                                <th>Hạng Mục Khảo Sát</th>
+                                <th>Khối Lớp</th>
+                                <th>Điểm Số</th>
+                                <th>Trạng Thái</th>
+                                <th>Nhận Xét Sư Phạm Của Thầy Sơn</th>
+                            </tr>
+                        </thead>
+                        <tbody id="parentHistoryTableBody">
+                            <tr>
+                                <td><strong>Đề Thi Khảo Sát Năng Lực Trực Tuyến</strong></td>
+                                <td>Lớp 9 (Global Success)</td>
+                                <td><span style="font-weight: 800; color: #059669; font-size: 1.1rem;">10.0 / 10</span></td>
+                                <td><span style="background: #f0fdf4; color: #16a34a; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">Đạt Chuẩn Xuất Sắc</span></td>
+                                <td>Em nắm rất vững từ vựng Unit 1 và cấu trúc so sánh kép. Làm bài tự giác và cẩn thận!</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bài Tập Về Nhà Lên Google Drive</strong></td>
+                                <td>Lớp 9</td>
+                                <td><span style="font-weight: 700; color: #0284c7;">Đã Chấm Điểm</span></td>
+                                <td><span style="background: #f0f9ff; color: #0284c7; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">Đã Lưu Drive 5TB</span></td>
+                                <td>File làm bài sạch đẹp, trình bày rõ ràng từng câu chữ.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Kênh trao đổi trực tiếp với Thầy Sơn -->
+                <div style="margin-top: 1.8rem; padding: 1.2rem; background: #faf5ff; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                    <div style="font-size: 0.92rem; color: #5b21b6; font-weight: 600;">
+                        <i class="fa-solid fa-phone-volume"></i> Cần trao đổi trực tiếp với Giáo viên phụ trách: <strong>Thầy Nguyễn Hoàng Sơn (STM Center)</strong>
+                    </div>
+                    <a href="https://zalo.me" target="_blank" class="btn-download-doc" style="background: #7c3aed; color: white; border: none; padding: 0.6rem 1.2rem;">
+                        <i class="fa-solid fa-comments"></i>
+                        <span>Nhắn Tin Zalo Với Thầy Sơn</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================
+             TẦNG 1: CỔNG PHÂN LUỒNG & CHUYỂN UNIT (UNIT TABS)
+             ==================================================== -->
+        <section>
+            <div class="layer-header">
+                <div class="layer-title-box">
+                    <span class="layer-badge">Tầng 1 • Phân Luồng</span>
+                    <h2 class="layer-title">Danh Sách Bài Học (Units)</h2>
+                </div>
+                <div style="font-size: 0.88rem; color: var(--text-muted); font-weight: 600;">
+                    <i class="fa-regular fa-compass"></i> Bấm chọn Unit để học
+                </div>
+            </div>
+
+            <!-- Thanh cuộn ngang các Unit -->
+            <div class="units-nav-scroller" id="unitsNavContainer">
+                <!-- Được render bằng JavaScript theo khối lớp của học sinh -->
+            </div>
+        </section>
+
+        <!-- ====================================================
+             TẦNG 2: NGÂN HÀNG BÀI TẬP PHÂN RÃ THEO 5 KỸ NĂNG
+             ==================================================== -->
+        
+        <!-- ========================================================
+             TẦNG 2: NGÂN HÀNG TỰ LUYỆN ĐA CẤP (MULTI-STEP PRACTICE BANK)
+             Click 1: Chọn Kỹ Năng -> Click 2: Chọn Exercise -> Mở HTML làm bài
+             ======================================================== -->
+        <section class="current-unit-card" id="practiceMultiStepSection">
+            
+            <div class="unit-banner-info">
+                <div class="unit-banner-title">
+                    <h3 id="currentUnitTitle">
+                        <i class="fa-solid fa-book-open-reader" style="color: var(--primary);"></i>
+                        <span>Đang tải thông tin bài học...</span>
+                    </h3>
+                    <p id="currentUnitSubtitle">Tập trung rèn luyện 5 kỹ năng ngôn ngữ cốt lõi theo từng chủ điểm.</p>
+                </div>
+
+                <div class="unit-downloads">
+                    <a href="javascript:void(0)" onclick="openDirectExam('de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html')" class="btn-download" style="background:#0d9488; color:#fff; border-color:#0d9488;">
+                        <i class="fa-solid fa-bolt"></i> Thi Thử Đề Chuẩn 03 Cần Thơ
+                    </a>
+                </div>
+            </div>
+
+            <!-- STEP BREADCRUMB BAR -->
+            <div class="step-breadcrumb-bar" id="practiceBreadcrumbBar" style="display: none;">
+                <div class="step-crumb-list">
+                    <span style="color: var(--text-muted);"><i class="fa-solid fa-graduation-cap"></i> Ngân Hàng Luyện Tập</span>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: #94a3b8;"></i>
+                    <span class="step-crumb-item active" id="practiceCurrentSkillName">Kỹ Năng</span>
+                </div>
+                <button type="button" class="btn-back-step" onclick="backToPracticeStep1()">
+                    <i class="fa-solid fa-arrow-left"></i> Đổi Kỹ Năng Khác
+                </button>
+            </div>
+
+            
+            <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ HỌC TẬP UNIT: THƯ MỤC LÝ THUYẾT vs BÀI TẬP TỰ LUYỆN -->
+            <div class="unit-mode-tabs">
+                <button type="button" id="tabBtnTheory" class="unit-mode-btn active" onclick="switchUnitMode('theory')">
+                    <i class="fa-solid fa-folder-open text-teal"></i> 1. Thư Mục Bài Học Lý Thuyết (Word • PDF • Excel • PPTX)
+                </button>
+                <button type="button" id="tabBtnPractice" class="unit-mode-btn" onclick="switchUnitMode('practice')">
+                    <i class="fa-solid fa-bullseye text-primary"></i> 2. Ngân Hàng Tự Luyện & Thi Thử (5 Kỹ Năng)
+                </button>
+            </div>
+
+            <!-- ========================================================
+                 PHÂN KHU 1: THƯ MỤC CON CHỨA CÁC BÀI HỌC LÝ THUYẾT (XEM TRỰC TIẾP)
+                 ======================================================== -->
+            <div id="unitTheorySection" style="display: block;">
+                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                            <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 800; font-size: 0.78rem;">
+                                <i class="fa-solid fa-folder"></i> THƯ MỤC BÀI HỌC
+                            </span>
+                            <span id="theoryUnitFolderName" style="font-family: 'Lexend', sans-serif; font-weight: 800; color: var(--navy-dark); font-size: 1.05rem;">
+                                Unit 1: Local Community
+                            </span>
+                        </div>
+                        <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0;">
+                            <i class="fa-solid fa-shield-halved text-emerald"></i> Học sinh bấm vào từng tệp bên dưới để xem nội dung hiển thị trực tiếp trên trang web (Chế độ đọc trực tuyến bản quyền, không cần tải về).
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-word text-blue"></i> Word</span>
+                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-powerpoint text-rose"></i> PowerPoint</span>
+                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-pdf" style="color: #dc2626;"></i> PDF</span>
+                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-excel text-emerald"></i> Excel</span>
+                    </div>
+                </div>
+
+                <!-- LƯỚI 4 TÀI LIỆU TRONG THƯ MỤC CỦA UNIT -->
+                <div class="theory-doc-grid" id="theoryDocGrid">
+                    <!-- Được render tự động theo từng Unit bởi hàm renderTheoryDocuments() -->
+                </div>
+            </div>
+
+            <!-- ========================================================
+                 PHÂN KHU 2: NGÂN HÀNG BÀI TẬP TỰ LUYỆN & KHẢO SÁT
+                 ======================================================== -->
+            <div id="unitPracticeSection" style="display: none;">
+
+            <!-- CẤP 1: CHỌN DANH MỤC KỸ NĂNG -->
+            <div id="practiceStep1View">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-hand-pointer text-primary"></i> Bước 1: Chọn Kỹ Năng Cần Tự Luyện
+                </div>
+                <div class="skill-select-grid">
+                    
+                    <!-- 1. Phát âm -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('phat-am', 'Phát Âm & Trọng Âm (Phonetics & Stress)', 'fa-microphone-lines', 'var(--rose)', 'var(--rose-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--rose-bg); color:var(--rose); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-microphone-lines"></i>
+                                </div>
+                                <span style="background:var(--rose-bg); color:var(--rose); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Phát Âm</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">1. Phát Âm & Trọng Âm</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Phân biệt nguyên âm ngắn/dài, đuôi -ed/-s và trọng âm 2-3 âm tiết.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--rose);">
+                            <span>3 Bài Tập Phân Hóa</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 2. Ngữ pháp -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('ngu-phap', 'Ngữ Pháp & Từ Vựng (Grammar & Lexicon)', 'fa-spell-check', 'var(--blue)', 'var(--blue-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--blue-bg); color:var(--blue); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-spell-check"></i>
+                                </div>
+                                <span style="background:var(--blue-bg); color:var(--blue); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Trọng Tâm</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">2. Ngữ Pháp & Từ Vựng</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Hệ thống từ vựng theo chủ điểm, cụm động từ và so sánh kép.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--blue);">
+                            <span>3 Bài Tập Phân Hóa</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 3. Nghe hiểu -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('nghe-hieu', 'Nghe Hiểu Bản Ngữ (Listening Audio)', 'fa-headphones', 'var(--cyan)', 'var(--cyan-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--cyan-bg); color:var(--cyan); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-headphones"></i>
+                                </div>
+                                <span style="background:var(--cyan-bg); color:var(--cyan); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Audio MP3</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">3. Nghe Hiểu (Listening)</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Bài nghe đàm thoại và diễn thuyết giọng chuẩn bản ngữ kèm audio trực tiếp.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--cyan);">
+                            <span>2 Bài Nghe Kèm Script</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 4. Đọc hiểu -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('doc-hieu', 'Đọc Hiểu & Điền Từ (Reading Comprehension)', 'fa-book-open', 'var(--emerald)', 'var(--emerald-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--emerald-bg); color:var(--emerald); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <span style="background:var(--emerald-bg); color:var(--emerald); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Đọc Điền Từ</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">4. Đọc Hiểu (Reading)</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Đoạn văn Cloze-test và bài đọc hiểu chuyên sâu giữ trọn ngữ cảnh.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--emerald);">
+                            <span>3 Bài Đọc Chuyên Đề</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 5. Viết MCQ -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('viet-mcq', 'Viết Trắc Nghiệm Hóa (Writing MCQ)', 'fa-pen-ruler', 'var(--purple)', 'var(--purple-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--purple-bg); color:var(--purple); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-pen-ruler"></i>
+                                </div>
+                                <span style="background:var(--purple-bg); color:var(--purple); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Viết Câu</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">5. Viết (Writing MCQ)</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Biến đổi từ loại (Word Formation), viết lại câu và sắp xếp đoạn văn.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--purple);">
+                            <span>3 Bài Luyện Viết</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CẤP 2: DANH SÁCH BÀI TẬP (EXERCISE 1, 2, 3...) -->
+            <div id="practiceStep2View" style="display: none;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-list-check text-primary"></i> Bước 2: Chọn Bài Tập Exercise Để Làm Bài
+                </div>
+                <div class="exercise-list-container" id="practiceExerciseListContainer">
+                    <!-- Được sinh tự động bởi JavaScript -->
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================
+             TẦNG 3: KHU VỰC KHẢO THÍ & KIỂM TRA ĐỊNH KỲ
+             ==================================================== -->
+        
+        <!-- ========================================================
+             TẦNG 3: TRUNG TÂM KHẢO THÍ & KIỂM TRA ĐỊNH KỲ ĐA CẤP
+             1. Kiểm tra định kỳ: Danh mục mẹ -> Danh sách Đề số -> Mở đề làm bài
+             2. Khảo sát năng lực: Danh sách đề khảo sát -> Mở đề làm bài
+             ======================================================== -->
+        <section class="exam-center-card" id="examMultiStepSection">
+            
+            <div class="layer-header" style="margin-bottom: 1.25rem;">
+                <div class="layer-title-box">
+                    <span class="layer-badge" style="background: #fef3c7; color: #b45309;">
+                        <i class="fa-solid fa-shield-halved"></i> Tầng 3 • Khảo Thí Đa Cấp
+                    </span>
+                    <h2 class="layer-title">Hệ Thống Kiểm Tra Định Kỳ & Khảo Sát Năng Lực</h2>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-back-step active" id="btnTogglePeriodical" onclick="switchExamMainTab('periodical')">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Kiểm Tra Định Kỳ
+                    </button>
+                    <button type="button" class="btn-back-step" id="btnToggleSurvey" onclick="switchExamMainTab('survey')">
+                        <i class="fa-solid fa-chart-line"></i> Khảo Sát Năng Lực Chuẩn
+                    </button>
+                </div>
+            </div>
+
+            <!-- PHẦN A: BÀI KIỂM TRA ĐỊNH KỲ (PERIODICAL TESTS) -->
+            <div id="periodicalExamWrapper">
+                
+                <!-- BREADCRUMB KỲ THI ĐỊNH KỲ -->
+                <div class="step-breadcrumb-bar" id="periodicalBreadcrumbBar" style="display: none;">
+                    <div class="step-crumb-list">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-stopwatch"></i> Kiểm Tra Định Kỳ</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: #94a3b8;"></i>
+                        <span class="step-crumb-item active" id="periodicalCurrentCatName">Giữa Kỳ 1</span>
+                    </div>
+                    <button type="button" class="btn-back-step" onclick="backToPeriodicalStep1()">
+                        <i class="fa-solid fa-arrow-left"></i> Đổi Loại Kỳ Thi
+                    </button>
+                </div>
+
+                <!-- CẤP 1: CHỌN DANH MỤC MẸ KỲ THI -->
+                <div id="periodicalStep1View">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-hand-pointer text-amber"></i> Bước 1: Chọn Danh Mục Kỳ Thi Định Kỳ
+                    </div>
+                    <div class="exam-category-grid">
+                        
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('15-phut', 'Kiểm Tra 15 Phút (Quick Assessment)', 15)">
+                            <div class="exam-cat-icon" style="background:#fef3c7; color:#b45309;"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra 15 Phút</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Khảo sát nhanh từ vựng, ngữ pháp sau mỗi đơn vị bài học (15-20 câu).</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#b45309; margin-top:4px; display:inline-block;">2 Đề Kiểm Tra &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('1-tiet', 'Kiểm Tra 1 Tiết • 45 Phút (Regular Test)', 45)">
+                            <div class="exam-cat-icon" style="background:#e0f2fe; color:#0369a1;"><i class="fa-solid fa-clock"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra 1 Tiết (45 Phút)</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Đánh giá tổng hợp kiến thức sau mỗi 2 - 3 bài học (30-35 câu).</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#0369a1; margin-top:4px; display:inline-block;">2 Đề Kiểm Tra &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('giua-ky-1', 'Đề Kiểm Tra Giữa Học Kỳ 1 (Midterm 1)', 60)">
+                            <div class="exam-cat-icon" style="background:#ecfdf5; color:#047857;"><i class="fa-solid fa-bullseye"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Giữa Kỳ 1</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Bộ đề chuẩn 40 câu theo cấu trúc Sở GD&ĐT Cần Thơ có đầy đủ bài nghe audio.</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#047857; margin-top:4px; display:inline-block;">3 Đề Chuẩn Sở &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('cuoi-ky-1', 'Đề Kiểm Tra Cuối Học Kỳ 1 (Final Term 1)', 60)">
+                            <div class="exam-cat-icon" style="background:#fef2f2; color:#b91c1c;"><i class="fa-solid fa-trophy"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Cuối Kỳ 1</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Khảo sát tổng kết toàn diện kiến thức học kỳ 1 (Global Success).</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#b91c1c; margin-top:4px; display:inline-block;">2 Đề Thi Mẫu &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('giua-ky-2', 'Đề Kiểm Tra Giữa Học Kỳ 2 (Midterm 2)', 60)">
+                            <div class="exam-cat-icon" style="background:#f5f3ff; color:#6d28d9;"><i class="fa-solid fa-compass"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Giữa Kỳ 2</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Đánh giá kiến thức giai đoạn giữa học kỳ 2 chuẩn form mới.</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#6d28d9; margin-top:4px; display:inline-block;">2 Đề Chuẩn Bị &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('cuoi-ky-2', 'Đề Kiểm Tra Cuối Học Kỳ 2 (Final Term 2)', 60)">
+                            <div class="exam-cat-icon" style="background:#fdf2f8; color:#be185d;"><i class="fa-solid fa-award"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Cuối Kỳ 2</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Tổng kết kiến thức cả năm học sẵn sàng cho kỳ thi chuyển cấp.</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#be185d; margin-top:4px; display:inline-block;">2 Đề Thi Thử &rarr;</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- CẤP 2: DANH SÁCH ĐỀ SỐ (ĐỀ SỐ 01, 02, 03...) -->
+                <div id="periodicalStep2View" style="display: none;">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-file-pen text-amber"></i> Bước 2: Chọn Đề Thi Để Bắt Đầu Làm Bài
+                    </div>
+                    <div class="exercise-list-container" id="periodicalExamsListContainer">
+                        <!-- Sinh bởi JavaScript -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PHẦN B: KHẢO SÁT NĂNG LỰC CHUẨN (DIAGNOSTIC / MOCK TESTS) -->
+            <div id="surveyExamWrapper" style="display: none;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-chart-line text-primary"></i> Danh Sách Đề Khảo Sát Năng Lực Chuẩn Định Kỳ
+                </div>
+                <div class="exercise-list-container" id="surveyExamsListContainer">
+                    <!-- Sinh bởi JavaScript -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================================================
+             MODAL PHÒNG THI TRỰC TUYẾN TOÀN MÀN HÌNH (IN-APP EXAM VIEWER)
+             ======================================================== -->
+        <div class="exam-modal-viewer" id="examModalViewer">
+            <div class="exam-modal-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: var(--teal); padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 0.82rem;">E CLASS EXAM</span>
+                    <span id="examModalTitle" style="font-family:'Lexend',sans-serif; font-size:1.05rem; font-weight:700;">Đề Kiểm Tra</span>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn-back-step" onclick="openExamInNewTab()" style="background:#334155; color:#fff; border-color:#475569;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Tab Riêng
+                    </button>
+                    <button type="button" class="btn-back-step" onclick="closeExamModal()" style="background:#dc2626; color:#fff; border-color:#dc2626;">
+                        <i class="fa-solid fa-xmark"></i> Thoát Phòng Thi
+                    </button>
+                </div>
+            </div>
+            <div class="exam-iframe-wrap">
+                <iframe id="examModalIframe" src="about:blank"></iframe>
+            </div>
+        </div>
+
+
+        <!-- ====================================================
+             HẠ TẦNG NỘP BÀI TẬP VỀ NHÀ (GOOGLE DRIVE BACKEND 5TB)
+             ==================================================== -->
+        <section class="upload-section-card">
+            
+            <div class="upload-header">
+                <h3>
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Cổng Nộp Bài Tập Về Nhà Lên Google Drive 5TB</span>
+                </h3>
+                <p>
+                    Tải lên file bài tập làm tại nhà (tệp Word .docx, PDF hoặc hình ảnh chụp vở ghi chép) để lưu trực tiếp vào kho lưu trữ của Thầy Sơn.
+                </p>
+            </div>
+
+            <div class="upload-dropzone">
+                <input type="file" id="file-upload" style="display: none;">
+                <label for="file-upload" class="upload-label" id="fileLabel">
+                    <i class="fa-regular fa-folder-open"></i>
+                    <span>Bấm vào đây để chọn file từ máy tính</span>
+                </label>
+                <div class="upload-hint">Định dạng hỗ trợ: Word (.docx), PDF, JPG, PNG (Dung lượng tối đa 25MB)</div>
+
+                <div style="margin-top: 1rem;">
+                    <button type="button" class="btn-submit-file" id="btnSubmitFile">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Gửi Bài Làm</span>
+                    </button>
+                </div>
+
+                <!-- Thẻ thông báo trạng thái tải lên -->
+                <div id="uploadStatusMsg" style="margin-top: 14px; font-weight: 700; font-size: 0.95rem; display: none;"></div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ========================================================
+         9. FOOTER CHÂN TRANG
+         ======================================================== -->
+    <footer class="classroom-footer">
+        <p>© 2026 – 2027 <strong>STM English</strong> • Chủ nhiệm chuyên môn: <strong>Thầy Nguyễn Hoàng Sơn</strong></p>
+        <p style="margin-top: 0.35rem; font-size: 0.8rem; color: #94a3b8;">Hệ thống E-Learning & Khảo thí Tiếng Anh chuẩn GDPT 2018</p>
+    </footer>
+
+    <!-- ========================================================
+         10. JAVASCRIPT ĐIỀU HÀNH HỆ THỐNG ĐA TẦNG
+         ======================================================== -->
+    <script>
+        // ========================================================
+        // A. CƠ SỞ DỮ LIỆU ĐẦY ĐỦ 12 KHỐI LỚP (TỪ LỚP 1 ĐẾN LỚP 12)
+        // Chuẩn khung chương trình Bộ GD&ĐT 2018 (Global Success)
+        // ========================================================
+        const CURRICULUM_DATA = {
+            // === KHỐI TIỂU HỌC (LỚP 1 - LỚP 5) ===
+            "grade1": [
+                { id: 1, code: "Unit 1", name: "In the School Playground", subtitle: "Chủ điểm: Làm quen với chữ cái, âm B b và các hoạt động vui chơi ở sân trường." },
+                { id: 2, code: "Unit 2", name: "In the Dining Room", subtitle: "Chủ điểm: Nhận diện âm C c và các món ăn quen thuộc trong phòng ăn gia đình." },
+                { id: 3, code: "Unit 3", name: "At the Street Market", subtitle: "Chủ điểm: Mua sắm hoa quả, làm quen với âm A a và các số đếm cơ bản." },
+                { id: 4, code: "Unit 4", name: "In the Bedroom", subtitle: "Chủ điểm: Đồ dùng trong phòng ngủ, làm quen với âm D d và cách gọi tên đồ vật." },
+                { id: 5, code: "Unit 5", name: "In the Classroom", subtitle: "Chủ điểm: Dụng cụ học tập trong lớp, chữ cái E e và các chỉ lệnh của giáo viên." },
+                { id: 6, code: "Unit 6", name: "On the Farm", subtitle: "Chủ điểm: Động vật nuôi tại trang trại, chữ cái F f và đếm số lượng con vật." },
+                { id: 7, code: "Unit 7", name: "In the Garden", subtitle: "Chủ điểm: Khung cảnh vườn nhà, hoa quả, cây cối và nhận diện chữ cái G g." },
+                { id: 8, code: "Unit 8", name: "In the Park", subtitle: "Chủ điểm: Các trò chơi vận động trong công viên, chữ cái H h và số đếm." },
+                { id: 9, code: "Unit 9", name: "In the Shop", subtitle: "Chủ điểm: Mua sắm đồ chơi, làm quen với âm I i và cấu trúc I have a..." },
+                { id: 10, code: "Unit 10", name: "At the Zoo", subtitle: "Chủ điểm: Thế giới động vật hoang dã tại sở thú, chữ cái M m." },
+                { id: 11, code: "Unit 11", name: "At the Bus Stop", subtitle: "Chủ điểm: Phương tiện giao thông công cộng, xe buýt, chữ cái B b / T t." },
+                { id: 12, code: "Unit 12", name: "At the Lake", subtitle: "Chủ điểm: Hoạt động dã ngoại bên hồ nước thanh bình, chữ cái L l." }
+            ],
+            "grade2": [
+                { id: 1, code: "Unit 1", name: "At the Camp", subtitle: "Chủ điểm: Chuyến cắm trại dã ngoại ngoài trời, các trò chơi vận động (TPR)." },
+                { id: 2, code: "Unit 2", name: "In the Countryside", subtitle: "Chủ điểm: Khung cảnh làng quê thanh bình, cây cối, dòng sông và các loài vật." },
+                { id: 3, code: "Unit 3", name: "At the Seaside", subtitle: "Chủ điểm: Hoạt động bãi biển, thuyền buồm, sóng biển và đồ chơi trên cát." },
+                { id: 4, code: "Unit 4", name: "In the Park", subtitle: "Chủ điểm: Các trò chơi cầu trượt, xích đu trong công viên và đếm số lượng." },
+                { id: 5, code: "Unit 5", name: "In the Kitchen", subtitle: "Chủ điểm: Dụng cụ nhà bếp, hoa quả và các bữa ăn vui vẻ cùng ba mẹ." },
+                { id: 6, code: "Unit 6", name: "On the Farm", subtitle: "Chủ điểm: Đời sống nông trại, chăm sóc thú cưng và gia súc gia cầm." },
+                { id: 7, code: "Unit 7", name: "In the Classroom", subtitle: "Chủ điểm: Các hoạt động học tập tương tác và chỉ lệnh lớp học." },
+                { id: 8, code: "Unit 8", name: "In the Village", subtitle: "Chủ điểm: Ngôi làng thân quen, xe đạp, con đường làng và cây cầu." },
+                { id: 9, code: "Unit 9", name: "In the Grocery Store", subtitle: "Chủ điểm: Đi siêu thị, mua thực phẩm, rau củ quả và hỏi giá tiền." },
+                { id: 10, code: "Unit 10", name: "At the Zoo", subtitle: "Chủ điểm: Quan sát các loài thú: hươu cao cổ, khỉ, voi, hổ." },
+                { id: 11, code: "Unit 11", name: "In the Playground", subtitle: "Chủ điểm: Sân chơi thể thao, xích đu, bập bênh và cầu trượt." },
+                { id: 12, code: "Unit 12", name: "At the Dining Table", subtitle: "Chủ điểm: Bàn ăn gia đình, thói quen ăn uống lành mạnh và phép lịch sự." }
+            ],
+            "grade3": [
+                { id: 1, code: "Unit 1", name: "Hello", subtitle: "Chủ điểm: Chào hỏi, tự giới thiệu tên, hỏi thăm sức khỏe và tạm biệt bạn bè." },
+                { id: 2, code: "Unit 2", name: "Our Names", subtitle: "Chủ điểm: Đánh vần chữ cái trong tên, xưng hô lịch sự trong lớp học." },
+                { id: 3, code: "Unit 3", name: "Our Friends", subtitle: "Chủ điểm: Giới thiệu bạn bè thân thiết, hỏi đáp xem đây có phải là bạn của mình." },
+                { id: 4, code: "Unit 4", name: "Our Bodies", subtitle: "Chủ điểm: Các bộ phận trên cơ thể (mắt, mũi, miệng, tai, tay chân) và phản xạ nhanh." },
+                { id: 5, code: "Unit 5", name: "My Hobbies", subtitle: "Chủ điểm: Sở thích cá nhân (hát, múa, bơi lội, vẽ tranh) và cấu trúc I like..." },
+                { id: 6, code: "Unit 6", name: "Our School", subtitle: "Chủ điểm: Các phòng học, thư viện, sân trường và câu hỏi Is this our school?" },
+                { id: 7, code: "Unit 7", name: "Classroom Instructions", subtitle: "Chủ điểm: Các chỉ lệnh trong lớp học (Open your book, Stand up, Sit down)." },
+                { id: 8, code: "Unit 8", name: "My School Things", subtitle: "Chủ điểm: Đồ dùng học tập: bút chì, thước kẻ, tẩy, cặp sách (This is my...)." },
+                { id: 9, code: "Unit 9", name: "Colours", subtitle: "Chủ điểm: Thế giới sắc màu và hỏi màu sắc của các vật dụng (What colour is it?)." },
+                { id: 10, code: "Unit 10", name: "Break Time", subtitle: "Chủ điểm: Các trò chơi giờ ra chơi: nhảy dây, trốn tìm, đá bóng, cầu lông." },
+                { id: 11, code: "Unit 11", name: "My Family", subtitle: "Chủ điểm: Các thành viên trong gia đình: ông bà, bố mẹ, anh chị em." },
+                { id: 12, code: "Unit 12", name: "This Is My House", subtitle: "Chủ điểm: Ngôi nhà của em: phòng khách, phòng ngủ, nhà bếp và khu vườn." }
+            ],
+            "grade4": [
+                { id: 1, code: "Unit 1", name: "My Friends", subtitle: "Chủ điểm: Quốc tịch, quê hương của các bạn học sinh đến từ khắp nơi trên thế giới." },
+                { id: 2, code: "Unit 2", name: "Time & Daily Routines", subtitle: "Chủ điểm: Hỏi đáp về thời gian và các thói quen hàng ngày (thức dậy, ăn sáng, đi ngủ)." },
+                { id: 3, code: "Unit 3", name: "My Week", subtitle: "Chủ điểm: Các ngày trong tuần, lịch học và các hoạt động ngoại khóa." },
+                { id: 4, code: "Unit 4", name: "My Birthday Party", subtitle: "Chủ điểm: Các tháng trong năm, ngày sinh nhật và các món quà ý nghĩa." },
+                { id: 5, code: "Unit 5", name: "Things We Can Do", subtitle: "Chủ điểm: Khả năng của bản thân với động từ can / can't (chơi cờ, đàn piano, trượt patin)." },
+                { id: 6, code: "Unit 6", name: "Our School Facilities", subtitle: "Chủ điểm: Cơ sở vật chất trường học, vị trí các phòng và đường đi trong trường." },
+                { id: 7, code: "Unit 7", name: "Our Timetables", subtitle: "Chủ điểm: Các môn học yêu thích ở trường (Maths, English, Science, Music)." },
+                { id: 8, code: "Unit 8", name: "My Favourite Subjects", subtitle: "Chủ điểm: Lý do yêu thích các môn học và ước mơ định hướng tương lai." },
+                { id: 9, code: "Unit 9", name: "Our Sports Day", subtitle: "Chủ điểm: Ngày hội thể thao của trường, các môn điền kinh và thi đấu." },
+                { id: 10, code: "Unit 10", name: "Where Were You Yesterday?", subtitle: "Chủ điểm: Thì quá khứ đơn với to be (was / were), kể về các nơi đã ở hôm qua." },
+                { id: 11, code: "Unit 11", name: "Looking at Animals", subtitle: "Chủ điểm: Thế giới động vật hoang dã và vật nuôi, so sánh kích thước." },
+                { id: 12, code: "Unit 12", name: "What Does He Look Like?", subtitle: "Chủ điểm: Miêu tả ngoại hình (cao, thấp, gầy, béo) và so sánh hơn của tính từ." }
+            ],
+            "grade5": [
+                { id: 1, code: "Unit 1", name: "All About Me", subtitle: "Chủ điểm: Giới thiệu thông tin cá nhân, địa chỉ nhà, sở thích và tính cách." },
+                { id: 2, code: "Unit 2", name: "Our Homes", subtitle: "Chủ điểm: Miêu tả ngôi nhà, các phòng ốc, tiện nghi và đồ gia dụng." },
+                { id: 3, code: "Unit 3", name: "My Foreign Friends", subtitle: "Chủ điểm: Giao lưu bạn bè quốc tế, đặc trưng ngoại hình và văn hóa các nước." },
+                { id: 4, code: "Unit 4", name: "Our Free-Time Activities", subtitle: "Chủ điểm: Các hoạt động giải trí cuối tuần, rèn luyện thể dục thể thao." },
+                { id: 5, code: "Unit 5", name: "My Future Job", subtitle: "Chủ điểm: Ước mơ nghề nghiệp tương lai (bác sĩ, giáo viên, phi công, kỹ sư)." },
+                { id: 6, code: "Unit 6", name: "Our School Picnic", subtitle: "Chủ điểm: Chuyến dã ngoại của trường, kể về các hoạt động đã làm trong quá khứ." },
+                { id: 7, code: "Unit 7", name: "Our Favourite Sports & Games", subtitle: "Chủ điểm: Các môn thể thao yêu thích, luật chơi và lợi ích rèn luyện." },
+                { id: 8, code: "Unit 8", name: "In Our Classroom", subtitle: "Chủ điểm: Các hoạt động học tập tương tác, phương pháp làm việc nhóm." },
+                { id: 9, code: "Unit 9", name: "Our Outdoor Activities", subtitle: "Chủ điểm: Các hoạt động ngoài trời, cắm trại, trồng cây và bảo vệ môi trường." },
+                { id: 10, code: "Unit 10", name: "Our School Trip", subtitle: "Chủ điểm: Kể lại chuyến đi tham quan di tích lịch sử, bảo tàng hay danh lam." },
+                { id: 11, code: "Unit 11", name: "Our Health", subtitle: "Chủ điểm: Các vấn đề sức khỏe thường gặp và lời khuyên (You should / shouldn't)." },
+                { id: 12, code: "Unit 12", name: "Our Daily Routines", subtitle: "Chủ điểm: Trình tự thói quen biểu hằng ngày, quản lý thời gian khoa học." }
+            ],
+
+            // === KHỐI THCS (LỚP 6 - LỚP 9 - GLOBAL SUCCESS) ===
+            "grade6": [
+                { id: 1, code: "Unit 1", name: "My New School", subtitle: "Chủ điểm: Ngôi trường mới, dụng cụ học tập, thì hiện tại đơn & trạng từ chỉ tần suất." },
+                { id: 2, code: "Unit 2", name: "My House", subtitle: "Chủ điểm: Các loại nhà ở, phòng ốc và giới từ chỉ vị trí nơi chốn." },
+                { id: 3, code: "Unit 3", name: "My Friends", subtitle: "Chủ điểm: Miêu tả ngoại hình, tính cách bạn bè và thì hiện tại tiếp diễn." },
+                { id: 4, code: "Unit 4", name: "My Neighbourhood", subtitle: "Chủ điểm: Khu phố em sống, chỉ đường và cấu trúc so sánh hơn của tính từ ngắn." },
+                { id: 5, code: "Unit 5", name: "Natural Wonders of VN", subtitle: "Chủ điểm: Danh lam thắng cảnh Việt Nam, danh từ đếm được & không đếm được, must/mustn't." },
+                { id: 6, code: "Unit 6", name: "Our Tet Holiday", subtitle: "Chủ điểm: Tết cổ truyền Việt Nam, phong tục tập quán và cấu trúc should / shouldn't." },
+                { id: 7, code: "Unit 7", name: "Television", subtitle: "Chủ điểm: Chương trình truyền hình, liên từ and, but, so, although và từ để hỏi Wh-." },
+                { id: 8, code: "Unit 8", name: "Sports and Games", subtitle: "Chủ điểm: Các môn thể thao, thì quá khứ đơn và câu mệnh lệnh (Imperatives)." },
+                { id: 9, code: "Unit 9", name: "Cities of the World", subtitle: "Chủ điểm: Các thành phố lớn trên thế giới, so sánh nhất của tính từ ngắn/dài." },
+                { id: 10, code: "Unit 10", name: "Our Houses in the Future", subtitle: "Chủ điểm: Ngôi nhà tương lai, thiết bị thông minh, tương lai đơn với will và might." },
+                { id: 11, code: "Unit 11", name: "Our Greener World", subtitle: "Chủ điểm: Lối sống xanh, 3R (Reduce, Reuse, Recycle), câu điều kiện loại 1." },
+                { id: 12, code: "Unit 12", name: "Robots", subtitle: "Chủ điểm: Robot trong tương lai, cấu trúc so sánh hơn/nhất và can / could / will be able to." }
+            ],
+            "grade7": [
+                { id: 1, code: "Unit 1", name: "Hobbies", subtitle: "Chủ điểm: Sở thích cá nhân, thì hiện tại đơn và các động từ chỉ sự yêu thích (like, love, enjoy)." },
+                { id: 2, code: "Unit 2", name: "Healthy Living", subtitle: "Chủ điểm: Lối sống lành mạnh, vấn đề sức khỏe và câu đơn (simple sentences)." },
+                { id: 3, code: "Unit 3", name: "Community Service", subtitle: "Chủ điểm: Hoạt động tình nguyện vì cộng đồng, thì quá khứ đơn (Past Simple)." },
+                { id: 4, code: "Unit 4", name: "Music and Arts", subtitle: "Chủ điểm: Âm nhạc và nghệ thuật, so sánh as...as, different from, the same as." },
+                { id: 5, code: "Unit 5", name: "Food and Drink", subtitle: "Chủ điểm: Ẩm thực và đồ uống, lượng từ some, a lot of, how much, how many." },
+                { id: 6, code: "Unit 6", name: "A Visit to a School", subtitle: "Chủ điểm: Tham quan Văn Miếu Quốc Tử Giám, giới từ chỉ thời gian và nơi chốn." },
+                { id: 7, code: "Unit 7", name: "Traffic", subtitle: "Chủ điểm: Luật an toàn giao thông, phương tiện đi lại, cấu trúc It indicates distance & used to." },
+                { id: 8, code: "Unit 8", name: "Films", subtitle: "Chủ điểm: Các thể loại phim điện ảnh, liên từ chỉ sự tương phản (although, though, however)." },
+                { id: 9, code: "Unit 9", name: "Festivals around the World", subtitle: "Chủ điểm: Lễ hội đặc sắc trên thế giới, câu hỏi Yes/No và trạng từ nghi vấn." },
+                { id: 10, code: "Unit 10", name: "Energy Sources", subtitle: "Chủ điểm: Nguồn năng lượng tái tạo & không tái tạo, thì hiện tại tiếp diễn chỉ tương lai." },
+                { id: 11, code: "Unit 11", name: "Travelling in the Future", subtitle: "Chủ điểm: Phương tiện giao thông tương lai, đại từ sở hữu (Possessive Pronouns)." },
+                { id: 12, code: "Unit 12", name: "An Overcrowded World", subtitle: "Chủ điểm: Dân số quá đông, vấn đề đô thị hóa, so sánh hơn/nhất của lượng từ." }
+            ],
+            "grade8": [
+                { id: 1, code: "Unit 1", name: "Leisure Time", subtitle: "Chủ điểm: Thời gian rảnh rỗi, động từ chỉ sở thích đi kèm V-ing / to V." },
+                { id: 2, code: "Unit 2", name: "Life in the Countryside", subtitle: "Chủ điểm: Cuộc sống vùng nông thôn, so sánh hơn của trạng từ (comparative adverbs)." },
+                { id: 3, code: "Unit 3", name: "Teenagers", subtitle: "Chủ điểm: Tâm sinh lý tuổi dậy thì, áp lực học tập và các hội nhóm trên mạng." },
+                { id: 4, code: "Unit 4", name: "Ethnic Groups of Viet Nam", subtitle: "Chủ điểm: Các dân tộc anh em Việt Nam, câu hỏi Yes/No và Wh-questions." },
+                { id: 5, code: "Unit 5", name: "Our Customs & Traditions", subtitle: "Chủ điểm: Phong tục và truyền thống, cấu trúc have to, should và mạo từ a/an/the." },
+                { id: 6, code: "Unit 6", name: "Lifestyles", subtitle: "Chủ điểm: Lối sống hiện đại và truyền thống, tương lai đơn và câu điều kiện loại 1." },
+                { id: 7, code: "Unit 7", name: "Environmental Protection", subtitle: "Chủ điểm: Bảo vệ môi trường, xử lý rác thải nhựa, mệnh đề trạng ngữ chỉ nguyên nhân/kết quả." },
+                { id: 8, code: "Unit 8", name: "Shopping", subtitle: "Chủ điểm: Thói quen mua sắm, siêu thị, chợ truyền thống, thì hiện tại đơn mang nghĩa tương lai." },
+                { id: 9, code: "Unit 9", name: "Natural Disasters", subtitle: "Chủ điểm: Thiên tai (bão lũ, động đất), thì quá khứ tiếp diễn (Past Continuous)." },
+                { id: 10, code: "Unit 10", name: "Communication in the Future", subtitle: "Chủ điểm: Giao tiếp công nghệ tương lai, giới từ chỉ phương tiện và thời gian." },
+                { id: 11, code: "Unit 11", name: "Science and Technology", subtitle: "Chủ điểm: Khoa học và công nghệ, câu gián tiếp (Reported Speech: statements)." },
+                { id: 12, code: "Unit 12", name: "Life on Other Planets", subtitle: "Chủ điểm: Sự sống ngoài Trái Đất, người ngoài hành tinh, câu gián tiếp dạng câu hỏi." }
+            ],
+            "grade9": [
+                { id: 1, code: "Unit 1", name: "Local Community", subtitle: "Chủ điểm: Cộng đồng địa phương, làng nghề truyền thống, câu hỏi gián tiếp với từ để hỏi." },
+                { id: 2, code: "Unit 2", name: "City Life", subtitle: "Chủ điểm: Cuộc sống đô thị, so sánh kép (Double Comparatives) và cụm động từ." },
+                { id: 3, code: "Unit 3", name: "Healthy Living for Teens", subtitle: "Chủ điểm: Sức khỏe thể chất & tinh thần tuổi mới lớn, động từ khuyết thiếu." },
+                { id: 4, code: "Unit 4", name: "Remembering the Past", subtitle: "Chủ điểm: Ký ức lịch sử, phong tục xưa, cấu trúc used to và quá khứ hoàn thành." },
+                { id: 5, code: "Unit 5", name: "Our Experiences", subtitle: "Chủ điểm: Trải nghiệm thực tế cuộc sống, thì hiện tại hoàn thành và tính từ mô tả cảm xúc." },
+                { id: 6, code: "Unit 6", name: "Viet Nam: Then & Now", subtitle: "Chủ điểm: Việt Nam ngày nay và ngày xưa, mệnh đề quan hệ và câu phức liên từ." },
+                { id: 7, code: "Unit 7", name: "Natural Wonders of the World", subtitle: "Chủ điểm: Kỳ quan thiên nhiên thế giới, câu bị động (Passive Voice) nâng cao." },
+                { id: 8, code: "Unit 8", name: "Tourism", subtitle: "Chủ điểm: Du lịch trải nghiệm, phát triển du lịch bền vững, mệnh đề quan hệ rút gọn." },
+                { id: 9, code: "Unit 9", name: "World Englishes", subtitle: "Chủ điểm: Tiếng Anh toàn cầu, các biến thể tiếng Anh, câu điều kiện loại 2." },
+                { id: 10, code: "Unit 10", name: "Planet Earth", subtitle: "Chủ điểm: Hành tinh Trái Đất, bảo vệ sinh quyển, câu gián tiếp nâng cao." },
+                { id: 11, code: "Unit 11", name: "Electronic Devices", subtitle: "Chủ điểm: Thiết bị điện tử học tập, công nghệ số, câu điều kiện hỗn hợp." },
+                { id: 12, code: "Unit 12", name: "Career Choices", subtitle: "Chủ điểm: Định hướng nghề nghiệp tương lai, sở thích và kỹ năng thế kỷ 21." }
+            ],
+
+            // === KHỐI THPT (LỚP 10 - LỚP 12 - GLOBAL SUCCESS) ===
+            "grade10": [
+                { id: 1, code: "Unit 1", name: "Family Life", subtitle: "Chủ điểm: Đời sống gia đình, phân chia công việc nhà, thì hiện tại đơn & hiện tại tiếp diễn." },
+                { id: 2, code: "Unit 2", name: "Humans & the Environment", subtitle: "Chủ điểm: Con người và môi trường, lối sống xanh, tương lai với will và be going to." },
+                { id: 3, code: "Unit 3", name: "Music", subtitle: "Chủ điểm: Âm nhạc hiện đại và truyền thống, câu ghép với liên từ đẳng lập (FANBOYS)." },
+                { id: 4, code: "Unit 4", name: "For a Better Community", subtitle: "Chủ điểm: Hoạt động tình nguyện, tính từ đuôi -ed và -ing, thì quá khứ tiếp diễn." },
+                { id: 5, code: "Unit 5", name: "Inventions", subtitle: "Chủ điểm: Các phát minh khoa học công nghệ, thì hiện tại hoàn thành và danh động từ." },
+                { id: 6, code: "Unit 6", name: "Gender Equality", subtitle: "Chủ điểm: Bình đẳng giới trong công việc, câu bị động với động từ khuyết thiếu (Modal Passives)." },
+                { id: 7, code: "Unit 7", name: "Viet Nam & Int'l Organisations", subtitle: "Chủ điểm: Việt Nam và các tổ chức quốc tế (UN, UNICEF, WTO), so sánh hơn/nhất tính từ." },
+                { id: 8, code: "Unit 8", name: "New Ways to Learn", subtitle: "Chủ điểm: Phương pháp học tập kỹ thuật số, mệnh đề quan hệ xác định và không xác định." },
+                { id: 9, code: "Unit 9", name: "Protecting the Environment", subtitle: "Chủ điểm: Bảo vệ môi trường tự nhiên, câu gián tiếp dạng câu mệnh lệnh và yêu cầu." },
+                { id: 10, code: "Unit 10", name: "Ecotourism", subtitle: "Chủ điểm: Du lịch sinh thái, câu điều kiện loại 1 và loại 2." },
+                { id: 11, code: "Unit 11", name: "Career Paths", subtitle: "Chủ điểm: Con đường lập nghiệp, kỹ năng nghề nghiệp và phỏng vấn xin việc." },
+                { id: 12, code: "Unit 12", name: "Lifelong Learning", subtitle: "Chủ điểm: Học tập suốt đời, phát triển bản thân và nâng cao năng lực cá nhân." }
+            ],
+            "grade11": [
+                { id: 1, code: "Unit 1", name: "A Long & Healthy Life", subtitle: "Chủ điểm: Bí quyết trường thọ, sức khỏe dinh dưỡng, thì quá khứ đơn vs hiện tại hoàn thành." },
+                { id: 2, code: "Unit 2", name: "The Generation Gap", subtitle: "Chủ điểm: Khoảng cách thế hệ trong gia đình, động từ khuyết thiếu chỉ sự bắt buộc (must, have to, should)." },
+                { id: 3, code: "Unit 3", name: "Cities of the Future", subtitle: "Chủ điểm: Thành phố thông minh tương lai, động từ nối (Linking verbs) và tính từ." },
+                { id: 4, code: "Unit 4", name: "ASEAN and Viet Nam", subtitle: "Chủ điểm: Cộng đồng ASEAN, danh động từ hoàn thành (Perfect Gerunds) và phân từ hoàn thành." },
+                { id: 5, code: "Unit 5", name: "Global Warming", subtitle: "Chủ điểm: Biến đổi khí hậu toàn cầu, mệnh đề phân từ rút gọn (Participle Clauses)." },
+                { id: 6, code: "Unit 6", name: "Preserving Our Heritage", subtitle: "Chủ điểm: Bảo tồn di sản văn hóa vật thể & phi vật thể, to-infinitive clauses." },
+                { id: 7, code: "Unit 7", name: "Education Options for School-Leavers", subtitle: "Chủ điểm: Lựa chọn giáo dục sau tốt nghiệp phổ thông, câu hỏi đuôi và danh động từ." },
+                { id: 8, code: "Unit 8", name: "Becoming Independent", subtitle: "Chủ điểm: Rèn luyện tính tự lập, kỹ năng sống, câu chẻ nhấn mạnh (Cleft sentences)." },
+                { id: 9, code: "Unit 9", name: "Social Issues", subtitle: "Chủ điểm: Các vấn đề xã hội nan giải (bạo lực học đường, nghèo đói), liên từ chỉ nguyên nhân/kết quả." },
+                { id: 10, code: "Unit 10", name: "The Ecosystem", subtitle: "Chủ điểm: Hệ sinh thái tự nhiên, bảo tồn đa dạng sinh học, câu điều kiện loại 3." },
+                { id: 11, code: "Unit 11", name: "Career Orientations", subtitle: "Chủ điểm: Định hướng nghề nghiệp tương lai, thích ứng thị trường lao động." },
+                { id: 12, code: "Unit 12", name: "Higher Education", subtitle: "Chủ điểm: Giáo dục đại học và du học quốc tế, chiến lược thích ứng môi trường học thuật." }
+            ],
+            "grade12": [
+                { id: 1, code: "Unit 1", name: "Life Stories We Admire", subtitle: "Chủ điểm: Những tấm gương cuộc sống truyền cảm hứng, quá khứ đơn vs quá khứ tiếp diễn/hoàn thành." },
+                { id: 2, code: "Unit 2", name: "A Multicultural World", subtitle: "Chủ điểm: Thế giới đa văn hóa, mạo từ a/an/the và câu hỏi đuôi (Tag Questions)." },
+                { id: 3, code: "Unit 3", name: "Green Living", subtitle: "Chủ điểm: Lối sống bền vững, câu chẻ nhấn mạnh (Cleft Sentences with It is/was... that)." },
+                { id: 4, code: "Unit 4", name: "Urbanisation", subtitle: "Chủ điểm: Đô thị hóa và cơ hội việc làm, cấu trúc giả định (Subjunctive Mood)." },
+                { id: 5, code: "Unit 5", name: "The World of Work", subtitle: "Chủ điểm: Thị trường lao động và định hướng nghề nghiệp, cụm động từ nâng cao (Phrasal Verbs)." },
+                { id: 6, code: "Unit 6", name: "Artificial Intelligence", subtitle: "Chủ điểm: Trí tuệ nhân tạo (AI) trong kỷ nguyên số, câu điều kiện hỗn hợp và đảo ngữ." },
+                { id: 7, code: "Unit 7", name: "The World of Mass Media", subtitle: "Chủ điểm: Truyền thông đại chúng, mạng xã hội, câu bị động nâng cao và danh từ ghép." },
+                { id: 8, code: "Unit 8", name: "Wildlife Conservation", subtitle: "Chủ điểm: Bảo tồn động vật hoang dã, cấu trúc đảo ngữ (Inversion) với No sooner / Hardly." },
+                { id: 9, code: "Unit 9", name: "Career Paths", subtitle: "Chủ điểm: Con đường phát triển sự nghiệp, kỹ năng phỏng vấn và thích ứng công việc." },
+                { id: 10, code: "Unit 10", name: "Lifelong Learning", subtitle: "Chủ điểm: Học tập suốt đời, rèn luyện kỹ năng tự học và tự nâng cao trình độ." },
+                { id: 11, code: "Unit 11", name: "Cultural Heritage", subtitle: "Chủ điểm: Di sản văn hóa dân tộc và nhân loại, bảo tồn truyền thống trong thời đại số." },
+                { id: 12, code: "Unit 12", name: "The Digital Age", subtitle: "Chủ điểm: Kỷ nguyên số và công nghệ tương lai, an toàn mạng và đạo đức công nghệ." }
+            ]
+        };
+
+        let currentActiveGrade = "grade9";
+        let currentActiveUnitIndex = 0;
+
+        // ========================================================
+        // B. KHỞI TẠO KHI TẢI TRANG
+        // ========================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initStudentSession();
+            renderUnitTabs();
+            updateCurrentUnitView(currentActiveUnitIndex);
+            renderParentHistory();
+            initUploadService();
+        });
+
+        // 1. Phân quyền và nhận diện thông minh 3 loại tài khoản: Giáo viên, Học sinh, Phụ huynh
+        function initStudentSession() {
+            const currentRole = localStorage.getItem('stm_role') || 'student';
+            const studentName = localStorage.getItem('student_name') || localStorage.getItem('stm_user') || 'Nguyễn Phương Minh';
+            const studentClass = localStorage.getItem('student_class') || 'Lớp 9';
+
+            // Nhận diện khối lớp chuẩn (từ Lớp 1 đến Lớp 12)
+            currentActiveGrade = detectGrade(studentClass);
+            const gradeNum = currentActiveGrade.replace('grade', '');
+            const gradeTitle = `Khối Lớp ${gradeNum}`;
+
+            const roleBadge = document.getElementById('userRoleBadge');
+            const teacherControl = document.getElementById('teacherGradeControl');
+            const studentLockedGrade = document.getElementById('studentLockedGrade');
+            const studentLockedText = document.getElementById('studentLockedText');
+            const studentNameText = document.getElementById('studentNameText');
+            const teacherToolbar = document.getElementById('teacherToolbarSection');
+            const parentDashboard = document.getElementById('parentDashboardSection');
+            const heroSubtitle = document.getElementById('heroSubtitle');
+
+            // XỬ LÝ THEO 3 LOẠI TÀI KHOẢN (ROLE-BASED VIEW):
+            if (currentRole === 'teacher') {
+                // ==========================================
+                // LOẠI 1: GIÁO VIÊN (Thầy Nguyễn Hoàng Sơn)
+                // Đặc quyền: Tự do chuyển xem phòng tất cả các lớp (1 - 12)
+                // ==========================================
+                roleBadge.className = 'role-badge-tag teacher';
+                roleBadge.innerHTML = `<i class="fa-solid fa-chalkboard-user"></i> <span>Giáo Viên</span>`;
+                studentNameText.innerText = "Thầy Nguyễn Hoàng Sơn";
+
+                // Hiển thị thanh chọn lớp nhanh dành cho giáo viên
+                teacherControl.style.display = 'inline-flex';
+                studentLockedGrade.style.display = 'none';
+
+                const gradeSelect = document.getElementById('gradeQuickSelect');
+                if (gradeSelect) gradeSelect.value = currentActiveGrade;
+
+                if (teacherToolbar) teacherToolbar.style.display = 'block';
+                if (parentDashboard) parentDashboard.style.display = 'none';
+
+                heroSubtitle.innerHTML = `Bàn làm việc Quản trị Chuyên môn & Khảo thí 12 Khối lớp của <strong>Thầy Nguyễn Hoàng Sơn</strong>. Thầy có thể chuyển đổi giữa các phòng học ở thanh trên cùng.`;
+
+            } else if (currentRole === 'parent') {
+                // ==========================================
+                // LOẠI 3: PHỤ HUYNH HỌC SINH
+                // Đặc quyền: Chỉ xem lớp của con, xem bảng lịch sử hoạt động & kết quả làm bài
+                // ==========================================
+                roleBadge.className = 'role-badge-tag parent';
+                roleBadge.innerHTML = `<i class="fa-solid fa-users"></i> <span>Phụ Huynh</span>`;
+                studentNameText.innerText = `PH em ${studentName}`;
+
+                // Khóa cứng lớp của con, KHÔNG cho phụ huynh tự do chuyển sang lớp khác
+                teacherControl.style.display = 'none';
+                studentLockedGrade.style.display = 'inline-flex';
+                studentLockedText.innerText = `${gradeTitle} (Lớp của con)`;
+
+                if (teacherToolbar) teacherToolbar.style.display = 'none';
+                if (parentDashboard) {
+                    parentDashboard.style.display = 'block';
+                    const childName = localStorage.getItem('parent_child_name') || studentName;
+                    document.getElementById('parentChildName').innerText = childName;
+                    document.getElementById('parentChildGrade').innerText = gradeTitle;
+                }
+
+                const childDisplayName = localStorage.getItem('parent_child_name') || studentName;
+                heroSubtitle.innerHTML = `Kính chào Quý phụ huynh em <strong>${childDisplayName}</strong> (${gradeTitle}). Hệ thống cập nhật tiến độ học tập và kết quả bài thi trực tuyến của con.`;
+
+            } else {
+                // ==========================================
+                // LOẠI 2: HỌC SINH
+                // Giới hạn: Chỉ được phép vào đúng lớp của mình, KHÔNG được chuyển lớp khác
+                // ==========================================
+                roleBadge.className = 'role-badge-tag student';
+                roleBadge.innerHTML = `<i class="fa-solid fa-user-graduate"></i> <span>Học Sinh</span>`;
+                studentNameText.innerText = studentName;
+
+                // Khóa cứng khối lớp, KHÔNG cho học sinh tự do chuyển sang lớp khác
+                teacherControl.style.display = 'none';
+                studentLockedGrade.style.display = 'inline-flex';
+                studentLockedText.innerText = gradeTitle;
+
+                if (teacherToolbar) teacherToolbar.style.display = 'none';
+                if (parentDashboard) parentDashboard.style.display = 'none';
+
+                heroSubtitle.innerHTML = `Chào mừng em <strong>${studentName}</strong> đến với không gian học tập <strong>${gradeTitle}</strong>! Hãy tích cực luyện tập 5 kỹ năng mỗi ngày.`;
+            }
+
+            document.getElementById('totalUnitsCount').innerText = (CURRICULUM_DATA[currentActiveGrade] || []).length;
+        }
+
+        // Hàm phát hiện khối lớp thông minh
+        function detectGrade(classStr) {
+            if (!classStr) return "grade9";
+            const str = classStr.toString().toLowerCase().trim();
+
+            // Kiểm tra từ Lớp 12 lùi dần về Lớp 1 (để tránh nhầm lẫn 1 với 10, 11, 12)
+            for (let g = 12; g >= 1; g--) {
+                const regex = new RegExp(`(^|[^0-9])(e|lớp|khoi|k|grade|lop|khối)?\\s*${g}([^0-9]|$)`, 'i');
+                if (regex.test(str) || str === `e${g}` || str === `${g}`) {
+                    return `grade${g}`;
+                }
+            }
+            return "grade9"; // Mặc định Lớp 9
+        }
+
+        // Cho phép chuyển đổi khối lớp nhanh trên giao diện
+        function switchGradeManually(gradeKey) {
+            if (CURRICULUM_DATA[gradeKey]) {
+                currentActiveGrade = gradeKey;
+                currentActiveUnitIndex = 0;
+                renderUnitTabs();
+                updateCurrentUnitView(0);
+                document.getElementById('totalUnitsCount').innerText = CURRICULUM_DATA[gradeKey].length;
+            }
+        }
+
+        // 2. Render các tab Unit ở Tầng 1
+        function renderUnitTabs() {
+            const container = document.getElementById('unitsNavContainer');
+            container.innerHTML = '';
+            const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
+
+            units.forEach((unit, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `unit-tab-btn ${idx === currentActiveUnitIndex ? 'active' : ''}`;
+                btn.onclick = () => selectUnit(idx);
+
+                btn.innerHTML = `
+                    <span class="unit-code">${unit.code}</span>
+                    <span class="unit-name">${unit.name}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        // 3. Xử lý khi học sinh chọn một Unit
+        function selectUnit(index) {
+            currentActiveUnitIndex = index;
+            renderUnitTabs();
+            updateCurrentUnitView(index);
+        }
+
+        // 4. Cập nhật thông tin chi tiết của Unit ở Tầng 2 & Đồng bộ link bài thi động sang quiz.html
+        function updateCurrentUnitView(index) {
+            const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
+            const selectedUnit = units[index];
+
+            if (selectedUnit) {
+                document.getElementById('currentUnitTitle').innerHTML = `
+                    <i class="fa-solid fa-book-open-reader" style="color: var(--primary);"></i>
+                    <span>${selectedUnit.code}: ${selectedUnit.name}</span>
+                `;
+                document.getElementById('currentUnitSubtitle').innerText = selectedUnit.subtitle;
+                renderTheoryDocuments(selectedUnit, currentActiveGrade);
+
+                // Cập nhật đường link bài thi động theo Khối Lớp và Unit hiện tại
+                const gradeNum = currentActiveGrade.replace('grade', '');
+                const unitNum = index + 1;
+
+                const btnPhonetics = document.getElementById('btnSkillPhonetics');
+                const btnGrammar = document.getElementById('btnSkillGrammar');
+                const btnListening = document.getElementById('btnSkillListening');
+                const btnReading = document.getElementById('btnSkillReading');
+                const btnWriting = document.getElementById('btnSkillWriting');
+                const btnPeriodical = document.getElementById('btnExamPeriodical');
+                const btnMock = document.getElementById('btnExamMock');
+
+                if (btnPhonetics) btnPhonetics.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-phonetics`;
+                if (btnGrammar) btnGrammar.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-grammar`;
+                if (btnListening) btnListening.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnReading) btnReading.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnWriting) btnWriting.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                if (btnPeriodical) btnPeriodical.href = `quiz.html?de=anh${gradeNum}-u${unitNum}-grammar`;
+                if (btnMock) {
+                    if (gradeNum === 9) {
+                        btnMock.href = `quiz.html?de=anh9-gk1-de03`;
+                    } else {
+                        btnMock.href = `quiz.html?de=anh${gradeNum}-giuaky1`;
+                    }
+                }
+            }
+        }
+
+        // 4.1. Hiển thị lịch sử làm bài thi thời gian thực cho Phụ huynh
+        function renderParentHistory() {
+            try {
+                const examHistory = JSON.parse(localStorage.getItem('stm_exam_history') || '[]');
+                const quizHistory = JSON.parse(localStorage.getItem('stm_quiz_history') || '[]');
+                const history = [...examHistory, ...quizHistory];
+                const tableBody = document.getElementById('parentHistoryTableBody');
+                const latestScoreEl = document.getElementById('parentLatestScore');
+
+                if (history && history.length > 0) {
+                    if (latestScoreEl) {
+                        latestScoreEl.innerText = history[0].score;
+                    }
+
+                    if (tableBody) {
+                        let html = '';
+                        history.slice(0, 5).forEach(item => {
+                            let badgeStyle = 'background: #f0fdf4; color: #16a34a;';
+                            let statusText = 'Đạt Chuẩn';
+                            let note = 'Em hoàn thành tốt bài thi khảo sát năng lực.';
+
+                            if (parseFloat(item.score) >= 9.0) {
+                                statusText = 'Xuất Sắc';
+                                note = 'Nắm rất vững kiến thức và kỹ năng làm bài.';
+                            } else if (parseFloat(item.score) >= 8.0) {
+                                statusText = 'Giỏi';
+                                note = 'Bài làm tốt, cần rà soát thêm một số câu bẫy.';
+                            } else if (parseFloat(item.score) < 5.0) {
+                                badgeStyle = 'background: #fef2f2; color: #dc2626;';
+                                statusText = 'Cần Cố Gắng';
+                                note = 'Cần xem lại kỹ phần giải thích chi tiết của Thầy Sơn.';
+                            }
+
+                            const dateDisplay = item.dateStr || item.date || 'Hôm nay';
+                            const gradeDisplay = item.studentClass || (item.grade ? `Lớp ${item.grade}` : 'Lớp 9');
+                            const correctDisplay = item.total ? `${item.correct}/${item.total} câu` : `${item.correct} câu`;
+
+                            html += `
+                                <tr>
+                                    <td><strong>${item.examTitle}</strong><br><small style="color: var(--text-muted);">${dateDisplay}</small></td>
+                                    <td>${gradeDisplay}</td>
+                                    <td><span style="font-weight: 800; color: #0284c7; font-size: 1.1rem;">${item.score} / 10</span> (${correctDisplay})</td>
+                                    <td><span style="${badgeStyle} padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">${statusText}</span></td>
+                                    <td>${note}</td>
+                                </tr>
+                            `;
+                        });
+
+                        // Thêm bài nộp về nhà cố định
+                        html += `
+                            <tr>
+                                <td><strong>Bài Tập Về Nhà Lên Google Drive</strong></td>
+                                <td>Lớp 9</td>
+                                <td><span style="font-weight: 700; color: #0284c7;">Đã Chấm Điểm</span></td>
+                                <td><span style="background: #f0f9ff; color: #0284c7; padding: 0.2rem 0.6rem; border-radius: 9999px; font-size: 0.78rem; font-weight: 700;">Đã Lưu Drive 5TB</span></td>
+                                <td>File làm bài sạch đẹp, trình bày rõ ràng từng câu chữ.</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML = html;
+                    }
+                }
+            } catch (e) {
+                console.error("Lỗi khi đọc lịch sử phụ huynh:", e);
+            }
+        }
+
+        // 5. Xử lý Đăng xuất
+        function handleLogout() {
+            if (confirm('Bạn có chắc chắn muốn đăng xuất khỏi phòng học không?')) {
+                localStorage.removeItem('stm_user');
+                localStorage.removeItem('student_name');
+                localStorage.removeItem('student_class');
+                localStorage.removeItem('student_id');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // ========================================================
+        // C. HẠ TẦNG NỘP BÀI LÊN GOOGLE DRIVE (5TB BACKEND)
+        // ========================================================
+        function initUploadService() {
+            const UPLOAD_API_URL = "https://script.google.com/macros/s/AKfycbxj1vmHrIlyAGZfKb9YERzIUhsspKrCBbUwUNyPJdGF72BqffVGHu1NGEgejLLbMo1ZNA/exec";
+
+            const fileInput = document.getElementById('file-upload');
+            const btnSubmit = document.getElementById('btnSubmitFile');
+            const fileLabel = document.getElementById('fileLabel');
+            const statusMsg = document.getElementById('uploadStatusMsg');
+
+            if (!fileInput || !btnSubmit) return;
+
+            // Bắt sự kiện chọn file
+            fileInput.addEventListener('change', () => {
+                statusMsg.style.display = 'none';
+                if (fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                    fileLabel.innerHTML = `
+                        <i class="fa-solid fa-file-circle-check" style="color: #059669;"></i>
+                        <span style="color: #059669;">${file.name} (${sizeMB} MB) - Bấm để chọn lại</span>
+                    `;
+                }
+            });
+
+            // Bắt sự kiện bấm Gửi Bài Làm
+            btnSubmit.addEventListener('click', () => {
+                const file = fileInput.files[0];
+
+                if (!file) {
+                    statusMsg.innerText = 'Vui lòng chọn file bài làm trước khi nộp!';
+                    statusMsg.style.color = '#dc2626';
+                    statusMsg.style.display = 'block';
+                    return;
+                }
+
+                // Trạng thái đang tải lên
+                const originalBtnHTML = btnSubmit.innerHTML;
+                btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Đang tải lên...</span>`;
+                btnSubmit.disabled = true;
+                btnSubmit.style.opacity = '0.75';
+                statusMsg.style.display = 'none';
+
+                // Đọc file bằng FileReader
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Data = e.target.result.split(',')[1];
+                    const payload = {
+                        fileName: file.name,
+                        mimeType: file.type || "application/octet-stream",
+                        base64: base64Data
+                    };
+
+                    fetch(UPLOAD_API_URL, {
+                        method: 'POST',
+                        redirect: 'follow',
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8'
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Hiển thị thông báo màu xanh 'Nộp bài thành công!'
+                        statusMsg.innerHTML = `<i class="fa-solid fa-circle-check"></i> Nộp bài thành công! File đã được lưu an toàn vào Google Drive của Thầy Sơn.`;
+                        statusMsg.style.color = '#16a34a';
+                        statusMsg.style.display = 'block';
+
+                        // Reset ô chọn file
+                        fileInput.value = '';
+                        fileLabel.innerHTML = `
+                            <i class="fa-regular fa-folder-open"></i>
+                            <span>Bấm vào đây để chọn file từ máy tính</span>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error('Lỗi nộp bài:', error);
+                        statusMsg.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Có lỗi xảy ra khi nộp bài. Vui lòng thử lại!`;
+                        statusMsg.style.color = '#dc2626';
+                        statusMsg.style.display = 'block';
+                    })
+                    .finally(() => {
+                        btnSubmit.innerHTML = originalBtnHTML;
+                        btnSubmit.disabled = false;
+                        btnSubmit.style.opacity = '1';
+                    });
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+    
+
+        /* ========================================================
+           LOGIC ĐIỀU HƯỚNG ĐA CẤP (MULTI-STEP NAVIGATION)
+           Theo đúng quy ước đường dẫn file HTML độc lập trên GitHub:
+           - /de-thi/[lop]/luyen-tap/[ky-nang]/[ma_de].html
+           - /de-thi/[lop]/kiem-tra/[loai_ky_thi]/[ma_de].html
+           - /de-thi/[lop]/khao-sat/[ma_de].html
+           ======================================================== */
+
+        let currentPracticeSkill = null;
+        let currentPeriodicalCat = null;
+        let currentLoadedExamUrl = '';
+
+        // 1. NGÂN HÀNG TỰ LUYỆN: Click 1 chọn Kỹ năng -> Click 2 chọn Exercise
+        function selectSkillStep2(skillId, skillName, iconClass, colorVar, bgVar) {
+            currentPracticeSkill = skillId;
+            document.getElementById('practiceStep1View').style.display = 'none';
+            document.getElementById('practiceStep2View').style.display = 'block';
+            document.getElementById('practiceBreadcrumbBar').style.display = 'flex';
+            document.getElementById('practiceCurrentSkillName').innerText = skillName;
+
+            renderPracticeExercises(skillId, skillName, iconClass, colorVar, bgVar);
+        }
+
+        function backToPracticeStep1() {
+            currentPracticeSkill = null;
+            document.getElementById('practiceStep1View').style.display = 'block';
+            document.getElementById('practiceStep2View').style.display = 'none';
+            document.getElementById('practiceBreadcrumbBar').style.display = 'none';
+        }
+
+        function renderPracticeExercises(skillId, skillName, iconClass, colorVar, bgVar) {
+            const container = document.getElementById('practiceExerciseListContainer');
+            const gradeNum = (currentActiveGrade || 'grade9').replace('grade', '');
+            const unitIndex = (typeof currentUnitIndex !== 'undefined') ? currentUnitIndex + 1 : 1;
+
+            // Danh sách các Exercise cho mỗi kỹ năng
+            const exercises = [
+                {
+                    id: "ex-01",
+                    title: `Exercise 1: Trọng tâm lý thuyết & Nhận biết (Unit ${unitIndex})`,
+                    desc: "Củng cố kiến thức nền tảng, dạng bài nhận diện theo chuẩn chương trình học.",
+                    qCount: 20,
+                    time: 15,
+                    level: "Nhận Biết (Level 1)"
+                },
+                {
+                    id: "ex-02",
+                    title: `Exercise 2: Thông hiểu & Vận dụng theo ngữ cảnh (Unit ${unitIndex})`,
+                    desc: "Rèn luyện khả năng áp dụng cấu trúc ngữ pháp và từ vựng trong câu hoàn chỉnh.",
+                    qCount: 20,
+                    time: 15,
+                    level: "Thông Hiểu (Level 2)"
+                },
+                {
+                    id: "ex-03",
+                    title: `Exercise 3: Vận dụng cao & Luyện tốc độ phòng thi (Unit ${unitIndex})`,
+                    desc: "Bộ câu hỏi phân hóa nâng cao bứt phá điểm 9-10 và rèn phản xạ chính xác.",
+                    qCount: 25,
+                    time: 20,
+                    level: "Vận Dụng Cao (Level 3-4)"
+                }
+            ];
+
+            let html = '';
+            exercises.forEach((ex, idx) => {
+                const targetUrl = `de-thi/lop-${gradeNum}/luyen-tap/${skillId}/${ex.id}.html`;
+                html += `
+                <div class="exercise-row-item">
+                    <div style="flex: 1;">
+                        <div class="ex-meta-title">
+                            <i class="fa-solid ${iconClass}" style="color: ${colorVar}; font-size: 1.1rem;"></i>
+                            <span>${ex.title}</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">${ex.desc}</div>
+                        <div class="ex-tags-wrap">
+                            <span class="ex-badge"><i class="fa-regular fa-circle-question"></i> ${ex.qCount} câu</span>
+                            <span class="ex-badge"><i class="fa-regular fa-clock"></i> ${ex.time} phút</span>
+                            <span class="ex-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">${ex.level}</span>
+                            <span class="ex-badge" style="background:#ecfdf5; color:#047857; font-weight:700;">Mã: ${ex.id}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-download" style="background:${colorVar}; color:#ffffff; border-color:${colorVar};" onclick="openDirectExam('${targetUrl}', '${escapeJsStr(ex.title)}')">
+                            <span>Làm Bài Ngay</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 2. KIỂM TRA ĐỊNH KỲ: Click 1 chọn danh mục mẹ -> Click 2 chọn đề số -> Mở đề làm bài
+        function selectPeriodicalCategory(catId, catName, defaultDuration) {
+            currentPeriodicalCat = catId;
+            document.getElementById('periodicalStep1View').style.display = 'none';
+            document.getElementById('periodicalStep2View').style.display = 'block';
+            document.getElementById('periodicalBreadcrumbBar').style.display = 'flex';
+            document.getElementById('periodicalCurrentCatName').innerText = catName;
+
+            renderPeriodicalExams(catId, catName, defaultDuration);
+        }
+
+        function backToPeriodicalStep1() {
+            currentPeriodicalCat = null;
+            document.getElementById('periodicalStep1View').style.display = 'block';
+            document.getElementById('periodicalStep2View').style.display = 'none';
+            document.getElementById('periodicalBreadcrumbBar').style.display = 'none';
+        }
+
+        function renderPeriodicalExams(catId, catName, defaultDuration) {
+            const container = document.getElementById('periodicalExamsListContainer');
+            const gradeNum = (currentActiveGrade || 'grade9').replace('grade', '');
+
+            let exams = [];
+            if (catId === 'giua-ky-1') {
+                exams = [
+                    {
+                        code: "de-03",
+                        title: `Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 03 – Tiếng Anh ${gradeNum}`,
+                        desc: "Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ có đầy đủ file âm thanh Full Audio liền mạch.",
+                        qCount: 40,
+                        duration: 60,
+                        hasAudio: true,
+                        isFeatured: true
+                    },
+                    {
+                        code: "de-01",
+                        title: `Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 01 – Tiếng Anh ${gradeNum}`,
+                        desc: "Bộ đề ôn luyện phân hóa 4 kỹ năng chuẩn ma trận kiến thức Bộ GD&ĐT.",
+                        qCount: 40,
+                        duration: 60,
+                        hasAudio: false
+                    },
+                    {
+                        code: "de-02",
+                        title: `Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 02 – Tiếng Anh ${gradeNum}`,
+                        desc: "Bộ đề rèn luyện kỹ năng giải đề, nhận diện bẫy ngữ pháp và đọc hiểu chuyên sâu.",
+                        qCount: 40,
+                        duration: 60,
+                        hasAudio: false
+                    }
+                ];
+            } else if (catId === '15-phut') {
+                exams = [
+                    {
+                        code: "de-01",
+                        title: `Bài Kiểm Tra 15 Phút • Đề Số 01 – Tiếng Anh ${gradeNum}`,
+                        desc: "Khảo sát nhanh mức độ nắm bắt từ vựng và mẫu câu trọng tâm.",
+                        qCount: 15,
+                        duration: 15
+                    },
+                    {
+                        code: "de-02",
+                        title: `Bài Kiểm Tra 15 Phút • Đề Số 02 – Tiếng Anh ${gradeNum}`,
+                        desc: "Kiểm tra kỹ năng biến đổi từ loại và cấu trúc ngữ pháp then chốt.",
+                        qCount: 15,
+                        duration: 15
+                    }
+                ];
+            } else {
+                exams = [
+                    {
+                        code: "de-01",
+                        title: `Đề ${catName} • Đề Số 01 – Tiếng Anh ${gradeNum}`,
+                        desc: "Đề kiểm tra định kỳ chuẩn hóa kiến thức và kỹ năng ngôn ngữ.",
+                        qCount: 40,
+                        duration: defaultDuration
+                    },
+                    {
+                        code: "de-02",
+                        title: `Đề ${catName} • Đề Số 02 – Tiếng Anh ${gradeNum}`,
+                        desc: "Đề kiểm tra định kỳ mở rộng và rèn kỹ năng tự làm bài trực tuyến.",
+                        qCount: 40,
+                        duration: defaultDuration
+                    }
+                ];
+            }
+
+            let html = '';
+            exams.forEach((ex) => {
+                const targetUrl = `de-thi/lop-${gradeNum}/kiem-tra/${catId}/${ex.code}.html`;
+                html += `
+                <div class="exercise-row-item" style="${ex.isFeatured ? 'border-color:var(--teal); background:#f0fdfa;' : ''}">
+                    <div style="flex: 1;">
+                        <div class="ex-meta-title">
+                            <i class="fa-solid fa-file-signature" style="color: ${ex.isFeatured ? 'var(--teal)' : 'var(--amber)'};"></i>
+                            <span>${ex.title}</span>
+                            ${ex.isFeatured ? '<span class="ex-badge" style="background:#0d9488; color:#fff; font-size:0.75rem;">CHUẨN SỞ CẦN THƠ</span>' : ''}
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">${ex.desc}</div>
+                        <div class="ex-tags-wrap">
+                            <span class="ex-badge"><i class="fa-regular fa-circle-question"></i> ${ex.qCount} câu hỏi</span>
+                            <span class="ex-badge"><i class="fa-regular fa-clock"></i> ${ex.duration} phút</span>
+                            ${ex.hasAudio ? '<span class="ex-badge" style="background:#ecfdf5; color:#047857; font-weight:700;"><i class="fa-solid fa-headphones"></i> Có Audio Chuẩn</span>' : ''}
+                            <span class="ex-badge" style="background:#f1f5f9; color:#475569;">Mã: ${ex.code}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-download" style="background:${ex.isFeatured ? 'var(--teal)' : 'var(--amber)'}; color:#ffffff; border-color:${ex.isFeatured ? 'var(--teal)' : 'var(--amber)'};" onclick="openDirectExam('${targetUrl}', '${escapeJsStr(ex.title)}')">
+                            <span>Bắt Đầu Thi</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 3. KHẢO SÁT NĂNG LỰC CHUẨN: Danh sách đề khảo sát
+        function renderSurveyExams() {
+            const container = document.getElementById('surveyExamsListContainer');
+            const gradeNum = (currentActiveGrade || 'grade9').replace('grade', '');
+
+            const surveys = [
+                {
+                    code: "khao-sat-01",
+                    title: `Khảo Sát Năng Lực Chuẩn • Đợt 01 (2026–2027) – Tiếng Anh ${gradeNum}`,
+                    desc: "Đánh giá toàn diện 4 kỹ năng đầu năm học chuẩn Sở GD&ĐT Cần Thơ.",
+                    qCount: 40,
+                    duration: 60
+                },
+                {
+                    code: "khao-sat-02",
+                    title: `Khảo Sát Năng Lực Chuẩn • Đợt 02 (2026–2027) – Tiếng Anh ${gradeNum}`,
+                    desc: "Khảo sát chất lượng giữa năm học đánh giá mức độ tiến bộ của học sinh.",
+                    qCount: 40,
+                    duration: 60
+                },
+                {
+                    code: "khao-sat-03",
+                    title: `Khảo Sát Chuyên Sâu • Đợt 03 – Luyện Thi HSG & Tuyển Sinh Lớp ${gradeNum}`,
+                    desc: "Bộ đề nâng cao phân hóa chuyên biệt dành cho học sinh khá giỏi bứt phá điểm 9-10.",
+                    qCount: 50,
+                    duration: 75
+                }
+            ];
+
+            let html = '';
+            surveys.forEach((sv) => {
+                const targetUrl = `de-thi/lop-${gradeNum}/khao-sat/${sv.code}.html`;
+                html += `
+                <div class="exercise-row-item">
+                    <div style="flex: 1;">
+                        <div class="ex-meta-title">
+                            <i class="fa-solid fa-award" style="color: var(--primary);"></i>
+                            <span>${sv.title}</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">${sv.desc}</div>
+                        <div class="ex-tags-wrap">
+                            <span class="ex-badge"><i class="fa-regular fa-circle-question"></i> ${sv.qCount} câu</span>
+                            <span class="ex-badge"><i class="fa-regular fa-clock"></i> ${sv.duration} phút</span>
+                            <span class="ex-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">Khảo Sát Chuẩn</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-download" style="background:var(--primary); color:#ffffff; border-color:var(--primary);" onclick="openDirectExam('${targetUrl}', '${escapeJsStr(sv.title)}')">
+                            <span>Vào Khảo Sát</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Chuyển đổi giữa 2 tab: Kiểm tra định kỳ vs Khảo sát năng lực
+        function switchExamMainTab(tab) {
+            const btnPeriodical = document.getElementById('btnTogglePeriodical');
+            const btnSurvey = document.getElementById('btnToggleSurvey');
+            const wrapPeriodical = document.getElementById('periodicalExamWrapper');
+            const wrapSurvey = document.getElementById('surveyExamWrapper');
+
+            if (tab === 'periodical') {
+                btnPeriodical.classList.add('active');
+                btnSurvey.classList.remove('active');
+                wrapPeriodical.style.display = 'block';
+                wrapSurvey.style.display = 'none';
+            } else {
+                btnPeriodical.classList.remove('active');
+                btnSurvey.classList.add('active');
+                wrapPeriodical.style.display = 'none';
+                wrapSurvey.style.display = 'block';
+                renderSurveyExams();
+            }
+        }
+
+        // 4. MỞ PHÒNG THI: Mở trong In-App Modal hoặc Tab riêng
+        function openDirectExam(url, title = 'Phòng Thi Trực Tuyến') {
+            currentLoadedExamUrl = url;
+            const modal = document.getElementById('examModalViewer');
+            const titleEl = document.getElementById('examModalTitle');
+            const iframe = document.getElementById('examModalIframe');
+
+            titleEl.innerText = title;
+            iframe.src = url;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeExamModal() {
+            if (confirm('Em có chắc chắn muốn rời khỏi bài thi không? Kết quả chưa nộp sẽ không được lưu.')) {
+                const modal = document.getElementById('examModalViewer');
+                const iframe = document.getElementById('examModalIframe');
+                iframe.src = 'about:blank';
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function openExamInNewTab() {
+            if (currentLoadedExamUrl) {
+                window.open(currentLoadedExamUrl, '_blank');
+            }
+        }
+
+        function escapeJsStr(str) {
+            if (!str) return '';
+            return str.replace(/'/g, "\\'");
+        }
+
+
+        // ========================================================
+        // HỆ THỐNG THƯ MỤC BÀI HỌC LÝ THUYẾT & DOCUMENT VIEWER TRỰC TIẾP
+        // ========================================================
+        let currentPptxSlide = 1;
+        const TOTAL_PPTX_SLIDES = 5;
+        let currentViewerData = null;
+
+        function switchUnitMode(mode) {
+            const btnTheory = document.getElementById('tabBtnTheory');
+            const btnPractice = document.getElementById('tabBtnPractice');
+            const secTheory = document.getElementById('unitTheorySection');
+            const secPractice = document.getElementById('unitPracticeSection');
+
+            if (mode === 'theory') {
+                if (btnTheory) btnTheory.classList.add('active');
+                if (btnPractice) btnPractice.classList.remove('active');
+                if (secTheory) secTheory.style.display = 'block';
+                if (secPractice) secPractice.style.display = 'none';
+            } else {
+                if (btnTheory) btnTheory.classList.remove('active');
+                if (btnPractice) btnPractice.classList.add('active');
+                if (secTheory) secTheory.style.display = 'none';
+                if (secPractice) secPractice.style.display = 'block';
+            }
+        }
+
+        // Render danh mục 4 tệp học liệu cho Unit hiện tại
+        function renderTheoryDocuments(unitObj, gradeKey) {
+            const container = document.getElementById('theoryDocGrid');
+            const folderNameEl = document.getElementById('theoryUnitFolderName');
+            if (!container || !unitObj) return;
+
+            const gradeNum = gradeKey ? gradeKey.replace('grade', '') : '9';
+            if (folderNameEl) {
+                folderNameEl.innerHTML = `<i class="fa-solid fa-folder-open text-teal"></i> ${unitObj.code}: ${unitObj.name} • Tiếng Anh Lớp ${gradeNum}`;
+            }
+
+            container.innerHTML = `
+                <!-- 1. File Word (.docx) -->
+                <div class="theory-doc-card card-word" onclick="openDocumentViewer('word', currentActiveUnitIndex)">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div class="doc-icon-wrap icon-word">
+                                <i class="fa-regular fa-file-word"></i>
+                            </div>
+                            <span class="doc-format-badge badge-word">Word (.docx)</span>
+                        </div>
+                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
+                            Cẩm Nang Lý Thuyết & Ngữ Pháp
+                        </h4>
+                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
+                            Tổng hợp công thức ngữ pháp bản chất, quy tắc chia động từ và ví dụ câu theo chủ điểm ${unitObj.name}.
+                        </p>
+                    </div>
+                    <div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
+                            <span><i class="fa-solid fa-file-lines"></i> 6 Trang tài liệu</span>
+                            <span>580 KB</span>
+                        </div>
+                        <button type="button" class="btn-view-doc btn-view-word">
+                            <i class="fa-solid fa-eye"></i> Xem Trực Tiếp Trên Web
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. File PowerPoint (.pptx) -->
+                <div class="theory-doc-card card-pptx" onclick="openDocumentViewer('pptx', currentActiveUnitIndex)">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div class="doc-icon-wrap icon-pptx">
+                                <i class="fa-regular fa-file-powerpoint"></i>
+                            </div>
+                            <span class="doc-format-badge badge-pptx">PowerPoint (.pptx)</span>
+                        </div>
+                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
+                            Slide Bài Giảng Trực Quan
+                        </h4>
+                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
+                            Kịch bản slide trình chiếu tương tác cao, hình ảnh minh họa sinh động và câu hỏi thử thách phản xạ.
+                        </p>
+                    </div>
+                    <div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
+                            <span><i class="fa-solid fa-tv"></i> 5 Slide tương tác</span>
+                            <span>14.5 MB</span>
+                        </div>
+                        <button type="button" class="btn-view-doc btn-view-pptx">
+                            <i class="fa-solid fa-play"></i> Trình Chiếu Trực Tiếp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. File PDF (.pdf) -->
+                <div class="theory-doc-card card-pdf" onclick="openDocumentViewer('pdf', currentActiveUnitIndex)">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div class="doc-icon-wrap icon-pdf">
+                                <i class="fa-regular fa-file-pdf"></i>
+                            </div>
+                            <span class="doc-format-badge badge-pdf">PDF Mindmap</span>
+                        </div>
+                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
+                            Sơ Đồ Tư Duy (Mindmap)
+                        </h4>
+                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
+                            Sơ đồ phân nhánh logic toàn bộ từ vựng, ngữ pháp và phát âm, giúp ghi nhớ sâu và bao quát kiến thức.
+                        </p>
+                    </div>
+                    <div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
+                            <span><i class="fa-solid fa-sitemap"></i> 4 Nhánh kiến thức</span>
+                            <span>2.4 MB</span>
+                        </div>
+                        <button type="button" class="btn-view-doc btn-view-pdf">
+                            <i class="fa-solid fa-book-open"></i> Đọc Bản Đồ Tư Duy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. File Excel (.xlsx) -->
+                <div class="theory-doc-card card-excel" onclick="openDocumentViewer('excel', currentActiveUnitIndex)">
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div class="doc-icon-wrap icon-excel">
+                                <i class="fa-regular fa-file-excel"></i>
+                            </div>
+                            <span class="doc-format-badge badge-excel">Excel (.xlsx)</span>
+                        </div>
+                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
+                            Bảng Từ Vựng Chuẩn IPA
+                        </h4>
+                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
+                            Bảng tính tra cứu nhanh từ vựng với phiên âm quốc tế IPA, từ loại, nghĩa tiếng Việt và câu ví dụ thực tế.
+                        </p>
+                    </div>
+                    <div>
+                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
+                            <span><i class="fa-solid fa-table"></i> Tra cứu lọc từ</span>
+                            <span>350 KB</span>
+                        </div>
+                        <button type="button" class="btn-view-doc btn-view-excel">
+                            <i class="fa-solid fa-table"></i> Tra Cứu Bảng Tính
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Mở cửa sổ xem tài liệu trực tiếp trên web (In-App Document Viewer)
+        function openDocumentViewer(docType, unitIndex) {
+            const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
+            const unit = units[unitIndex] || { code: "Unit 1", name: "Lesson", subtitle: "Chủ điểm bài học" };
+            const gradeNum = currentActiveGrade ? currentActiveGrade.replace('grade', '') : '9';
+
+            const modal = document.getElementById('documentViewerModal');
+            const iconEl = document.getElementById('docViewerIcon');
+            const titleEl = document.getElementById('docViewerTitle');
+            const subEl = document.getElementById('docViewerSubtitle');
+            const badgeEl = document.getElementById('docViewerBadge');
+            const bodyEl = document.getElementById('docViewerBody');
+
+            currentViewerData = { docType, unit, gradeNum };
+
+            if (docType === 'word') {
+                iconEl.className = 'doc-viewer-icon icon-word';
+                iconEl.innerHTML = '<i class="fa-regular fa-file-word"></i>';
+                titleEl.innerText = `${unit.code}: ${unit.name} - Tổng Hợp Lý Thuyết & Ngữ Pháp Trọng Tâm.docx`;
+                subEl.innerText = `Tài liệu Word • Khối Lớp ${gradeNum} • GV: Thầy Nguyễn Hoàng Sơn (STM Center)`;
+                badgeEl.innerHTML = '<i class="fa-regular fa-file-word"></i> Word Document';
+                bodyEl.innerHTML = renderWordContent(unit, gradeNum);
+            } else if (docType === 'pptx') {
+                currentPptxSlide = 1;
+                iconEl.className = 'doc-viewer-icon icon-pptx';
+                iconEl.innerHTML = '<i class="fa-regular fa-file-powerpoint"></i>';
+                titleEl.innerText = `${unit.code}: ${unit.name} - Slide Bài Giảng Tương Tác Trực Quan.pptx`;
+                subEl.innerText = `Bài Trình Chiếu PowerPoint • Khối Lớp ${gradeNum} • STM English`;
+                badgeEl.innerHTML = '<i class="fa-regular fa-file-powerpoint"></i> PowerPoint Presentation';
+                bodyEl.innerHTML = renderPptxContent(unit, gradeNum);
+                setTimeout(updateSlideView, 50);
+            } else if (docType === 'pdf') {
+                iconEl.className = 'doc-viewer-icon icon-pdf';
+                iconEl.innerHTML = '<i class="fa-regular fa-file-pdf"></i>';
+                titleEl.innerText = `${unit.code}: ${unit.name} - Sơ Đồ Tư Duy Mindmap & Đề Cương Ôn Tập.pdf`;
+                subEl.innerText = `Cẩm Nang Sơ Đồ PDF • Khối Lớp ${gradeNum} • Bản Quyền STM Center`;
+                badgeEl.innerHTML = '<i class="fa-regular fa-file-pdf"></i> PDF Mindmap';
+                bodyEl.innerHTML = renderPdfContent(unit, gradeNum);
+            } else if (docType === 'excel') {
+                iconEl.className = 'doc-viewer-icon icon-excel';
+                iconEl.innerHTML = '<i class="fa-regular fa-file-excel"></i>';
+                titleEl.innerText = `${unit.code}: ${unit.name} - Bảng Tra Cứu Từ Vựng & Phiên Âm IPA.xlsx`;
+                subEl.innerText = `Bảng Tính Excel • Khối Lớp ${gradeNum} • Từ Điển Chuẩn Oxford`;
+                badgeEl.innerHTML = '<i class="fa-regular fa-file-excel"></i> Excel Spreadsheet';
+                bodyEl.innerHTML = renderExcelContent(unit, gradeNum);
+            }
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDocumentViewer() {
+            const modal = document.getElementById('documentViewerModal');
+            if (modal) modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function toggleDocFullscreen() {
+            const container = document.getElementById('docViewerContainer');
+            const icon = document.getElementById('docFullscreenIcon');
+            if (container) {
+                container.classList.toggle('fullscreen');
+                if (container.classList.contains('fullscreen')) {
+                    icon.className = 'fa-solid fa-compress';
+                } else {
+                    icon.className = 'fa-solid fa-expand';
+                }
+            }
+        }
+
+        function renderWordContent(unit, gradeNum) {
+            return `
+            <div class="word-paper">
+                <div class="word-header-rule">
+                    <div>
+                        <p style="font-size:0.8rem; font-weight:800; color:var(--primary); text-transform:uppercase; margin:0;">
+                            HỆ THỐNG ĐÀO TẠO TIẾNG ANH STM CENTER
+                        </p>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin:0;">
+                            Chương Trình GDPT 2018 • Tiếng Anh Lớp ${gradeNum} Global Success
+                        </p>
+                    </div>
+                    <div style="text-align:right;">
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">CHUYÊN ĐỀ HỌC TẬP</span>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin:2px 0 0 0;">GV: Thầy Nguyễn Hoàng Sơn</p>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-bottom:2rem;">
+                    <h2 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.6rem; font-weight:800; margin-bottom:0.4rem;">
+                        ${unit.code.toUpperCase()}: ${unit.name.toUpperCase()}
+                    </h2>
+                    <p style="font-size:0.95rem; color:var(--teal); font-weight:700; margin:0;">
+                        ${unit.subtitle}
+                    </p>
+                </div>
+
+                <h3 style="font-family:'Lexend',sans-serif; color:var(--primary); font-size:1.15rem; font-weight:700; border-bottom:1.5px solid #e2e8f0; padding-bottom:0.4rem; margin-bottom:1rem;">
+                    I. MỤC TIÊU BÀI HỌC CỐT LÕI (LEARNING OBJECTIVES)
+                </h3>
+                <ul style="padding-left:1.5rem; margin-bottom:1.5rem;">
+                    <li><strong>Về Từ Vựng (Vocabulary):</strong> Làm chủ các từ vựng theo trường nghĩa của chủ điểm <em>${unit.name}</em>, hiểu sâu ngữ cảnh sử dụng và collocations.</li>
+                    <li><strong>Về Ngữ Pháp (Grammar):</strong> Nắm vững bản chất cấu trúc câu trọng tâm của Unit, biết cách vận dụng vào cả dạng trắc nghiệm và tự luận viết lại câu.</li>
+                    <li><strong>Về Ngữ Âm (Phonetics):</strong> Phát âm chuẩn phiên âm quốc tế IPA, nắm vững quy tắc đánh trọng âm từ 2 đến 3 âm tiết.</li>
+                </ul>
+
+                <h3 style="font-family:'Lexend',sans-serif; color:var(--primary); font-size:1.15rem; font-weight:700; border-bottom:1.5px solid #e2e8f0; padding-bottom:0.4rem; margin-bottom:1rem;">
+                    II. HỆ THỐNG NGỮ PHÁP BẢN CHẤT (CORE GRAMMAR RULES)
+                </h3>
+                <div class="word-rule-box">
+                    <h4 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.05rem; font-weight:700; margin-bottom:0.5rem;">
+                        <i class="fa-solid fa-key text-teal"></i> Khẩu Quyết Ngữ Pháp Vàng Unit ${unit.code.replace('Unit ', '')}:
+                    </h4>
+                    <p style="margin-bottom:0.5rem;"><strong>1. Cấu trúc câu chủ đạo:</strong> Nắm chắc trật tự các thành phần trong câu (Subject + Verb + Object / Adverbial). Chú ý sự hòa hợp giữa Chủ ngữ và Động từ (Subject-Verb Agreement).</p>
+                    <p style="margin-bottom:0.5rem;"><strong>2. Các dấu hiệu nhận biết thì & liên từ:</strong> Nhận diện trạng từ chỉ thời gian, trạng từ chỉ tần suất và các liên từ kết nối mệnh đề.</p>
+                    <p style="margin:0;"><strong>3. Cấu trúc câu gián tiếp & cụm từ cố định:</strong> Tránh các bẫy đảo trật tự từ và bẫy chia sai dạng từ loại (Word Formation).</p>
+                </div>
+
+                <h3 style="font-family:'Lexend',sans-serif; color:var(--primary); font-size:1.15rem; font-weight:700; border-bottom:1.5px solid #e2e8f0; padding-bottom:0.4rem; margin-bottom:1rem;">
+                    III. LƯU Ý SƯ PHẠM ĐỘC QUYỀN TỪ THẦY NGUYỄN HOÀNG SƠN
+                </h3>
+                <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:1.2rem; color:#92400e; font-size:0.92rem;">
+                    <p style="margin-bottom:0.5rem;"><strong>💡 Lời dặn dò của Thầy:</strong></p>
+                    <p style="margin-bottom:0.4rem;">• Khi làm bài tập ngữ pháp, các em hãy luôn gạch chân các <em>từ khóa (keywords)</em> trong câu trước khi chọn phương án.</p>
+                    <p style="margin-bottom:0.4rem;">• Đối với các câu hỏi tự luận viết lại câu, tuyệt đối không được tự ý thay đổi thì gốc của câu đề bài.</p>
+                    <p style="margin:0;">• Hãy kết hợp luyện tập bài tập trắc nghiệm và nghe Audio MP3 ở tab <em>"2. Ngân Hàng Tự Luyện & Thi Thử"</em> để khắc sâu kiến thức.</p>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderPptxContent(unit, gradeNum) {
+            return `
+            <div class="pptx-stage">
+                <div class="slide-frame" id="slideFrameContent">
+                    <!-- Slide động hiển thị ở đây -->
+                </div>
+                <div class="slide-controls-bar">
+                    <button type="button" class="slide-nav-btn" id="btnPrevSlide" onclick="changeSlide(-1)">
+                        <i class="fa-solid fa-chevron-left"></i> Slide Trước
+                    </button>
+                    <div style="font-weight:700; font-size:0.95rem;">
+                        <span id="currentSlideNum">1</span> / ${TOTAL_PPTX_SLIDES}
+                    </div>
+                    <button type="button" class="slide-nav-btn" id="btnNextSlide" onclick="changeSlide(1)">
+                        Slide Tiếp <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            `;
+        }
+
+        function updateSlideView() {
+            const frame = document.getElementById('slideFrameContent');
+            const numEl = document.getElementById('currentSlideNum');
+            const btnPrev = document.getElementById('btnPrevSlide');
+            const btnNext = document.getElementById('btnNextSlide');
+            if (!frame || !currentViewerData) return;
+
+            const unit = currentViewerData.unit;
+            const gradeNum = currentViewerData.gradeNum;
+
+            if (numEl) numEl.innerText = currentPptxSlide;
+            if (btnPrev) btnPrev.disabled = (currentPptxSlide === 1);
+            if (btnNext) btnNext.disabled = (currentPptxSlide === TOTAL_PPTX_SLIDES);
+
+            if (currentPptxSlide === 1) {
+                frame.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:800; font-size:0.85rem; color:var(--teal); text-transform:uppercase;">STM ENGLISH • E CLASS</span>
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">SLIDE BÀI GIẢNG 01/05</span>
+                    </div>
+                    <div style="text-align:center;">
+                        <span style="background:#ffedd5; color:#c2410c; padding:4px 12px; border-radius:20px; font-weight:800; font-size:0.8rem;">BÀI GIẢNG ĐIỆN TỬ TƯƠNG TÁC</span>
+                        <h1 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.85rem; font-weight:800; margin:1rem 0 0.5rem 0;">
+                            ${unit.code}: ${unit.name}
+                        </h1>
+                        <p style="font-size:1rem; color:#64748b; font-weight:600; max-width:650px; margin:0 auto;">
+                            ${unit.subtitle}
+                        </p>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; color:#94a3b8; font-weight:600; border-top:1px solid #f1f5f9; padding-top:0.75rem;">
+                        <span>Tiếng Anh Lớp ${gradeNum} Global Success</span>
+                        <span>GV: Thầy Nguyễn Hoàng Sơn (STM Center)</span>
+                    </div>
+                `;
+            } else if (currentPptxSlide === 2) {
+                frame.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:800; font-size:0.85rem; color:var(--teal);">KHỞI ĐỘNG & BỐI CẢNH (WARM-UP)</span>
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">SLIDE 02/05</span>
+                    </div>
+                    <div>
+                        <h3 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.35rem; font-weight:800; margin-bottom:1rem;">
+                            🌾 Khám Phá Ngữ Cảnh Chủ Điểm "${unit.name}"
+                        </h3>
+                        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:1.25rem; margin-bottom:1rem; font-size:0.95rem; line-height:1.6;">
+                            <p style="margin-bottom:0.5rem;">• Đặt câu hỏi kích hoạt tư duy phản xạ ngôn ngữ thực tế của học sinh.</p>
+                            <p style="margin-bottom:0.5rem;">• Liên hệ giữa chủ đề sách giáo khoa và đời sống hàng ngày của học sinh tại Cần Thơ và Việt Nam.</p>
+                            <p style="margin:0;">• Chuẩn hóa phát âm IPA ngay từ những từ vựng đầu tiên của bài học.</p>
+                        </div>
+                    </div>
+                    <div style="font-size:0.8rem; color:#94a3b8; font-weight:600;">STM Center • Tiếng Anh Giao Tiếp & Thi Cử</div>
+                `;
+            } else if (currentPptxSlide === 3) {
+                frame.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:800; font-size:0.85rem; color:var(--teal);">HÌNH THÀNH KIẾN THỨC (DISCOVERY)</span>
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">SLIDE 03/05</span>
+                    </div>
+                    <div>
+                        <h3 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.35rem; font-weight:800; margin-bottom:1rem;">
+                            🧠 Quy Tắc Ngữ Pháp & Cấu Trúc Trọng Tâm
+                        </h3>
+                        <div style="background:#f0fdf4; border:1.5px solid #86efac; border-radius:10px; padding:1.2rem; margin-bottom:1rem;">
+                            <p style="font-weight:800; color:#166534; margin-bottom:0.4rem;">CÔNG THỨC VÀNG CẦN NHỚ:</p>
+                            <p style="font-size:1.05rem; font-weight:700; color:#15803d; margin:0;">[Chủ Ngữ] + [Động Từ Tương Ứng] + [Thành Phần Phụ Ngữ]</p>
+                        </div>
+                        <p style="font-size:0.9rem; color:#475569; line-height:1.6; margin:0;">
+                            Học sinh phân tích câu ví dụ minh họa và tìm ra quy luật ngữ pháp thay vì học vẹt công thức khô cứng.
+                        </p>
+                    </div>
+                    <div style="font-size:0.8rem; color:#94a3b8; font-weight:600;">Phương pháp Sư phạm: Guided Discovery</div>
+                `;
+            } else if (currentPptxSlide === 4) {
+                frame.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:800; font-size:0.85rem; color:var(--teal);">LUYỆN TẬP PHẢN XẠ (CHALLENGE)</span>
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">SLIDE 04/05</span>
+                    </div>
+                    <div>
+                        <h3 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.35rem; font-weight:800; margin-bottom:1rem;">
+                            🎯 Câu Hỏi Kiểm Tra Nhanh Khái Niệm (CCQs)
+                        </h3>
+                        <div style="background:#fef3c7; border:1.5px solid #fde047; border-radius:10px; padding:1.25rem; margin-bottom:1rem; font-size:0.95rem;">
+                            <p style="font-weight:800; color:#b45309; margin-bottom:0.5rem;">Câu hỏi phản xạ lớp học:</p>
+                            <p style="color:#78350f; margin:0;">Tại sao trong tình huống này ta bắt buộc dùng cấu trúc A mà không dùng cấu trúc B? Điểm khác biệt cốt lõi là gì?</p>
+                        </div>
+                    </div>
+                    <div style="font-size:0.8rem; color:#94a3b8; font-weight:600;">Tương tác trực tiếp trên lớp học STM Center</div>
+                `;
+            } else if (currentPptxSlide === 5) {
+                frame.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:800; font-size:0.85rem; color:var(--teal);">TỔNG KẾT BÀI HỌC (TAKEAWAYS)</span>
+                        <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">SLIDE 05/05</span>
+                    </div>
+                    <div>
+                        <h3 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.35rem; font-weight:800; margin-bottom:1rem;">
+                            🏆 3 Điều Cần Ghi Nhớ Vào Vở Sau Tiết Học
+                        </h3>
+                        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:1.25rem; font-size:0.92rem; line-height:1.7;">
+                            <p style="margin-bottom:0.4rem;"><strong>1.</strong> Thuộc lòng các từ vựng cốt lõi chuẩn phát âm IPA của Unit.</p>
+                            <p style="margin-bottom:0.4rem;"><strong>2.</strong> Viết được 3 câu hoàn chỉnh ứng dụng cấu trúc ngữ pháp vừa học.</p>
+                            <p style="margin:0;"><strong>3.</strong> Hoàn thành bài tập tự luyện trên hệ thống STM English để Thầy chấm điểm.</p>
+                        </div>
+                    </div>
+                    <div style="font-size:0.8rem; color:#94a3b8; font-weight:600;">Chúc các em học tập thật tốt và tự tin đạt điểm 9-10!</div>
+                `;
+            }
+        }
+
+        function changeSlide(direction) {
+            currentPptxSlide += direction;
+            if (currentPptxSlide < 1) currentPptxSlide = 1;
+            if (currentPptxSlide > TOTAL_PPTX_SLIDES) currentPptxSlide = TOTAL_PPTX_SLIDES;
+            updateSlideView();
+        }
+
+        function renderPdfContent(unit, gradeNum) {
+            return `
+            <div class="pdf-canvas">
+                <div class="mindmap-node-center">
+                    <span style="background:rgba(255,255,255,0.2); padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:800;">SƠ ĐỒ TƯ DUY TỔNG HỢP</span>
+                    <h2 style="font-family:'Lexend',sans-serif; font-size:1.5rem; font-weight:800; margin:0.5rem 0 0.2rem 0;">
+                        ${unit.code}: ${unit.name}
+                    </h2>
+                    <p style="font-size:0.85rem; opacity:0.9; margin:0;">Tiếng Anh Lớp ${gradeNum} • GDPT 2018</p>
+                </div>
+
+                <div class="mindmap-branches-grid">
+                    <div class="mindmap-branch-card" style="background:#f0fdf4; border-color:#86efac;">
+                        <h4 style="color:#166534; font-family:'Lexend',sans-serif; font-weight:800; margin-bottom:0.6rem;">
+                            🌿 1. TỪ VỰNG CHỦ ĐIỂM
+                        </h4>
+                        <ul style="padding-left:1.2rem; font-size:0.88rem; color:#14532d; line-height:1.6;">
+                            <li>Hệ thống từ vựng theo cụm (Collocations).</li>
+                            <li>Từ loại tương ứng: Danh từ, Động từ, Tính từ.</li>
+                            <li>Ngữ cảnh giao tiếp và đời sống thực tế.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mindmap-branch-card" style="background:#eff6ff; border-color:#93c5fd;">
+                        <h4 style="color:#1e40af; font-family:'Lexend',sans-serif; font-weight:800; margin-bottom:0.6rem;">
+                            ⚡ 2. NGỮ PHÁP BẢN CHẤT
+                        </h4>
+                        <ul style="padding-left:1.2rem; font-size:0.88rem; color:#1e3a8a; line-height:1.6;">
+                            <li>Quy tắc tạo câu và chia động từ.</li>
+                            <li>Các trường hợp đặc biệt & ngoại lệ.</li>
+                            <li>Mẹo nhận biết bẫy trong đề trắc nghiệm.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mindmap-branch-card" style="background:#fff1f2; border-color:#fecdd3;">
+                        <h4 style="color:#9f1239; font-family:'Lexend',sans-serif; font-weight:800; margin-bottom:0.6rem;">
+                            🎙️ 3. PHÁT ÂM & TRỌNG ÂM
+                        </h4>
+                        <ul style="padding-left:1.2rem; font-size:0.88rem; color:#881337; line-height:1.6;">
+                            <li>Phân biệt cặp nguyên âm / phụ âm tương đồng.</li>
+                            <li>Quy tắc đánh trọng âm theo hậu tố (Suffixes).</li>
+                            <li>Ngữ điệu câu hỏi và câu trần thuật.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mindmap-branch-card" style="background:#faf5ff; border-color:#e9d5ff;">
+                        <h4 style="color:#6b21a8; font-family:'Lexend',sans-serif; font-weight:800; margin-bottom:0.6rem;">
+                            🎯 4. KỸ NĂNG LÀM BÀI THI
+                        </h4>
+                        <ul style="padding-left:1.2rem; font-size:0.88rem; color:#581c87; line-height:1.6;">
+                            <li>Chiến thuật giải quyết bài đọc hiểu Cloze-test.</li>
+                            <li>Phương pháp viết lại câu tương đương nghĩa.</li>
+                            <li>Bẫy ngữ pháp thường gặp trong đề thi Cần Thơ.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        function renderExcelContent(unit, gradeNum) {
+            return `
+            <div class="excel-sheet-wrap">
+                <div class="excel-toolbar">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="badge badge-excel"><i class="fa-regular fa-file-excel"></i> VOCABULARY SHEET</span>
+                        <strong style="color:var(--navy-dark); font-size:0.92rem;">${unit.code}: ${unit.name}</strong>
+                    </div>
+                    <div>
+                        <input type="text" id="excelVocabFilterInput" class="excel-search-input" placeholder="🔍 Tìm kiếm từ vựng, nghĩa, IPA..." onkeyup="filterExcelTable()">
+                    </div>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table class="excel-table" id="excelVocabTable">
+                        <thead>
+                            <tr>
+                                <th style="width:50px; text-align:center;">STT</th>
+                                <th style="width:200px;">Từ Vựng (Vocabulary)</th>
+                                <th style="width:160px;">Phiên Âm IPA</th>
+                                <th style="width:100px; text-align:center;">Từ Loại</th>
+                                <th style="width:220px;">Nghĩa Tiếng Việt</th>
+                                <th>Câu Ví Dụ Thực Tế</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align:center; font-weight:700; color:#64748b;">1</td>
+                                <td><strong style="color:var(--teal);">community</strong></td>
+                                <td style="font-family:monospace; color:#0369a1;">/kəˈmjuːnəti/</td>
+                                <td style="text-align:center;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">n</span></td>
+                                <td>cộng đồng, dân cư</td>
+                                <td style="font-size:0.85rem; color:#475569;">All the people in our <em>community</em> joined hands to clean the streets.</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center; font-weight:700; color:#64748b;">2</td>
+                                <td><strong style="color:var(--teal);">handicraft</strong></td>
+                                <td style="font-family:monospace; color:#0369a1;">/ˈhændikrɑːft/</td>
+                                <td style="text-align:center;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">n</span></td>
+                                <td>sản phẩm thủ công mỹ nghệ</td>
+                                <td style="font-size:0.85rem; color:#475569;">Foreign tourists love buying traditional <em>handicrafts</em> in Vietnam.</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center; font-weight:700; color:#64748b;">3</td>
+                                <td><strong style="color:var(--teal);">artisan</strong></td>
+                                <td style="font-family:monospace; color:#0369a1;">/ˈɑːtɪzæn/</td>
+                                <td style="text-align:center;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">n</span></td>
+                                <td>nghệ nhân, thợ thủ công lành nghề</td>
+                                <td style="font-size:0.85rem; color:#475569;">The skilled <em>artisan</em> shaped the delicate pottery vase by hand.</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center; font-weight:700; color:#64748b;">4</td>
+                                <td><strong style="color:var(--teal);">preserve</strong></td>
+                                <td style="font-family:monospace; color:#0369a1;">/prɪˈzɜːv/</td>
+                                <td style="text-align:center;"><span class="badge" style="background:#fef3c7; color:#b45309;">v</span></td>
+                                <td>bảo tồn, gìn giữ</td>
+                                <td style="font-size:0.85rem; color:#475569;">We must take action to <em>preserve</em> our cultural heritage for future generations.</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center; font-weight:700; color:#64748b;">5</td>
+                                <td><strong style="color:var(--teal);">hand down</strong></td>
+                                <td style="font-family:monospace; color:#0369a1;">/hænd daʊn/</td>
+                                <td style="text-align:center;"><span class="badge" style="background:#fee2e2; color:#b91c1c;">phr v</span></td>
+                                <td>truyền lại, bàn giao qua các thế hệ</td>
+                                <td style="font-size:0.85rem; color:#475569;">This special weaving technique was <em>handed down</em> from my grandparents.</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center; font-weight:700; color:#64748b;">6</td>
+                                <td><strong style="color:var(--teal);">memorable</strong></td>
+                                <td style="font-family:monospace; color:#0369a1;">/ˈmemərəbl/</td>
+                                <td style="text-align:center;"><span class="badge" style="background:#d1fae5; color:#047857;">adj</span></td>
+                                <td>đáng nhớ, không thể quên</td>
+                                <td style="font-size:0.85rem; color:#475569;">Visiting the historic craft village was a truly <em>memorable</em> experience.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            `;
+        }
+
+        function filterExcelTable() {
+            const input = document.getElementById('excelVocabFilterInput');
+            const filter = input ? input.value.toLowerCase() : '';
+            const table = document.getElementById('excelVocabTable');
+            if (!table) return;
+
+            const trs = table.getElementsByTagName('tr');
+            for (let i = 1; i < trs.length; i++) {
+                const tdText = trs[i].innerText.toLowerCase();
+                trs[i].style.display = tdText.indexOf(filter) > -1 ? '' : 'none';
+            }
+        }
+
+</script>
+
+    <!-- ========================================================
+         INTERACTIVE IN-APP DOCUMENT VIEWER MODAL
+         Xem trực tiếp tài liệu Word, PPTX, PDF, Excel trên web (Không cần tải về)
+         ======================================================== -->
+    <div id="documentViewerModal" class="doc-viewer-overlay" style="display: none;">
+        <div class="doc-viewer-container" id="docViewerContainer">
+            <!-- Viewer Header -->
+            <div class="doc-viewer-header">
+                <div class="doc-viewer-title-box">
+                    <div class="doc-viewer-icon" id="docViewerIcon">
+                        <i class="fa-regular fa-file-word"></i>
+                    </div>
+                    <div>
+                        <h4 id="docViewerTitle">Tên Tài Liệu</h4>
+                        <p id="docViewerSubtitle">Unit • Khối Lớp • STM Center</p>
+                    </div>
+                </div>
+                <div class="doc-viewer-actions">
+                    <span class="doc-viewer-badge" id="docViewerBadge"><i class="fa-solid fa-eye"></i> Đang xem trực tiếp</span>
+                    <button type="button" class="btn-doc-action" onclick="toggleDocFullscreen()" title="Toàn màn hình">
+                        <i class="fa-solid fa-expand" id="docFullscreenIcon"></i>
+                    </button>
+                    <button type="button" class="btn-doc-close" onclick="closeDocumentViewer()" title="Đóng cửa sổ">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Viewer Content Body -->
+            <div class="doc-viewer-body" id="docViewerBody">
+                <!-- Nội dung động theo từng loại file được render tại đây -->
+            </div>
+
+            <!-- Viewer Footer Watermark -->
+            <div class="doc-viewer-footer">
+                <span><i class="fa-solid fa-shield-halved text-emerald"></i> Bản quyền học liệu thuộc STM Center • GV: Thầy Nguyễn Hoàng Sơn</span>
+                <span style="color: var(--text-muted); font-size: 0.78rem;">Chế độ bảo vệ bản quyền: Chỉ xem trực tiếp trên nền tảng, không hỗ trợ tải về</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
