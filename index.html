@@ -1150,9 +1150,23 @@
                 text-align: center;
             }
         }
+    
+        /* Dynamic CMS Loading Bar */
+        #cmsLoadingBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0d9488, #10b981, #0284c7);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.3s ease, opacity 0.4s ease;
+        }
+
     </style>
 </head>
 <body>
+    <div id="cmsLoadingBar"></div>
 
     <!-- ==========================================
          THANH ĐIỀU HƯỚNG (HEADER / NAVBAR)
@@ -1204,20 +1218,20 @@
                 
                 <!-- Cột trái: Tiêu đề & Thông điệp giáo dục -->
                 <div class="hero-content">
-                    <div class="hero-badge">
+                    <div class="hero-badge" id="dynHeroBadge">
                         <i class="fa-solid fa-award"></i> Chương Trình GDPT 2018 & Chuẩn Cambridge
                     </div>
-                    <h2 class="hero-title">
+                    <h2 class="hero-title" id="dynHeroTitle">
                         Đồng hành cùng sự <span>phát triển ngôn ngữ</span> và tư duy của trẻ
                     </h2>
-                    <p class="hero-desc">
+                    <p class="hero-desc" id="dynHeroDesc">
                         Không gian giáo dục tiếng Anh chuyên sâu từ Lớp 1 đến Lớp 12 do Thầy Nguyễn Hoàng Sơn trực tiếp giảng dạy. Phát triển toàn diện 4 kỹ năng, làm chủ ngữ pháp bản chất và tự tin chinh phục các kỳ thi học sinh giỏi, IOE và chứng chỉ quốc tế.
                     </p>
                     <div class="hero-cta">
-                        <a href="#contact" class="btn-primary">
+                        <a href="#contact" class="btn-primary" id="dynCtaPrimary">
                             <i class="fa-solid fa-paper-plane"></i> Đăng ký ngay
                         </a>
-                        <a href="#courses" class="btn-secondary">
+                        <a href="#courses" class="btn-secondary" id="dynCtaSecondary">
                             <i class="fa-solid fa-book-open"></i> Khám phá khóa học
                         </a>
                     </div>
@@ -1314,7 +1328,7 @@
                 </p>
             </div>
 
-            <div class="courses-grid">
+            <div class="courses-grid" id="dynCoursesGrid">
                 
                 <!-- Card 1: Khối Tiểu Học -->
                 <div class="course-card primary-grade">
@@ -1412,7 +1426,7 @@
                         <h3>Bảng Vàng Học Viên STM</h3>
                     </div>
 
-                    <div class="achievement-list">
+                    <div class="achievement-list" id="dynHallOfFameList">
                         <!-- Học viên 1 -->
                         <div class="achievement-card">
                             <div class="trophy-badge">
@@ -1458,7 +1472,7 @@
                         <h3>Tin Tức & Thông Báo Giáo Dục</h3>
                     </div>
 
-                    <div class="news-list">
+                    <div class="news-list" id="dynNewsList">
                         <!-- Tin 1 -->
                         <article class="news-item">
                             <div class="news-date">
@@ -1689,5 +1703,180 @@
             });
         }
     </script>
+
+    <!-- DYNAMIC CMS CLIENT SCRIPT (NẠP DỮ LIỆU ĐỘNG TỪ LOCALSTORAGE / JSON BRIDGE) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initDynamicHomepage();
+        });
+
+        async function initDynamicHomepage() {
+            const bar = document.getElementById('cmsLoadingBar');
+            if (bar) { bar.style.width = '40%'; bar.style.opacity = '1'; }
+
+            let contentData = null;
+
+            // 1. Ưu tiên đọc từ localStorage (nếu Thầy vừa cập nhật trong admin.html)
+            try {
+                const localStr = localStorage.getItem('stm_homepage_content');
+                if (localStr) {
+                    contentData = JSON.parse(localStr);
+                    console.log('CMS: Đã nạp dữ liệu động từ LocalStorage (Admin Live Update)!');
+                }
+            } catch(e) {
+                console.warn('CMS: Không đọc được LocalStorage', e);
+            }
+
+            // 2. Nếu chưa có hoặc muốn kiểm tra nguồn file JSON trên GitHub
+            if (!contentData) {
+                try {
+                    const res = await fetch('./data/homepage_content.json?v=' + Date.now());
+                    if (res.ok) {
+                        contentData = await res.json();
+                        console.log('CMS: Đã nạp dữ liệu động từ data/homepage_content.json!');
+                    }
+                } catch(err) {
+                    console.log('CMS: Sử dụng dữ liệu tĩnh có sẵn (offline mode).');
+                }
+            }
+
+            if (bar) bar.style.width = '85%';
+
+            // 3. Render nội dung nếu có dữ liệu động
+            if (contentData) {
+                applyHomepageData(contentData);
+            }
+
+            if (bar) {
+                bar.style.width = '100%';
+                setTimeout(() => { bar.style.opacity = '0'; }, 300);
+            }
+        }
+
+        function applyHomepageData(data) {
+            // A. Hero Section
+            if (data.hero) {
+                const h = data.hero;
+                const badgeEl = document.getElementById('dynHeroBadge');
+                if (badgeEl && h.badge) badgeEl.innerHTML = '<i class="fa-solid fa-award"></i> ' + escapeHtml(h.badge);
+
+                const titleEl = document.getElementById('dynHeroTitle');
+                if (titleEl && h.title) titleEl.innerHTML = h.title; // Cho phép thẻ <span> màu sắc
+
+                const descEl = document.getElementById('dynHeroDesc');
+                if (descEl && h.desc) descEl.innerHTML = escapeHtml(h.desc);
+
+                const cta1 = document.getElementById('dynCtaPrimary');
+                if (cta1 && h.ctaPrimaryText) {
+                    cta1.innerHTML = '<i class="fa-solid fa-paper-plane"></i> ' + escapeHtml(h.ctaPrimaryText);
+                    if (h.ctaPrimaryLink) cta1.href = h.ctaPrimaryLink;
+                }
+
+                const cta2 = document.getElementById('dynCtaSecondary');
+                if (cta2 && h.ctaSecondaryText) {
+                    cta2.innerHTML = '<i class="fa-solid fa-bolt"></i> ' + escapeHtml(h.ctaSecondaryText);
+                    if (h.ctaSecondaryLink) cta2.href = h.ctaSecondaryLink;
+                }
+
+                // Stats
+                if (h.stat1Value && document.getElementById('dynStat1Val')) document.getElementById('dynStat1Val').innerText = h.stat1Value;
+                if (h.stat1Label && document.getElementById('dynStat1Lbl')) document.getElementById('dynStat1Lbl').innerText = h.stat1Label;
+                if (h.stat2Value && document.getElementById('dynStat2Val')) document.getElementById('dynStat2Val').innerText = h.stat2Value;
+                if (h.stat2Label && document.getElementById('dynStat2Lbl')) document.getElementById('dynStat2Lbl').innerText = h.stat2Label;
+                if (h.stat3Value && document.getElementById('dynStat3Val')) document.getElementById('dynStat3Val').innerText = h.stat3Value;
+                if (h.stat3Label && document.getElementById('dynStat3Lbl')) document.getElementById('dynStat3Lbl').innerText = h.stat3Label;
+            }
+
+            // B. Khối Khóa Học
+            if (data.courses && data.courses.length > 0) {
+                const grid = document.getElementById('dynCoursesGrid');
+                if (grid) {
+                    let html = '';
+                    data.courses.forEach(c => {
+                        let featHtml = '';
+                        if (c.features) {
+                            c.features.forEach(f => {
+                                featHtml += '<li><i class="fa-solid fa-check feature-check"></i> ' + escapeHtml(f) + '</li>';
+                            });
+                        }
+                        html += `
+                        <div class="course-card ${c.colorClass || 'primary-grade'}">
+                            <div class="card-top">
+                                <div class="course-icon-wrap">
+                                    <i class="fa-solid ${c.icon || 'fa-shapes'}"></i>
+                                </div>
+                                <span class="course-grade-badge">${escapeHtml(c.gradeBadge || '')}</span>
+                                <h3>${escapeHtml(c.title)}</h3>
+                                <p class="course-desc">${escapeHtml(c.desc || '')}</p>
+                            </div>
+                            <div class="card-bottom">
+                                <ul class="course-features">${featHtml}</ul>
+                                <a href="${c.link || 'classroom.html'}" class="btn-course-details">
+                                    <span>Vào phòng học</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>`;
+                    });
+                    grid.innerHTML = html;
+                }
+            }
+
+            // C. Bảng Vàng Vinh Danh (Hall of Fame)
+            if (data.hallOfFame && data.hallOfFame.length > 0) {
+                const hofList = document.getElementById('dynHallOfFameList');
+                if (hofList) {
+                    let html = '';
+                    data.hallOfFame.forEach((s, idx) => {
+                        html += `
+                        <div class="achievement-card">
+                            <div class="trophy-badge">
+                                <i class="fa-solid ${s.trophyIcon || 'fa-crown'}"></i>
+                            </div>
+                            <div class="achievement-details">
+                                <span class="achievement-tag">${escapeHtml(s.gradeTag || 'Học Viên STM')}</span>
+                                <h4>${escapeHtml(s.studentName)}</h4>
+                                <p class="achievement-desc">${escapeHtml(s.achievement || '')}</p>
+                            </div>
+                            ${s.scoreBadge ? `<div class="score-pill">${escapeHtml(s.scoreBadge)}</div>` : ''}
+                        </div>`;
+                    });
+                    hofList.innerHTML = html;
+                }
+            }
+
+            // D. Bảng Tin & Thông Báo Giáo Dục
+            if (data.news && data.news.length > 0) {
+                const newsList = document.getElementById('dynNewsList');
+                if (newsList) {
+                    let html = '';
+                    data.news.forEach(n => {
+                        html += `
+                        <article class="news-card">
+                            <div class="news-meta">
+                                <span class="news-date"><i class="fa-regular fa-calendar"></i> ${escapeHtml(n.date || '')}</span>
+                                <span class="news-category">${escapeHtml(n.category || 'Tin Tức')}</span>
+                            </div>
+                            <h4 class="news-title">
+                                <a href="${n.link || 'classroom.html'}">${escapeHtml(n.title)}</a>
+                            </h4>
+                            <p class="news-summary">${escapeHtml(n.summary || '')}</p>
+                            <a href="${n.link || 'classroom.html'}" class="news-link">
+                                <span>Xem chi tiết</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </article>`;
+                    });
+                    newsList.innerHTML = html;
+                }
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+    </script>
+
 </body>
 </html>

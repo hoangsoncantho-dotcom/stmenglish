@@ -1,0 +1,123 @@
+{
+  "updatedAt": "2026-11-05T08:50:00.000Z",
+  "hero": {
+    "badge": "Chương Trình GDPT 2018 & Chuẩn Cambridge",
+    "title": "Đồng hành cùng sự <span>phát triển ngôn ngữ</span> và tư duy của trẻ",
+    "desc": "Không gian giáo dục tiếng Anh chuyên sâu từ Lớp 1 đến Lớp 12 do Thầy Nguyễn Hoàng Sơn trực tiếp giảng dạy. Phát triển toàn diện 4 kỹ năng, làm chủ ngữ pháp bản chất và tự tin chinh phục các kỳ thi học sinh giỏi, IOE và chứng chỉ quốc tế.",
+    "ctaPrimaryText": "Vào Phòng Học Trực Tuyến",
+    "ctaPrimaryLink": "classroom.html",
+    "ctaSecondaryText": "Thi Thử Đề Chuẩn Cần Thơ",
+    "ctaSecondaryLink": "de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html",
+    "stat1Value": "100%",
+    "stat1Label": "Học sinh đạt chuẩn đầu ra GDPT 2018",
+    "stat2Value": "95%+",
+    "stat2Label": "Tỷ lệ đạt điểm Giỏi bài kiểm tra tại trường",
+    "stat3Value": "5,000 GB",
+    "stat3Label": "Kho học liệu số, video & audio bản quyền"
+  },
+  "courses": [
+    {
+      "id": "primary",
+      "gradeBadge": "Dành cho học sinh Lớp 1 - 5",
+      "title": "Khối Tiểu Học",
+      "icon": "fa-shapes",
+      "colorClass": "primary-grade",
+      "desc": "Xây dựng tình yêu ngôn ngữ qua phương pháp phản xạ TPR, câu chuyện và bài hát. Chuẩn hóa phát âm IPA quốc tế ngay từ giai đoạn vàng.",
+      "features": [
+        "Phát âm chuẩn IPA qua ngữ âm tự nhiên (Phonics)",
+        "Tăng cường vốn từ vựng thực tế theo chủ điểm sinh động",
+        "Luyện thi Cambridge Young Learners (Starters, Movers, Flyers)"
+      ],
+      "link": "classroom.html"
+    },
+    {
+      "id": "secondary",
+      "gradeBadge": "Dành cho học sinh Lớp 6 - 9",
+      "title": "Khối THCS",
+      "icon": "fa-compass",
+      "colorClass": "secondary-grade",
+      "desc": "Làm chủ ngữ pháp bản chất, mở rộng cấu trúc câu phức và bồi dưỡng tư duy logic. Luyện đề thi học sinh giỏi, IOE và đề khảo sát chuẩn Sở GD&ĐT Cần Thơ.",
+      "features": [
+        "Bám sát cấu trúc đề 40 câu đánh giá năng lực GDPT 2018",
+        "Rèn luyện kỹ năng nghe hiểu audio bản ngữ chuyên sâu",
+        "Bồi dưỡng đội tuyển HSG và chứng chỉ Cambridge KET / PET"
+      ],
+      "link": "classroom.html"
+    },
+    {
+      "id": "highschool",
+      "gradeBadge": "Dành cho học sinh Lớp 10 - 12",
+      "title": "Khối THPT",
+      "icon": "fa-graduation-cap",
+      "colorClass": "highschool-grade",
+      "desc": "Hệ thống hóa ngữ pháp học thuật, kỹ năng xử lý bẫy trắc nghiệm tốc độ cao và chiến thuật đọc hiểu nâng cao. Chinh phục điểm 9-10 kỳ thi tốt nghiệp và nền tảng IELTS.",
+      "features": [
+        "Chiến thuật giải nhanh đề thi Tốt nghiệp THPT & Đánh giá năng lực",
+        "Làm chủ từ vựng học thuật C1-C2 và collocations chuyên sâu",
+        "Luyện đề thi thử trực tuyến có chấm điểm và phân tích tự động"
+      ],
+      "link": "classroom.html"
+    }
+  ],
+  "hallOfFame": [
+    {
+      "id": "hof-1",
+      "studentName": "Bạn Huỳnh Ngọc Thịnh",
+      "gradeTag": "Khối Lớp 8 • Lớp E8",
+      "achievement": "Đạt điểm 10.0 tuyệt đối bài kiểm tra giữa kỳ 1, dẫn đầu lớp tăng cường STM Center.",
+      "scoreBadge": "10.0 / 10 • Xuất Sắc",
+      "trophyIcon": "fa-crown"
+    },
+    {
+      "id": "hof-2",
+      "studentName": "Bạn Phan Hoài Anh",
+      "gradeTag": "Khối Lớp 9 • Lớp E9",
+      "achievement": "Đạt 9.75 điểm bài khảo sát năng lực 40 câu chuẩn Sở Cần Thơ, đạt giải Nhất IOE cấp trường.",
+      "scoreBadge": "9.75 / 10 • Giải Nhất",
+      "trophyIcon": "fa-medal"
+    },
+    {
+      "id": "hof-3",
+      "studentName": "Bạn Nguyễn Phúc Thịnh",
+      "gradeTag": "Khối Lớp 6 • Lớp E6",
+      "achievement": "Đạt danh hiệu Thủ khoa kiểm tra định kỳ Unit 1-2, phát âm chuẩn Cambridge Flyers 15 khiên.",
+      "scoreBadge": "10.0 / 10 • Thủ Khoa",
+      "trophyIcon": "fa-award"
+    },
+    {
+      "id": "hof-4",
+      "studentName": "Bạn Lê Minh Thư",
+      "gradeTag": "Khối Lớp 7 • Lớp E7",
+      "achievement": "Đạt 9.5 điểm kiểm tra 1 tiết, tiến bộ vượt bậc kỹ năng Listening và Reading Cloze-test.",
+      "scoreBadge": "9.5 / 10 • Tiến Bộ",
+      "trophyIcon": "fa-star"
+    }
+  ],
+  "news": [
+    {
+      "id": "news-1",
+      "title": "Công bố cấu trúc đề thi Tiếng Anh 40 câu chuẩn Sở GD&ĐT Cần Thơ (2026–2027)",
+      "date": "04/11/2026",
+      "category": "Khảo Thí & Đề Thi",
+      "summary": "Phân tích toàn diện ma trận đề thi 40 câu: 8 câu Listening có audio liền mạch, 23 câu Multiple Choice và 9 câu Tự luận trắc nghiệm hóa.",
+      "link": "classroom.html"
+    },
+    {
+      "id": "news-2",
+      "title": "Khai giảng khóa ôn luyện thi Olympic Tiếng Anh trên Internet (IOE) các cấp",
+      "date": "01/11/2026",
+      "category": "Bồi Dưỡng HSG",
+      "summary": "Chương trình huấn luyện phản xạ tốc độ cao, từ vựng mở rộng và các chủ điểm ngữ pháp then chốt cho học sinh từ Lớp 3 đến Lớp 9.",
+      "link": "classroom.html"
+    },
+    {
+      "id": "news-3",
+      "title": "Ra mắt Hệ thống khảo thí trực tuyến độc lập E CLASS trên nền tảng GitHub Pages",
+      "date": "28/10/2026",
+      "category": "Học Liệu Số",
+      "summary": "Học sinh có thể làm bài tập tự luyện và thi thử trực tuyến mọi lúc mọi nơi trên điện thoại và máy tính, nhận kết quả và lời giải chi tiết ngay lập tức.",
+      "link": "de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html"
+    }
+  ]
+}
+

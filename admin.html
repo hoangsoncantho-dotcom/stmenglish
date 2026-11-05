@@ -1346,7 +1346,182 @@
             </div>
 
         </div>
-    </main>
+    
+            <!-- ========================================================
+                 MÔ-ĐUN: QUẢN TRỊ NỘI DUNG TRANG CHỦ (DYNAMIC CMS)
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-homepage-cms">
+                <div class="section-box" style="border-left: 5px solid var(--teal);">
+                    
+                    <!-- HEADER CMS & CÁC NÚT ĐỒNG BỘ -->
+                    <div class="section-header" style="align-items: flex-start;">
+                        <div>
+                            <span class="badge" style="background:#ccfbf1; color:#0f766e; font-weight:800; font-size:0.8rem; margin-bottom:6px; display:inline-block;">
+                                <i class="fa-solid fa-satellite-dish"></i> DYNAMIC CMS • REAL-TIME DATA BRIDGE
+                            </span>
+                            <h3 style="font-size: 1.35rem; display: flex; align-items: center; gap: 10px; color: var(--navy);">
+                                <i class="fa-solid fa-sliders" style="color: var(--teal);"></i>
+                                Quản Trị Nội Dung Động Trang Chủ (Dynamic CMS)
+                            </h3>
+                            <p style="margin-top: 4px; font-size: 0.92rem; color: var(--text-muted);">
+                                Giúp Thầy Sơn cập nhật thông tin, bảng vàng vinh danh và bài viết trên trang chủ (<code>index.html</code>) 
+                                tức thì mà không cần chỉnh sửa mã nguồn HTML thủ công!
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-emerald" style="padding: 10px 20px; font-weight: 800;" onclick="saveCmsContentLive()">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> CẬP NHẬT LÊN TRANG CHỦ NGAY 🚀
+                            </button>
+                            <button type="button" class="btn btn-outline" style="background:#ffffff; color:#0369a1; border-color:#0369a1; font-weight:700;" onclick="previewHomepageLive()">
+                                <i class="fa-solid fa-eye"></i> Xem Trang Chủ (Preview)
+                            </button>
+                            <button type="button" class="btn btn-outline" style="background:#ffffff; color:#475569; font-weight:700;" onclick="downloadCmsJsonFile()">
+                                <i class="fa-solid fa-download"></i> Tải data/homepage_content.json
+                            </button>
+                            <button type="button" class="btn btn-outline" style="background:#ffffff; color:#dc2626; border-color:#fca5a5; font-weight:700;" onclick="resetCmsToDefault()">
+                                <i class="fa-solid fa-rotate-left"></i> Khôi Phục Mặc Định
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- THANH ĐIỀU HƯỚNG 4 PHÂN KHU CMS -->
+                    <div style="display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; border-bottom: 2px solid var(--border); padding-bottom: 0.75rem;">
+                        <button type="button" id="btn_cms-sub-hero" class="btn btn-sm btn-outline active" style="background:#0d9488; color:#fff; border-color:#0d9488; font-weight:700;" onclick="switchCmsSubTab('cms-sub-hero')">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> 1. Hero & Đầu Trang
+                        </button>
+                        <button type="button" id="btn_cms-sub-courses" class="btn btn-sm btn-outline" style="background:#fff; color:#334155; border-color:#cbd5e1; font-weight:700;" onclick="switchCmsSubTab('cms-sub-courses')">
+                            <i class="fa-solid fa-shapes"></i> 2. Khóa Học Trọng Tâm
+                        </button>
+                        <button type="button" id="btn_cms-sub-hof" class="btn btn-sm btn-outline" style="background:#fff; color:#334155; border-color:#cbd5e1; font-weight:700;" onclick="switchCmsSubTab('cms-sub-hof')">
+                            <i class="fa-solid fa-trophy" style="color:var(--amber);"></i> 3. Bảng Vàng Học Viên (Vinh Danh)
+                        </button>
+                        <button type="button" id="btn_cms-sub-news" class="btn btn-sm btn-outline" style="background:#fff; color:#334155; border-color:#cbd5e1; font-weight:700;" onclick="switchCmsSubTab('cms-sub-news')">
+                            <i class="fa-solid fa-newspaper" style="color:#0284c7;"></i> 4. Bảng Tin & Thông Báo Giáo Dục
+                        </button>
+                    </div>
+
+                    <!-- ==========================================
+                         SUB-TAB 1: HERO & ĐẦU TRANG
+                         ========================================== -->
+                    <div id="cms-sub-hero" style="display: block;">
+                        <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:1.5rem; margin-bottom:1.5rem;">
+                            <h4 style="font-family:'Lexend',sans-serif; color:var(--navy); margin-bottom:1.2rem; font-weight:700;">
+                                <i class="fa-solid fa-star text-amber"></i> Thông Điệp Banner Chính (Hero Section)
+                            </h4>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Huy Hiệu Đầu Trang (Hero Badge):</label>
+                                <input type="text" id="cmsHeroBadge" class="form-control" value="Chương Trình GDPT 2018 & Chuẩn Cambridge">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Tiêu Đề Lớn (Hero Title - Hỗ trợ thẻ &lt;span&gt; đổi màu):</label>
+                                <input type="text" id="cmsHeroTitle" class="form-control font-bold" value="Đồng hành cùng sự <span>phát triển ngôn ngữ</span> và tư duy của trẻ">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Đoạn Mô Tả Giới Thiệu (Hero Description):</label>
+                                <textarea id="cmsHeroDesc" class="form-control" rows="3">Không gian giáo dục tiếng Anh chuyên sâu từ Lớp 1 đến Lớp 12 do Thầy Nguyễn Hoàng Sơn trực tiếp giảng dạy. Phát triển toàn diện 4 kỹ năng, làm chủ ngữ pháp bản chất và tự tin chinh phục các kỳ thi học sinh giỏi, IOE và chứng chỉ quốc tế.</textarea>
+                            </div>
+                            <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap:1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" style="font-weight:700;">Nút Kêu Gọi Chính (CTA 1):</label>
+                                    <input type="text" id="cmsCtaPrimaryText" class="form-control mb-1" value="Vào Phòng Học Trực Tuyến">
+                                    <input type="text" id="cmsCtaPrimaryLink" class="form-control" value="classroom.html" placeholder="Link trỏ đến (VD: classroom.html)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" style="font-weight:700;">Nút Kêu Gọi Phụ (CTA 2):</label>
+                                    <input type="text" id="cmsCtaSecondaryText" class="form-control mb-1" value="Thi Thử Đề Chuẩn Cần Thơ">
+                                    <input type="text" id="cmsCtaSecondaryLink" class="form-control" value="de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html" placeholder="Link trỏ đến...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3 Con Số Thống Kê -->
+                        <div style="background:#f8fafc; border:1px solid var(--border); border-radius:10px; padding:1.5rem;">
+                            <h4 style="font-family:'Lexend',sans-serif; color:var(--navy); margin-bottom:1.2rem; font-weight:700;">
+                                <i class="fa-solid fa-chart-line text-emerald"></i> 3 Con Số Ấn Tượng (Key Metrics)
+                            </h4>
+                            <div class="form-grid" style="grid-template-columns: 1fr 1fr 1fr; gap:1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" style="font-weight:700;">Số Liệu 1:</label>
+                                    <input type="text" id="cmsStat1Val" class="form-control font-bold text-teal" value="100%">
+                                    <input type="text" id="cmsStat1Lbl" class="form-control mt-1" value="Học sinh đạt chuẩn đầu ra GDPT 2018">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" style="font-weight:700;">Số Liệu 2:</label>
+                                    <input type="text" id="cmsStat2Val" class="form-control font-bold text-emerald" value="95%+">
+                                    <input type="text" id="cmsStat2Lbl" class="form-control mt-1" value="Tỷ lệ đạt điểm Giỏi bài kiểm tra tại trường">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" style="font-weight:700;">Số Liệu 3:</label>
+                                    <input type="text" id="cmsStat3Val" class="form-control font-bold text-blue" value="5,000 GB">
+                                    <input type="text" id="cmsStat3Lbl" class="form-control mt-1" value="Kho học liệu số, video & audio bản quyền">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                         SUB-TAB 2: KHÓA HỌC TRỌNG TÂM
+                         ========================================== -->
+                    <div id="cms-sub-courses" style="display: none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                            <p style="font-size:0.9rem; color:var(--text-muted); margin:0;">
+                                Chỉnh sửa thông tin chi tiết 3 khối lớp trọng tâm: Tiểu Học (Lớp 1-5), THCS (Lớp 6-9), THPT (Lớp 10-12).
+                            </p>
+                        </div>
+                        <div id="cmsCoursesContainer">
+                            <!-- Render bằng JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                         SUB-TAB 3: BẢNG VÀNG HỌC VIÊN
+                         ========================================== -->
+                    <div id="cms-sub-hof" style="display: none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; color:var(--navy); font-size:1.1rem; font-weight:700; margin:0;">
+                                    Danh Sách Học Sinh Vinh Danh Trên Bảng Vàng
+                                </h4>
+                                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">
+                                    Hiển thị ở cột trái của khu vực "Bảng Tin & Bảng Vàng" trên trang chủ.
+                                </p>
+                            </div>
+                            <button type="button" class="btn btn-emerald" onclick="addHofItem()">
+                                <i class="fa-solid fa-plus-circle"></i> + Thêm Học Sinh Vào Bảng Vàng
+                            </button>
+                        </div>
+                        <div id="cmsHofContainer">
+                            <!-- Render bằng JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- ==========================================
+                         SUB-TAB 4: BẢNG TIN & THÔNG BÁO
+                         ========================================== -->
+                    <div id="cms-sub-news" style="display: none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; color:var(--navy); font-size:1.1rem; font-weight:700; margin:0;">
+                                    Danh Sách Tin Tức & Thông Báo Giáo Dục
+                                </h4>
+                                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">
+                                    Hiển thị ở cột phải của khu vực "Bảng Tin & Bảng Vàng" trên trang chủ.
+                                </p>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="addNewsItem()">
+                                <i class="fa-solid fa-plus-circle"></i> + Thêm Bài Viết / Bản Tin Mới
+                            </button>
+                        </div>
+                        <div id="cmsNewsContainer">
+                            <!-- Render bằng JavaScript -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </main>
 
     <script>
 
@@ -1615,6 +1790,7 @@
         }
     </script>
 
+    <script src="admin_homepage_cms.js"></script>
 </body>
 </html>
 
