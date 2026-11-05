@@ -118,6 +118,20 @@
       "summary": "Học sinh có thể làm bài tập tự luyện và thi thử trực tuyến mọi lúc mọi nơi trên điện thoại và máy tính, nhận kết quả và lời giải chi tiết ngay lập tức.",
       "link": "de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html"
     }
-  ]
+  ],
+  "showcase": {
+    "teacherName": "Thầy Nguyễn Hoàng Sơn",
+    "teacherTitle": "Chủ nhiệm Chuyên môn STM Center",
+    "status": "Đang tuyển sinh",
+    "features": [
+      "Lộ trình cá nhân hóa theo từng cấp học",
+      "Giáo án 5512 & Bài giảng tương tác trực quan",
+      "Luyện thi Olympic tiếng Anh IOE các cấp",
+      "Chấm bài chi tiết, phản hồi tiến độ hàng tuần"
+    ],
+    "boxSubmitTitle": "HỆ THỐNG NỘP BÀI ONLINE",
+    "boxSubmitDesc": "Lưu trữ tự động Google Drive",
+    "floatTitle": "Vinh danh học sinh giỏi",
+    "floatDesc": "Top đầu kỳ thi học sinh giỏi & IOE Cần Thơ"
+  }
 }
-

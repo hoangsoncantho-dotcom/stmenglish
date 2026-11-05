@@ -1934,16 +1934,48 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
             const statusDiv = document.getElementById('adminUploadStatus');
 
             btnUpload.disabled = true;
-            btnUpload.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang tải lên Drive 5TB...`;
+            btnUpload.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang tải lên Drive & Google Sheets...`;
             statusDiv.style.display = 'block';
             statusDiv.style.color = '#0284c7';
-            statusDiv.innerText = 'Đang chuyển đổi tệp và truyền lên Google Drive...';
+            statusDiv.innerText = 'Đang chuyển đổi tệp và truyền lên Google Drive 5TB...';
+
+            // 1. Phân tích Metadata của tệp
+            const gradeVal = document.getElementById("matGradeSelect") ? document.getElementById("matGradeSelect").value : "9";
+            const gradeKey = "grade" + gradeVal;
+            const unitSelect = document.getElementById("matUnitSelect");
+            const unitNum = unitSelect ? (unitSelect.value || "1") : "1";
+            const unitKey = "unit" + unitNum;
+            const unitName = (unitSelect && unitSelect.options[unitSelect.selectedIndex]) ? unitSelect.options[unitSelect.selectedIndex].text : `Unit ${unitNum}`;
+
+            const fileName = selectedAdminFile.name;
+            const fnLower = fileName.toLowerCase();
+            const fileExt = fileName.split('.').pop().toLowerCase();
+            
+            // Phân loại tự động vào 1 trong 4 Khối Không Gian của classroom.html
+            let targetHub = "theory";
+            if (fileExt === "pptx" || fileExt === "ppt") targetHub = "theory";
+            else if (fileExt === "xlsx" || fileExt === "xls") targetHub = "theory";
+            else if (fnLower.includes("reading") || fnLower.includes("doc") || fnLower.includes("truyen") || fnLower.includes("sach")) targetHub = "reading";
+            else if (fnLower.includes("writing") || fnLower.includes("viet") || fnLower.includes("luan") || fnLower.includes("peel")) targetHub = "writing";
+            else if (fileExt === "docx" || fileExt === "doc") targetHub = "practice";
+            else targetHub = "theory";
 
             const reader = new FileReader();
             reader.onload = function(e) {
                 const base64Data = e.target.result.split(',')[1];
+                const fileSizeStr = (selectedAdminFile.size / (1024 * 1024)).toFixed(2) + " MB";
+
                 const payload = {
-                    fileName: selectedAdminFile.name,
+                    action: "upload_material",
+                    grade: gradeKey,
+                    gradeNum: gradeVal,
+                    unitId: unitKey,
+                    unitNum: unitNum,
+                    unitName: unitName,
+                    hub: targetHub,
+                    fileType: fileExt,
+                    fileName: fileName,
+                    fileSize: fileSizeStr,
                     mimeType: selectedAdminFile.type || 'application/octet-stream',
                     base64: base64Data
                 };
@@ -1957,21 +1989,70 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'success') {
+                        const fileUrl = data.fileUrl || "https://drive.google.com";
+
+                        // 2. Ghi nhận tức thời vào LocalStorage Database (Trạm trung chuyển dữ liệu)
+                        try {
+                            let localDb = JSON.parse(localStorage.getItem('stm_materials_database') || '{"materials":{}}');
+                            if (!localDb.materials) localDb.materials = {};
+                            if (!localDb.materials[gradeKey]) localDb.materials[gradeKey] = {};
+                            if (!localDb.materials[gradeKey][unitKey]) localDb.materials[gradeKey][unitKey] = [];
+
+                            const newMatItem = {
+                                id: "mat-" + Date.now(),
+                                hub: targetHub,
+                                title: fileName.replace(/\.[^/.]+$/, ""),
+                                fileName: fileName,
+                                fileType: fileExt,
+                                fileSize: fileSizeStr,
+                                fileUrl: fileUrl,
+                                uploadedAt: new Date().toISOString()
+                            };
+
+                            // Đưa lên đầu danh sách
+                            localDb.materials[gradeKey][unitKey].unshift(newMatItem);
+                            localDb.updatedAt = new Date().toISOString();
+                            localStorage.setItem('stm_materials_database', JSON.stringify(localDb));
+                        } catch(errLocal) {
+                            console.warn("Lỗi lưu localDb:", errLocal);
+                        }
+
                         statusDiv.style.color = '#059669';
-                        statusDiv.innerHTML = `🎉 Tải lên thành công! Tệp đã lưu an toàn vào Google Drive của Thầy.`;
-                        
-                        // Thêm vào bảng danh sách
-                        const tbody = document.getElementById('materialsTableBody');
-                        const newRow = `
-                            <tr>
-                                <td><span style="background: #d1fae5; color: #059669; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">MỚI</span></td>
-                                <td><strong>${selectedAdminFile.name}</strong></td>
-                                <td>${document.getElementById("matUnitSelect") ? document.getElementById("matUnitSelect").options[document.getElementById("matUnitSelect").selectedIndex].text : "Unit Học Liệu"} (Lớp ${document.getElementById("matGradeSelect") ? document.getElementById("matGradeSelect").value : "9"})</td>
-                                <td>${(selectedAdminFile.size / (1024*1024)).toFixed(2)} MB</td>
-                                <td><a href="${data.fileUrl}" target="_blank" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Drive</a></td>
-                            </tr>
+                        statusDiv.innerHTML = `
+                            <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:1rem; margin-top:0.75rem;">
+                                <div style="font-weight:800; font-size:1rem; color:#065f46; margin-bottom:4px;">
+                                    🎉 Tải lên Google Drive 5TB & Đồng bộ dữ liệu thành công!
+                                </div>
+                                <div style="font-size:0.85rem; color:#166534; line-height:1.5;">
+                                    • Tệp <strong>${fileName}</strong> đã được lưu trữ vĩnh viễn trên Drive của Thầy.<br>
+                                    • Metadata đã phân bổ vào: <strong>Khối Lớp ${gradeVal} • ${unitName}</strong> (Không gian: <em>${targetHub.toUpperCase()}</em>).<br>
+                                    • Học sinh mở <strong>classroom.html</strong> chọn đúng Lớp ${gradeVal} và ${unitName} sẽ thấy ngay tài liệu để học tập trực tiếp!
+                                </div>
+                                <div style="margin-top:0.75rem; display:flex; gap:8px; flex-wrap:wrap;">
+                                    <a href="classroom.html" target="_blank" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.82rem;">
+                                        <i class="fa-solid fa-chalkboard-user"></i> Mở Phòng Học Kiểm Tra Ngay
+                                    </a>
+                                    <button type="button" class="btn btn-outline" onclick="downloadMaterialsDbJson()" style="padding:0.4rem 0.9rem; font-size:0.82rem;">
+                                        <i class="fa-solid fa-file-arrow-down"></i> Tải data/materials_database.json (Tùy chọn)
+                                    </button>
+                                </div>
+                            </div>
                         `;
-                        tbody.insertAdjacentHTML('afterbegin', newRow);
+                        
+                        // Thêm vào bảng danh sách trực quan
+                        const tbody = document.getElementById('materialsTableBody');
+                        if (tbody) {
+                            const newRow = `
+                                <tr>
+                                    <td><span style="background: #d1fae5; color: #059669; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">${fileExt.toUpperCase()}</span></td>
+                                    <td><strong>${fileName}</strong></td>
+                                    <td>${unitName} (Lớp ${gradeVal})</td>
+                                    <td>${fileSizeStr}</td>
+                                    <td><a href="${fileUrl}" target="_blank" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Drive</a></td>
+                                </tr>
+                            `;
+                            tbody.insertAdjacentHTML('afterbegin', newRow);
+                        }
                     } else {
                         statusDiv.style.color = '#dc2626';
                         statusDiv.innerText = 'Lỗi từ máy chủ: ' + (data.message || 'Không thể tải lên');
@@ -1987,6 +2068,20 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                 });
             };
             reader.readAsDataURL(selectedAdminFile);
+        }
+
+        // Tải file JSON đồng bộ để đẩy lên kho GitHub (Nếu Thầy muốn lưu tĩnh)
+        function downloadMaterialsDbJson() {
+            const localDb = localStorage.getItem('stm_materials_database') || '{"materials":{}}';
+            const blob = new Blob([localDb], { type: "application/json;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "materials_database.json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
 
         /**

@@ -1,0 +1,205 @@
+{
+  "updatedAt": "2026-11-05T20:30:00.000Z",
+  "description": "Cơ sở dữ liệu trung tâm quản lý tài liệu bài giảng, phiếu bài tập, truyện đọc và đề luyện viết trên Google Drive 5TB của Thầy Nguyễn Hoàng Sơn",
+  "materials": {
+    "grade1": {
+      "unit1": [
+        {
+          "id": "mat-g1-u1-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng Trực Quan: In the School Playground (PPTX)",
+          "fileName": "G1_Unit1_Slide_Playground.pptx",
+          "fileType": "pptx",
+          "fileSize": "11.2 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g1_u1_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:00:00Z"
+        },
+        {
+          "id": "mat-g1-u1-2",
+          "hub": "practice",
+          "title": "Phiếu Bài Tập Nối Chữ Cái & Tô Màu (DOCX)",
+          "fileName": "G1_Unit1_Worksheet_Phonics.docx",
+          "fileType": "docx",
+          "fileSize": "420 KB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g1_u1_docx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:05:00Z"
+        }
+      ]
+    },
+    "grade5": {
+      "unit1": [
+        {
+          "id": "mat-g5-u1-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng Trực Quan: All About Me (PPTX)",
+          "fileName": "G5_Unit1_Slide_All_About_Me.pptx",
+          "fileType": "pptx",
+          "fileSize": "14.5 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g5_u1_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:00:00Z"
+        },
+        {
+          "id": "mat-g5-u1-2",
+          "hub": "practice",
+          "title": "Phiếu Bài Tập Nâng Cao: All About Me (DOCX)",
+          "fileName": "G5_Unit1_Advanced_Exercises.docx",
+          "fileType": "docx",
+          "fileSize": "580 KB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g5_u1_docx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:05:00Z"
+        },
+        {
+          "id": "mat-g5-u1-3",
+          "hub": "reading",
+          "title": "Truyện Đọc Mở Rộng: My Foreign Friends (PDF)",
+          "fileName": "G5_Unit1_Truyen_Doc_Mo_Rong.pdf",
+          "fileType": "pdf",
+          "fileSize": "2.4 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g5_u1_pdf/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:10:00Z"
+        },
+        {
+          "id": "mat-g5-u1-4",
+          "hub": "writing",
+          "title": "Phiếu Luyện Viết Đoạn Văn Giới Thiệu Bản Thân (DOCX)",
+          "fileName": "G5_Unit1_Writing_Self_Introduction.docx",
+          "fileType": "docx",
+          "fileSize": "390 KB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g5_u1_writing/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:15:00Z"
+        }
+      ],
+      "unit2": [
+        {
+          "id": "mat-g5-u2-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng: Our Homes (PPTX)",
+          "fileName": "G5_Unit2_Slide_Our_Homes.pptx",
+          "fileType": "pptx",
+          "fileSize": "13.8 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g5_u2_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T10:20:00Z"
+        }
+      ]
+    },
+    "grade6": {
+      "unit1": [
+        {
+          "id": "mat-g6-u1-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng: My New School (PPTX)",
+          "fileName": "G6_Unit1_Slide_My_New_School.pptx",
+          "fileType": "pptx",
+          "fileSize": "15.0 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g6_u1_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T09:00:00Z"
+        },
+        {
+          "id": "mat-g6-u1-2",
+          "hub": "practice",
+          "title": "Phiếu Bài Tập Nâng Cao: Present Simple & School Vocabulary (DOCX)",
+          "fileName": "G6_Unit1_Exercises_Present_Simple.docx",
+          "fileType": "docx",
+          "fileSize": "510 KB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g6_u1_docx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T09:05:00Z"
+        }
+      ]
+    },
+    "grade8": {
+      "unit1": [
+        {
+          "id": "mat-g8-u1-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng: Leisure Time & Verbs of Liking (PPTX)",
+          "fileName": "G8_Unit1_Slide_Leisure_Time.pptx",
+          "fileType": "pptx",
+          "fileSize": "14.2 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g8_u1_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T09:10:00Z"
+        },
+        {
+          "id": "mat-g8-u1-2",
+          "hub": "practice",
+          "title": "Đề Khảo Sát Định Kỳ Unit 1 Tiếng Anh 8 Cần Thơ (PDF)",
+          "fileName": "G8_Unit1_De_Khao_Sat_Can_Tho.pdf",
+          "fileType": "pdf",
+          "fileSize": "1.8 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g8_u1_pdf/view?usp=sharing",
+          "uploadedAt": "2026-11-05T09:15:00Z"
+        }
+      ]
+    },
+    "grade9": {
+      "unit1": [
+        {
+          "id": "mat-g9-u1-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng Trực Quan: Local Community (PPTX)",
+          "fileName": "G9_Unit1_Slide_Local_Community.pptx",
+          "fileType": "pptx",
+          "fileSize": "14.5 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g9_u1_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T08:00:00Z"
+        },
+        {
+          "id": "mat-g9-u1-2",
+          "hub": "practice",
+          "title": "Phiếu Bài Tập Nâng Cao: Local Community & Phrasal Verbs (DOCX)",
+          "fileName": "G9_Unit1_Bai_Tap_Nang_Cao_Community.docx",
+          "fileType": "docx",
+          "fileSize": "620 KB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g9_u1_docx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T08:10:00Z"
+        },
+        {
+          "id": "mat-g9-u1-3",
+          "hub": "reading",
+          "title": "Chuyên Đề Đọc Hiểu: Bat Trang Pottery Craft Village (PDF)",
+          "fileName": "G9_Unit1_Reading_Bat_Trang_Craft_Village.pdf",
+          "fileType": "pdf",
+          "fileSize": "1.8 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g9_u1_pdf/view?usp=sharing",
+          "uploadedAt": "2026-11-05T08:20:00Z"
+        },
+        {
+          "id": "mat-g9-u1-4",
+          "hub": "writing",
+          "title": "Khung Dàn Ý PEEL & Bài Mẫu: Preserving Traditional Crafts (DOCX)",
+          "fileName": "G9_Unit1_Writing_PEEL_Framework.docx",
+          "fileType": "docx",
+          "fileSize": "480 KB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g9_u1_writing/view?usp=sharing",
+          "uploadedAt": "2026-11-05T08:30:00Z"
+        }
+      ],
+      "unit2": [
+        {
+          "id": "mat-g9-u2-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng: City Life & Comparisons (PPTX)",
+          "fileName": "G9_Unit2_Slide_City_Life.pptx",
+          "fileType": "pptx",
+          "fileSize": "16.1 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g9_u2_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T08:40:00Z"
+        }
+      ]
+    },
+    "grade12": {
+      "unit1": [
+        {
+          "id": "mat-g12-u1-1",
+          "hub": "theory",
+          "title": "Slide Bài Giảng: Life Stories We Admire (PPTX)",
+          "fileName": "G12_Unit1_Slide_Life_Stories.pptx",
+          "fileType": "pptx",
+          "fileSize": "15.8 MB",
+          "fileUrl": "https://drive.google.com/file/d/sample_g12_u1_pptx/view?usp=sharing",
+          "uploadedAt": "2026-11-05T07:30:00Z"
+        }
+      ]
+    }
+  }
+}
+
