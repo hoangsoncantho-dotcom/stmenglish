@@ -4134,69 +4134,6 @@
                 `;
             }).join('');
 
-            // Lấy danh sách tài liệu thực tế của Unit này đã tải lên Google Drive 5TB
-            const uploadedFiles = getMaterialsForCurrentUnit(multiTierState.gradeKey, currentActiveUnitIndex);
-            let uploadedMaterialsHtml = '';
-            if (uploadedFiles && uploadedFiles.length > 0) {
-                const filesCards = uploadedFiles.map(file => {
-                    let extUpper = (file.fileType || 'DOCX').toUpperCase();
-                    let iconClass = 'fa-file-lines text-primary';
-                    let bgBadge = '#e0f2fe';
-                    let colorBadge = '#0369a1';
-                    if (extUpper.includes('PPT')) { iconClass = 'fa-file-powerpoint text-rose'; bgBadge = '#fee2e2'; colorBadge = '#dc2626'; }
-                    else if (extUpper.includes('XLS')) { iconClass = 'fa-file-excel text-emerald'; bgBadge = '#d1fae5'; colorBadge = '#047857'; }
-                    else if (extUpper.includes('PDF')) { iconClass = 'fa-file-pdf text-red-600'; bgBadge = '#fef2f2'; colorBadge = '#b91c1c'; }
-
-                    return `
-                        <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:1rem 1.15rem; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
-                            <div>
-                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-                                    <span class="badge" style="background:${bgBadge}; color:${colorBadge}; font-weight:800; font-size:0.75rem;">
-                                        <i class="fa-regular ${iconClass}"></i> ${extUpper}
-                                    </span>
-                                    <span style="font-size:0.75rem; color:var(--text-muted);">${file.fileSize || '1.0 MB'}</span>
-                                </div>
-                                <h5 style="font-family:'Lexend',sans-serif; font-size:0.95rem; font-weight:800; color:var(--navy-dark); margin:0 0 0.4rem 0; line-height:1.4;">
-                                    ${file.fileName}
-                                </h5>
-                                <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 0.85rem 0;">
-                                    Tài liệu học tập chính thức do Thầy Nguyễn Hoàng Sơn tải lên.
-                                </p>
-                            </div>
-                            <div style="display:flex; gap:6px;">
-                                <button type="button" class="btn btn-outline" onclick="openHtmlDocumentViewer('${file.htmlUrl || ('tai-lieu/' + multiTierState.gradeKey.replace('grade', 'lop-') + '/unit-' + (currentActiveUnitIndex + 1) + '/ly-thuyet.html')}', '${file.fileName}', '${file.fileType || 'docx'}', 'word')" style="flex:1; padding:0.4rem 0.6rem; font-size:0.8rem; font-weight:700;">
-                                    <i class="fa-solid fa-eye"></i> Xem Trên Web
-                                </button>
-                                <a href="${file.fileUrl}" target="_blank" class="btn btn-primary" style="flex:1; padding:0.4rem 0.6rem; font-size:0.8rem; font-weight:700; text-align:center; text-decoration:none;">
-                                    <i class="fa-solid fa-cloud-arrow-down"></i> Mở Drive
-                                </a>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-
-                uploadedMaterialsHtml = `
-                    <div style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:16px; padding:1.25rem 1.5rem; margin-bottom:1.75rem;">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <span class="badge" style="background:#059669; color:#fff; font-weight:800; font-size:0.75rem;">
-                                    DRIVE 5TB
-                                </span>
-                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; font-weight:800; color:var(--navy-dark); margin:0;">
-                                    📂 Tài Liệu Bài Giảng & Phiếu Bài Tập Mới Tải Lên Của Unit Này
-                                </h4>
-                            </div>
-                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700; font-size:0.78rem;">
-                                ${uploadedFiles.length} Tệp Có Sẵn
-                            </span>
-                        </div>
-                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
-                            ${filesCards}
-                        </div>
-                    </div>
-                `;
-            }
-
             contentEl.innerHTML = `
                 <div class="tier2-hub-banner" style="background:${hub.color}10; border:1px solid ${hub.color}30;">
                     <div>
@@ -4216,8 +4153,6 @@
                         <i class="fa-solid fa-arrow-left"></i> Chọn Không Gian Khác
                     </button>
                 </div>
-
-                ${uploadedMaterialsHtml}
 
                 <div class="tier2-item-grid">
                     ${itemsHtml}
