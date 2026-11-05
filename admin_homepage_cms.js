@@ -1,30 +1,47 @@
 /**
  * =========================================================================
- * STM ENGLISH - HOMEPAGE DYNAMIC CMS MODULE (admin_homepage_cms.js)
- * Quản trị nội dung động trang chủ: Hero, Khóa học, Bảng vàng, Bảng tin
+ * STM ENGLISH - HOMEPAGE DYNAMIC CMS DASHBOARD (admin_homepage_cms.js)
+ * Module Quản trị Nội dung Trang Chủ chuyên sâu cho Thầy Nguyễn Hoàng Sơn
  * =========================================================================
  */
 
 let currentCmsData = null;
 
-// Dữ liệu mặc định nếu chưa có
+// Dữ liệu mặc định ban đầu chuẩn hóa
 const DEFAULT_CMS_DATA = {
     updatedAt: new Date().toISOString(),
     hero: {
         badge: "Chương Trình GDPT 2018 & Chuẩn Cambridge",
         title: "Đồng hành cùng sự <span>phát triển ngôn ngữ</span> và tư duy của trẻ",
         desc: "Không gian giáo dục tiếng Anh chuyên sâu từ Lớp 1 đến Lớp 12 do Thầy Nguyễn Hoàng Sơn trực tiếp giảng dạy. Phát triển toàn diện 4 kỹ năng, làm chủ ngữ pháp bản chất và tự tin chinh phục các kỳ thi học sinh giỏi, IOE và chứng chỉ quốc tế.",
+        bannerImg: "",
         ctaPrimaryText: "Vào Phòng Học Trực Tuyến",
         ctaPrimaryLink: "classroom.html",
         ctaSecondaryText: "Thi Thử Đề Chuẩn Cần Thơ",
         ctaSecondaryLink: "de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html",
         stat1Value: "100%",
-        stat1Label: "Học sinh đạt chuẩn đầu ra GDPT 2018",
+        stat1Label: "Giáo viên tận tâm & chuẩn quốc tế",
         stat2Value: "95%+",
-        stat2Label: "Tỷ lệ đạt điểm Giỏi bài kiểm tra tại trường",
+        stat2Label: "Học sinh đạt điểm 9 - 10 tại trường",
         stat3Value: "5,000 GB",
         stat3Label: "Kho học liệu số, video & audio bản quyền"
     },
+        showcase: {
+        teacherName: "Thầy Nguyễn Hoàng Sơn",
+        teacherTitle: "Chủ nhiệm Chuyên môn STM Center",
+        status: "Đang tuyển sinh",
+        features: [
+            "Lộ trình cá nhân hóa theo từng cấp học",
+            "Giáo án 5512 & Bài giảng tương tác trực quan",
+            "Luyện thi Olympic tiếng Anh IOE các cấp",
+            "Chấm bài chi tiết, phản hồi tiến độ hàng tuần"
+        ],
+        boxSubmitTitle: "HỆ THỐNG NỘP BÀI ONLINE",
+        boxSubmitDesc: "Lưu trữ tự động Google Drive",
+        floatTitle: "Vinh danh học sinh giỏi",
+        floatDesc: "Top đầu kỳ thi học sinh giỏi & IOE Cần Thơ"
+    },
+    googleSheetApiUrl: "",
     courses: [
         {
             id: "primary",
@@ -76,6 +93,7 @@ const DEFAULT_CMS_DATA = {
             gradeTag: "Khối Lớp 8 • Lớp E8",
             achievement: "Đạt điểm 10.0 tuyệt đối bài kiểm tra giữa kỳ 1, dẫn đầu lớp tăng cường STM Center.",
             scoreBadge: "10.0 / 10 • Xuất Sắc",
+            avatar: "",
             trophyIcon: "fa-crown"
         },
         {
@@ -84,6 +102,7 @@ const DEFAULT_CMS_DATA = {
             gradeTag: "Khối Lớp 9 • Lớp E9",
             achievement: "Đạt 9.75 điểm bài khảo sát năng lực 40 câu chuẩn Sở Cần Thơ, đạt giải Nhất IOE cấp trường.",
             scoreBadge: "9.75 / 10 • Giải Nhất",
+            avatar: "",
             trophyIcon: "fa-medal"
         },
         {
@@ -92,6 +111,7 @@ const DEFAULT_CMS_DATA = {
             gradeTag: "Khối Lớp 6 • Lớp E6",
             achievement: "Đạt danh hiệu Thủ khoa kiểm tra định kỳ Unit 1-2, phát âm chuẩn Cambridge Flyers 15 khiên.",
             scoreBadge: "10.0 / 10 • Thủ Khoa",
+            avatar: "",
             trophyIcon: "fa-award"
         },
         {
@@ -100,6 +120,7 @@ const DEFAULT_CMS_DATA = {
             gradeTag: "Khối Lớp 7 • Lớp E7",
             achievement: "Đạt 9.5 điểm kiểm tra 1 tiết, tiến bộ vượt bậc kỹ năng Listening và Reading Cloze-test.",
             scoreBadge: "9.5 / 10 • Tiến Bộ",
+            avatar: "",
             trophyIcon: "fa-star"
         }
     ],
@@ -110,6 +131,7 @@ const DEFAULT_CMS_DATA = {
             date: "04/11/2026",
             category: "Khảo Thí & Đề Thi",
             summary: "Phân tích toàn diện ma trận đề thi 40 câu: 8 câu Listening có audio liền mạch, 23 câu Multiple Choice và 9 câu Tự luận trắc nghiệm hóa.",
+            thumbnail: "",
             link: "classroom.html"
         },
         {
@@ -118,6 +140,7 @@ const DEFAULT_CMS_DATA = {
             date: "01/11/2026",
             category: "Bồi Dưỡng HSG",
             summary: "Chương trình huấn luyện phản xạ tốc độ cao, từ vựng mở rộng và các chủ điểm ngữ pháp then chốt cho học sinh từ Lớp 3 đến Lớp 9.",
+            thumbnail: "",
             link: "classroom.html"
         },
         {
@@ -126,12 +149,12 @@ const DEFAULT_CMS_DATA = {
             date: "28/10/2026",
             category: "Học Liệu Số",
             summary: "Học sinh có thể làm bài tập tự luyện và thi thử trực tuyến mọi lúc mọi nơi trên điện thoại và máy tính, nhận kết quả và lời giải chi tiết ngay lập tức.",
+            thumbnail: "",
             link: "de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html"
         }
     ]
 };
 
-// Khởi chạy khi tài liệu sẵn sàng
 document.addEventListener('DOMContentLoaded', () => {
     initHomepageCms();
 });
@@ -147,7 +170,7 @@ async function initHomepageCms() {
 
     if (!currentCmsData) {
         try {
-            const res = await fetch('./data/homepage_content.json');
+            const res = await fetch('./data/homepage_content.json?v=' + Date.now());
             if (res.ok) {
                 currentCmsData = await res.json();
             }
@@ -161,7 +184,7 @@ async function initHomepageCms() {
     renderCmsForms();
 }
 
-// Render dữ liệu vào các form giao diện quản trị
+// Render dữ liệu vào các ô input form quản trị
 function renderCmsForms() {
     if (!currentCmsData) return;
 
@@ -170,6 +193,7 @@ function renderCmsForms() {
     setVal('cmsHeroBadge', h.badge || '');
     setVal('cmsHeroTitle', h.title || '');
     setVal('cmsHeroDesc', h.desc || '');
+    setVal('cmsHeroBannerImg', h.bannerImg || '');
     setVal('cmsCtaPrimaryText', h.ctaPrimaryText || '');
     setVal('cmsCtaPrimaryLink', h.ctaPrimaryLink || '');
     setVal('cmsCtaSecondaryText', h.ctaSecondaryText || '');
@@ -180,6 +204,24 @@ function renderCmsForms() {
     setVal('cmsStat2Lbl', h.stat2Label || '');
     setVal('cmsStat3Val', h.stat3Value || '');
     setVal('cmsStat3Lbl', h.stat3Label || '');
+
+    setVal('cmsGoogleSheetApiUrl', currentCmsData.googleSheetApiUrl || '');
+
+        // 1b. Showcase Card
+    const sc = currentCmsData.showcase || {};
+    setVal('cmsTeacherName', sc.teacherName || 'Thầy Nguyễn Hoàng Sơn');
+    setVal('cmsTeacherTitle', sc.teacherTitle || 'Chủ nhiệm Chuyên môn STM Center');
+    setVal('cmsTeacherStatus', sc.status || 'Đang tuyển sinh');
+    setVal('cmsTeacherFeats', (sc.features || [
+        'Lộ trình cá nhân hóa theo từng cấp học',
+        'Giáo án 5512 & Bài giảng tương tác trực quan',
+        'Luyện thi Olympic tiếng Anh IOE các cấp',
+        'Chấm bài chi tiết, phản hồi tiến độ hàng tuần'
+    ]).join('\n'));
+    setVal('cmsBoxSubmitTitle', sc.boxSubmitTitle || 'HỆ THỐNG NỘP BÀI ONLINE');
+    setVal('cmsBoxSubmitDesc', sc.boxSubmitDesc || 'Lưu trữ tự động Google Drive');
+    setVal('cmsFloatHofTitle', sc.floatTitle || 'Vinh danh học sinh giỏi');
+    setVal('cmsFloatHofDesc', sc.floatDesc || 'Top đầu kỳ thi học sinh giỏi & IOE Cần Thơ');
 
     // 2. Khối Khóa Học
     renderCmsCourses();
@@ -218,20 +260,20 @@ function renderCmsCourses() {
             </div>
             <div class="form-grid" style="grid-template-columns: 2fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem;">Tiêu Đề Khối:</label>
-                    <input type="text" id="cmsCourseTitle_${idx}" class="form-control" value="${escapeHtmlAttr(c.title)}">
+                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Tiêu Đề Khối:</label>
+                    <input type="text" id="cmsCourseTitle_${idx}" class="form-control font-bold" value="${escapeHtmlAttr(c.title)}">
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem;">Huy Hiệu (Badge):</label>
+                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Huy Hiệu (Badge):</label>
                     <input type="text" id="cmsCourseBadge_${idx}" class="form-control" value="${escapeHtmlAttr(c.gradeBadge)}">
                 </div>
             </div>
             <div class="form-group" style="margin-bottom:0.75rem;">
-                <label class="form-label" style="font-size:0.8rem;">Mô Tả Chương Trình:</label>
+                <label class="form-label" style="font-size:0.8rem; font-weight:700;">Mô Tả Chương Trình:</label>
                 <textarea id="cmsCourseDesc_${idx}" class="form-control" rows="2">${escapeHtml(c.desc)}</textarea>
             </div>
             <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label" style="font-size:0.8rem;">3 Điểm Nổi Bật (Mỗi dòng 1 ý):</label>
+                <label class="form-label" style="font-size:0.8rem; font-weight:700;">3 Điểm Nổi Bật (Mỗi dòng 1 ý):</label>
                 <textarea id="cmsCourseFeat_${idx}" class="form-control" rows="3">${(c.features || []).join('\n')}</textarea>
             </div>
         </div>
@@ -271,9 +313,15 @@ function renderCmsHallOfFame() {
                     <input type="text" id="cmsHofScore_${idx}" class="form-control font-bold text-teal" value="${escapeHtmlAttr(s.scoreBadge)}">
                 </div>
             </div>
-            <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label" style="font-size:0.8rem; font-weight:700;">Thành Tích / Lời Nhận Xét:</label>
-                <input type="text" id="cmsHofAchieve_${idx}" class="form-control" value="${escapeHtmlAttr(s.achievement)}">
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr; gap:0.75rem; margin-bottom:0;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Thành Tích / Lời Nhận Xét:</label>
+                    <input type="text" id="cmsHofAchieve_${idx}" class="form-control" value="${escapeHtmlAttr(s.achievement)}">
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Đường Dẫn Ảnh Đại Diện (Tùy chọn):</label>
+                    <input type="text" id="cmsHofAvatar_${idx}" class="form-control" value="${escapeHtmlAttr(s.avatar || '')}" placeholder="VD: ./images/thinh.jpg hoặc link https://...">
+                </div>
             </div>
         </div>
         `;
@@ -281,7 +329,6 @@ function renderCmsHallOfFame() {
     container.innerHTML = html;
 }
 
-// Thêm học sinh mới vào Bảng Vàng
 function addHofItem() {
     syncCmsInputsToData();
     if (!currentCmsData.hallOfFame) currentCmsData.hallOfFame = [];
@@ -291,6 +338,7 @@ function addHofItem() {
         gradeTag: "Khối Lớp 9 • Lớp E9",
         achievement: "Đạt thành tích xuất sắc bài kiểm tra định kỳ.",
         scoreBadge: "10.0 / 10 • Xuất Sắc",
+        avatar: "",
         trophyIcon: "fa-award"
     });
     renderCmsHallOfFame();
@@ -334,9 +382,15 @@ function renderCmsNews() {
                     <input type="text" id="cmsNewsCat_${idx}" class="form-control" value="${escapeHtmlAttr(n.category)}">
                 </div>
             </div>
-            <div class="form-group" style="margin-bottom:0;">
-                <label class="form-label" style="font-size:0.8rem; font-weight:700;">Tóm Tắt Ngắn:</label>
-                <textarea id="cmsNewsSummary_${idx}" class="form-control" rows="2">${escapeHtml(n.summary)}</textarea>
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr; gap:0.75rem; margin-bottom:0;">
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Tóm Tắt Ngắn:</label>
+                    <textarea id="cmsNewsSummary_${idx}" class="form-control" rows="2">${escapeHtml(n.summary)}</textarea>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Đường Dẫn Ảnh Bìa (Tùy chọn):</label>
+                    <input type="text" id="cmsNewsThumb_${idx}" class="form-control" value="${escapeHtmlAttr(n.thumbnail || '')}" placeholder="VD: ./images/news1.jpg">
+                </div>
             </div>
         </div>
         `;
@@ -353,6 +407,7 @@ function addNewsItem() {
         date: new Date().toLocaleDateString('vi-VN'),
         category: "Thông Báo",
         summary: "Kế hoạch tổ chức khảo sát năng lực trực tuyến dành cho học sinh các khối lớp tại STM Center.",
+        thumbnail: "",
         link: "classroom.html"
     });
     renderCmsNews();
@@ -370,12 +425,14 @@ function syncCmsInputsToData() {
     if (!currentCmsData) currentCmsData = {};
 
     currentCmsData.updatedAt = new Date().toISOString();
+    currentCmsData.googleSheetApiUrl = getVal('cmsGoogleSheetApiUrl');
 
     // 1. Hero
     currentCmsData.hero = {
         badge: getVal('cmsHeroBadge'),
         title: getVal('cmsHeroTitle'),
         desc: getVal('cmsHeroDesc'),
+        bannerImg: getVal('cmsHeroBannerImg'),
         ctaPrimaryText: getVal('cmsCtaPrimaryText'),
         ctaPrimaryLink: getVal('cmsCtaPrimaryLink'),
         ctaSecondaryText: getVal('cmsCtaSecondaryText'),
@@ -386,6 +443,19 @@ function syncCmsInputsToData() {
         stat2Label: getVal('cmsStat2Lbl'),
         stat3Value: getVal('cmsStat3Val'),
         stat3Label: getVal('cmsStat3Lbl')
+    };
+
+        // 1b. Showcase Card
+    const feats = getVal('cmsTeacherFeats');
+    currentCmsData.showcase = {
+        teacherName: getVal('cmsTeacherName'),
+        teacherTitle: getVal('cmsTeacherTitle'),
+        status: getVal('cmsTeacherStatus'),
+        features: feats ? feats.split('\n').map(s => s.trim()).filter(Boolean) : [],
+        boxSubmitTitle: getVal('cmsBoxSubmitTitle'),
+        boxSubmitDesc: getVal('cmsBoxSubmitDesc'),
+        floatTitle: getVal('cmsFloatHofTitle'),
+        floatDesc: getVal('cmsFloatHofDesc')
     };
 
     // 2. Courses
@@ -403,6 +473,7 @@ function syncCmsInputsToData() {
         s.gradeTag = getVal('cmsHofGrade_' + idx) || s.gradeTag;
         s.scoreBadge = getVal('cmsHofScore_' + idx) || s.scoreBadge;
         s.achievement = getVal('cmsHofAchieve_' + idx) || s.achievement;
+        s.avatar = getVal('cmsHofAvatar_' + idx) || '';
     });
 
     // 4. News
@@ -411,27 +482,46 @@ function syncCmsInputsToData() {
         n.date = getVal('cmsNewsDate_' + idx) || n.date;
         n.category = getVal('cmsNewsCat_' + idx) || n.category;
         n.summary = getVal('cmsNewsSummary_' + idx) || n.summary;
+        n.thumbnail = getVal('cmsNewsThumb_' + idx) || '';
     });
 }
 
-// 1. Nút "CẬP NHẬT LÊN TRANG CHỦ NGAY"
-function saveCmsContentLive() {
+// 1. NÚT "CẬP NHẬT LÊN TRANG CHỦ" (MỘT CHẠM ĐỒNG BỘ ĐA TẦNG)
+async function saveCmsContentLive() {
     syncCmsInputsToData();
     const jsonStr = JSON.stringify(currentCmsData, null, 2);
 
     try {
+        // Tầng 1: Lưu vào LocalStorage (Trang chủ cập nhật ngay lập tức 0s độ trễ)
         localStorage.setItem('stm_homepage_content', jsonStr);
+
+        // Tầng 2: Nếu có Google Sheets API URL, gửi đồng bộ lên đám mây
+        const apiUrl = currentCmsData.googleSheetApiUrl;
+        if (apiUrl && apiUrl.startsWith('http')) {
+            try {
+                fetch(apiUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: jsonStr
+                });
+            } catch(e) {}
+        }
+
+        // Tự động tải file JSON về máy để Thầy chỉ cần kéo thả lên GitHub
+        downloadBlob(jsonStr, 'homepage_content.json', 'application/json');
+
         if (typeof showStatusMessage === 'function') {
-            showStatusMessage('Đã cập nhật nội dung lên Trang Chủ thành công! Mở tab index.html để xem ngay.', 'success');
+            showStatusMessage('Đã cập nhật diện mạo mới lên Trang Chủ thành công! Thầy mở tab Trang Chủ và bấm Ctrl + F5 để xem thay đổi ngay.', 'success');
         } else {
-            alert('Đã cập nhật nội dung lên Trang Chủ thành công!');
+            alert('Đã cập nhật dữ liệu lên Trang Chủ thành công!\n\nThầy mở tab index.html và bấm Ctrl + F5 (hoặc F5) để tải diện mạo mới ngay lập tức!');
         }
     } catch(e) {
         alert('Lỗi lưu dữ liệu: ' + e);
     }
 }
 
-// 2. Nút "TẢI XUỐNG FILE data/homepage_content.json"
+// 2. NÚT TẢI FILE DATA/HOMEPAGE_CONTENT.JSON
 function downloadCmsJsonFile() {
     syncCmsInputsToData();
     const jsonStr = JSON.stringify(currentCmsData, null, 2);
@@ -442,13 +532,14 @@ function downloadCmsJsonFile() {
     }
 }
 
-// 3. Nút "XEM TRANG CHỦ (PREVIEW)"
+// 3. NÚT XEM TRANG CHỦ (PREVIEW)
 function previewHomepageLive() {
-    saveCmsContentLive();
+    syncCmsInputsToData();
+    localStorage.setItem('stm_homepage_content', JSON.stringify(currentCmsData, null, 2));
     window.open('index.html', '_blank');
 }
 
-// 4. Nút "KHÔI PHỤC MẶC ĐỊNH"
+// 4. NÚT KHÔI PHỤC MẶC ĐỊNH
 function resetCmsToDefault() {
     if (!confirm('Thầy có chắc chắn muốn khôi phục lại nội dung trang chủ về bản gốc ban đầu không?')) return;
     currentCmsData = JSON.parse(JSON.stringify(DEFAULT_CMS_DATA));
@@ -459,7 +550,6 @@ function resetCmsToDefault() {
     }
 }
 
-// Chuyển đổi giữa 4 tab con của CMS
 function switchCmsSubTab(subTabId) {
     ['cms-sub-hero', 'cms-sub-courses', 'cms-sub-hof', 'cms-sub-news'].forEach(id => {
         const el = document.getElementById(id);
@@ -481,3 +571,30 @@ function switchCmsSubTab(subTabId) {
     });
 }
 
+function downloadBlob(content, fileName, mimeType) {
+    try {
+        const blob = new Blob([content], { type: mimeType || 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    } catch (e) {
+        console.error('Lỗi khi tải tệp xuống:', e);
+    }
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function escapeHtmlAttr(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}

@@ -1262,16 +1262,16 @@
                                     <i class="fa-solid fa-chalkboard-user"></i>
                                 </div>
                                 <div class="teacher-meta">
-                                    <h4>Thầy Nguyễn Hoàng Sơn</h4>
-                                    <p>Chủ nhiệm Chuyên môn STM Center</p>
+                                    <h4 id="dynTeacherName">Thầy Nguyễn Hoàng Sơn</h4>
+                                    <p id="dynTeacherTitle">Chủ nhiệm Chuyên môn STM Center</p>
                                 </div>
                             </div>
                             <div class="live-tag">
-                                <span class="live-dot"></span> Đang tuyển sinh
+                                <span class="live-dot"></span> <span id="dynTeacherStatus">Đang tuyển sinh</span>
                             </div>
                         </div>
 
-                        <div class="showcase-features">
+                        <div class="showcase-features" id="dynTeacherFeats">
                             <div class="feature-row">
                                 <i class="fa-solid fa-circle-check feature-icon"></i>
                                 <span>Lộ trình cá nhân hóa theo từng cấp học</span>
@@ -1292,8 +1292,8 @@
 
                         <div style="background-color: #f0fdf4; border: 1px dashed #86efac; border-radius: var(--radius-md); padding: 0.9rem 1rem; display: flex; align-items: center; justify-content: space-between;">
                             <div>
-                                <p style="font-size: 0.78rem; color: #166534; font-weight: 700;">HỆ THỐNG NỘP BÀI ONLINE</p>
-                                <p style="font-size: 0.9rem; font-weight: 800; color: #15803d;">Lưu trữ tự động Google Drive</p>
+                                <p id="dynBoxSubmitTitle" style="font-size: 0.78rem; color: #166534; font-weight: 700;">HỆ THỐNG NỘP BÀI ONLINE</p>
+                                <p id="dynBoxSubmitDesc" style="font-size: 0.9rem; font-weight: 800; color: #15803d;">Lưu trữ tự động Google Drive</p>
                             </div>
                             <a href="classroom.html" style="font-size: 0.85rem; font-weight: 700; color: white; background-color: #16a34a; padding: 0.45rem 1rem; border-radius: var(--radius-full);">Nộp bài ngay</a>
                         </div>
@@ -1305,8 +1305,8 @@
                             <i class="fa-solid fa-medal"></i>
                         </div>
                         <div class="floating-text">
-                            <h5>Vinh danh học sinh giỏi</h5>
-                            <p>Top đầu kỳ thi học sinh giỏi & IOE Cần Thơ</p>
+                            <h5 id="dynFloatHofTitle">Vinh danh học sinh giỏi</h5>
+                            <p id="dynFloatHofDesc">Top đầu kỳ thi học sinh giỏi & IOE Cần Thơ</p>
                         </div>
                     </div>
                 </div>
@@ -1785,6 +1785,46 @@
                 if (h.stat2Label && document.getElementById('dynStat2Lbl')) document.getElementById('dynStat2Lbl').innerText = h.stat2Label;
                 if (h.stat3Value && document.getElementById('dynStat3Val')) document.getElementById('dynStat3Val').innerText = h.stat3Value;
                 if (h.stat3Label && document.getElementById('dynStat3Lbl')) document.getElementById('dynStat3Lbl').innerText = h.stat3Label;
+            }
+
+
+            // Showcase Card (Thẻ Giáo Viên & Tiện Ích Cột Phải)
+            if (data.showcase) {
+                const sc = data.showcase;
+                const nameEl = document.getElementById('dynTeacherName');
+                if (nameEl && sc.teacherName) nameEl.innerText = sc.teacherName;
+
+                const titleEl = document.getElementById('dynTeacherTitle');
+                if (titleEl && sc.teacherTitle) titleEl.innerText = sc.teacherTitle;
+
+                const statusEl = document.getElementById('dynTeacherStatus');
+                if (statusEl && sc.status) statusEl.innerText = sc.status;
+
+                const featsContainer = document.getElementById('dynTeacherFeats');
+                if (featsContainer && sc.features && sc.features.length > 0) {
+                    let featHtml = '';
+                    sc.features.forEach(f => {
+                        featHtml += `
+                            <div class="feature-row">
+                                <i class="fa-solid fa-circle-check feature-icon"></i>
+                                <span>${escapeHtml(f)}</span>
+                            </div>
+                        `;
+                    });
+                    featsContainer.innerHTML = featHtml;
+                }
+
+                const boxTitle = document.getElementById('dynBoxSubmitTitle');
+                if (boxTitle && sc.boxSubmitTitle) boxTitle.innerText = sc.boxSubmitTitle;
+
+                const boxDesc = document.getElementById('dynBoxSubmitDesc');
+                if (boxDesc && sc.boxSubmitDesc) boxDesc.innerText = sc.boxSubmitDesc;
+
+                const floatTitle = document.getElementById('dynFloatHofTitle');
+                if (floatTitle && sc.floatTitle) floatTitle.innerText = sc.floatTitle;
+
+                const floatDesc = document.getElementById('dynFloatHofDesc');
+                if (floatDesc && sc.floatDesc) floatDesc.innerText = sc.floatDesc;
             }
 
             // B. Khối Khóa Học
