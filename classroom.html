@@ -1207,8 +1207,10 @@
         }
 
     
+        
         /* ========================================================
-           THƯ MỤC BÀI HỌC LÝ THUYẾT UNIT & TRÌNH XEM TÀI LIỆU TRỰC TIẾP
+           HỆ THỐNG 4 KHỐI KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
+           MÔ HÌNH PHÂN TẦNG 3 CẤP (MULTI-TIER NAVIGATION)
            ======================================================== */
         .unit-mode-tabs {
             display: flex;
@@ -1244,89 +1246,416 @@
             box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
         }
 
-        /* Lưới 4 tài liệu trong thư mục Unit */
-        .theory-doc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 1.5rem;
-        }
-        .theory-doc-card {
+        /* HEADER THANH ĐIỀU HƯỚNG ĐA TẦNG */
+        .multi-tier-header {
             background: #ffffff;
-            border: 1.5px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.4rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .multi-tier-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .multi-tier-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .multi-tier-breadcrumb a, .multi-tier-breadcrumb span.crumb-btn {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s ease;
+        }
+        .multi-tier-breadcrumb a:hover, .multi-tier-breadcrumb span.crumb-btn:hover {
+            color: var(--primary-deep);
+            text-decoration: underline;
+        }
+        .multi-tier-breadcrumb .crumb-active {
+            color: var(--navy-dark);
+            font-weight: 800;
+        }
+        .btn-tier-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.45rem 1rem;
+            border-radius: var(--radius-full);
+            background: #f1f5f9;
+            color: var(--navy-dark);
+            font-size: 0.82rem;
+            font-weight: 800;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-tier-back:hover {
+            background: #e2e8f0;
+            color: var(--primary-deep);
+            transform: translateX(-2px);
+        }
+
+        /* VIEW CONTAINER CHO CÁC TẦNG */
+        .multi-tier-view {
+            animation: tierFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes tierFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= TẦNG 1: LƯỚI 4 CARD KHÔNG GIAN ================= */
+        .hubs-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 1100px) {
+            .hubs-grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .hubs-grid-4 { grid-template-columns: 1fr; }
+        }
+
+        .hub-card {
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1.5px solid #e2e8f0;
+            padding: 1.6rem 1.4rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.25s ease;
             position: relative;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+            transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
-        .theory-doc-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.12);
+        .hub-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            transition: all 0.28s ease;
         }
-        .theory-doc-card.card-word { border-top: 4px solid #0284c7; }
-        .theory-doc-card.card-word:hover { border-color: #0284c7; }
-        .theory-doc-card.card-pptx { border-top: 4px solid #ea580c; }
-        .theory-doc-card.card-pptx:hover { border-color: #ea580c; }
-        .theory-doc-card.card-pdf { border-top: 4px solid #dc2626; }
-        .theory-doc-card.card-pdf:hover { border-color: #dc2626; }
-        .theory-doc-card.card-excel { border-top: 4px solid #059669; }
-        .theory-doc-card.card-excel:hover { border-color: #059669; }
+        .hub-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.16);
+        }
 
-        .doc-icon-wrap {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+        /* Card 1: Thư Viện Lý Thuyết */
+        .hub-card-theory::before { background: linear-gradient(90deg, #0284c7, #0ea5e9); }
+        .hub-card-theory:hover { border-color: #0284c7; }
+        .hub-card-theory .hub-icon-box { background: #e0f2fe; color: #0284c7; }
+        .hub-card-theory .hub-badge { background: #e0f2fe; color: #0369a1; }
+        .hub-card-theory .btn-hub-action { background: linear-gradient(135deg, #0284c7, #0369a1); }
+
+        /* Card 2: Thư Viện Bài Tập Nâng Cao */
+        .hub-card-practice::before { background: linear-gradient(90deg, #ea580c, #f97316); }
+        .hub-card-practice:hover { border-color: #ea580c; }
+        .hub-card-practice .hub-icon-box { background: #ffedd5; color: #ea580c; }
+        .hub-card-practice .hub-badge { background: #ffedd5; color: #c2410c; }
+        .hub-card-practice .btn-hub-action { background: linear-gradient(135deg, #ea580c, #c2410c); }
+
+        /* Card 3: Phòng Đọc Sách Anh Ngữ */
+        .hub-card-reading::before { background: linear-gradient(90deg, #059669, #10b981); }
+        .hub-card-reading:hover { border-color: #059669; }
+        .hub-card-reading .hub-icon-box { background: #d1fae5; color: #059669; }
+        .hub-card-reading .hub-badge { background: #d1fae5; color: #047857; }
+        .hub-card-reading .btn-hub-action { background: linear-gradient(135deg, #059669, #047857); }
+
+        /* Card 4: Phòng Luyện Viết Nâng Cao */
+        .hub-card-writing::before { background: linear-gradient(90deg, #7c3aed, #8b5cf6); }
+        .hub-card-writing:hover { border-color: #7c3aed; }
+        .hub-card-writing .hub-icon-box { background: #ede9fe; color: #7c3aed; }
+        .hub-card-writing .hub-badge { background: #ede9fe; color: #6d28d9; }
+        .hub-card-writing .btn-hub-action { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+
+        .hub-icon-box {
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
+            font-size: 1.85rem;
+            margin-bottom: 1.25rem;
+            transition: transform 0.25s ease;
         }
-        .icon-word { background: #e0f2fe; color: #0284c7; }
-        .icon-pptx { background: #ffedd5; color: #ea580c; }
-        .icon-pdf { background: #fee2e2; color: #dc2626; }
-        .icon-excel { background: #d1fae5; color: #059669; }
-
-        .doc-format-badge {
+        .hub-card:hover .hub-icon-box {
+            transform: scale(1.08) rotate(3deg);
+        }
+        .hub-badge {
             font-size: 0.72rem;
             font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 4px 9px;
+            border-radius: var(--radius-full);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-        .badge-word { background: #e0f2fe; color: #0369a1; }
-        .badge-pptx { background: #ffedd5; color: #c2410c; }
-        .badge-pdf { background: #fee2e2; color: #b91c1c; }
-        .badge-excel { background: #d1fae5; color: #047857; }
-
-        .btn-view-doc {
-            width: 100%;
-            padding: 0.65rem 1rem;
-            border-radius: 8px;
+        .hub-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .hub-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            min-height: 42px;
+        }
+        .hub-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
             font-weight: 700;
+            color: var(--text-muted);
+            padding-top: 0.85rem;
+            border-top: 1px dashed #e2e8f0;
+            margin-bottom: 1rem;
+        }
+        .btn-hub-action {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 800;
             font-size: 0.88rem;
+            border: none;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s ease;
+        }
+        .btn-hub-action:hover {
+            opacity: 0.94;
+            transform: translateY(-2px);
+        }
+
+        /* ================= TẦNG 2: SUB-MENU DANH MỤC THÀNH PHẦN ================= */
+        .tier2-hub-banner {
+            border-radius: 16px;
+            padding: 1.4rem 1.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .tier2-item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .tier2-item-card {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .tier2-item-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px -4px rgba(15, 23, 42, 0.1);
+        }
+        .tier2-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        .tier2-index-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+        }
+
+        /* ================= TẦNG 3: WORKSPACE NỘI DUNG CHI TIẾT ================= */
+        .tier3-workspace-container {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+            margin-bottom: 2rem;
+        }
+        .tier3-workspace-header {
+            background: #f8fafc;
+            border-bottom: 1.5px solid #e2e8f0;
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .tier3-workspace-body {
+            padding: 2rem 2.25rem;
+        }
+        @media (max-width: 768px) {
+            .tier3-workspace-body { padding: 1.25rem; }
+        }
+
+        /* READING STYLING TRONG TẦNG 3 */
+        .reading-passage {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #1e293b;
+        }
+        .reading-paragraph {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+        .bilingual-trans {
+            display: block;
+            margin-top: 0.35rem;
+            font-size: 0.95rem;
+            color: #0369a1;
+            font-style: italic;
+            background: #f0f9ff;
+            padding: 8px 12px;
+            border-left: 3px solid #0284c7;
+            border-radius: 4px;
+        }
+        .reading-glossary-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* WRITING STUDIO TRONG TẦNG 3 */
+        .writing-studio-editor {
+            width: 100%;
+            min-height: 220px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #0f172a;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .writing-studio-editor:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+        }
+        .starter-phrase-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ede9fe;
+            color: #6d28d9;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid #ddd6fe;
+            transition: all 0.2s ease;
+        }
+        .starter-phrase-pill:hover {
+            background: #7c3aed;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* PRACTICE QUIZ TRONG TẦNG 3 */
+        .tier3-quiz-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .quiz-opt-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #1e293b;
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .btn-view-word { background: #0284c7; color: white; }
-        .btn-view-word:hover { background: #0369a1; }
-        .btn-view-pptx { background: #ea580c; color: white; }
-        .btn-view-pptx:hover { background: #c2410c; }
-        .btn-view-pdf { background: #dc2626; color: white; }
-        .btn-view-pdf:hover { background: #b91c1c; }
-        .btn-view-excel { background: #059669; color: white; }
-        .btn-view-excel:hover { background: #047857; }
+        .quiz-opt-btn:hover {
+            border-color: #ea580c;
+            background: #fff7ed;
+        }
+        .quiz-opt-btn.selected {
+            border-color: #ea580c;
+            background: #ffedd5;
+            color: #c2410c;
+            font-weight: 800;
+        }
+        .quiz-opt-btn.correct {
+            border-color: #059669 !important;
+            background: #d1fae5 !important;
+            color: #065f46 !important;
+            font-weight: 800;
+        }
+        .quiz-opt-btn.wrong {
+            border-color: #dc2626 !important;
+            background: #fee2e2 !important;
+            color: #991b1b !important;
+        }
+
+        /* CÁC CLASS TIỆN ÍCH CHO MULTI-TIER HUBS */
+        .badge-cyan { background: #e0f2fe; color: #0369a1; }
+        .badge-amber { background: #ffedd5; color: #c2410c; }
+        .badge-emerald { background: #d1fae5; color: #047857; }
+        .badge-purple { background: #ede9fe; color: #6d28d9; }
 
         /* MODAL XEM TRỰC TIẾP TÀI LIỆU */
         .doc-viewer-overlay {
@@ -1918,45 +2247,45 @@
             </div>
 
             
-            <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ HỌC TẬP UNIT: THƯ MỤC LÝ THUYẾT vs BÀI TẬP TỰ LUYỆN -->
+                        <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ HỌC TẬP UNIT: KHÔNG GIAN ĐA TẦNG vs BÀI TẬP TỰ LUYỆN -->
             <div class="unit-mode-tabs">
                 <button type="button" id="tabBtnTheory" class="unit-mode-btn active" onclick="switchUnitMode('theory')">
-                    <i class="fa-solid fa-folder-open text-teal"></i> 1. Thư Mục Bài Học Lý Thuyết (Word • PDF • Excel • PPTX)
+                    <i class="fa-solid fa-shapes text-teal"></i> 1. Không Gian Học Tập Đa Tầng (4 Phòng Chuyên Biệt)
                 </button>
                 <button type="button" id="tabBtnPractice" class="unit-mode-btn" onclick="switchUnitMode('practice')">
-                    <i class="fa-solid fa-bullseye text-primary"></i> 2. Ngân Hàng Tự Luyện & Thi Thử (5 Kỹ Năng)
+                    <i class="fa-solid fa-bullseye text-primary"></i> 2. Ngân Hàng Luyện Thi & Khảo Thí (5 Kỹ Năng)
                 </button>
             </div>
 
             <!-- ========================================================
-                 PHÂN KHU 1: THƯ MỤC CON CHỨA CÁC BÀI HỌC LÝ THUYẾT (XEM TRỰC TIẾP)
+                 PHÂN KHU 1: HỆ THỐNG 4 KHỐI KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
+                 MÔ HÌNH PHÂN TẦNG 3 CẤP (MULTI-TIER NAVIGATION)
                  ======================================================== -->
             <div id="unitTheorySection" style="display: block;">
-                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                    <div>
-                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                            <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 800; font-size: 0.78rem;">
-                                <i class="fa-solid fa-folder"></i> THƯ MỤC BÀI HỌC
-                            </span>
-                            <span id="theoryUnitFolderName" style="font-family: 'Lexend', sans-serif; font-weight: 800; color: var(--navy-dark); font-size: 1.05rem;">
-                                Unit 1: Local Community
-                            </span>
-                        </div>
-                        <p style="font-size: 0.83rem; color: var(--text-muted); margin: 0;">
-                            <i class="fa-solid fa-shield-halved text-emerald"></i> Học sinh bấm vào từng tệp bên dưới để xem nội dung hiển thị trực tiếp trên trang web (Chế độ đọc trực tuyến bản quyền, không cần tải về).
-                        </p>
-                    </div>
-                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-word text-blue"></i> Word</span>
-                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-powerpoint text-rose"></i> PowerPoint</span>
-                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-pdf" style="color: #dc2626;"></i> PDF</span>
-                        <span class="badge" style="background: #f1f5f9; color: #475569; font-size: 0.75rem;"><i class="fa-regular fa-file-excel text-emerald"></i> Excel</span>
+                <!-- HEADER ĐIỀU HƯỚNG ĐA TẦNG (BREADCRUMB & TOPBAR) -->
+                <div id="multiTierNavHeader" class="multi-tier-header">
+                    <!-- Được render tự động bởi hàm renderMultiTierHeader() -->
+                </div>
+
+                <!-- TẦNG 1: LƯỚI 4 CARD KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT (MAIN HUB) -->
+                <div id="multiTierTier1View" class="multi-tier-view">
+                    <div class="hubs-grid-4" id="hubsMainGrid">
+                        <!-- Được render tự động bởi hàm renderTier1Hubs() -->
                     </div>
                 </div>
 
-                <!-- LƯỚI 4 TÀI LIỆU TRONG THƯ MỤC CỦA UNIT -->
-                <div class="theory-doc-grid" id="theoryDocGrid">
-                    <!-- Được render tự động theo từng Unit bởi hàm renderTheoryDocuments() -->
+                <!-- TẦNG 2: SUB-MENU DANH MỤC CHỦ ĐỀ / BÀI HỌC THÀNH PHẦN (TOPIC LIST) -->
+                <div id="multiTierTier2View" class="multi-tier-view" style="display: none;">
+                    <div id="tier2SubmenuContent">
+                        <!-- Được render tự động bởi hàm openTier2Submenu() -->
+                    </div>
+                </div>
+
+                <!-- TẦNG 3: WORKSPACE NỘI DUNG CHI TIẾT & TƯƠNG TÁC TRỰC TUYẾN (INTERACTIVE WORKSPACE) -->
+                <div id="multiTierTier3View" class="multi-tier-view" style="display: none;">
+                    <div id="tier3WorkspaceContent">
+                        <!-- Được render tự động bởi hàm openTier3Workspace() -->
+                    </div>
                 </div>
             </div>
 
@@ -3160,154 +3489,1112 @@
         }
 
 
+        
         // ========================================================
-        // HỆ THỐNG THƯ MỤC BÀI HỌC LÝ THUYẾT & DOCUMENT VIEWER TRỰC TIẾP
+        // HỆ THỐNG 4 KHỐI KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
+        // MÔ HÌNH PHÂN TẦNG 3 CẤP (MULTI-TIER NAVIGATION)
         // ========================================================
-        let currentPptxSlide = 1;
-        const TOTAL_PPTX_SLIDES = 5;
-        let currentViewerData = null;
+        let multiTierState = {
+            tier: 1, // 1: Hubs, 2: Sub-menu, 3: Workspace
+            hubKey: 'theory',
+            itemId: 'theory-1',
+            unitObj: null,
+            gradeKey: 'grade9',
+            bilingualEnabled: true,
+            readingFontSize: 1.05,
+            quizSelectedAnswers: {},
+            quizSubmitted: false,
+            currentSlideIndex: 1
+        };
 
-        function switchUnitMode(mode) {
-            const btnTheory = document.getElementById('tabBtnTheory');
-            const btnPractice = document.getElementById('tabBtnPractice');
-            const secTheory = document.getElementById('unitTheorySection');
-            const secPractice = document.getElementById('unitPracticeSection');
+        // Dữ liệu mẫu cấu trúc chuyên sâu cho 4 Khối Không Gian theo từng Unit
+        function getMultiTierData(unitObj, gradeNum) {
+            const unitName = unitObj ? unitObj.name : "Local Community";
+            const unitCode = unitObj ? unitObj.code : "Unit 1";
 
-            if (mode === 'theory') {
-                if (btnTheory) btnTheory.classList.add('active');
-                if (btnPractice) btnPractice.classList.remove('active');
-                if (secTheory) secTheory.style.display = 'block';
-                if (secPractice) secPractice.style.display = 'none';
-            } else {
-                if (btnTheory) btnTheory.classList.remove('active');
-                if (btnPractice) btnPractice.classList.add('active');
-                if (secTheory) secTheory.style.display = 'none';
-                if (secPractice) secPractice.style.display = 'block';
+            return {
+                theory: {
+                    title: "Thư Viện Lý Thuyết Bài Học",
+                    shortTitle: "Lý Thuyết",
+                    badge: "LÝ THUYẾT BẢN CHẤT",
+                    badgeClass: "badge-cyan",
+                    icon: "fa-solid fa-book-bookmark",
+                    color: "#0284c7",
+                    meta: "4 Chuyên Đề Trọng Tâm • 100% Bản Chuẩn",
+                    desc: `Tổng hợp toàn diện ngữ pháp bản chất, quy tắc ngữ âm IPA, từ vựng theo trường nghĩa và slide bài giảng trực quan theo chủ điểm ${unitName}.`,
+                    items: [
+                        {
+                            id: "theory-1",
+                            title: "Chuyên Đề 1: Tổng Hợp Ngữ Pháp Bản Chất & Công Thức Vàng",
+                            badge: "Ngữ Pháp Trọng Tâm",
+                            level: "Cốt Lõi",
+                            time: "15 phút",
+                            icon: "fa-solid fa-spell-check text-blue",
+                            desc: `Phân tích chi tiết quy tắc chia thì, cụm động từ (Phrasal Verbs), câu phức và cấu trúc câu đặc trưng theo chủ điểm ${unitName}.`
+                        },
+                        {
+                            id: "theory-2",
+                            title: "Chuyên Đề 2: Slide Bài Giảng Trực Quan & Trình Chiếu Đa Tương Tác",
+                            badge: "PowerPoint PPTX",
+                            level: "Trực Quan",
+                            time: "20 phút",
+                            icon: "fa-solid fa-tv text-rose",
+                            desc: `Kịch bản 5 slide bài giảng tương tác sư phạm từng bước, hình ảnh minh họa sinh động và câu hỏi thử thách phản xạ nhanh.`
+                        },
+                        {
+                            id: "theory-3",
+                            title: "Chuyên Đề 3: Bảng Tra Cứu Từ Vựng Chuẩn Quốc Tế IPA & Collocations",
+                            badge: "Từ Điển Bỏ Túi",
+                            level: "Ứng Dụng",
+                            time: "10 phút",
+                            icon: "fa-solid fa-table text-emerald",
+                            desc: `Từ điển tra cứu nhanh từ vựng chủ điểm ${unitName} kèm phiên âm quốc tế IPA, từ loại, dịch nghĩa tiếng Việt và ví dụ câu thực tế.`
+                        },
+                        {
+                            id: "theory-4",
+                            title: "Chuyên Đề 4: Sơ Đồ Tư Duy (Mindmap) Ôn Tập Toàn Diện",
+                            badge: "Mindmap PDF",
+                            level: "Tổng Hợp",
+                            time: "10 phút",
+                            icon: "fa-solid fa-sitemap text-purple",
+                            desc: `Sơ đồ phân nhánh logic toàn bộ 4 trụ cột kiến thức: Ngữ âm, Từ vựng, Ngữ pháp và Giao tiếp giúp ghi nhớ bao quát bài học.`
+                        }
+                    ]
+                },
+                practice: {
+                    title: "Thư Viện Bài Tập Nâng Cao",
+                    shortTitle: "Bài Tập Nâng Cao",
+                    badge: "THỬ THÁCH PHÂN HÓA",
+                    badgeClass: "badge-amber",
+                    icon: "fa-solid fa-fire-flame-curved",
+                    color: "#ea580c",
+                    meta: "4 Dạng Bài Luyện Sâu • Tương Tác Trực Tuyến",
+                    desc: `Hệ thống bài tập phân hóa 4 cấp độ (Nhận biết - Thông hiểu - Vận dụng - Điểm 9-10), bẫy trắc nghiệm hay gặp và đề luyện chinh phục điểm 9-10.`,
+                    items: [
+                        {
+                            id: "practice-1",
+                            title: "Level 1 & 2: Bài Tập Củng Cố Nhận Biết & Thông Hiểu (Foundation)",
+                            badge: "Level 1-2 • Cơ Bản",
+                            level: "Nhận Biết",
+                            time: "15 phút",
+                            icon: "fa-solid fa-seedling text-emerald",
+                            desc: `Bộ câu hỏi trắc nghiệm nền tảng rèn luyện khả năng nhận diện quy tắc ngữ pháp, phát âm và định nghĩa từ vựng cốt lõi.`
+                        },
+                        {
+                            id: "practice-2",
+                            title: "Level 3: Vận Dụng Biến Đổi Cấu Trúc & Phrasal Verbs (Challenging)",
+                            badge: "Level 3 • Nâng Cao",
+                            level: "Vận Dụng",
+                            time: "20 phút",
+                            icon: "fa-solid fa-bolt text-amber",
+                            desc: `Thử thách điền từ vào ngữ cảnh, cụm động từ đa nghĩa, giới từ kết hợp và biến đổi dạng từ (Word Formation) chuyên sâu.`
+                        },
+                        {
+                            id: "practice-3",
+                            title: "Level 4: Chinh Phục Điểm 9-10 & Bẫy Đề Thi Sở GD Cần Thơ (Mastery)",
+                            badge: "Level 4 • Chuyên Sâu",
+                            level: "Điểm 9-10",
+                            time: "25 phút",
+                            icon: "fa-solid fa-trophy text-rose",
+                            desc: `Các câu hỏi gài bẫy tinh vi, cấu trúc đảo ngữ, thành ngữ (Idioms) và bài đọc suy luận nâng cao phong cách đề thi quốc tế.`
+                        },
+                        {
+                            id: "practice-4",
+                            title: "Khảo Sát Tốc Độ Nhanh: 15 Phút Phản Xạ Toàn Diện (Speed Drill)",
+                            badge: "Speed Drill",
+                            level: "Tốc Độ",
+                            time: "15 phút",
+                            icon: "fa-solid fa-stopwatch text-cyan",
+                            desc: `Luyện phản xạ tốc độ cao phong cách thi Olympic IOE và thi thử định kỳ, kiểm tra độ nhạy bén với các cấu trúc ngữ pháp.`
+                        }
+                    ]
+                },
+                reading: {
+                    title: "Phòng Đọc Sách Anh Ngữ",
+                    shortTitle: "Phòng Đọc Sách",
+                    badge: "GRADED READERS & LOUNGE",
+                    badgeClass: "badge-emerald",
+                    icon: "fa-solid fa-book-open-reader",
+                    color: "#059669",
+                    meta: "3 Bài Đọc Chuyên Đề • Chế Độ Song Ngữ",
+                    desc: `Không gian văn hóa đọc tiếng Anh mở rộng, truyện ngắn thiếu niên, bản tin văn hóa khoa học song ngữ, tra cứu từ vựng và câu hỏi đọc hiểu.`,
+                    items: [
+                        {
+                            id: "reading-1",
+                            title: "Bài Đọc 1: Sức Hút Của Những Làng Nghề Thủ Công (Craft Villages in Modern Life)",
+                            badge: "Văn Hóa Xã Hội",
+                            level: "Bản Ngữ",
+                            time: "15 phút",
+                            icon: "fa-solid fa-landmark text-teal",
+                            desc: `Khám phá các làng nghề gốm sứ Bát Tràng, lụa Vạn Phúc, cơ hội bảo tồn và sự chuyển mình của nghệ nhân trẻ trong thời đại số.`
+                        },
+                        {
+                            id: "reading-2",
+                            title: "Bài Đọc 2: Đô Thị Hóa Xanh & Tương Lai Đời Sống Cộng Đồng (Green Communities)",
+                            badge: "Khoa Học Đời Sống",
+                            level: "Học Thuật",
+                            time: "15 phút",
+                            icon: "fa-solid fa-leaf text-emerald",
+                            desc: `Văn bản khoa học thường thức về mô hình khu phố xanh, lối sống giảm rác thải nhựa và năng lượng tái tạo cho giới trẻ.`
+                        },
+                        {
+                            id: "reading-3",
+                            title: "Bài Đọc 3: Chuyện Kể: Một Ngày Của Tình Nguyện Viên Trẻ (A Day as a Volunteer)",
+                            badge: "Truyện Thiếu Niên",
+                            level: "Truyền Cảm Hứng",
+                            time: "12 phút",
+                            icon: "fa-solid fa-heart text-rose",
+                            desc: `Câu chuyện ấm áp về hành trình của bạn Minh khi cùng nhóm bạn trẻ tổ chức dạy học tình nguyện và thu gom rác ven sông Cần Thơ.`
+                        }
+                    ]
+                },
+                writing: {
+                    title: "Phòng Luyện Viết Nâng Cao",
+                    shortTitle: "Phòng Luyện Viết",
+                    badge: "MASTER WRITING STUDIO",
+                    badgeClass: "badge-purple",
+                    icon: "fa-solid fa-feather-pointed",
+                    color: "#7c3aed",
+                    meta: "4 Chủ Đề Rèn Viết • Soạn Thảo Trực Tiếp",
+                    desc: `Rèn luyện kỹ năng viết câu tương đương, đoạn văn nghị luận theo khung chuẩn PEEL, email giao tiếp và bài luận mẫu điểm tuyệt đối của Thầy Sơn.`,
+                    items: [
+                        {
+                            id: "writing-1",
+                            title: "Chuyên Đề 1: Luyện Viết Câu Hoàn Chỉnh & Biến Đổi Tương Đương (Sentence Transformation)",
+                            badge: "Sentence Building",
+                            level: "Căn Bản",
+                            time: "15 phút",
+                            icon: "fa-solid fa-pencil text-blue",
+                            desc: `Viết lại câu tương đương nghĩa bằng cấu trúc so sánh, câu điều kiện, câu bị động và liên từ phụ thuộc không đổi nghĩa.`
+                        },
+                        {
+                            id: "writing-2",
+                            title: "Chuyên Đề 2: Viết Đoạn Văn Nghị Luận Chuẩn Khung PEEL (100 - 120 Từ)",
+                            badge: "PEEL Framework",
+                            level: "Đoạn Văn",
+                            time: "25 phút",
+                            icon: "fa-solid fa-layer-group text-purple",
+                            desc: `Phương pháp 4 bước vàng: Point (Mở ý) - Explain (Giải thích) - Evidence (Dẫn chứng) - Link (Chốt câu), kèm khung dàn ý thực chiến.`
+                        },
+                        {
+                            id: "writing-3",
+                            title: "Chuyên Đề 3: Thư Điện Tử Giao Tiếp (Formal & Informal Email Writing)",
+                            badge: "Email Giao Tiếp",
+                            level: "Thực Tế",
+                            time: "20 phút",
+                            icon: "fa-solid fa-envelope-open-text text-amber",
+                            desc: `Kỹ năng viết thư điện tử mời bạn bè quốc tế tham quan quê hương Cần Thơ hoặc viết email phản hồi về các hoạt động thiện nguyện.`
+                        },
+                        {
+                            id: "writing-4",
+                            title: "Chuyên Đề 4: Tuyển Tập Bài Viết Mẫu Điểm 10 & Kho Từ Nối Học Thuật (Model Samples)",
+                            badge: "Model Essay",
+                            level: "Điểm 9-10",
+                            time: "15 phút",
+                            icon: "fa-solid fa-award text-rose",
+                            desc: `Kho bài luận mẫu đạt điểm tối đa của Thầy Sơn kèm phân tích kho từ nối học thuật (Linking Devices) đắt giá chuẩn Cambridge.`
+                        }
+                    ]
+                }
+            };
+        }
+
+        // ========================================================
+        // ĐIỀU HƯỚNG TẦNG 1: LƯỚI 4 CARD KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
+        // ========================================================
+        function renderMultiTierHubs(unitObj, gradeKey) {
+            multiTierState.unitObj = unitObj || multiTierState.unitObj;
+            multiTierState.gradeKey = gradeKey || multiTierState.gradeKey || 'grade9';
+            openTier1View();
+        }
+
+        // Tương thích ngược với lời gọi hàm cũ
+        function renderTheoryDocuments(unitObj, gradeKey) {
+            renderMultiTierHubs(unitObj, gradeKey);
+        }
+
+        function openTier1View() {
+            multiTierState.tier = 1;
+
+            const t1 = document.getElementById('multiTierTier1View');
+            const t2 = document.getElementById('multiTierTier2View');
+            const t3 = document.getElementById('multiTierTier3View');
+            if (t1) t1.style.display = 'block';
+            if (t2) t2.style.display = 'none';
+            if (t3) t3.style.display = 'none';
+
+            renderMultiTierHeader();
+            renderTier1HubCards();
+        }
+
+        function renderMultiTierHeader() {
+            const headerEl = document.getElementById('multiTierNavHeader');
+            if (!headerEl) return;
+
+            const unit = multiTierState.unitObj || { code: "Unit 1", name: "Local Community", subtitle: "Chủ điểm bài học" };
+            const gradeNum = multiTierState.gradeKey.replace('grade', '');
+            const data = getMultiTierData(unit, gradeNum);
+
+            if (multiTierState.tier === 1) {
+                headerEl.innerHTML = `
+                    <div class="multi-tier-topbar">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:800; font-size:0.78rem;">
+                                <i class="fa-solid fa-shapes"></i> MÔ HÌNH PHÂN TẦNG 3 CẤP
+                            </span>
+                            <span style="font-family:'Lexend',sans-serif; font-weight:800; color:var(--navy-dark); font-size:1.05rem;">
+                                ${unit.code}: ${unit.name} • Tiếng Anh Lớp ${gradeNum}
+                            </span>
+                        </div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem;"><i class="fa-solid fa-book-bookmark"></i> Lý Thuyết</span>
+                            <span class="badge" style="background:#ffedd5; color:#c2410c; font-size:0.75rem;"><i class="fa-solid fa-fire-flame-curved"></i> Bài Tập Nâng Cao</span>
+                            <span class="badge" style="background:#d1fae5; color:#047857; font-size:0.75rem;"><i class="fa-solid fa-book-open-reader"></i> Phòng Đọc Sách</span>
+                            <span class="badge" style="background:#ede9fe; color:#6d28d9; font-size:0.75rem;"><i class="fa-solid fa-feather-pointed"></i> Luyện Viết</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.84rem; color:var(--text-muted); margin:0;">
+                        <i class="fa-solid fa-circle-info text-teal"></i> Chào mừng học sinh đến với Hệ thống 4 Khối Không Gian Chuyên Biệt. Bấm chọn một không gian bên dưới để mở danh mục học liệu và rèn luyện kỹ năng trực tuyến.
+                    </p>
+                `;
+            } else if (multiTierState.tier === 2) {
+                const hub = data[multiTierState.hubKey];
+                headerEl.innerHTML = `
+                    <div class="multi-tier-topbar">
+                        <div class="multi-tier-breadcrumb">
+                            <span class="crumb-btn" onclick="openTier1View()"><i class="fa-solid fa-shapes"></i> 4 Không Gian Học Tập</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size:0.7rem; color:#94a3b8;"></i>
+                            <span class="crumb-active" style="color:${hub.color};">${hub.title}</span>
+                        </div>
+                        <button type="button" class="btn-tier-back" onclick="openTier1View()">
+                            <i class="fa-solid fa-arrow-left"></i> Quay Lại 4 Không Gian
+                        </button>
+                    </div>
+                    <p style="font-size:0.84rem; color:var(--text-muted); margin:0;">
+                        <i class="fa-solid fa-folder-open text-primary"></i> Đang xem danh mục chuyên đề thuộc <strong>${hub.title}</strong> • ${unit.code}: ${unit.name} (Lớp ${gradeNum}). Bấm chọn bài học để bắt đầu học trực tiếp.
+                    </p>
+                `;
+            } else if (multiTierState.tier === 3) {
+                const hub = data[multiTierState.hubKey];
+                const item = hub.items.find(i => i.id === multiTierState.itemId) || hub.items[0];
+                headerEl.innerHTML = `
+                    <div class="multi-tier-topbar">
+                        <div class="multi-tier-breadcrumb">
+                            <span class="crumb-btn" onclick="openTier1View()"><i class="fa-solid fa-shapes"></i> 4 Không Gian</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size:0.7rem; color:#94a3b8;"></i>
+                            <span class="crumb-btn" onclick="openTier2Submenu('${multiTierState.hubKey}')">${hub.shortTitle}</span>
+                            <i class="fa-solid fa-chevron-right" style="font-size:0.7rem; color:#94a3b8;"></i>
+                            <span class="crumb-active" style="color:var(--navy-dark);">${item.title}</span>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <button type="button" class="btn-tier-back" onclick="openTier2Submenu('${multiTierState.hubKey}')">
+                                <i class="fa-solid fa-arrow-left"></i> Về Danh Mục
+                            </button>
+                            <button type="button" class="btn-tier-back" onclick="openTier1View()">
+                                <i class="fa-solid fa-shapes"></i> 4 Không Gian
+                            </button>
+                        </div>
+                    </div>
+                `;
             }
         }
 
-        // Render danh mục 4 tệp học liệu cho Unit hiện tại
-        function renderTheoryDocuments(unitObj, gradeKey) {
-            const container = document.getElementById('theoryDocGrid');
-            const folderNameEl = document.getElementById('theoryUnitFolderName');
-            if (!container || !unitObj) return;
+        function renderTier1HubCards() {
+            const grid = document.getElementById('hubsMainGrid');
+            if (!grid) return;
 
-            const gradeNum = gradeKey ? gradeKey.replace('grade', '') : '9';
-            if (folderNameEl) {
-                folderNameEl.innerHTML = `<i class="fa-solid fa-folder-open text-teal"></i> ${unitObj.code}: ${unitObj.name} • Tiếng Anh Lớp ${gradeNum}`;
-            }
+            const unit = multiTierState.unitObj || { code: "Unit 1", name: "Local Community" };
+            const gradeNum = multiTierState.gradeKey.replace('grade', '');
+            const data = getMultiTierData(unit, gradeNum);
 
-            container.innerHTML = `
-                <!-- 1. File Word (.docx) -->
-                <div class="theory-doc-card card-word" onclick="openDocumentViewer('word', currentActiveUnitIndex)">
+            grid.innerHTML = `
+                <!-- CARD 1: THƯ VIỆN LÝ THUYẾT BÀI HỌC -->
+                <div class="hub-card hub-card-theory" onclick="openTier2Submenu('theory')">
                     <div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div class="doc-icon-wrap icon-word">
-                                <i class="fa-regular fa-file-word"></i>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                            <div class="hub-icon-box">
+                                <i class="fa-solid fa-book-bookmark"></i>
                             </div>
-                            <span class="doc-format-badge badge-word">Word (.docx)</span>
+                            <span class="hub-badge">${data.theory.badge}</span>
                         </div>
-                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
-                            Cẩm Nang Lý Thuyết & Ngữ Pháp
-                        </h4>
-                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
-                            Tổng hợp công thức ngữ pháp bản chất, quy tắc chia động từ và ví dụ câu theo chủ điểm ${unitObj.name}.
-                        </p>
+                        <h3 class="hub-title">${data.theory.title}</h3>
+                        <p class="hub-desc">${data.theory.desc}</p>
                     </div>
                     <div>
-                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
-                            <span><i class="fa-solid fa-file-lines"></i> 6 Trang tài liệu</span>
-                            <span>580 KB</span>
+                        <div class="hub-meta">
+                            <span><i class="fa-solid fa-layer-group"></i> 4 Chuyên Đề</span>
+                            <span><i class="fa-solid fa-shield-check text-emerald"></i> 100% Bản Chuẩn</span>
                         </div>
-                        <button type="button" class="btn-view-doc btn-view-word">
-                            <i class="fa-solid fa-eye"></i> Xem Trực Tiếp Trên Web
+                        <button type="button" class="btn-hub-action">
+                            <span>Khám Phá Lý Thuyết</span>
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- 2. File PowerPoint (.pptx) -->
-                <div class="theory-doc-card card-pptx" onclick="openDocumentViewer('pptx', currentActiveUnitIndex)">
+                <!-- CARD 2: THƯ VIỆN BÀI TẬP NÂNG CAO -->
+                <div class="hub-card hub-card-practice" onclick="openTier2Submenu('practice')">
                     <div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div class="doc-icon-wrap icon-pptx">
-                                <i class="fa-regular fa-file-powerpoint"></i>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                            <div class="hub-icon-box">
+                                <i class="fa-solid fa-fire-flame-curved"></i>
                             </div>
-                            <span class="doc-format-badge badge-pptx">PowerPoint (.pptx)</span>
+                            <span class="hub-badge">${data.practice.badge}</span>
                         </div>
-                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
-                            Slide Bài Giảng Trực Quan
-                        </h4>
-                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
-                            Kịch bản slide trình chiếu tương tác cao, hình ảnh minh họa sinh động và câu hỏi thử thách phản xạ.
-                        </p>
+                        <h3 class="hub-title">${data.practice.title}</h3>
+                        <p class="hub-desc">${data.practice.desc}</p>
                     </div>
                     <div>
-                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
-                            <span><i class="fa-solid fa-tv"></i> 5 Slide tương tác</span>
-                            <span>14.5 MB</span>
+                        <div class="hub-meta">
+                            <span><i class="fa-solid fa-bullseye"></i> 4 Dạng Bài Luyện</span>
+                            <span><i class="fa-solid fa-trophy text-amber"></i> Chấm Điểm Online</span>
                         </div>
-                        <button type="button" class="btn-view-doc btn-view-pptx">
-                            <i class="fa-solid fa-play"></i> Trình Chiếu Trực Tiếp
+                        <button type="button" class="btn-hub-action">
+                            <span>Luyện Tập Nâng Cao</span>
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- 3. File PDF (.pdf) -->
-                <div class="theory-doc-card card-pdf" onclick="openDocumentViewer('pdf', currentActiveUnitIndex)">
+                <!-- CARD 3: PHÒNG ĐỌC SÁCH ANH NGỮ -->
+                <div class="hub-card hub-card-reading" onclick="openTier2Submenu('reading')">
                     <div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div class="doc-icon-wrap icon-pdf">
-                                <i class="fa-regular fa-file-pdf"></i>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                            <div class="hub-icon-box">
+                                <i class="fa-solid fa-book-open-reader"></i>
                             </div>
-                            <span class="doc-format-badge badge-pdf">PDF Mindmap</span>
+                            <span class="hub-badge">${data.reading.badge}</span>
                         </div>
-                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
-                            Sơ Đồ Tư Duy (Mindmap)
-                        </h4>
-                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
-                            Sơ đồ phân nhánh logic toàn bộ từ vựng, ngữ pháp và phát âm, giúp ghi nhớ sâu và bao quát kiến thức.
-                        </p>
+                        <h3 class="hub-title">${data.reading.title}</h3>
+                        <p class="hub-desc">${data.reading.desc}</p>
                     </div>
                     <div>
-                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
-                            <span><i class="fa-solid fa-sitemap"></i> 4 Nhánh kiến thức</span>
-                            <span>2.4 MB</span>
+                        <div class="hub-meta">
+                            <span><i class="fa-solid fa-book"></i> 3 Bài Đọc Kèm Quiz</span>
+                            <span><i class="fa-solid fa-language text-teal"></i> Chế Độ Song Ngữ</span>
                         </div>
-                        <button type="button" class="btn-view-doc btn-view-pdf">
-                            <i class="fa-solid fa-book-open"></i> Đọc Bản Đồ Tư Duy
+                        <button type="button" class="btn-hub-action">
+                            <span>Vào Phòng Đọc Sách</span>
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- 4. File Excel (.xlsx) -->
-                <div class="theory-doc-card card-excel" onclick="openDocumentViewer('excel', currentActiveUnitIndex)">
+                <!-- CARD 4: PHÒNG LUYỆN VIẾT NÂNG CAO -->
+                <div class="hub-card hub-card-writing" onclick="openTier2Submenu('writing')">
                     <div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div class="doc-icon-wrap icon-excel">
-                                <i class="fa-regular fa-file-excel"></i>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                            <div class="hub-icon-box">
+                                <i class="fa-solid fa-feather-pointed"></i>
                             </div>
-                            <span class="doc-format-badge badge-excel">Excel (.xlsx)</span>
+                            <span class="hub-badge">${data.writing.badge}</span>
                         </div>
-                        <h4 style="font-family:'Lexend',sans-serif; font-size:1.02rem; color:var(--navy-dark); margin-bottom:0.4rem; font-weight:700;">
-                            Bảng Từ Vựng Chuẩn IPA
-                        </h4>
-                        <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.5; margin-bottom:1rem;">
-                            Bảng tính tra cứu nhanh từ vựng với phiên âm quốc tế IPA, từ loại, nghĩa tiếng Việt và câu ví dụ thực tế.
-                        </p>
+                        <h3 class="hub-title">${data.writing.title}</h3>
+                        <p class="hub-desc">${data.writing.desc}</p>
                     </div>
                     <div>
-                        <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-bottom:0.75rem; font-weight:600;">
-                            <span><i class="fa-solid fa-table"></i> Tra cứu lọc từ</span>
-                            <span>350 KB</span>
+                        <div class="hub-meta">
+                            <span><i class="fa-solid fa-pen-nib"></i> 4 Đề Rèn Viết</span>
+                            <span><i class="fa-solid fa-keyboard text-purple"></i> Soạn Thảo Live</span>
                         </div>
-                        <button type="button" class="btn-view-doc btn-view-excel">
-                            <i class="fa-solid fa-table"></i> Tra Cứu Bảng Tính
+                        <button type="button" class="btn-hub-action">
+                            <span>Vào Studio Luyện Viết</span>
+                            <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
             `;
         }
 
+        // ========================================================
+        // ĐIỀU HƯỚNG TẦNG 2: SUB-MENU DANH MỤC CÁC CHUYÊN ĐỀ / BÀI HỌC
+        // ========================================================
+        function openTier2Submenu(hubKey) {
+            multiTierState.tier = 2;
+            multiTierState.hubKey = hubKey;
+
+            const t1 = document.getElementById('multiTierTier1View');
+            const t2 = document.getElementById('multiTierTier2View');
+            const t3 = document.getElementById('multiTierTier3View');
+            if (t1) t1.style.display = 'none';
+            if (t2) t2.style.display = 'block';
+            if (t3) t3.style.display = 'none';
+
+            renderMultiTierHeader();
+
+            const unit = multiTierState.unitObj || { code: "Unit 1", name: "Local Community" };
+            const gradeNum = multiTierState.gradeKey.replace('grade', '');
+            const data = getMultiTierData(unit, gradeNum);
+            const hub = data[hubKey];
+
+            const contentEl = document.getElementById('tier2SubmenuContent');
+            if (!contentEl) return;
+
+            let itemsHtml = hub.items.map((item, index) => {
+                return `
+                    <div class="tier2-item-card" onclick="openTier3Workspace('${hubKey}', '${item.id}')">
+                        <div>
+                            <div class="tier2-item-header">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <div class="tier2-index-circle" style="background:${hub.color}15; color:${hub.color};">
+                                        ${index + 1}
+                                    </div>
+                                    <span class="badge" style="background:#f1f5f9; color:#475569; font-weight:700; font-size:0.75rem;">
+                                        ${item.badge}
+                                    </span>
+                                </div>
+                                <span class="badge" style="background:${hub.color}15; color:${hub.color}; font-size:0.75rem; font-weight:800;">
+                                    ${item.level}
+                                </span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); font-weight:800; margin-bottom:0.5rem; line-height:1.4;">
+                                <i class="${item.icon}" style="margin-right:6px;"></i> ${item.title}
+                            </h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.55; margin-bottom:1rem;">
+                                ${item.desc}
+                            </p>
+                        </div>
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; font-weight:700; color:var(--text-muted); padding-top:0.75rem; border-top:1px dashed #e2e8f0; margin-bottom:0.85rem;">
+                                <span><i class="fa-regular fa-clock"></i> Thời lượng: ${item.time}</span>
+                                <span style="color:${hub.color}; font-weight:800;">Tương tác trực tuyến</span>
+                            </div>
+                            <button type="button" class="btn-hub-action" style="background:${hub.color};">
+                                <span>Vào Học Bài Này</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            contentEl.innerHTML = `
+                <div class="tier2-hub-banner" style="background:${hub.color}10; border:1px solid ${hub.color}30;">
+                    <div>
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                            <span class="badge" style="background:${hub.color}; color:#fff; font-weight:800; font-size:0.75rem;">
+                                ${hub.badge}
+                            </span>
+                            <h3 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.25rem; font-weight:800; margin:0;">
+                                ${hub.title}
+                            </h3>
+                        </div>
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">
+                            ${hub.desc}
+                        </p>
+                    </div>
+                    <button type="button" class="btn-tier-back" onclick="openTier1View()" style="background:#fff;">
+                        <i class="fa-solid fa-arrow-left"></i> Chọn Không Gian Khác
+                    </button>
+                </div>
+
+                <div class="tier2-item-grid">
+                    ${itemsHtml}
+                </div>
+            `;
+        }
+
+        // ========================================================
+        // ĐIỀU HƯỚNG TẦNG 3: WORKSPACE NỘI DUNG CHI TIẾT & TƯƠNG TÁC
+        // ========================================================
+        function openTier3Workspace(hubKey, itemId) {
+            multiTierState.tier = 3;
+            multiTierState.hubKey = hubKey;
+            multiTierState.itemId = itemId;
+            multiTierState.quizSelectedAnswers = {};
+            multiTierState.quizSubmitted = false;
+
+            const t1 = document.getElementById('multiTierTier1View');
+            const t2 = document.getElementById('multiTierTier2View');
+            const t3 = document.getElementById('multiTierTier3View');
+            if (t1) t1.style.display = 'none';
+            if (t2) t2.style.display = 'none';
+            if (t3) t3.style.display = 'block';
+
+            renderMultiTierHeader();
+
+            const unit = multiTierState.unitObj || { code: "Unit 1", name: "Local Community", subtitle: "Chủ điểm bài học" };
+            const gradeNum = multiTierState.gradeKey.replace('grade', '');
+            const data = getMultiTierData(unit, gradeNum);
+            const hub = data[hubKey];
+            const item = hub.items.find(i => i.id === itemId) || hub.items[0];
+
+            const workspaceEl = document.getElementById('tier3WorkspaceContent');
+            if (!workspaceEl) return;
+
+            let bodyHtml = "";
+            if (hubKey === 'theory') {
+                bodyHtml = renderTheoryWorkspaceBody(unit, gradeNum, item);
+            } else if (hubKey === 'practice') {
+                bodyHtml = renderPracticeWorkspaceBody(unit, gradeNum, item);
+            } else if (hubKey === 'reading') {
+                bodyHtml = renderReadingWorkspaceBody(unit, gradeNum, item);
+            } else if (hubKey === 'writing') {
+                bodyHtml = renderWritingWorkspaceBody(unit, gradeNum, item);
+            }
+
+            workspaceEl.innerHTML = `
+                <div class="tier3-workspace-container">
+                    <div class="tier3-workspace-header">
+                        <div>
+                            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                                <span class="badge" style="background:${hub.color}; color:#fff; font-weight:800; font-size:0.75rem;">
+                                    ${item.badge}
+                                </span>
+                                <span class="badge" style="background:#f1f5f9; color:#475569; font-size:0.75rem;">
+                                    <i class="fa-regular fa-clock"></i> ${item.time}
+                                </span>
+                            </div>
+                            <h3 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.3rem; font-weight:800; margin:0;">
+                                ${item.title}
+                            </h3>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <button type="button" class="btn-tier-back" onclick="openTier2Submenu('${hubKey}')">
+                                <i class="fa-solid fa-list-ul"></i> Danh Mục Bài
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tier3-workspace-body">
+                        ${bodyHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ========================================================
+        // TẦNG 3 BODY 1: LÝ THUYẾT BÀI HỌC
+        // ========================================================
+        function renderTheoryWorkspaceBody(unit, gradeNum, item) {
+            if (item.id === 'theory-2') {
+                // Hiển thị Slide Trình Chiếu Tương Tác Trực Tiếp
+                return `
+                    <div style="max-width:960px; margin:0 auto;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+                            <h4 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.15rem; font-weight:800; margin:0;">
+                                📺 Trình Chiếu Bài Giảng Trực Tuyến (${unit.code}: ${unit.name})
+                            </h4>
+                            <span class="badge" style="background:#ffedd5; color:#c2410c; font-weight:800;">5 SLIDE BẢN CHUẨN</span>
+                        </div>
+                        <div class="pptx-player" style="margin-bottom:1.5rem;">
+                            <div class="pptx-canvas" id="workspacePptxCanvas">
+                                <div class="pptx-slide active" id="ws_slide_1">
+                                    <div class="slide-badge"><i class="fa-solid fa-graduation-cap"></i> BÀI GIẢNG ĐIỆN TỬ • LỚP ${gradeNum}</div>
+                                    <h2 class="slide-title">${unit.code.toUpperCase()}: ${unit.name.toUpperCase()}</h2>
+                                    <p class="slide-subtitle">${unit.subtitle}</p>
+                                    <div class="slide-meta-box">
+                                        <span><i class="fa-solid fa-user-tie"></i> GV: Thầy Nguyễn Hoàng Sơn</span>
+                                        <span><i class="fa-solid fa-school"></i> STM English Center</span>
+                                        <span><i class="fa-solid fa-bullseye"></i> Mục tiêu: Nắm chắc bản chất kiến thức</span>
+                                    </div>
+                                </div>
+                                <div class="pptx-slide" id="ws_slide_2" style="display:none;">
+                                    <div class="slide-badge">SLIDE 02/05 • NGỮ PHÁP TRỌNG TÂM</div>
+                                    <h3 style="font-family:'Lexend',sans-serif; font-size:1.35rem; color:var(--navy-dark); margin-bottom:1rem; font-weight:800;">
+                                        1. Cụm Động Từ (Phrasal Verbs) Trong Đời Sống
+                                    </h3>
+                                    <div class="pptx-grid-2">
+                                        <div class="pptx-callout">
+                                            <h4 style="font-weight:800; color:var(--primary); margin-bottom:0.5rem;">Định Nghĩa & Bản Chất:</h4>
+                                            <p style="font-size:0.9rem; line-height:1.6; margin:0;">
+                                                Phrasal Verb = Động từ + Giới từ / Trạng từ. Ý nghĩa của cả cụm thường khác hoàn toàn với nghĩa gốc của động từ đơn lẻ.
+                                            </p>
+                                        </div>
+                                        <div class="pptx-callout" style="border-left-color:var(--emerald);">
+                                            <h4 style="font-weight:800; color:var(--emerald); margin-bottom:0.5rem;">Ví Dụ Điển Hình:</h4>
+                                            <ul style="padding-left:1.25rem; font-size:0.9rem; line-height:1.6; margin:0;">
+                                                <li><strong>pass down:</strong> truyền lại cho thế hệ sau.</li>
+                                                <li><strong>look forward to:</strong> trông mong, háo hức.</li>
+                                                <li><strong>live on:</strong> sống dựa vào thu nhập từ...</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pptx-slide" id="ws_slide_3" style="display:none;">
+                                    <div class="slide-badge">SLIDE 03/05 • CẤU TRÚC CÂU</div>
+                                    <h3 style="font-family:'Lexend',sans-serif; font-size:1.35rem; color:var(--navy-dark); margin-bottom:1rem; font-weight:800;">
+                                        2. Mệnh Đề Trạng Ngữ & Câu Phức
+                                    </h3>
+                                    <div class="pptx-callout" style="border-left-color:var(--primary); margin-bottom:1rem;">
+                                        <p style="font-size:0.92rem; line-height:1.6; margin:0;">
+                                            <strong>Công thức:</strong> <code>S + V + Although / Even though + S + V</code> (Mặc dù... nhưng...)<br>
+                                            <strong>Lưu ý bẫy đề thi:</strong> Tuyệt đối KHÔNG dùng liên từ <em>"but"</em> trong cùng một câu có <em>"Although"</em>.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="pptx-slide" id="ws_slide_4" style="display:none;">
+                                    <div class="slide-badge">SLIDE 04/05 • PHÁT ÂM IPA</div>
+                                    <h3 style="font-family:'Lexend',sans-serif; font-size:1.35rem; color:var(--navy-dark); margin-bottom:1rem; font-weight:800;">
+                                        3. Quy Tắc Trọng Âm Của Từ 2-3 Âm Tiết
+                                    </h3>
+                                    <p style="font-size:0.92rem; line-height:1.6;">
+                                        - Danh từ & Tính từ 2 âm tiết thường nhấn trọng âm vào <strong>âm tiết thứ nhất</strong> (e.g. <em>'craftman, 'village</em>).<br>
+                                        - Động từ 2 âm tiết thường nhấn trọng âm vào <strong>âm tiết thứ hai</strong> (e.g. <em>re'mind, pro'tect</em>).
+                                    </p>
+                                </div>
+                                <div class="pptx-slide" id="ws_slide_5" style="display:none;">
+                                    <div class="slide-badge">SLIDE 05/05 • TỔNG KẾT & TAKEAWAYS</div>
+                                    <h2 style="font-family:'Lexend',sans-serif; font-size:1.5rem; color:var(--primary); margin-bottom:0.8rem; font-weight:800;">
+                                        Chúc Các Em Làm Chủ Trọn Vẹn Kiến Thức!
+                                    </h2>
+                                    <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.6;">
+                                        Hãy chuyển sang <strong>Thư Viện Bài Tập Nâng Cao</strong> hoặc <strong>Phòng Đọc Sách</strong> để thực hành ngay kiến thức vừa lĩnh hội nhé!
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="pptx-controls">
+                                <button type="button" class="btn-slide-nav" onclick="changeWorkspaceSlide(-1)"><i class="fa-solid fa-chevron-left"></i> Slide Trước</button>
+                                <span style="font-weight:800; font-size:0.88rem; color:var(--navy-dark);" id="ws_slide_counter">Slide 1 / 5</span>
+                                <button type="button" class="btn-slide-nav" onclick="changeWorkspaceSlide(1)">Slide Tiếp Theo <i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (item.id === 'theory-3') {
+                // Bảng Từ Vựng Chuẩn IPA
+                return `
+                    <div style="max-width:960px; margin:0 auto;">
+                        <div class="word-rule-box" style="margin-bottom:1.5rem;">
+                            <h4 style="font-family:'Lexend',sans-serif; color:var(--primary); font-size:1.1rem; font-weight:800; margin-bottom:0.4rem;">
+                                📖 BẢNG TỪ VỰNG CHỦ ĐIỂM: ${unit.code.toUpperCase()} (${unit.name.toUpperCase()})
+                            </h4>
+                            <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">
+                                Phiên âm quốc tế IPA chuẩn từ điển Oxford, giải nghĩa tiếng Việt và ví dụ câu bản ngữ.
+                            </p>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e2e8f0;">
+                                <thead>
+                                    <tr style="background:#0284c7; color:#fff; font-family:'Lexend',sans-serif; font-size:0.85rem; text-align:left;">
+                                        <th style="padding:10px 14px;">Từ Vựng (Word)</th>
+                                        <th style="padding:10px 14px;">Phiên Âm IPA</th>
+                                        <th style="padding:10px 14px;">Từ Loại</th>
+                                        <th style="padding:10px 14px;">Nghĩa Tiếng Việt</th>
+                                        <th style="padding:10px 14px;">Ví Dụ Thực Tế</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom:1px solid #f1f5f9; font-size:0.88rem;">
+                                        <td style="padding:10px 14px; font-weight:800; color:#0f172a;">artisan</td>
+                                        <td style="padding:10px 14px; color:#0369a1; font-family:monospace;">/ˌɑːtɪˈzæn/</td>
+                                        <td style="padding:10px 14px;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">noun</span></td>
+                                        <td style="padding:10px 14px; font-weight:700;">thợ thủ công, nghệ nhân</td>
+                                        <td style="padding:10px 14px; color:#475569; font-style:italic;">The local artisans make beautiful pots.</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #f1f5f9; font-size:0.88rem; background:#f8fafc;">
+                                        <td style="padding:10px 14px; font-weight:800; color:#0f172a;">craft village</td>
+                                        <td style="padding:10px 14px; color:#0369a1; font-family:monospace;">/krɑːft ˈvɪlɪdʒ/</td>
+                                        <td style="padding:10px 14px;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">noun phr.</span></td>
+                                        <td style="padding:10px 14px; font-weight:700;">làng nghề thủ công</td>
+                                        <td style="padding:10px 14px; color:#475569; font-style:italic;">Bat Trang is a famous craft village in Hanoi.</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #f1f5f9; font-size:0.88rem;">
+                                        <td style="padding:10px 14px; font-weight:800; color:#0f172a;">preserve</td>
+                                        <td style="padding:10px 14px; color:#0369a1; font-family:monospace;">/prɪˈzɜːv/</td>
+                                        <td style="padding:10px 14px;"><span class="badge" style="background:#ffedd5; color:#c2410c;">verb</span></td>
+                                        <td style="padding:10px 14px; font-weight:700;">bảo tồn, gìn giữ</td>
+                                        <td style="padding:10px 14px; color:#475569; font-style:italic;">We must preserve our traditional culture.</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #f1f5f9; font-size:0.88rem; background:#f8fafc;">
+                                        <td style="padding:10px 14px; font-weight:800; color:#0f172a;">look forward to</td>
+                                        <td style="padding:10px 14px; color:#0369a1; font-family:monospace;">/lʊk ˈfɔːwəd tuː/</td>
+                                        <td style="padding:10px 14px;"><span class="badge" style="background:#d1fae5; color:#047857;">phr. v</span></td>
+                                        <td style="padding:10px 14px; font-weight:700;">trông đợi, mong chờ (+ V-ing)</td>
+                                        <td style="padding:10px 14px; color:#475569; font-style:italic;">I look forward to hearing from you.</td>
+                                    </tr>
+                                    <tr style="font-size:0.88rem;">
+                                        <td style="padding:10px 14px; font-weight:800; color:#0f172a;">suburb</td>
+                                        <td style="padding:10px 14px; color:#0369a1; font-family:monospace;">/ˈsʌbɜːb/</td>
+                                        <td style="padding:10px 14px;"><span class="badge" style="background:#e0f2fe; color:#0369a1;">noun</span></td>
+                                        <td style="padding:10px 14px; font-weight:700;">vùng ngoại ô</td>
+                                        <td style="padding:10px 14px; color:#475569; font-style:italic;">They moved to a quiet suburb last year.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Mặc định: Chuyên đề 1 hoặc 4 (Cẩm Nang Lý Thuyết & Ngữ Pháp Bản Chất)
+                return renderWordContent(unit, gradeNum);
+            }
+        }
+
+        function changeWorkspaceSlide(direction) {
+            let next = multiTierState.currentSlideIndex + direction;
+            if (next < 1) next = 1;
+            if (next > 5) next = 5;
+            multiTierState.currentSlideIndex = next;
+
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById('ws_slide_' + i);
+                if (el) el.style.display = (i === next) ? 'block' : 'none';
+            }
+            const counter = document.getElementById('ws_slide_counter');
+            if (counter) counter.innerText = `Slide ${next} / 5`;
+        }
+
+        // ========================================================
+        // TẦNG 3 BODY 2: BÀI TẬP NÂNG CAO (INTERACTIVE QUIZ ENGINE)
+        // ========================================================
+        function renderPracticeWorkspaceBody(unit, gradeNum, item) {
+            return `
+                <div style="max-width:880px; margin:0 auto;">
+                    <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:14px; padding:1.25rem 1.5rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                        <div>
+                            <span class="badge" style="background:#ea580c; color:#fff; font-weight:800; font-size:0.75rem;">
+                                ${item.badge}
+                            </span>
+                            <h4 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.15rem; font-weight:800; margin:4px 0 0 0;">
+                                Thử Thách Phân Hóa 4 Câu Trọng Tâm
+                            </h4>
+                        </div>
+                        <span id="quizScoreDisplay" class="badge" style="background:#fff; color:#ea580c; font-weight:800; font-size:0.9rem; border:1px solid #fed7aa; padding:6px 14px;">
+                            <i class="fa-solid fa-trophy"></i> Điểm Số: Chưa Nộp Bài
+                        </span>
+                    </div>
+
+                    <!-- CÂU 1 -->
+                    <div class="tier3-quiz-card" id="quizCard_1">
+                        <div style="font-weight:800; color:#ea580c; font-size:0.92rem; margin-bottom:0.5rem;">
+                            Câu 1: Nhận diện Cụm Động Từ (Phrasal Verb)
+                        </div>
+                        <p style="font-size:0.98rem; font-weight:700; color:var(--navy-dark); line-height:1.6; margin-bottom:1rem;">
+                            The traditional pottery-making skills were __________ from generation to generation in Bat Trang.
+                        </p>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(1, 'A')" id="q1_A">A. passed down</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(1, 'B')" id="q1_B">B. turned off</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(1, 'C')" id="q1_C">C. looked after</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(1, 'D')" id="q1_D">D. brought up</button>
+                        <div id="q1_exp" style="display:none; margin-top:0.85rem; padding:12px; background:#f0fdf4; border-left:4px solid #059669; border-radius:6px; font-size:0.85rem; color:#166534;">
+                            <strong>✓ Đáp án đúng: A. passed down</strong><br>
+                            • Kiến thức: Cụm động từ "pass down" mang nghĩa "truyền lại, lưu truyền cho thế hệ sau".<br>
+                            • Dịch câu: Kỹ năng làm gốm truyền thống đã được truyền lại từ đời này sang đời khác ở Bát Tràng.
+                        </div>
+                    </div>
+
+                    <!-- CÂU 2 -->
+                    <div class="tier3-quiz-card" id="quizCard_2">
+                        <div style="font-weight:800; color:#ea580c; font-size:0.92rem; margin-bottom:0.5rem;">
+                            Câu 2: Mệnh Đề Trạng Ngữ Chỉ Sự Nhượng Bộ
+                        </div>
+                        <p style="font-size:0.98rem; font-weight:700; color:var(--navy-dark); line-height:1.6; margin-bottom:1rem;">
+                            __________ the artisans worked hard, they could not produce enough handicrafts for the festival.
+                        </p>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(2, 'A')" id="q2_A">A. Because</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(2, 'B')" id="q2_B">B. Although</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(2, 'C')" id="q2_C">C. In spite of</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(2, 'D')" id="q2_D">D. However</button>
+                        <div id="q2_exp" style="display:none; margin-top:0.85rem; padding:12px; background:#f0fdf4; border-left:4px solid #059669; border-radius:6px; font-size:0.85rem; color:#166534;">
+                            <strong>✓ Đáp án đúng: B. Although</strong><br>
+                            • Kiến thức: "Although + S + V" dùng diễn tả mệnh đề chỉ sự nhượng bộ (Mặc dù...). "In spite of" phải đi với danh từ hoặc V-ing.<br>
+                            • Dịch câu: Mặc dù các nghệ nhân làm việc chăm chỉ, họ vẫn không thể sản xuất đủ hàng thủ công cho lễ hội.
+                        </div>
+                    </div>
+
+                    <!-- CÂU 3 -->
+                    <div class="tier3-quiz-card" id="quizCard_3">
+                        <div style="font-weight:800; color:#ea580c; font-size:0.92rem; margin-bottom:0.5rem;">
+                            Câu 3: Biến Đổi Dạng Từ (Word Formation)
+                        </div>
+                        <p style="font-size:0.98rem; font-weight:700; color:var(--navy-dark); line-height:1.6; margin-bottom:1rem;">
+                            The municipal government is trying to __________ historical buildings in the downtown area.
+                        </p>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(3, 'A')" id="q3_A">A. preserve</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(3, 'B')" id="q3_B">B. preservation</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(3, 'C')" id="q3_C">C. preservative</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(3, 'D')" id="q3_D">D. preservable</button>
+                        <div id="q3_exp" style="display:none; margin-top:0.85rem; padding:12px; background:#f0fdf4; border-left:4px solid #059669; border-radius:6px; font-size:0.85rem; color:#166534;">
+                            <strong>✓ Đáp án đúng: A. preserve</strong><br>
+                            • Kiến thức: Cấu trúc "try to + V (nguyên thể)". Ta cần một động từ nguyên mẫu đứng sau "to".<br>
+                            • Dịch câu: Chính quyền thành phố đang nỗ lực bảo tồn các tòa nhà lịch sử ở khu vực trung tâm.
+                        </div>
+                    </div>
+
+                    <!-- CÂU 4 -->
+                    <div class="tier3-quiz-card" id="quizCard_4">
+                        <div style="font-weight:800; color:#ea580c; font-size:0.92rem; margin-bottom:0.5rem;">
+                            Câu 4: Bẫy Ngữ Pháp & Giới Từ Đi Kèm
+                        </div>
+                        <p style="font-size:0.98rem; font-weight:700; color:var(--navy-dark); line-height:1.6; margin-bottom:1rem;">
+                            Many local people in the village live __________ weaving conical hats and silk scarves.
+                        </p>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(4, 'A')" id="q4_A">A. in</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(4, 'B')" id="q4_B">B. on</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(4, 'C')" id="q4_C">C. up to</button>
+                        <button type="button" class="quiz-opt-btn" onclick="selectQuizOption(4, 'D')" id="q4_D">D. by</button>
+                        <div id="q4_exp" style="display:none; margin-top:0.85rem; padding:12px; background:#f0fdf4; border-left:4px solid #059669; border-radius:6px; font-size:0.85rem; color:#166534;">
+                            <strong>✓ Đáp án đúng: B. on</strong><br>
+                            • Kiến thức: Cụm từ cố định "live on something" = sống dựa vào thu nhập từ nguồn gì.<br>
+                            • Dịch câu: Nhiều người dân địa phương trong làng sống dựa vào nghề đan nón lá và dệt khăn lụa.
+                        </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:center; gap:12px; margin-top:2rem;">
+                        <button type="button" onclick="submitTier3PracticeQuiz()" class="btn-hub-action" style="max-width:320px; background:linear-gradient(135deg, #ea580c, #c2410c);">
+                            <i class="fa-solid fa-check-double"></i> Chấm Điểm & Xem Lời Giải Chi Tiết
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectQuizOption(qNum, optLetter) {
+            multiTierState.quizSelectedAnswers[qNum] = optLetter;
+            ['A', 'B', 'C', 'D'].forEach(letter => {
+                const btn = document.getElementById(`q${qNum}_${letter}`);
+                if (btn) {
+                    btn.classList.remove('selected');
+                    if (letter === optLetter) btn.classList.add('selected');
+                }
+            });
+        }
+
+        function submitTier3PracticeQuiz() {
+            const correctAnswers = { 1: 'A', 2: 'B', 3: 'A', 4: 'B' };
+            let score = 0;
+            let answered = 0;
+
+            for (let i = 1; i <= 4; i++) {
+                const userAns = multiTierState.quizSelectedAnswers[i];
+                const correct = correctAnswers[i];
+                const expEl = document.getElementById(`q${i}_exp`);
+                if (expEl) expEl.style.display = 'block';
+
+                if (userAns) {
+                    answered++;
+                    if (userAns === correct) score++;
+                }
+
+                ['A', 'B', 'C', 'D'].forEach(letter => {
+                    const btn = document.getElementById(`q${i}_${letter}`);
+                    if (btn) {
+                        if (letter === correct) {
+                            btn.classList.add('correct');
+                        } else if (letter === userAns && userAns !== correct) {
+                            btn.classList.add('wrong');
+                        }
+                    }
+                });
+            }
+
+            const scoreDisplay = document.getElementById('quizScoreDisplay');
+            if (scoreDisplay) {
+                const points = (score * 2.5).toFixed(1);
+                scoreDisplay.innerHTML = `<i class="fa-solid fa-trophy"></i> Kết Quả: ${score}/4 Câu Đúng (${points}/10)`;
+                scoreDisplay.style.background = score >= 3 ? '#d1fae5' : '#fee2e2';
+                scoreDisplay.style.color = score >= 3 ? '#047857' : '#b91c1c';
+            }
+        }
+
+        // ========================================================
+        // TẦNG 3 BODY 3: PHÒNG ĐỌC SÁCH ANH NGỮ (READING LOUNGE)
+        // ========================================================
+        function renderReadingWorkspaceBody(unit, gradeNum, item) {
+            return `
+                <div style="max-width:880px; margin:0 auto;">
+                    <!-- THANH CÔNG CỤ ĐỌC SÁCH -->
+                    <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:14px; padding:0.9rem 1.4rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="badge" style="background:#059669; color:#fff; font-weight:800; font-size:0.75rem;">
+                                E-READER MODE
+                            </span>
+                            <span style="font-weight:700; font-size:0.85rem; color:#047857;">
+                                <i class="fa-solid fa-glasses"></i> Trải Nghiệm Đọc Tiếng Anh Bản Ngữ
+                            </span>
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <button type="button" onclick="toggleBilingualMode()" id="btnToggleBilingual" class="btn-tier-back" style="background:#fff; color:#047857; border-color:#86efac;">
+                                <i class="fa-solid fa-language"></i> Bật/Tắt Bản Dịch Tiếng Việt
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- HỘP TỪ VỰNG THEN CHỐT TRONG BÀI ĐỌC -->
+                    <div class="reading-glossary-card">
+                        <h4 style="font-family:'Lexend',sans-serif; color:#065f46; font-size:0.95rem; font-weight:800; margin:0 0 0.5rem 0;">
+                            🌟 TỪ VỰNG THEN CHỐT TRONG BÀI (KEY VOCABULARY):
+                        </h4>
+                        <div style="display:flex; gap:8px; flex-wrap:wrap; font-size:0.82rem;">
+                            <span class="badge" style="background:#fff; color:#065f46; border:1px solid #86efac;"><strong>artisan</strong>: nghệ nhân</span>
+                            <span class="badge" style="background:#fff; color:#065f46; border:1px solid #86efac;"><strong>authentic</strong>: đích thực, nguyên bản</span>
+                            <span class="badge" style="background:#fff; color:#065f46; border:1px solid #86efac;"><strong>preserve</strong>: bảo tồn</span>
+                            <span class="badge" style="background:#fff; color:#065f46; border:1px solid #86efac;"><strong>modernize</strong>: hiện đại hóa</span>
+                            <span class="badge" style="background:#fff; color:#065f46; border:1px solid #86efac;"><strong>pass down</strong>: lưu truyền</span>
+                        </div>
+                    </div>
+
+                    <!-- NỘI DUNG VĂN BẢN ĐỌC SÁCH -->
+                    <div class="reading-passage" id="readingPassageContainer">
+                        <div class="reading-paragraph">
+                            Located just a few kilometers outside the bustling capital city, Bat Trang is widely regarded as one of the most vibrant pottery craft villages in Vietnam. For more than seven centuries, generations of devoted artisans have skillfully preserved their authentic ceramic techniques, passing down closely guarded recipes for glazed clay from father to son.
+                            <span class="bilingual-trans">
+                                Tọa lạc chỉ cách thủ đô nhộn nhịp vài cây số, Bát Tràng được đông đảo mọi người xem là một trong những làng nghề gốm sứ rực rỡ nhất tại Việt Nam. Hơn bảy thế kỷ qua, các thế hệ nghệ nhân tận tụy đã khéo léo gìn giữ những kỹ thuật gốm sứ nguyên bản, truyền lại công thức pha men đất sét bí truyền từ đời cha sang đời con.
+                            </span>
+                        </div>
+
+                        <div class="reading-paragraph">
+                            However, preserving this centuries-old heritage in the digital era is not without challenges. In the face of intense market competition and mass-manufactured plastics, young craftsmen in Bat Trang have actively modernized their business models. They promote their handmade teapots, vases, and decorative bowls through social media livestreams, successfully connecting the soulful ancient village with urban youths and international travelers.
+                            <span class="bilingual-trans">
+                                Tuy nhiên, việc bảo tồn di sản hàng thế kỷ này trong kỷ nguyên số cũng đối mặt không ít thử thách. Đứng trước sự cạnh tranh gay gắt của thị trường và đồ nhựa sản xuất hàng loạt, những thợ thủ công trẻ tại Bát Tràng đã chủ động hiện đại hóa mô hình kinh doanh. Họ quảng bá ấm trà, bình hoa và bát đĩa trang trí thủ công qua các buổi phát trực tiếp trên mạng xã hội, kết nối thành công ngôi làng cổ kính với giới trẻ thành thị và du khách quốc tế.
+                            </span>
+                        </div>
+
+                        <div class="reading-paragraph">
+                            "A craft village cannot truly thrive if it only lives in memories," shared a twenty-five-year-old potter with pride. "By embracing innovation while revering our cultural roots, we ensure that our ancestors' spirit will continue to burn brightly in each glowing kiln."
+                            <span class="bilingual-trans">
+                                "Một làng nghề thủ công không thể thực sự phát triển thịnh vượng nếu nó chỉ sống trong ký ức," một người thợ gốm hai mươi lăm tuổi tự hào chia sẻ. "Bằng cách đón nhận sự đổi mới song song với việc tôn kính cội nguồn văn hóa, chúng tôi đảm bảo rằng tinh thần của tiền nhân sẽ tiếp tục rực sáng trong từng lò nung đỏ lửa."
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- CÂU HỎI TRẮC NGHIỆM ĐỌC HIỂU MINI -->
+                    <div style="margin-top:2rem; padding:1.5rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px;">
+                        <h4 style="font-family:'Lexend',sans-serif; color:var(--navy-dark); font-size:1.05rem; font-weight:800; margin-bottom:1rem;">
+                            📝 Kiểm Tra Đọc Hiểu Nhanh (Reading Comprehension Check):
+                        </h4>
+                        <div style="font-size:0.92rem; font-weight:700; color:#1e293b; margin-bottom:0.5rem;">
+                            1. What is the main message of the reading passage?
+                        </div>
+                        <div style="font-size:0.88rem; color:#475569; padding-left:1rem; line-height:1.7;">
+                            ✓ <strong>A.</strong> Bat Trang artisans are successfully modernizing traditional pottery to keep it thriving.<br>
+                            ✕ B. Young people no longer care about traditional Vietnamese crafts.<br>
+                            ✕ C. Machine-made plastics have completely replaced handmade ceramics.
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleBilingualMode() {
+            multiTierState.bilingualEnabled = !multiTierState.bilingualEnabled;
+            const transEls = document.querySelectorAll('.bilingual-trans');
+            transEls.forEach(el => {
+                el.style.display = multiTierState.bilingualEnabled ? 'block' : 'none';
+            });
+            const btn = document.getElementById('btnToggleBilingual');
+            if (btn) {
+                btn.innerHTML = multiTierState.bilingualEnabled ?
+                    '<i class="fa-solid fa-language"></i> Đang Bật Song Ngữ' :
+                    '<i class="fa-solid fa-language"></i> Chỉ Xem Tiếng Anh';
+            }
+        }
+
+        // ========================================================
+        // TẦNG 3 BODY 4: PHÒNG LUYỆN VIẾT NÂNG CAO (WRITING STUDIO)
+        // ========================================================
+        function renderWritingWorkspaceBody(unit, gradeNum, item) {
+            return `
+                <div style="max-width:880px; margin:0 auto;">
+                    <!-- ĐỀ BÀI LUYỆN VIẾT -->
+                    <div style="background:#ede9fe; border:1px solid #ddd6fe; border-radius:14px; padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+                        <span class="badge" style="background:#7c3aed; color:#fff; font-weight:800; font-size:0.75rem;">
+                            CHỦ ĐỀ VIẾT: ${unit.code.toUpperCase()}
+                        </span>
+                        <h4 style="font-family:'Lexend',sans-serif; color:#4c1d95; font-size:1.1rem; font-weight:800; margin:6px 0 0.5rem 0;">
+                            Write a paragraph (100 - 120 words) about how to preserve and develop a traditional craft village in your area.
+                        </h4>
+                        <p style="font-size:0.85rem; color:#6d28d9; margin:0; line-height:1.5;">
+                            <em>Yêu cầu: Sử dụng khung lập luận PEEL (Point, Explain, Evidence, Link), ít nhất 2 cụm động từ và các liên từ học thuật.</em>
+                        </p>
+                    </div>
+
+                    <!-- BẢNG MẪU CÂU GỢI Ý (SENTENCE STARTERS) -->
+                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1rem; margin-bottom:1.25rem;">
+                        <div style="font-size:0.8rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">
+                            💡 Chạm Vào Mẫu Câu Để Tự Động Chèn Vào Bài Viết:
+                        </div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <span class="starter-phrase-pill" onclick="insertWritingStarter('First and foremost, ')">First and foremost,</span>
+                            <span class="starter-phrase-pill" onclick="insertWritingStarter('It is widely believed that ')">It is widely believed that</span>
+                            <span class="starter-phrase-pill" onclick="insertWritingStarter('Take Bat Trang pottery village as a vivid example, ')">Take ... as a vivid example,</span>
+                            <span class="starter-phrase-pill" onclick="insertWritingStarter('In order to preserve our cultural roots, ')">In order to preserve,</span>
+                            <span class="starter-phrase-pill" onclick="insertWritingStarter('In a nutshell, ')">In a nutshell,</span>
+                        </div>
+                    </div>
+
+                    <!-- TRÌNH SOẠN THẢO VĂN BẢN TRỰC TIẾP -->
+                    <div style="margin-bottom:1rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                            <span style="font-weight:700; font-size:0.85rem; color:var(--navy-dark);">
+                                <i class="fa-solid fa-keyboard text-purple"></i> Khung Soạn Thảo Bài Viết:
+                            </span>
+                            <span id="writingWordCountDisplay" class="badge" style="background:#f1f5f9; color:#475569; font-weight:700; font-size:0.8rem;">
+                                Số từ: 0 / 120 từ
+                            </span>
+                        </div>
+                        <textarea id="writingStudioTextarea" class="writing-studio-editor" placeholder="Nhập bài viết tiếng Anh của em tại đây... Em có thể chạm vào các mẫu câu gợi ý ở trên để chèn nhanh vào bài." oninput="updateWritingWordCount()"></textarea>
+                    </div>
+
+                    <!-- NÚT HÀNH ĐỘNG -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:2rem;">
+                        <button type="button" class="btn-tier-back" onclick="saveWritingDraftLocal()">
+                            <i class="fa-regular fa-floppy-disk"></i> Lưu Bản Nháp Vào Máy
+                        </button>
+                        <button type="button" class="btn-hub-action" style="max-width:300px; background:linear-gradient(135deg, #7c3aed, #6d28d9);" onclick="submitStudentWriting()">
+                            <i class="fa-solid fa-paper-plane"></i> Gửi Bài Cho Thầy Sơn Chấm Điểm
+                        </button>
+                    </div>
+
+                    <!-- BÀI MẪU THAM KHẢO ĐIỂM 10 CỦA THẦY SƠN -->
+                    <details style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1rem 1.25rem;">
+                        <summary style="font-weight:800; color:#7c3aed; cursor:pointer; font-size:0.95rem; font-family:'Lexend',sans-serif;">
+                            🌟 Bấm xem: Bài Viết Mẫu Điểm 10 Của Thầy Sơn (Model Sample)
+                        </summary>
+                        <div style="margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed #cbd5e1; font-size:0.95rem; line-height:1.75; color:#1e293b;">
+                            First and foremost, traditional craft villages play a vital role in preserving our rich cultural heritage. To ensure their sustainable development, the local authorities should provide financial assistance and organize vocational training for younger generations. Take Bat Trang ceramic village as a vivid example; young artisans have actively incorporated digital marketing and social media to showcase their handcrafted pottery to international travelers. Furthermore, schools should organize field trips to these historic workshops, helping students appreciate the dedication of craftsmen. In a nutshell, harmonizing modern technology with ancient artisanal traditions is the key to keeping our heritage alive.
+                            <div style="margin-top:0.6rem; font-size:0.85rem; color:#0369a1; font-style:italic;">
+                                (Độ dài: 112 từ • Đạt trọn vẹn tiêu chí PEEL và từ vựng học thuật).
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            `;
+        }
+
+        function insertWritingStarter(phrase) {
+            const textarea = document.getElementById('writingStudioTextarea');
+            if (textarea) {
+                textarea.value += phrase;
+                textarea.focus();
+                updateWritingWordCount();
+            }
+        }
+
+        function updateWritingWordCount() {
+            const textarea = document.getElementById('writingStudioTextarea');
+            const display = document.getElementById('writingWordCountDisplay');
+            if (textarea && display) {
+                const words = textarea.value.trim().split(/\s+/).filter(w => w.length > 0);
+                const count = words.length;
+                display.innerText = `Số từ: ${count} / 120 từ`;
+                if (count >= 100 && count <= 120) {
+                    display.style.background = '#d1fae5';
+                    display.style.color = '#047857';
+                } else {
+                    display.style.background = '#f1f5f9';
+                    display.style.color = '#475569';
+                }
+            }
+        }
+
+        function saveWritingDraftLocal() {
+            const textarea = document.getElementById('writingStudioTextarea');
+            if (textarea) {
+                localStorage.setItem('stm_writing_draft', textarea.value);
+                alert('✓ Đã lưu bản nháp bài viết vào trình duyệt thành công!');
+            }
+        }
+
+        function submitStudentWriting() {
+            const textarea = document.getElementById('writingStudioTextarea');
+            if (!textarea || textarea.value.trim().length < 20) {
+                alert('⚠️ Vui lòng viết ít nhất 20 từ trước khi gửi bài cho Thầy Sơn chấm điểm nhé!');
+                return;
+            }
+            alert('🎉 Chúc mừng em! Bài viết đã được lưu trữ và chuyển đến bàn chấm bài chuyên môn của Thầy Nguyễn Hoàng Sơn. Thầy sẽ phản hồi nhận xét và thang điểm chi tiết cho em sớm nhé!');
+        }
+    
         // Mở cửa sổ xem tài liệu trực tiếp trên web (In-App Document Viewer)
         function openDocumentViewer(docType, unitIndex) {
             const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
