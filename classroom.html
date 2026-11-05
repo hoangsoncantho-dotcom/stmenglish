@@ -2228,6 +2228,9 @@
                 </div>
 
                 <div class="unit-downloads">
+                    <button type="button" id="btnTogglePracticeMode" onclick="togglePracticeMode()" class="btn-download" style="background:#f8fafc; color:var(--primary); border:1.5px solid #cbd5e1; font-weight:700;">
+                        <i class="fa-solid fa-bullseye"></i> Luyện Thi 5 Kỹ Năng
+                    </button>
                     <a href="javascript:void(0)" onclick="openDirectExam('de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html')" class="btn-download" style="background:#0d9488; color:#fff; border-color:#0d9488;">
                         <i class="fa-solid fa-bolt"></i> Thi Thử Đề Chuẩn 03 Cần Thơ
                     </a>
@@ -2246,24 +2249,13 @@
                 </button>
             </div>
 
-            
-                        <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ HỌC TẬP UNIT: KHÔNG GIAN ĐA TẦNG vs BÀI TẬP TỰ LUYỆN -->
-            <div class="unit-mode-tabs">
-                <button type="button" id="tabBtnTheory" class="unit-mode-btn active" onclick="switchUnitMode('theory')">
-                    <i class="fa-solid fa-shapes text-teal"></i> 1. Không Gian Học Tập Đa Tầng (4 Phòng Chuyên Biệt)
-                </button>
-                <button type="button" id="tabBtnPractice" class="unit-mode-btn" onclick="switchUnitMode('practice')">
-                    <i class="fa-solid fa-bullseye text-primary"></i> 2. Ngân Hàng Luyện Thi & Khảo Thí (5 Kỹ Năng)
-                </button>
-            </div>
-
             <!-- ========================================================
                  PHÂN KHU 1: HỆ THỐNG 4 KHỐI KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
                  MÔ HÌNH PHÂN TẦNG 3 CẤP (MULTI-TIER NAVIGATION)
                  ======================================================== -->
             <div id="unitTheorySection" style="display: block;">
-                <!-- HEADER ĐIỀU HƯỚNG ĐA TẦNG (BREADCRUMB & TOPBAR) -->
-                <div id="multiTierNavHeader" class="multi-tier-header">
+                <!-- HEADER ĐIỀU HƯỚNG ĐA TẦNG (BREADCRUMB & TOPBAR) - CHỈ HIỂN THỊ KHI Ở TẦNG 2 & TẦNG 3 -->
+                <div id="multiTierNavHeader" class="multi-tier-header" style="display: none;">
                     <!-- Được render tự động bởi hàm renderMultiTierHeader() -->
                 </div>
 
@@ -2948,7 +2940,35 @@
         function selectUnit(index) {
             currentActiveUnitIndex = index;
             renderUnitTabs();
+
+            // Đảm bảo khi bấm chọn Unit: luôn hiển thị 4 Khối Không Gian Học Tập ở Tầng 1 và ẩn luyện tập 5 kỹ năng cũ
+            const theorySection = document.getElementById('unitTheorySection');
+            const practiceSection = document.getElementById('unitPracticeSection');
+            const btnToggle = document.getElementById('btnTogglePracticeMode');
+            if (theorySection) theorySection.style.display = 'block';
+            if (practiceSection) practiceSection.style.display = 'none';
+            if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-bullseye"></i> Luyện Thi 5 Kỹ Năng';
+
             updateCurrentUnitView(index);
+        }
+
+        // Chuyển đổi linh hoạt giữa 4 Khối Không Gian Học Tập và Ngân hàng Luyện Thi 5 Kỹ Năng
+        function togglePracticeMode() {
+            const theorySection = document.getElementById('unitTheorySection');
+            const practiceSection = document.getElementById('unitPracticeSection');
+            const btnToggle = document.getElementById('btnTogglePracticeMode');
+            if (!theorySection || !practiceSection) return;
+
+            if (practiceSection.style.display === 'none') {
+                theorySection.style.display = 'none';
+                practiceSection.style.display = 'block';
+                if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-shapes"></i> 4 Không Gian Học Tập';
+            } else {
+                practiceSection.style.display = 'none';
+                theorySection.style.display = 'block';
+                openTier1View();
+                if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-bullseye"></i> Luyện Thi 5 Kỹ Năng';
+            }
         }
 
         // 4. Cập nhật thông tin chi tiết của Unit ở Tầng 2 & Đồng bộ link bài thi động sang quiz.html
@@ -3873,9 +3893,14 @@
             const t1 = document.getElementById('multiTierTier1View');
             const t2 = document.getElementById('multiTierTier2View');
             const t3 = document.getElementById('multiTierTier3View');
+            const headerEl = document.getElementById('multiTierNavHeader');
             if (t1) t1.style.display = 'block';
             if (t2) t2.style.display = 'none';
             if (t3) t3.style.display = 'none';
+            if (headerEl) {
+                headerEl.style.display = 'none';
+                headerEl.innerHTML = '';
+            }
 
             renderMultiTierHeader();
             renderTier1HubCards();
@@ -3889,30 +3914,16 @@
             const gradeNum = multiTierState.gradeKey.replace('grade', '');
             const data = getMultiTierData(unit, gradeNum);
 
+            // THEO CHỈ ĐẠO CỦA THẦY SƠN: Ở Tầng 1, ẩn hoàn toàn khối header rườm rà này để 4 Card Không Gian xuất hiện ngay lập tức bên dưới tiêu đề Unit
             if (multiTierState.tier === 1) {
-                headerEl.innerHTML = `
-                    <div class="multi-tier-topbar">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:800; font-size:0.78rem;">
-                                <i class="fa-solid fa-shapes"></i> MÔ HÌNH PHÂN TẦNG 3 CẤP
-                            </span>
-                            <span id="materialsCloudSyncBadge" class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700; font-size:0.75rem;"><i class="fa-solid fa-cloud-arrow-down fa-spin"></i> Đang đồng bộ Drive 5TB...</span>
-                            <span style="font-family:'Lexend',sans-serif; font-weight:800; color:var(--navy-dark); font-size:1.05rem;">
-                                ${unit.code}: ${unit.name} • Tiếng Anh Lớp ${gradeNum}
-                            </span>
-                        </div>
-                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem;"><i class="fa-solid fa-book-bookmark"></i> Lý Thuyết</span>
-                            <span class="badge" style="background:#ffedd5; color:#c2410c; font-size:0.75rem;"><i class="fa-solid fa-fire-flame-curved"></i> Bài Tập Nâng Cao</span>
-                            <span class="badge" style="background:#d1fae5; color:#047857; font-size:0.75rem;"><i class="fa-solid fa-book-open-reader"></i> Phòng Đọc Sách</span>
-                            <span class="badge" style="background:#ede9fe; color:#6d28d9; font-size:0.75rem;"><i class="fa-solid fa-feather-pointed"></i> Luyện Viết</span>
-                        </div>
-                    </div>
-                    <p style="font-size:0.84rem; color:var(--text-muted); margin:0;">
-                        <i class="fa-solid fa-circle-info text-teal"></i> Chào mừng học sinh đến với Hệ thống 4 Khối Không Gian Chuyên Biệt. Bấm chọn một không gian bên dưới để mở danh mục học liệu và rèn luyện kỹ năng trực tuyến.
-                    </p>
-                `;
-            } else if (multiTierState.tier === 2) {
+                headerEl.style.display = 'none';
+                headerEl.innerHTML = '';
+                return;
+            }
+
+            // Ở Tầng 2 và Tầng 3, hiển thị Breadcrumb thanh lịch và nút điều hướng quay lại
+            headerEl.style.display = 'flex';
+            if (multiTierState.tier === 2) {
                 const hub = data[multiTierState.hubKey];
                 headerEl.innerHTML = `
                     <div class="multi-tier-topbar">

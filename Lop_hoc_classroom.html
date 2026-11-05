@@ -2228,6 +2228,9 @@
                 </div>
 
                 <div class="unit-downloads">
+                    <button type="button" id="btnTogglePracticeMode" onclick="togglePracticeMode()" class="btn-download" style="background:#f8fafc; color:var(--primary); border:1.5px solid #cbd5e1; font-weight:700;">
+                        <i class="fa-solid fa-bullseye"></i> Luyện Thi 5 Kỹ Năng
+                    </button>
                     <a href="javascript:void(0)" onclick="openDirectExam('de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html')" class="btn-download" style="background:#0d9488; color:#fff; border-color:#0d9488;">
                         <i class="fa-solid fa-bolt"></i> Thi Thử Đề Chuẩn 03 Cần Thơ
                     </a>
@@ -2246,24 +2249,13 @@
                 </button>
             </div>
 
-            
-                        <!-- THANH CHUYỂN ĐỔI CHẾ ĐỘ HỌC TẬP UNIT: KHÔNG GIAN ĐA TẦNG vs BÀI TẬP TỰ LUYỆN -->
-            <div class="unit-mode-tabs">
-                <button type="button" id="tabBtnTheory" class="unit-mode-btn active" onclick="switchUnitMode('theory')">
-                    <i class="fa-solid fa-shapes text-teal"></i> 1. Không Gian Học Tập Đa Tầng (4 Phòng Chuyên Biệt)
-                </button>
-                <button type="button" id="tabBtnPractice" class="unit-mode-btn" onclick="switchUnitMode('practice')">
-                    <i class="fa-solid fa-bullseye text-primary"></i> 2. Ngân Hàng Luyện Thi & Khảo Thí (5 Kỹ Năng)
-                </button>
-            </div>
-
             <!-- ========================================================
                  PHÂN KHU 1: HỆ THỐNG 4 KHỐI KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
                  MÔ HÌNH PHÂN TẦNG 3 CẤP (MULTI-TIER NAVIGATION)
                  ======================================================== -->
             <div id="unitTheorySection" style="display: block;">
-                <!-- HEADER ĐIỀU HƯỚNG ĐA TẦNG (BREADCRUMB & TOPBAR) -->
-                <div id="multiTierNavHeader" class="multi-tier-header">
+                <!-- HEADER ĐIỀU HƯỚNG ĐA TẦNG (BREADCRUMB & TOPBAR) - CHỈ HIỂN THỊ KHI Ở TẦNG 2 & TẦNG 3 -->
+                <div id="multiTierNavHeader" class="multi-tier-header" style="display: none;">
                     <!-- Được render tự động bởi hàm renderMultiTierHeader() -->
                 </div>
 
@@ -2799,6 +2791,7 @@
         // B. KHỞI TẠO KHI TẢI TRANG
         // ========================================================
         document.addEventListener('DOMContentLoaded', () => {
+            loadMaterialsDatabaseCloud();
             initStudentSession();
             renderUnitTabs();
             updateCurrentUnitView(currentActiveUnitIndex);
@@ -2913,6 +2906,7 @@
 
         // Cho phép chuyển đổi khối lớp nhanh trên giao diện
         function switchGradeManually(gradeKey) {
+            loadMaterialsDatabaseCloud();
             if (CURRICULUM_DATA[gradeKey]) {
                 currentActiveGrade = gradeKey;
                 currentActiveUnitIndex = 0;
@@ -2946,7 +2940,35 @@
         function selectUnit(index) {
             currentActiveUnitIndex = index;
             renderUnitTabs();
+
+            // Đảm bảo khi bấm chọn Unit: luôn hiển thị 4 Khối Không Gian Học Tập ở Tầng 1 và ẩn luyện tập 5 kỹ năng cũ
+            const theorySection = document.getElementById('unitTheorySection');
+            const practiceSection = document.getElementById('unitPracticeSection');
+            const btnToggle = document.getElementById('btnTogglePracticeMode');
+            if (theorySection) theorySection.style.display = 'block';
+            if (practiceSection) practiceSection.style.display = 'none';
+            if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-bullseye"></i> Luyện Thi 5 Kỹ Năng';
+
             updateCurrentUnitView(index);
+        }
+
+        // Chuyển đổi linh hoạt giữa 4 Khối Không Gian Học Tập và Ngân hàng Luyện Thi 5 Kỹ Năng
+        function togglePracticeMode() {
+            const theorySection = document.getElementById('unitTheorySection');
+            const practiceSection = document.getElementById('unitPracticeSection');
+            const btnToggle = document.getElementById('btnTogglePracticeMode');
+            if (!theorySection || !practiceSection) return;
+
+            if (practiceSection.style.display === 'none') {
+                theorySection.style.display = 'none';
+                practiceSection.style.display = 'block';
+                if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-shapes"></i> 4 Không Gian Học Tập';
+            } else {
+                practiceSection.style.display = 'none';
+                theorySection.style.display = 'block';
+                openTier1View();
+                if (btnToggle) btnToggle.innerHTML = '<i class="fa-solid fa-bullseye"></i> Luyện Thi 5 Kỹ Năng';
+            }
         }
 
         // 4. Cập nhật thông tin chi tiết của Unit ở Tầng 2 & Đồng bộ link bài thi động sang quiz.html
@@ -3494,6 +3516,158 @@
         // HỆ THỐNG 4 KHỐI KHÔNG GIAN HỌC TẬP CHUYÊN BIỆT
         // MÔ HÌNH PHÂN TẦNG 3 CẤP (MULTI-TIER NAVIGATION)
         // ========================================================
+        
+        // ========================================================
+        // TRẠM TRUNG CHUYỂN DỮ LIỆU HỌC LIỆU GOOGLE SHEETS / JSON
+        // KẾT NỐI GOOGLE DRIVE 5TB & TỰ ĐỘNG HIỂN THỊ LÊN LỚP HỌC
+        // ========================================================
+        let materialsDatabase = {
+            materials: {}
+        };
+        let isMaterialsCloudLoaded = false;
+
+        // URL API Google Apps Script Web App (Backend Drive 5TB & Google Sheets)
+        const MATERIALS_API_URL = "https://script.google.com/macros/s/AKfycbxj1vmHrIlyAGZfKb9YERzIUhsspKrCBbUwUNyPJdGF72BqffVGHu1NGEgejLLbMo1ZNA/exec";
+
+        // Hàm nạp dữ liệu bất đồng bộ từ Đám Mây (Google Sheets + GitHub JSON + LocalStorage)
+        async function loadMaterialsDatabaseCloud() {
+            // 1. Nạp tức thời từ LocalStorage Cache (Tránh chờ đợi)
+            try {
+                const cachedDb = localStorage.getItem('stm_materials_database');
+                if (cachedDb) {
+                    const parsed = JSON.parse(cachedDb);
+                    if (parsed && parsed.materials) {
+                        materialsDatabase = parsed;
+                    }
+                }
+            } catch (e) {
+                console.warn("Lỗi đọc cache materials:", e);
+            }
+
+            // Hiển thị hiệu ứng loading nhẹ trên giao diện
+            updateCloudSyncIndicator(true);
+
+            // 2. Nạp bất đồng bộ từ file JSON trung tâm trên GitHub (data/materials_database.json)
+            try {
+                const resJson = await fetch('data/materials_database.json?t=' + Date.now());
+                if (resJson.ok) {
+                    const dataJson = await resJson.json();
+                    if (dataJson && dataJson.materials) {
+                        mergeMaterials(dataJson.materials);
+                    }
+                }
+            } catch (errJson) {
+                console.log("Không tải được data/materials_database.json cục bộ, tiếp tục nạp từ Google Sheets...");
+            }
+
+            // 3. Nạp bất đồng bộ từ Google Apps Script / Google Sheets trung tâm
+            try {
+                const resGas = await fetch(MATERIALS_API_URL + "?action=get_materials&t=" + Date.now());
+                if (resGas.ok) {
+                    const dataGas = await resGas.json();
+                    if (dataGas && dataGas.status === 'success' && Array.isArray(dataGas.materials)) {
+                        dataGas.materials.forEach(item => {
+                            const gKey = item.grade.startsWith('grade') ? item.grade : ('grade' + item.grade);
+                            const uKey = item.unitId.startsWith('unit') ? item.unitId : ('unit' + item.unitId);
+                            if (!materialsDatabase.materials[gKey]) materialsDatabase.materials[gKey] = {};
+                            if (!materialsDatabase.materials[gKey][uKey]) materialsDatabase.materials[gKey][uKey] = [];
+
+                            // Kiểm tra trùng lặp theo fileUrl hoặc fileName
+                            const exists = materialsDatabase.materials[gKey][uKey].some(m => m.fileUrl === item.fileUrl || m.fileName === item.fileName);
+                            if (!exists) {
+                                materialsDatabase.materials[gKey][uKey].unshift({
+                                    id: item.id || ("mat-" + Date.now()),
+                                    hub: item.hub || "theory",
+                                    title: item.fileName.replace(/\.[^/.]+$/, ""),
+                                    fileName: item.fileName,
+                                    fileType: item.fileType || "docx",
+                                    fileSize: item.fileSize || "1.0 MB",
+                                    fileUrl: item.fileUrl || item.downloadUrl,
+                                    uploadedAt: item.timestamp || new Date().toISOString()
+                                });
+                            }
+                        });
+                    }
+                }
+            } catch (errGas) {
+                console.log("Kết nối Google Sheets Web App:", errGas.message);
+            }
+
+            // Lưu lại bộ nhớ đệm
+            try {
+                localStorage.setItem('stm_materials_database', JSON.stringify(materialsDatabase));
+            } catch (e) {}
+
+            isMaterialsCloudLoaded = true;
+            updateCloudSyncIndicator(false);
+
+            // Tự động render lại view hiện tại nếu đang mở
+            if (multiTierState && multiTierState.tier) {
+                if (multiTierState.tier === 1) renderTier1HubCards();
+                else if (multiTierState.tier === 2) openTier2Submenu(multiTierState.hubKey);
+                else if (multiTierState.tier === 3) openTier3Workspace(multiTierState.hubKey, multiTierState.itemId);
+            }
+        }
+
+        function mergeMaterials(newMaterialsObj) {
+            if (!newMaterialsObj) return;
+            if (!materialsDatabase.materials) materialsDatabase.materials = {};
+
+            Object.keys(newMaterialsObj).forEach(gradeKey => {
+                if (!materialsDatabase.materials[gradeKey]) materialsDatabase.materials[gradeKey] = {};
+                const units = newMaterialsObj[gradeKey];
+                Object.keys(units).forEach(unitKey => {
+                    if (!materialsDatabase.materials[gradeKey][unitKey]) materialsDatabase.materials[gradeKey][unitKey] = [];
+                    const items = units[unitKey];
+                    items.forEach(newItem => {
+                        const exists = materialsDatabase.materials[gradeKey][unitKey].some(m => m.fileName === newItem.fileName || m.fileUrl === newItem.fileUrl);
+                        if (!exists) {
+                            materialsDatabase.materials[gradeKey][unitKey].push(newItem);
+                        }
+                    });
+                });
+            });
+        }
+
+        function updateCloudSyncIndicator(isLoading) {
+            const el = document.getElementById('materialsCloudSyncBadge');
+            if (!el) return;
+            if (isLoading) {
+                el.style.background = '#e0f2fe';
+                el.style.color = '#0369a1';
+                el.innerHTML = '<i class="fa-solid fa-cloud-arrow-down fa-spin"></i> Đang đồng bộ Drive 5TB...';
+            } else {
+                el.style.background = '#d1fae5';
+                el.style.color = '#047857';
+                el.innerHTML = '<i class="fa-solid fa-cloud-check"></i> Đã kết nối Drive 5TB';
+            }
+        }
+
+        // Lấy danh sách tài liệu thực tế của Unit và Khối Lớp hiện tại
+        function getMaterialsForCurrentUnit(gradeKey, unitIndex) {
+            const uKey = "unit" + (unitIndex + 1);
+            const gKey = gradeKey || multiTierState.gradeKey || "grade9";
+            if (materialsDatabase && materialsDatabase.materials && materialsDatabase.materials[gKey] && materialsDatabase.materials[gKey][uKey]) {
+                return materialsDatabase.materials[gKey][uKey];
+            }
+            return [];
+        }
+
+        // Lắng nghe sự kiện lưu trữ giữa các tab trình duyệt (Cross-tab instant sync)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'stm_materials_database') {
+                try {
+                    materialsDatabase = JSON.parse(e.newValue || '{"materials":{}}');
+                    if (multiTierState && multiTierState.tier) {
+                        if (multiTierState.tier === 1) renderTier1HubCards();
+                        else if (multiTierState.tier === 2) openTier2Submenu(multiTierState.hubKey);
+                        else if (multiTierState.tier === 3) openTier3Workspace(multiTierState.hubKey, multiTierState.itemId);
+                    }
+                } catch(err) {}
+            }
+        });
+    
+
         let multiTierState = {
             tier: 1, // 1: Hubs, 2: Sub-menu, 3: Workspace
             hubKey: 'theory',
@@ -3719,9 +3893,14 @@
             const t1 = document.getElementById('multiTierTier1View');
             const t2 = document.getElementById('multiTierTier2View');
             const t3 = document.getElementById('multiTierTier3View');
+            const headerEl = document.getElementById('multiTierNavHeader');
             if (t1) t1.style.display = 'block';
             if (t2) t2.style.display = 'none';
             if (t3) t3.style.display = 'none';
+            if (headerEl) {
+                headerEl.style.display = 'none';
+                headerEl.innerHTML = '';
+            }
 
             renderMultiTierHeader();
             renderTier1HubCards();
@@ -3735,29 +3914,16 @@
             const gradeNum = multiTierState.gradeKey.replace('grade', '');
             const data = getMultiTierData(unit, gradeNum);
 
+            // THEO CHỈ ĐẠO CỦA THẦY SƠN: Ở Tầng 1, ẩn hoàn toàn khối header rườm rà này để 4 Card Không Gian xuất hiện ngay lập tức bên dưới tiêu đề Unit
             if (multiTierState.tier === 1) {
-                headerEl.innerHTML = `
-                    <div class="multi-tier-topbar">
-                        <div style="display:flex; align-items:center; gap:8px;">
-                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:800; font-size:0.78rem;">
-                                <i class="fa-solid fa-shapes"></i> MÔ HÌNH PHÂN TẦNG 3 CẤP
-                            </span>
-                            <span style="font-family:'Lexend',sans-serif; font-weight:800; color:var(--navy-dark); font-size:1.05rem;">
-                                ${unit.code}: ${unit.name} • Tiếng Anh Lớp ${gradeNum}
-                            </span>
-                        </div>
-                        <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.75rem;"><i class="fa-solid fa-book-bookmark"></i> Lý Thuyết</span>
-                            <span class="badge" style="background:#ffedd5; color:#c2410c; font-size:0.75rem;"><i class="fa-solid fa-fire-flame-curved"></i> Bài Tập Nâng Cao</span>
-                            <span class="badge" style="background:#d1fae5; color:#047857; font-size:0.75rem;"><i class="fa-solid fa-book-open-reader"></i> Phòng Đọc Sách</span>
-                            <span class="badge" style="background:#ede9fe; color:#6d28d9; font-size:0.75rem;"><i class="fa-solid fa-feather-pointed"></i> Luyện Viết</span>
-                        </div>
-                    </div>
-                    <p style="font-size:0.84rem; color:var(--text-muted); margin:0;">
-                        <i class="fa-solid fa-circle-info text-teal"></i> Chào mừng học sinh đến với Hệ thống 4 Khối Không Gian Chuyên Biệt. Bấm chọn một không gian bên dưới để mở danh mục học liệu và rèn luyện kỹ năng trực tuyến.
-                    </p>
-                `;
-            } else if (multiTierState.tier === 2) {
+                headerEl.style.display = 'none';
+                headerEl.innerHTML = '';
+                return;
+            }
+
+            // Ở Tầng 2 và Tầng 3, hiển thị Breadcrumb thanh lịch và nút điều hướng quay lại
+            headerEl.style.display = 'flex';
+            if (multiTierState.tier === 2) {
                 const hub = data[multiTierState.hubKey];
                 headerEl.innerHTML = `
                     <div class="multi-tier-topbar">
@@ -3968,6 +4134,69 @@
                 `;
             }).join('');
 
+            // Lấy danh sách tài liệu thực tế của Unit này đã tải lên Google Drive 5TB
+            const uploadedFiles = getMaterialsForCurrentUnit(multiTierState.gradeKey, currentActiveUnitIndex);
+            let uploadedMaterialsHtml = '';
+            if (uploadedFiles && uploadedFiles.length > 0) {
+                const filesCards = uploadedFiles.map(file => {
+                    let extUpper = (file.fileType || 'DOCX').toUpperCase();
+                    let iconClass = 'fa-file-lines text-primary';
+                    let bgBadge = '#e0f2fe';
+                    let colorBadge = '#0369a1';
+                    if (extUpper.includes('PPT')) { iconClass = 'fa-file-powerpoint text-rose'; bgBadge = '#fee2e2'; colorBadge = '#dc2626'; }
+                    else if (extUpper.includes('XLS')) { iconClass = 'fa-file-excel text-emerald'; bgBadge = '#d1fae5'; colorBadge = '#047857'; }
+                    else if (extUpper.includes('PDF')) { iconClass = 'fa-file-pdf text-red-600'; bgBadge = '#fef2f2'; colorBadge = '#b91c1c'; }
+
+                    return `
+                        <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:1rem 1.15rem; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                                    <span class="badge" style="background:${bgBadge}; color:${colorBadge}; font-weight:800; font-size:0.75rem;">
+                                        <i class="fa-regular ${iconClass}"></i> ${extUpper}
+                                    </span>
+                                    <span style="font-size:0.75rem; color:var(--text-muted);">${file.fileSize || '1.0 MB'}</span>
+                                </div>
+                                <h5 style="font-family:'Lexend',sans-serif; font-size:0.95rem; font-weight:800; color:var(--navy-dark); margin:0 0 0.4rem 0; line-height:1.4;">
+                                    ${file.fileName}
+                                </h5>
+                                <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 0.85rem 0;">
+                                    Tài liệu học tập chính thức do Thầy Nguyễn Hoàng Sơn tải lên.
+                                </p>
+                            </div>
+                            <div style="display:flex; gap:6px;">
+                                <button type="button" class="btn btn-outline" onclick="openHtmlDocumentViewer('${file.htmlUrl || ('tai-lieu/' + multiTierState.gradeKey.replace('grade', 'lop-') + '/unit-' + (currentActiveUnitIndex + 1) + '/ly-thuyet.html')}', '${file.fileName}', '${file.fileType || 'docx'}', 'word')" style="flex:1; padding:0.4rem 0.6rem; font-size:0.8rem; font-weight:700;">
+                                    <i class="fa-solid fa-eye"></i> Xem Trên Web
+                                </button>
+                                <a href="${file.fileUrl}" target="_blank" class="btn btn-primary" style="flex:1; padding:0.4rem 0.6rem; font-size:0.8rem; font-weight:700; text-align:center; text-decoration:none;">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i> Mở Drive
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                uploadedMaterialsHtml = `
+                    <div style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:16px; padding:1.25rem 1.5rem; margin-bottom:1.75rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:8px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="badge" style="background:#059669; color:#fff; font-weight:800; font-size:0.75rem;">
+                                    DRIVE 5TB
+                                </span>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; font-weight:800; color:var(--navy-dark); margin:0;">
+                                    📂 Tài Liệu Bài Giảng & Phiếu Bài Tập Mới Tải Lên Của Unit Này
+                                </h4>
+                            </div>
+                            <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700; font-size:0.78rem;">
+                                ${uploadedFiles.length} Tệp Có Sẵn
+                            </span>
+                        </div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
+                            ${filesCards}
+                        </div>
+                    </div>
+                `;
+            }
+
             contentEl.innerHTML = `
                 <div class="tier2-hub-banner" style="background:${hub.color}10; border:1px solid ${hub.color}30;">
                     <div>
@@ -3987,6 +4216,8 @@
                         <i class="fa-solid fa-arrow-left"></i> Chọn Không Gian Khác
                     </button>
                 </div>
+
+                ${uploadedMaterialsHtml}
 
                 <div class="tier2-item-grid">
                     ${itemsHtml}
@@ -4056,6 +4287,8 @@
                         </div>
                     </div>
                     <div class="tier3-workspace-body">
+                        <!-- BANNER TÀI LIỆU GOOGLE DRIVE ĐÍNH KÈM NẾU CÓ -->
+                        ${renderUploadedMaterialBannerForTier3(hubKey)}
                         ${bodyHtml}
                     </div>
                 </div>
@@ -4065,6 +4298,56 @@
         // ========================================================
         // TẦNG 3 BODY 1: LÝ THUYẾT BÀI HỌC
         // ========================================================
+        
+        // Helper: Render banner tài liệu đính kèm từ Drive 5TB vào Tầng 3
+        function renderUploadedMaterialBannerForTier3(hubKey) {
+            const files = getMaterialsForCurrentUnit(multiTierState.gradeKey, currentActiveUnitIndex);
+            if (!files || files.length === 0) return '';
+
+            // Tìm file khớp với hub hiện tại hoặc lấy file đầu tiên
+            let matched = files.filter(f => f.hub === hubKey);
+            if (matched.length === 0) matched = files;
+            const topFile = matched[0];
+
+            let icon = 'fa-file-lines';
+            let ext = (topFile.fileType || 'docx').toUpperCase();
+            if (ext.includes('PPT')) icon = 'fa-file-powerpoint';
+            else if (ext.includes('XLS')) icon = 'fa-file-excel';
+            else if (ext.includes('PDF')) icon = 'fa-file-pdf';
+
+            return `
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1.5px solid #bae6fd; border-radius: 14px; padding: 1.15rem 1.4rem; margin-bottom: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.08);">
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:46px; height:46px; border-radius:12px; background:#0284c7; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);">
+                            <i class="fa-regular ${icon}"></i>
+                        </div>
+                        <div>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="badge" style="background:#0284c7; color:#fff; font-weight:800; font-size:0.75rem;">
+                                    TÀI LIỆU DRIVE 5TB
+                                </span>
+                                <span style="font-weight:800; font-size:0.98rem; color:var(--navy-dark); font-family:'Lexend',sans-serif;">
+                                    ${topFile.fileName}
+                                </span>
+                            </div>
+                            <p style="font-size:0.83rem; color:var(--text-muted); margin:3px 0 0 0;">
+                                Dung lượng: <strong>${topFile.fileSize}</strong> • Bản quyền STM Center • GV: Thầy Nguyễn Hoàng Sơn
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button type="button" class="btn btn-outline" onclick="openHtmlDocumentViewer('${topFile.htmlUrl || ('tai-lieu/' + multiTierState.gradeKey.replace('grade', 'lop-') + '/unit-' + (currentActiveUnitIndex + 1) + '/ly-thuyet.html')}', '${topFile.fileName}', '${topFile.fileType || 'docx'}', 'word')" style="padding:0.45rem 0.95rem; font-size:0.82rem; font-weight:700; background:#fff;">
+                            <i class="fa-solid fa-eye"></i> Xem Trực Tiếp Trên Web
+                        </button>
+                        <a href="${topFile.fileUrl}" target="_blank" class="btn btn-primary" style="padding:0.45rem 1rem; font-size:0.82rem; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="fa-solid fa-cloud-arrow-down"></i> Mở File Trên Google Drive
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    
+
         function renderTheoryWorkspaceBody(unit, gradeNum, item) {
             if (item.id === 'theory-2') {
                 // Hiển thị Slide Trình Chiếu Tương Tác Trực Tiếp
@@ -4596,6 +4879,59 @@
         }
     
         // Mở cửa sổ xem tài liệu trực tiếp trên web (In-App Document Viewer)
+        
+        // Mở tài liệu HTML biên dịch sẵn trực tiếp trong In-App Modal hoặc Iframe
+        function openHtmlDocumentViewer(htmlUrl, fileTitle, fileType, fallbackDocType) {
+            const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
+            const unit = units[currentActiveUnitIndex] || { code: "Unit 1", name: "Lesson", subtitle: "Chủ điểm bài học" };
+            const gradeNum = currentActiveGrade ? currentActiveGrade.replace('grade', '') : '9';
+
+            const modal = document.getElementById('documentViewerModal');
+            const iconEl = document.getElementById('docViewerIcon');
+            const titleEl = document.getElementById('docViewerTitle');
+            const subEl = document.getElementById('docViewerSubtitle');
+            const badgeEl = document.getElementById('docViewerBadge');
+            const bodyEl = document.getElementById('docViewerBody');
+
+            if (!htmlUrl) {
+                openDocumentViewer(fallbackDocType || 'word', currentActiveUnitIndex);
+                return;
+            }
+
+            if (iconEl) {
+                iconEl.className = 'doc-viewer-icon';
+                iconEl.style.background = '#e0f2fe';
+                iconEl.style.color = '#0284c7';
+                iconEl.innerHTML = '<i class="fa-brands fa-html5"></i>';
+            }
+            if (titleEl) titleEl.innerText = fileTitle || `${unit.code}: ${unit.name} - Tài Liệu Trực Tuyến.html`;
+            if (subEl) subEl.innerText = `Bản Đọc HTML Trực Tiếp • Khối Lớp ${gradeNum} • GV: Thầy Nguyễn Hoàng Sơn (STM Center)`;
+            if (badgeEl) {
+                badgeEl.style.background = '#d1fae5';
+                badgeEl.style.color = '#047857';
+                badgeEl.innerHTML = '<i class="fa-solid fa-bolt"></i> HTML Live Viewer';
+            }
+
+            if (bodyEl) {
+                bodyEl.innerHTML = `
+                    <div style="position:relative; width:100%; height:78vh; background:#fff; border-radius:12px; overflow:hidden; box-shadow:inset 0 2px 6px rgba(0,0,0,0.05);">
+                        <iframe src="${htmlUrl}" style="width:100%; height:100%; border:none;" id="htmlViewerIframe"></iframe>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.75rem; flex-wrap:wrap; gap:8px;">
+                        <span style="font-size:0.8rem; color:var(--text-muted);">
+                            <i class="fa-solid fa-shield-halved text-emerald"></i> Chế độ đọc tài liệu HTML trực tiếp chuẩn bản quyền STM Center.
+                        </span>
+                        <a href="${htmlUrl}" target="_blank" class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.8rem; font-weight:800; text-decoration:none;">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Trang Toàn Màn Hình
+                        </a>
+                    </div>
+                `;
+            }
+
+            if (modal) modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
         function openDocumentViewer(docType, unitIndex) {
             const units = CURRICULUM_DATA[currentActiveGrade] || CURRICULUM_DATA["grade9"];
             const unit = units[unitIndex] || { code: "Unit 1", name: "Lesson", subtitle: "Chủ điểm bài học" };
