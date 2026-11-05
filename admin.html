@@ -1178,9 +1178,26 @@
 
                         <div class="form-group">
                             <label>Chọn Đơn Vị Bài Học (Unit - Đủ 12 Bài Chuẩn GDPT 2018)</label>
-                            <select id="matUnitSelect" class="form-control" onchange="renderSampleMaterialsTable()">
+                            <select id="matUnitSelect" class="form-control" onchange="renderSampleMaterialsTable(); autoGenerateHtmlPath();">
                                 <!-- Tự động nạp đủ 12 Unit bởi hàm updateMatUnitList() -->
                             </select>
+                        </div>
+
+                        <!-- ĐƯỜNG DẪN FILE HTML XEM TRỰC TUYẾN TRÊN GITHUB -->
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                                <span><i class="fa-solid fa-code text-teal"></i> Đường Dẫn File HTML Xem Trực Tuyến (Lưu Trên GitHub):</span>
+                                <span style="font-size: 0.78rem; font-weight: 700; color: #059669;"><i class="fa-solid fa-bolt"></i> Quy ước chuẩn: tai-lieu/[lop]/[unit]/[ten-file].html</span>
+                            </label>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" id="matHtmlUrlInput" class="form-control font-bold" placeholder="tai-lieu/lop-9/unit-1/ly-thuyet-local-community.html" style="background:#f0fdf4; border:1.5px solid #86efac; color:#065f46; font-size: 0.92rem;">
+                                <button type="button" class="btn btn-outline" onclick="autoGenerateHtmlPath()" title="Tự động tính lại link HTML chuẩn theo file đã chọn" style="white-space: nowrap; padding: 0.5rem 0.9rem;">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Tạo Lại Link
+                                </button>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
+                                * Đường dẫn này sẽ được liên kết trực tiếp với nút <strong>[👁️ Xem Trên Web]</strong> trên trang lớp học (classroom.html) giúp học sinh đọc bài trực tiếp mượt mà, không gặp rào cản từ Google Drive.
+                            </p>
                         </div>
                     </div>
 
@@ -1877,6 +1894,30 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
 
             unitSelect.innerHTML = html;
             renderSampleMaterialsTable();
+            autoGenerateHtmlPath();
+        }
+
+        // Tự động sinh đường dẫn file HTML tĩnh chuẩn quy ước: tai-lieu/[lop]/[unit]/[ten-file].html
+        function autoGenerateHtmlPath() {
+            const gradeSelect = document.getElementById("matGradeSelect");
+            const gradeVal = gradeSelect ? gradeSelect.value : "9";
+            const unitSelect = document.getElementById("matUnitSelect");
+            const unitNum = unitSelect ? (unitSelect.value || "1") : "1";
+            
+            let fileSlug = "tai-lieu-hoc-tap";
+            if (selectedAdminFile && selectedAdminFile.name) {
+                fileSlug = selectedAdminFile.name.replace(/\.[^/.]+$/, "").toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+            } else {
+                // Tự động tạo slug gợi ý theo Unit
+                fileSlug = `ly-thuyet-unit-${unitNum}`;
+            }
+
+            const input = document.getElementById("matHtmlUrlInput");
+            if (input) {
+                input.value = `tai-lieu/lop-${gradeVal}/unit-${unitNum}/${fileSlug}.html`;
+            }
         }
 
         // Cập nhật bảng tài liệu mẫu trực quan theo đúng Khối lớp và Unit
@@ -1906,11 +1947,11 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                     <td><button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="alert('Đang tải phiếu bài tập...')"><i class="fa-solid fa-download"></i> Tải về</button></td>
                 </tr>
                 <tr>
-                    <td><span style="background: #fef3c7; color: #b45309; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">PDF</span></td>
-                    <td><strong>De_Khao_Sat_Chat_Luong_Unit${unitNum}.pdf</strong></td>
+                    <td><span style="background: #d1fae5; color: #059669; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">HTML</span></td>
+                    <td><strong>tai-lieu/lop-${gradeVal}/unit-${unitNum}/ly-thuyet.html</strong></td>
                     <td>${unitText} (Lớp ${gradeVal})</td>
-                    <td>2.1 MB</td>
-                    <td><button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="alert('Đang tải đề khảo sát...')"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                    <td>420 KB</td>
+                    <td><a href="tai-lieu/lop-${gradeVal}/unit-${unitNum}/ly-thuyet-local-community.html" target="_blank" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-eye"></i> Xem HTML</a></td>
                 </tr>
             `;
         }
@@ -1923,6 +1964,7 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                 const btnUpload = document.getElementById('btnAdminUploadDrive');
                 btnUpload.disabled = false;
                 btnUpload.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Tải Lên "${selectedAdminFile.name}"`;
+                autoGenerateHtmlPath();
             }
         }
 
@@ -1951,6 +1993,10 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
             const fnLower = fileName.toLowerCase();
             const fileExt = fileName.split('.').pop().toLowerCase();
             
+            // Đường dẫn HTML tĩnh xem trực tuyến
+            const htmlInput = document.getElementById("matHtmlUrlInput");
+            const htmlUrl = (htmlInput && htmlInput.value.trim()) ? htmlInput.value.trim() : `tai-lieu/lop-${gradeVal}/unit-${unitNum}/${fileName.replace(/\.[^/.]+$/, '').toLowerCase()}.html`;
+
             // Phân loại tự động vào 1 trong 4 Khối Không Gian của classroom.html
             let targetHub = "theory";
             if (fileExt === "pptx" || fileExt === "ppt") targetHub = "theory";
@@ -1976,6 +2022,7 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                     fileType: fileExt,
                     fileName: fileName,
                     fileSize: fileSizeStr,
+                    htmlUrl: htmlUrl,
                     mimeType: selectedAdminFile.type || 'application/octet-stream',
                     base64: base64Data
                 };
@@ -2006,6 +2053,7 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                                 fileType: fileExt,
                                 fileSize: fileSizeStr,
                                 fileUrl: fileUrl,
+                                htmlUrl: htmlUrl,
                                 uploadedAt: new Date().toISOString()
                             };
 
