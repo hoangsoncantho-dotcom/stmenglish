@@ -1161,27 +1161,25 @@
                         <div class="form-group">
                             <label>Chọn Khối Lớp Cần Tải Lên</label>
                             <select id="matGradeSelect" class="form-control" onchange="updateMatUnitList()">
-                                <option value="9">Khối Lớp 9 (Global Success)</option>
+                                <option value="9" selected>Khối Lớp 9 (Global Success)</option>
                                 <option value="8">Khối Lớp 8 (Global Success)</option>
                                 <option value="7">Khối Lớp 7 (Global Success)</option>
                                 <option value="6">Khối Lớp 6 (Global Success)</option>
-                                <option value="5">Khối Lớp 5</option>
-                                <option value="4">Khối Lớp 4</option>
-                                <option value="3">Khối Lớp 3</option>
-                                <option value="2">Khối Lớp 2</option>
-                                <option value="1">Khối Lớp 1</option>
+                                <option value="10">Khối Lớp 10 (Global Success)</option>
+                                <option value="11">Khối Lớp 11 (Global Success)</option>
+                                <option value="12">Khối Lớp 12 (Global Success)</option>
+                                <option value="5">Khối Lớp 5 (Global Success)</option>
+                                <option value="4">Khối Lớp 4 (Global Success)</option>
+                                <option value="3">Khối Lớp 3 (Global Success)</option>
+                                <option value="2">Khối Lớp 2 (Global Success)</option>
+                                <option value="1">Khối Lớp 1 (Global Success)</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label>Chọn Đơn Vị Bài Học (Unit)</label>
-                            <select id="matUnitSelect" class="form-control">
-                                <option value="1">Unit 1: Local Community</option>
-                                <option value="2">Unit 2: City Life</option>
-                                <option value="3">Unit 3: Healthy Living</option>
-                                <option value="4">Unit 4: Remembering the Past</option>
-                                <option value="5">Unit 5: Our Experiences</option>
-                                <option value="6">Unit 6: Viet Nam: Then & Now</option>
+                            <label>Chọn Đơn Vị Bài Học (Unit - Đủ 12 Bài Chuẩn GDPT 2018)</label>
+                            <select id="matUnitSelect" class="form-control" onchange="renderSampleMaterialsTable()">
+                                <!-- Tự động nạp đủ 12 Unit bởi hàm updateMatUnitList() -->
                             </select>
                         </div>
                     </div>
@@ -1571,6 +1569,7 @@
 
             // Nạp bảng điểm thật từ localStorage
             loadRealGradebook();
+            updateMatUnitList();
         });
 
         function updateLiveClock() {
@@ -1641,6 +1640,238 @@
          * 4. HẠ TẦNG TẢI FILE HỌC LIỆU LÊN GOOGLE DRIVE
          * =========================================================================
          */
+        
+        /**
+         * =========================================================================
+         * DỮ LIỆU ĐỦ 12 ĐƠN VỊ BÀI HỌC (UNIT 1 - 12) CHO CẢ 12 KHỐI LỚP
+         * Chuẩn hóa 100% theo chương trình SGK Tiếng Anh Global Success (GDPT 2018)
+         * =========================================================================
+         */
+        const ALL_GRADE_UNITS = {
+            "1": [
+                { id: 1, name: "Unit 1: In the School Playground" },
+                { id: 2, name: "Unit 2: In the Dining Room" },
+                { id: 3, name: "Unit 3: At the Street Market" },
+                { id: 4, name: "Unit 4: In the Bedroom" },
+                { id: 5, name: "Unit 5: In the Classroom" },
+                { id: 6, name: "Unit 6: On the Farm" },
+                { id: 7, name: "Unit 7: In the Garden" },
+                { id: 8, name: "Unit 8: In the Park" },
+                { id: 9, name: "Unit 9: In the Shop" },
+                { id: 10, name: "Unit 10: At the Zoo" },
+                { id: 11, name: "Unit 11: At the Bus Stop" },
+                { id: 12, name: "Unit 12: At the Lake" }
+            ],
+            "2": [
+                { id: 1, name: "Unit 1: At My Birthday Party" },
+                { id: 2, name: "Unit 2: In the Backyard" },
+                { id: 3, name: "Unit 3: At the Seaside" },
+                { id: 4, name: "Unit 4: In the Countryside" },
+                { id: 5, name: "Unit 5: In the Classroom" },
+                { id: 6, name: "Unit 6: On the Farm" },
+                { id: 7, name: "Unit 7: In the Kitchen" },
+                { id: 8, name: "Unit 8: In the Village" },
+                { id: 9, name: "Unit 9: In the Grocery Store" },
+                { id: 10, name: "Unit 10: At the Zoo" },
+                { id: 11, name: "Unit 11: In the Playground" },
+                { id: 12, name: "Unit 12: At the Dining Table" }
+            ],
+            "3": [
+                { id: 1, name: "Unit 1: Hello" },
+                { id: 2, name: "Unit 2: Our Names" },
+                { id: 3, name: "Unit 3: Our Friends" },
+                { id: 4, name: "Unit 4: Our Bodies" },
+                { id: 5, name: "Unit 5: My Hobbies" },
+                { id: 6, name: "Unit 6: Our School" },
+                { id: 7, name: "Unit 7: Classroom Instructions" },
+                { id: 8, name: "Unit 8: My School Things" },
+                { id: 9, name: "Unit 9: Colours" },
+                { id: 10, name: "Unit 10: Break Time" },
+                { id: 11, name: "Unit 11: My Family" },
+                { id: 12, name: "Unit 12: This Is My House" }
+            ],
+            "4": [
+                { id: 1, name: "Unit 1: My Friends" },
+                { id: 2, name: "Unit 2: Time & Daily Routines" },
+                { id: 3, name: "Unit 3: My Week" },
+                { id: 4, name: "Unit 4: My Birthday Party" },
+                { id: 5, name: "Unit 5: Things We Can Do" },
+                { id: 6, name: "Unit 6: Our School Facilities" },
+                { id: 7, name: "Unit 7: Our Timetables" },
+                { id: 8, name: "Unit 8: My Favourite Subjects" },
+                { id: 9, name: "Unit 9: Our Sports Day" },
+                { id: 10, name: "Unit 10: Where Were You Yesterday?" },
+                { id: 11, name: "Unit 11: Looking at Animals" },
+                { id: 12, name: "Unit 12: What Does He Look Like?" }
+            ],
+            "5": [
+                { id: 1, name: "Unit 1: All About Me" },
+                { id: 2, name: "Unit 2: Our Homes" },
+                { id: 3, name: "Unit 3: My Foreign Friends" },
+                { id: 4, name: "Unit 4: Our Free-Time Activities" },
+                { id: 5, name: "Unit 5: My Future Job" },
+                { id: 6, name: "Unit 6: Our School Picnic" },
+                { id: 7, name: "Unit 7: Our Favourite Sports & Games" },
+                { id: 8, name: "Unit 8: In Our Classroom" },
+                { id: 9, name: "Unit 9: Our Outdoor Activities" },
+                { id: 10, name: "Unit 10: Our School Trip" },
+                { id: 11, name: "Unit 11: Our Health" },
+                { id: 12, name: "Unit 12: Our Daily Routines" }
+            ],
+            "6": [
+                { id: 1, name: "Unit 1: My New School" },
+                { id: 2, name: "Unit 2: My House" },
+                { id: 3, name: "Unit 3: My Friends" },
+                { id: 4, name: "Unit 4: My Neighbourhood" },
+                { id: 5, name: "Unit 5: Natural Wonders of Viet Nam" },
+                { id: 6, name: "Unit 6: Our Tet Holiday" },
+                { id: 7, name: "Unit 7: Television" },
+                { id: 8, name: "Unit 8: Sports and Games" },
+                { id: 9, name: "Unit 9: Cities of the World" },
+                { id: 10, name: "Unit 10: Our Houses in the Future" },
+                { id: 11, name: "Unit 11: Our Greener World" },
+                { id: 12, name: "Unit 12: Robots" }
+            ],
+            "7": [
+                { id: 1, name: "Unit 1: Hobbies" },
+                { id: 2, name: "Unit 2: Healthy Living" },
+                { id: 3, name: "Unit 3: Community Service" },
+                { id: 4, name: "Unit 4: Music and Arts" },
+                { id: 5, name: "Unit 5: Food and Drink" },
+                { id: 6, name: "Unit 6: A Visit to a School" },
+                { id: 7, name: "Unit 7: Traffic" },
+                { id: 8, name: "Unit 8: Films" },
+                { id: 9, name: "Unit 9: Festivals around the World" },
+                { id: 10, name: "Unit 10: Energy Sources" },
+                { id: 11, name: "Unit 11: Travelling in the Future" },
+                { id: 12, name: "Unit 12: An Overcrowded World" }
+            ],
+            "8": [
+                { id: 1, name: "Unit 1: Leisure Time" },
+                { id: 2, name: "Unit 2: Life in the Countryside" },
+                { id: 3, name: "Unit 3: Teenagers" },
+                { id: 4, name: "Unit 4: Ethnic Groups of Viet Nam" },
+                { id: 5, name: "Unit 5: Our Customs and Traditions" },
+                { id: 6, name: "Unit 6: Lifestyles" },
+                { id: 7, name: "Unit 7: Environmental Protection" },
+                { id: 8, name: "Unit 8: Shopping" },
+                { id: 9, name: "Unit 9: Natural Disasters" },
+                { id: 10, name: "Unit 10: Communication in the Future" },
+                { id: 11, name: "Unit 11: Science and Technology" },
+                { id: 12, name: "Unit 12: Life on Other Planets" }
+            ],
+            "9": [
+                { id: 1, name: "Unit 1: Local Community" },
+                { id: 2, name: "Unit 2: City Life" },
+                { id: 3, name: "Unit 3: Healthy Living for Teens" },
+                { id: 4, name: "Unit 4: Remembering the Past" },
+                { id: 5, name: "Unit 5: Our Experiences" },
+                { id: 6, name: "Unit 6: Viet Nam: Then & Now" },
+                { id: 7, name: "Unit 7: Natural Wonders of the World" },
+                { id: 8, name: "Unit 8: Tourism" },
+                { id: 9, name: "Unit 9: World Englishes" },
+                { id: 10, name: "Unit 10: Planet Earth" },
+                { id: 11, name: "Unit 11: Electronic Devices" },
+                { id: 12, name: "Unit 12: Career Choices" }
+            ],
+            "10": [
+                { id: 1, name: "Unit 1: Family Life" },
+                { id: 2, name: "Unit 2: Humans & the Environment" },
+                { id: 3, name: "Unit 3: Music" },
+                { id: 4, name: "Unit 4: For a Better Community" },
+                { id: 5, name: "Unit 5: Inventions" },
+                { id: 6, name: "Unit 6: Gender Equality" },
+                { id: 7, name: "Unit 7: Viet Nam & International Organisations" },
+                { id: 8, name: "Unit 8: New Ways to Learn" },
+                { id: 9, name: "Unit 9: Protecting the Environment" },
+                { id: 10, name: "Unit 10: Ecotourism" },
+                { id: 11, name: "Unit 11: Career Paths" },
+                { id: 12, name: "Unit 12: Lifelong Learning" }
+            ],
+            "11": [
+                { id: 1, name: "Unit 1: A Long & Healthy Life" },
+                { id: 2, name: "Unit 2: The Generation Gap" },
+                { id: 3, name: "Unit 3: Cities of the Future" },
+                { id: 4, name: "Unit 4: ASEAN and Viet Nam" },
+                { id: 5, name: "Unit 5: Global Warming" },
+                { id: 6, name: "Unit 6: Preserving Our Heritage" },
+                { id: 7, name: "Unit 7: Education Options for School-Leavers" },
+                { id: 8, name: "Unit 8: Becoming Independent" },
+                { id: 9, name: "Unit 9: Social Issues" },
+                { id: 10, name: "Unit 10: The Ecosystem" },
+                { id: 11, name: "Unit 11: Career Orientations" },
+                { id: 12, name: "Unit 12: Higher Education" }
+            ],
+            "12": [
+                { id: 1, name: "Unit 1: Life Stories We Admire" },
+                { id: 2, name: "Unit 2: A Multicultural World" },
+                { id: 3, name: "Unit 3: Green Living" },
+                { id: 4, name: "Unit 4: Urbanisation" },
+                { id: 5, name: "Unit 5: The World of Work" },
+                { id: 6, name: "Unit 6: Artificial Intelligence" },
+                { id: 7, name: "Unit 7: The World of Mass Media" },
+                { id: 8, name: "Unit 8: Wildlife Conservation" },
+                { id: 9, name: "Unit 9: Career Paths" },
+                { id: 10, name: "Unit 10: Lifelong Learning" },
+                { id: 11, name: "Unit 11: Cultural Heritage" },
+                { id: 12, name: "Unit 12: The Digital Age" }
+            ]
+        };
+
+        // Hàm cập nhật động 12 Unit tương ứng khi chọn Khối lớp
+        function updateMatUnitList() {
+            const gradeSelect = document.getElementById('matGradeSelect');
+            const unitSelect = document.getElementById('matUnitSelect');
+            if (!gradeSelect || !unitSelect) return;
+
+            const selectedGrade = gradeSelect.value || "9";
+            const units = ALL_GRADE_UNITS[selectedGrade] || ALL_GRADE_UNITS["9"];
+
+            let html = '';
+            units.forEach((u) => {
+                html += `<option value="${u.id}">${u.name}</option>`;
+            });
+
+            unitSelect.innerHTML = html;
+            renderSampleMaterialsTable();
+        }
+
+        // Cập nhật bảng tài liệu mẫu trực quan theo đúng Khối lớp và Unit
+        function renderSampleMaterialsTable() {
+            const gradeSelect = document.getElementById('matGradeSelect');
+            const unitSelect = document.getElementById('matUnitSelect');
+            const tbody = document.getElementById('materialsTableBody');
+            if (!tbody || !gradeSelect || !unitSelect) return;
+
+            const gradeVal = gradeSelect.value;
+            const unitText = unitSelect.options[unitSelect.selectedIndex] ? unitSelect.options[unitSelect.selectedIndex].text : 'Unit 1: Local Community';
+            const unitNum = unitSelect.value || '1';
+
+            tbody.innerHTML = `
+                <tr>
+                    <td><span style="background: #fee2e2; color: #dc2626; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">PPTX</span></td>
+                    <td><strong>Unit ${unitNum} - Slide Bài Giảng Tương Tác.pptx</strong></td>
+                    <td>${unitText} (Lớp ${gradeVal})</td>
+                    <td>14.2 MB</td>
+                    <td><button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="alert('Đang tải file bài giảng...')"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                </tr>
+                <tr>
+                    <td><span style="background: #e0f2fe; color: #0284c7; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">DOCX</span></td>
+                    <td><strong>Phieu_Bai_Tap_Trong_Tam_Unit${unitNum}.docx</strong></td>
+                    <td>${unitText} (Lớp ${gradeVal})</td>
+                    <td>580 KB</td>
+                    <td><button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="alert('Đang tải phiếu bài tập...')"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                </tr>
+                <tr>
+                    <td><span style="background: #fef3c7; color: #b45309; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">PDF</span></td>
+                    <td><strong>De_Khao_Sat_Chat_Luong_Unit${unitNum}.pdf</strong></td>
+                    <td>${unitText} (Lớp ${gradeVal})</td>
+                    <td>2.1 MB</td>
+                    <td><button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;" onclick="alert('Đang tải đề khảo sát...')"><i class="fa-solid fa-download"></i> Tải về</button></td>
+                </tr>
+            `;
+        }
+
         let selectedAdminFile = null;
 
         function handleAdminFileSelected(input) {
@@ -1692,7 +1923,7 @@
                             <tr>
                                 <td><span style="background: #d1fae5; color: #059669; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.78rem;">MỚI</span></td>
                                 <td><strong>${selectedAdminFile.name}</strong></td>
-                                <td>Unit Vừa Chọn</td>
+                                <td>${document.getElementById("matUnitSelect") ? document.getElementById("matUnitSelect").options[document.getElementById("matUnitSelect").selectedIndex].text : "Unit Học Liệu"} (Lớp ${document.getElementById("matGradeSelect") ? document.getElementById("matGradeSelect").value : "9"})</td>
                                 <td>${(selectedAdminFile.size / (1024*1024)).toFixed(2)} MB</td>
                                 <td><a href="${data.fileUrl}" target="_blank" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Drive</a></td>
                             </tr>
