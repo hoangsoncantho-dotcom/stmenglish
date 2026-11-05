@@ -1830,8 +1830,8 @@
                     data.hallOfFame.forEach((s, idx) => {
                         html += `
                         <div class="achievement-card">
-                            <div class="trophy-badge">
-                                <i class="fa-solid ${s.trophyIcon || 'fa-crown'}"></i>
+                            <div class="trophy-badge" style="${s.avatar ? 'padding:0; overflow:hidden; border:2px solid var(--accent);' : ''}">
+                                ${s.avatar ? `<img src="${s.avatar}" style="width:100%; height:100%; object-fit:cover; border-radius:10px;" alt="${escapeHtml(s.studentName)}">` : `<i class="fa-solid ${s.trophyIcon || 'fa-crown'}"></i>`}
                             </div>
                             <div class="achievement-details">
                                 <span class="achievement-tag">${escapeHtml(s.gradeTag || 'Học Viên STM')}</span>
@@ -1853,6 +1853,7 @@
                     data.news.forEach(n => {
                         html += `
                         <article class="news-card">
+                            ${n.thumbnail ? `<div style="margin-bottom:12px; max-height:160px; overflow:hidden; border-radius:8px;"><img src="${n.thumbnail}" style="width:100%; height:100%; object-fit:cover;" alt="${escapeHtml(n.title)}"></div>` : ''}
                             <div class="news-meta">
                                 <span class="news-date"><i class="fa-regular fa-calendar"></i> ${escapeHtml(n.date || '')}</span>
                                 <span class="news-category">${escapeHtml(n.category || 'Tin Tức')}</span>
