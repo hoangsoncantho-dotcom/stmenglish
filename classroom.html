@@ -974,6 +974,191 @@
                 grid-template-columns: 1fr;
             }
         }
+    
+        /* ========================================================
+           MULTI-STEP LEARNING NAVIGATOR CSS (CHUẨN E CLASS)
+           ======================================================== */
+        .step-breadcrumb-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f1f5f9;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border-color);
+        }
+        .step-crumb-list {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .step-crumb-item.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .btn-back-step {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.4rem 0.9rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+        .btn-back-step:hover {
+            background: #e2e8f0;
+            color: var(--primary);
+        }
+        
+        .skill-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.25rem;
+        }
+        .skill-step-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+        .skill-step-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+        .skill-step-card.active {
+            border-color: var(--primary);
+            background: #f0fdfa;
+            box-shadow: 0 0 0 2px var(--teal);
+        }
+
+        .exam-category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .exam-cat-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .exam-cat-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--amber);
+            box-shadow: var(--shadow-md);
+            background: #fffbeb;
+        }
+        .exam-cat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .exercise-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .exercise-row-item {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+        .exercise-row-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            background: #f8fafc;
+        }
+        .ex-meta-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .ex-tags-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .ex-badge {
+            background: #e2e8f0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        /* Modal Iframe Popup khi làm bài */
+        .exam-modal-viewer {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            flex-direction: column;
+        }
+        .exam-modal-header {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 0.85rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #334155;
+        }
+        .exam-iframe-wrap {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+        }
+        .exam-iframe-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
     </style>
 </head>
 <body>
@@ -1226,7 +1411,12 @@
         <!-- ====================================================
              TẦNG 2: NGÂN HÀNG BÀI TẬP PHÂN RÃ THEO 5 KỸ NĂNG
              ==================================================== -->
-        <section class="current-unit-card">
+        
+        <!-- ========================================================
+             TẦNG 2: NGÂN HÀNG TỰ LUYỆN ĐA CẤP (MULTI-STEP PRACTICE BANK)
+             Click 1: Chọn Kỹ Năng -> Click 2: Chọn Exercise -> Mở HTML làm bài
+             ======================================================== -->
+        <section class="current-unit-card" id="practiceMultiStepSection">
             
             <div class="unit-banner-info">
                 <div class="unit-banner-title">
@@ -1238,234 +1428,291 @@
                 </div>
 
                 <div class="unit-downloads">
-                    <a href="javascript:void(0)" onclick="alert('File Slide Bài Giảng PPTX đang được đồng bộ!')" class="btn-download-doc">
-                        <i class="fa-solid fa-file-powerpoint" style="color: #ea580c;"></i>
-                        <span>Tải Slide PPTX</span>
-                    </a>
-                    <a href="javascript:void(0)" onclick="alert('Phiếu bài tập Word/PDF đang được đồng bộ!')" class="btn-download-doc">
-                        <i class="fa-solid fa-file-word" style="color: #2563eb;"></i>
-                        <span>Phiếu Bài Tập</span>
+                    <a href="javascript:void(0)" onclick="openDirectExam('de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html')" class="btn-download" style="background:#0d9488; color:#fff; border-color:#0d9488;">
+                        <i class="fa-solid fa-bolt"></i> Thi Thử Đề Chuẩn 03 Cần Thơ
                     </a>
                 </div>
             </div>
 
-            <div class="layer-header" style="margin-bottom: 1rem;">
-                <div class="layer-title-box">
-                    <span class="layer-badge" style="background: #fdf2f8; color: #be185d;">Tầng 2 • 5 Kỹ Năng</span>
-                    <h3 style="font-size: 1.15rem; font-weight: 800; font-family: 'Lexend', sans-serif;">
-                        Ngân Hàng Bài Tập Tự Luyện Hàng Ngày
-                    </h3>
+            <!-- STEP BREADCRUMB BAR -->
+            <div class="step-breadcrumb-bar" id="practiceBreadcrumbBar" style="display: none;">
+                <div class="step-crumb-list">
+                    <span style="color: var(--text-muted);"><i class="fa-solid fa-graduation-cap"></i> Ngân Hàng Luyện Tập</span>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: #94a3b8;"></i>
+                    <span class="step-crumb-item active" id="practiceCurrentSkillName">Kỹ Năng</span>
+                </div>
+                <button type="button" class="btn-back-step" onclick="backToPracticeStep1()">
+                    <i class="fa-solid fa-arrow-left"></i> Đổi Kỹ Năng Khác
+                </button>
+            </div>
+
+            <!-- CẤP 1: CHỌN DANH MỤC KỸ NĂNG -->
+            <div id="practiceStep1View">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-hand-pointer text-primary"></i> Bước 1: Chọn Kỹ Năng Cần Tự Luyện
+                </div>
+                <div class="skill-select-grid">
+                    
+                    <!-- 1. Phát âm -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('phat-am', 'Phát Âm & Trọng Âm (Phonetics & Stress)', 'fa-microphone-lines', 'var(--rose)', 'var(--rose-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--rose-bg); color:var(--rose); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-microphone-lines"></i>
+                                </div>
+                                <span style="background:var(--rose-bg); color:var(--rose); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Phát Âm</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">1. Phát Âm & Trọng Âm</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Phân biệt nguyên âm ngắn/dài, đuôi -ed/-s và trọng âm 2-3 âm tiết.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--rose);">
+                            <span>3 Bài Tập Phân Hóa</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 2. Ngữ pháp -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('ngu-phap', 'Ngữ Pháp & Từ Vựng (Grammar & Lexicon)', 'fa-spell-check', 'var(--blue)', 'var(--blue-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--blue-bg); color:var(--blue); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-spell-check"></i>
+                                </div>
+                                <span style="background:var(--blue-bg); color:var(--blue); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Trọng Tâm</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">2. Ngữ Pháp & Từ Vựng</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Hệ thống từ vựng theo chủ điểm, cụm động từ và so sánh kép.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--blue);">
+                            <span>3 Bài Tập Phân Hóa</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 3. Nghe hiểu -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('nghe-hieu', 'Nghe Hiểu Bản Ngữ (Listening Audio)', 'fa-headphones', 'var(--cyan)', 'var(--cyan-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--cyan-bg); color:var(--cyan); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-headphones"></i>
+                                </div>
+                                <span style="background:var(--cyan-bg); color:var(--cyan); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Audio MP3</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">3. Nghe Hiểu (Listening)</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Bài nghe đàm thoại và diễn thuyết giọng chuẩn bản ngữ kèm audio trực tiếp.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--cyan);">
+                            <span>2 Bài Nghe Kèm Script</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 4. Đọc hiểu -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('doc-hieu', 'Đọc Hiểu & Điền Từ (Reading Comprehension)', 'fa-book-open', 'var(--emerald)', 'var(--emerald-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--emerald-bg); color:var(--emerald); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-book-open"></i>
+                                </div>
+                                <span style="background:var(--emerald-bg); color:var(--emerald); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Đọc Điền Từ</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">4. Đọc Hiểu (Reading)</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Đoạn văn Cloze-test và bài đọc hiểu chuyên sâu giữ trọn ngữ cảnh.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--emerald);">
+                            <span>3 Bài Đọc Chuyên Đề</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- 5. Viết MCQ -->
+                    <div class="skill-step-card" onclick="selectSkillStep2('viet-mcq', 'Viết Trắc Nghiệm Hóa (Writing MCQ)', 'fa-pen-ruler', 'var(--purple)', 'var(--purple-bg)')">
+                        <div>
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                                <div style="width:46px; height:46px; background:var(--purple-bg); color:var(--purple); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem;">
+                                    <i class="fa-solid fa-pen-ruler"></i>
+                                </div>
+                                <span style="background:var(--purple-bg); color:var(--purple); font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">Viết Câu</span>
+                            </div>
+                            <h4 style="font-family:'Lexend',sans-serif; font-size:1.1rem; color:var(--navy-dark); margin-bottom:0.4rem;">5. Viết (Writing MCQ)</h4>
+                            <p style="font-size:0.83rem; color:var(--text-muted); line-height:1.5;">Biến đổi từ loại (Word Formation), viết lại câu và sắp xếp đoạn văn.</p>
+                        </div>
+                        <div style="margin-top:1.25rem; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:0.85rem; color:var(--purple);">
+                            <span>3 Bài Luyện Viết</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- LƯỚI 5 THẺ KỸ NĂNG CHUYÊN BIỆT -->
-            <div class="skills-grid">
-                
-                <!-- 1. Phonetics -->
-                <article class="skill-card card-phonetics">
-                    <div>
-                        <div class="skill-card-top">
-                            <div class="skill-icon-box">
-                                <i class="fa-solid fa-volume-high"></i>
-                            </div>
-                            <span class="skill-badge">Phát âm & Trọng âm</span>
-                        </div>
-                        <h4 class="skill-name">1. Phonetics</h4>
-                        <p class="skill-desc">
-                            Nhận biết phát âm nguyên âm, phụ âm và quy tắc đánh trọng âm từ 2-3 âm tiết của Unit.
-                        </p>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
-                            <i class="fa-regular fa-circle-question"></i> 20 câu hỏi trắc nghiệm
-                        </div>
-                        <a href="quiz.html?de=anh9-u1-phonetics" id="btnSkillPhonetics" class="btn-practice">
-                            <span>Luyện Ngữ Âm</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- 2. Grammar & Lexicon -->
-                <article class="skill-card card-grammar">
-                    <div>
-                        <div class="skill-card-top">
-                            <div class="skill-icon-box">
-                                <i class="fa-solid fa-spell-check"></i>
-                            </div>
-                            <span class="skill-badge">Ngữ Pháp & Từ Vựng</span>
-                        </div>
-                        <h4 class="skill-name">2. Grammar & Lexicon</h4>
-                        <p class="skill-desc">
-                            Hệ thống từ vựng theo ngữ cảnh, cụm động từ (Phrasal verbs), so sánh kép và cấu trúc câu.
-                        </p>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
-                            <i class="fa-regular fa-circle-question"></i> 35 câu hỏi phân hóa
-                        </div>
-                        <a href="quiz.html?de=anh9-u1-grammar" id="btnSkillGrammar" class="btn-practice">
-                            <span>Luyện Ngữ Pháp</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- 3. Listening -->
-                <article class="skill-card card-listening">
-                    <div>
-                        <div class="skill-card-top">
-                            <div class="skill-icon-box">
-                                <i class="fa-solid fa-headphones"></i>
-                            </div>
-                            <span class="skill-badge">Audio MP3 Trực Tiếp</span>
-                        </div>
-                        <h4 class="skill-name">3. Listening</h4>
-                        <p class="skill-desc">
-                            Nghe đoạn hội thoại và bài diễn thuyết chủ điểm với audio giọng bản ngữ, làm bài A-B-C-D.
-                        </p>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
-                            <i class="fa-regular fa-circle-question"></i> 2 bài nghe • 8 câu hỏi
-                        </div>
-                        <a href="quiz.html?de=anh9-giuaky1" id="btnSkillListening" class="btn-practice">
-                            <span>Luyện Nghe Hiểu</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- 4. Reading -->
-                <article class="skill-card card-reading">
-                    <div>
-                        <div class="skill-card-top">
-                            <div class="skill-icon-box">
-                                <i class="fa-solid fa-book-open"></i>
-                            </div>
-                            <span class="skill-badge">Khung Cuộn Riêng</span>
-                        </div>
-                        <h4 class="skill-name">4. Reading</h4>
-                        <p class="skill-desc">
-                            Đọc văn bản bài đọc dài với khung cuộn độc lập, trả lời câu hỏi ý chính, chi tiết và từ quy chiếu.
-                        </p>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
-                            <i class="fa-regular fa-circle-question"></i> 2 đoạn văn • 10 câu hỏi
-                        </div>
-                        <a href="quiz.html?de=anh9-giuaky1" id="btnSkillReading" class="btn-practice">
-                            <span>Luyện Đọc Hiểu</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- 5. Writing -->
-                <article class="skill-card card-writing">
-                    <div>
-                        <div class="skill-card-top">
-                            <div class="skill-icon-box">
-                                <i class="fa-solid fa-pen-nib"></i>
-                            </div>
-                            <span class="skill-badge">Trắc Nghiệm Hóa</span>
-                        </div>
-                        <h4 class="skill-name">5. Writing</h4>
-                        <p class="skill-desc">
-                            Viết lại câu tương đương nghĩa (Transformation), phát hiện lỗi sai và sắp xếp trật tự từ.
-                        </p>
-                    </div>
-                    <div>
-                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 600;">
-                            <i class="fa-regular fa-circle-question"></i> 15 câu trắc nghiệm câu
-                        </div>
-                        <a href="quiz.html?de=anh9-giuaky1" id="btnSkillWriting" class="btn-practice">
-                            <span>Luyện Viết Câu</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </article>
-
+            <!-- CẤP 2: DANH SÁCH BÀI TẬP (EXERCISE 1, 2, 3...) -->
+            <div id="practiceStep2View" style="display: none;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-list-check text-primary"></i> Bước 2: Chọn Bài Tập Exercise Để Làm Bài
+                </div>
+                <div class="exercise-list-container" id="practiceExerciseListContainer">
+                    <!-- Được sinh tự động bởi JavaScript -->
+                </div>
             </div>
 
         </section>
+
 
         <!-- ====================================================
              TẦNG 3: KHU VỰC KHẢO THÍ & KIỂM TRA ĐỊNH KỲ
              ==================================================== -->
-        <section class="exam-center-card">
+        
+        <!-- ========================================================
+             TẦNG 3: TRUNG TÂM KHẢO THÍ & KIỂM TRA ĐỊNH KỲ ĐA CẤP
+             1. Kiểm tra định kỳ: Danh mục mẹ -> Danh sách Đề số -> Mở đề làm bài
+             2. Khảo sát năng lực: Danh sách đề khảo sát -> Mở đề làm bài
+             ======================================================== -->
+        <section class="exam-center-card" id="examMultiStepSection">
             
-            <div class="layer-header" style="margin-bottom: 0.5rem;">
+            <div class="layer-header" style="margin-bottom: 1.25rem;">
                 <div class="layer-title-box">
                     <span class="layer-badge" style="background: #fef3c7; color: #b45309;">
-                        <i class="fa-solid fa-shield-halved"></i> Tầng 3 • Khảo Thí
+                        <i class="fa-solid fa-shield-halved"></i> Tầng 3 • Khảo Thí Đa Cấp
                     </span>
-                    <h2 class="layer-title">Trung Tâm Khảo Thí & Kiểm Tra Định Kỳ</h2>
+                    <h2 class="layer-title">Hệ Thống Kiểm Tra Định Kỳ & Khảo Sát Năng Lực</h2>
                 </div>
-                <div style="font-size: 0.85rem; color: #b45309; font-weight: 700; background: #fffbeb; padding: 0.35rem 0.85rem; border-radius: var(--radius-full); border: 1px solid #fde68a;">
-                    <i class="fa-solid fa-lock"></i> Môi Trường Thi Nghiêm Túc
+                <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn-back-step active" id="btnTogglePeriodical" onclick="switchExamMainTab('periodical')">
+                        <i class="fa-solid fa-clock-rotate-left"></i> Kiểm Tra Định Kỳ
+                    </button>
+                    <button type="button" class="btn-back-step" id="btnToggleSurvey" onclick="switchExamMainTab('survey')">
+                        <i class="fa-solid fa-chart-line"></i> Khảo Sát Năng Lực Chuẩn
+                    </button>
                 </div>
             </div>
 
-            <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 800px;">
-                Phân khu khảo thí độc lập phục vụ đánh giá định kỳ. Hệ thống tích hợp thuật toán xào trộn câu hỏi ngẫu nhiên (Shuffle) và chấm điểm tự động trong 0.1 giây.
-            </p>
-
-            <div class="exam-grid">
+            <!-- PHẦN A: BÀI KIỂM TRA ĐỊNH KỲ (PERIODICAL TESTS) -->
+            <div id="periodicalExamWrapper">
                 
-                <!-- Bài kiểm tra định kỳ 15 phút / 1 tiết -->
-                <div class="exam-box">
-                    <div>
-                        <div class="exam-box-header">
-                            <div class="exam-icon" style="background: #fffbeb; color: #d97706;">
-                                <i class="fa-regular fa-clock"></i>
-                            </div>
-                            <div class="exam-box-title">
-                                <h4>Bài Kiểm Tra Định Kỳ</h4>
-                                <p>Đề kiểm tra nhanh 15 phút hoặc 45 phút ôn tập theo đợt do Thầy Sơn phân công.</p>
-                            </div>
-                        </div>
-
-                        <div class="exam-meta-pills" style="margin-top: 1rem;">
-                            <span class="exam-pill"><i class="fa-solid fa-shuffle"></i> Shuffle chống trùng lặp</span>
-                            <span class="exam-pill"><i class="fa-regular fa-hourglass-half"></i> 15 - 45 Phút</span>
-                        </div>
+                <!-- BREADCRUMB KỲ THI ĐỊNH KỲ -->
+                <div class="step-breadcrumb-bar" id="periodicalBreadcrumbBar" style="display: none;">
+                    <div class="step-crumb-list">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-stopwatch"></i> Kiểm Tra Định Kỳ</span>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem; color: #94a3b8;"></i>
+                        <span class="step-crumb-item active" id="periodicalCurrentCatName">Giữa Kỳ 1</span>
                     </div>
-
-                    <a href="quiz.html?de=anh9-u1-grammar" id="btnExamPeriodical" class="btn-start-exam btn-exam-regular">
-                        <i class="fa-solid fa-play"></i>
-                        <span>Vào Phòng Thi Định Kỳ</span>
-                    </a>
+                    <button type="button" class="btn-back-step" onclick="backToPeriodicalStep1()">
+                        <i class="fa-solid fa-arrow-left"></i> Đổi Loại Kỳ Thi
+                    </button>
                 </div>
 
-                <!-- Bài thi Khảo sát Năng lực 40 Câu Chuẩn Sở Cần Thơ -->
-                <div class="exam-box" style="border-color: #7dd3fc; background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);">
-                    <div>
-                        <div class="exam-box-header">
-                            <div class="exam-icon" style="background: #e0f2fe; color: #0284c7;">
-                                <i class="fa-solid fa-award"></i>
-                            </div>
-                            <div class="exam-box-title">
-                                <h4>Bài Thi Khảo Sát Năng Lực Chuẩn</h4>
-                                <p>Cấu trúc 40 câu toàn diện chuẩn Sở GD&ĐT Cần Thơ (Listening, Trắc nghiệm, Tự luận trắc nghiệm hóa).</p>
-                            </div>
-                        </div>
-
-                        <div class="exam-meta-pills" style="margin-top: 1rem;">
-                            <span class="exam-pill" style="background: #e0f2fe; color: #0369a1;"><i class="fa-solid fa-bolt"></i> Chấm điểm 0.1s</span>
-                            <span class="exam-pill" style="background: #e0f2fe; color: #0369a1;"><i class="fa-solid fa-trophy"></i> Thang điểm 10</span>
-                        </div>
+                <!-- CẤP 1: CHỌN DANH MỤC MẸ KỲ THI -->
+                <div id="periodicalStep1View">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-hand-pointer text-amber"></i> Bước 1: Chọn Danh Mục Kỳ Thi Định Kỳ
                     </div>
+                    <div class="exam-category-grid">
+                        
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('15-phut', 'Kiểm Tra 15 Phút (Quick Assessment)', 15)">
+                            <div class="exam-cat-icon" style="background:#fef3c7; color:#b45309;"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra 15 Phút</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Khảo sát nhanh từ vựng, ngữ pháp sau mỗi đơn vị bài học (15-20 câu).</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#b45309; margin-top:4px; display:inline-block;">2 Đề Kiểm Tra &rarr;</span>
+                            </div>
+                        </div>
 
-                    <a href="quiz.html?de=anh9-gk1-de03" id="btnExamMock" class="btn-start-exam btn-exam-mock">
-                        <i class="fa-solid fa-rocket"></i>
-                        <span>Làm Bài Khảo Sát 40 Câu</span>
-                    </a>
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('1-tiet', 'Kiểm Tra 1 Tiết • 45 Phút (Regular Test)', 45)">
+                            <div class="exam-cat-icon" style="background:#e0f2fe; color:#0369a1;"><i class="fa-solid fa-clock"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra 1 Tiết (45 Phút)</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Đánh giá tổng hợp kiến thức sau mỗi 2 - 3 bài học (30-35 câu).</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#0369a1; margin-top:4px; display:inline-block;">2 Đề Kiểm Tra &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('giua-ky-1', 'Đề Kiểm Tra Giữa Học Kỳ 1 (Midterm 1)', 60)">
+                            <div class="exam-cat-icon" style="background:#ecfdf5; color:#047857;"><i class="fa-solid fa-bullseye"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Giữa Kỳ 1</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Bộ đề chuẩn 40 câu theo cấu trúc Sở GD&ĐT Cần Thơ có đầy đủ bài nghe audio.</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#047857; margin-top:4px; display:inline-block;">3 Đề Chuẩn Sở &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('cuoi-ky-1', 'Đề Kiểm Tra Cuối Học Kỳ 1 (Final Term 1)', 60)">
+                            <div class="exam-cat-icon" style="background:#fef2f2; color:#b91c1c;"><i class="fa-solid fa-trophy"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Cuối Kỳ 1</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Khảo sát tổng kết toàn diện kiến thức học kỳ 1 (Global Success).</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#b91c1c; margin-top:4px; display:inline-block;">2 Đề Thi Mẫu &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('giua-ky-2', 'Đề Kiểm Tra Giữa Học Kỳ 2 (Midterm 2)', 60)">
+                            <div class="exam-cat-icon" style="background:#f5f3ff; color:#6d28d9;"><i class="fa-solid fa-compass"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Giữa Kỳ 2</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Đánh giá kiến thức giai đoạn giữa học kỳ 2 chuẩn form mới.</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#6d28d9; margin-top:4px; display:inline-block;">2 Đề Chuẩn Bị &rarr;</span>
+                            </div>
+                        </div>
+
+                        <div class="exam-cat-card" onclick="selectPeriodicalCategory('cuoi-ky-2', 'Đề Kiểm Tra Cuối Học Kỳ 2 (Final Term 2)', 60)">
+                            <div class="exam-cat-icon" style="background:#fdf2f8; color:#be185d;"><i class="fa-solid fa-award"></i></div>
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; font-size:1.05rem; color:var(--navy-dark); margin-bottom:0.25rem;">Kiểm Tra Cuối Kỳ 2</h4>
+                                <p style="font-size:0.82rem; color:var(--text-muted);">Tổng kết kiến thức cả năm học sẵn sàng cho kỳ thi chuyển cấp.</p>
+                                <span style="font-size:0.75rem; font-weight:700; color:#be185d; margin-top:4px; display:inline-block;">2 Đề Thi Thử &rarr;</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
+                <!-- CẤP 2: DANH SÁCH ĐỀ SỐ (ĐỀ SỐ 01, 02, 03...) -->
+                <div id="periodicalStep2View" style="display: none;">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-solid fa-file-pen text-amber"></i> Bước 2: Chọn Đề Thi Để Bắt Đầu Làm Bài
+                    </div>
+                    <div class="exercise-list-container" id="periodicalExamsListContainer">
+                        <!-- Sinh bởi JavaScript -->
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PHẦN B: KHẢO SÁT NĂNG LỰC CHUẨN (DIAGNOSTIC / MOCK TESTS) -->
+            <div id="surveyExamWrapper" style="display: none;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-chart-line text-primary"></i> Danh Sách Đề Khảo Sát Năng Lực Chuẩn Định Kỳ
+                </div>
+                <div class="exercise-list-container" id="surveyExamsListContainer">
+                    <!-- Sinh bởi JavaScript -->
+                </div>
             </div>
 
         </section>
+
+        <!-- ========================================================
+             MODAL PHÒNG THI TRỰC TUYẾN TOÀN MÀN HÌNH (IN-APP EXAM VIEWER)
+             ======================================================== -->
+        <div class="exam-modal-viewer" id="examModalViewer">
+            <div class="exam-modal-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: var(--teal); padding: 4px 10px; border-radius: 6px; font-weight: 800; font-size: 0.82rem;">E CLASS EXAM</span>
+                    <span id="examModalTitle" style="font-family:'Lexend',sans-serif; font-size:1.05rem; font-weight:700;">Đề Kiểm Tra</span>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn-back-step" onclick="openExamInNewTab()" style="background:#334155; color:#fff; border-color:#475569;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Mở Tab Riêng
+                    </button>
+                    <button type="button" class="btn-back-step" onclick="closeExamModal()" style="background:#dc2626; color:#fff; border-color:#dc2626;">
+                        <i class="fa-solid fa-xmark"></i> Thoát Phòng Thi
+                    </button>
+                </div>
+            </div>
+            <div class="exam-iframe-wrap">
+                <iframe id="examModalIframe" src="about:blank"></iframe>
+            </div>
+        </div>
+
 
         <!-- ====================================================
              HẠ TẦNG NỘP BÀI TẬP VỀ NHÀ (GOOGLE DRIVE BACKEND 5TB)
@@ -1990,6 +2237,335 @@
                 reader.readAsDataURL(file);
             });
         }
-    </script>
+    
+
+        /* ========================================================
+           LOGIC ĐIỀU HƯỚNG ĐA CẤP (MULTI-STEP NAVIGATION)
+           Theo đúng quy ước đường dẫn file HTML độc lập trên GitHub:
+           - /de-thi/[lop]/luyen-tap/[ky-nang]/[ma_de].html
+           - /de-thi/[lop]/kiem-tra/[loai_ky_thi]/[ma_de].html
+           - /de-thi/[lop]/khao-sat/[ma_de].html
+           ======================================================== */
+
+        let currentPracticeSkill = null;
+        let currentPeriodicalCat = null;
+        let currentLoadedExamUrl = '';
+
+        // 1. NGÂN HÀNG TỰ LUYỆN: Click 1 chọn Kỹ năng -> Click 2 chọn Exercise
+        function selectSkillStep2(skillId, skillName, iconClass, colorVar, bgVar) {
+            currentPracticeSkill = skillId;
+            document.getElementById('practiceStep1View').style.display = 'none';
+            document.getElementById('practiceStep2View').style.display = 'block';
+            document.getElementById('practiceBreadcrumbBar').style.display = 'flex';
+            document.getElementById('practiceCurrentSkillName').innerText = skillName;
+
+            renderPracticeExercises(skillId, skillName, iconClass, colorVar, bgVar);
+        }
+
+        function backToPracticeStep1() {
+            currentPracticeSkill = null;
+            document.getElementById('practiceStep1View').style.display = 'block';
+            document.getElementById('practiceStep2View').style.display = 'none';
+            document.getElementById('practiceBreadcrumbBar').style.display = 'none';
+        }
+
+        function renderPracticeExercises(skillId, skillName, iconClass, colorVar, bgVar) {
+            const container = document.getElementById('practiceExerciseListContainer');
+            const gradeNum = (currentActiveGrade || 'grade9').replace('grade', '');
+            const unitIndex = (typeof currentUnitIndex !== 'undefined') ? currentUnitIndex + 1 : 1;
+
+            // Danh sách các Exercise cho mỗi kỹ năng
+            const exercises = [
+                {
+                    id: "ex-01",
+                    title: `Exercise 1: Trọng tâm lý thuyết & Nhận biết (Unit ${unitIndex})`,
+                    desc: "Củng cố kiến thức nền tảng, dạng bài nhận diện theo chuẩn chương trình học.",
+                    qCount: 20,
+                    time: 15,
+                    level: "Nhận Biết (Level 1)"
+                },
+                {
+                    id: "ex-02",
+                    title: `Exercise 2: Thông hiểu & Vận dụng theo ngữ cảnh (Unit ${unitIndex})`,
+                    desc: "Rèn luyện khả năng áp dụng cấu trúc ngữ pháp và từ vựng trong câu hoàn chỉnh.",
+                    qCount: 20,
+                    time: 15,
+                    level: "Thông Hiểu (Level 2)"
+                },
+                {
+                    id: "ex-03",
+                    title: `Exercise 3: Vận dụng cao & Luyện tốc độ phòng thi (Unit ${unitIndex})`,
+                    desc: "Bộ câu hỏi phân hóa nâng cao bứt phá điểm 9-10 và rèn phản xạ chính xác.",
+                    qCount: 25,
+                    time: 20,
+                    level: "Vận Dụng Cao (Level 3-4)"
+                }
+            ];
+
+            let html = '';
+            exercises.forEach((ex, idx) => {
+                const targetUrl = `de-thi/lop-${gradeNum}/luyen-tap/${skillId}/${ex.id}.html`;
+                html += `
+                <div class="exercise-row-item">
+                    <div style="flex: 1;">
+                        <div class="ex-meta-title">
+                            <i class="fa-solid ${iconClass}" style="color: ${colorVar}; font-size: 1.1rem;"></i>
+                            <span>${ex.title}</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">${ex.desc}</div>
+                        <div class="ex-tags-wrap">
+                            <span class="ex-badge"><i class="fa-regular fa-circle-question"></i> ${ex.qCount} câu</span>
+                            <span class="ex-badge"><i class="fa-regular fa-clock"></i> ${ex.time} phút</span>
+                            <span class="ex-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">${ex.level}</span>
+                            <span class="ex-badge" style="background:#ecfdf5; color:#047857; font-weight:700;">Mã: ${ex.id}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-download" style="background:${colorVar}; color:#ffffff; border-color:${colorVar};" onclick="openDirectExam('${targetUrl}', '${escapeJsStr(ex.title)}')">
+                            <span>Làm Bài Ngay</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 2. KIỂM TRA ĐỊNH KỲ: Click 1 chọn danh mục mẹ -> Click 2 chọn đề số -> Mở đề làm bài
+        function selectPeriodicalCategory(catId, catName, defaultDuration) {
+            currentPeriodicalCat = catId;
+            document.getElementById('periodicalStep1View').style.display = 'none';
+            document.getElementById('periodicalStep2View').style.display = 'block';
+            document.getElementById('periodicalBreadcrumbBar').style.display = 'flex';
+            document.getElementById('periodicalCurrentCatName').innerText = catName;
+
+            renderPeriodicalExams(catId, catName, defaultDuration);
+        }
+
+        function backToPeriodicalStep1() {
+            currentPeriodicalCat = null;
+            document.getElementById('periodicalStep1View').style.display = 'block';
+            document.getElementById('periodicalStep2View').style.display = 'none';
+            document.getElementById('periodicalBreadcrumbBar').style.display = 'none';
+        }
+
+        function renderPeriodicalExams(catId, catName, defaultDuration) {
+            const container = document.getElementById('periodicalExamsListContainer');
+            const gradeNum = (currentActiveGrade || 'grade9').replace('grade', '');
+
+            let exams = [];
+            if (catId === 'giua-ky-1') {
+                exams = [
+                    {
+                        code: "de-03",
+                        title: `Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 03 – Tiếng Anh ${gradeNum}`,
+                        desc: "Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ có đầy đủ file âm thanh Full Audio liền mạch.",
+                        qCount: 40,
+                        duration: 60,
+                        hasAudio: true,
+                        isFeatured: true
+                    },
+                    {
+                        code: "de-01",
+                        title: `Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 01 – Tiếng Anh ${gradeNum}`,
+                        desc: "Bộ đề ôn luyện phân hóa 4 kỹ năng chuẩn ma trận kiến thức Bộ GD&ĐT.",
+                        qCount: 40,
+                        duration: 60,
+                        hasAudio: false
+                    },
+                    {
+                        code: "de-02",
+                        title: `Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 02 – Tiếng Anh ${gradeNum}`,
+                        desc: "Bộ đề rèn luyện kỹ năng giải đề, nhận diện bẫy ngữ pháp và đọc hiểu chuyên sâu.",
+                        qCount: 40,
+                        duration: 60,
+                        hasAudio: false
+                    }
+                ];
+            } else if (catId === '15-phut') {
+                exams = [
+                    {
+                        code: "de-01",
+                        title: `Bài Kiểm Tra 15 Phút • Đề Số 01 – Tiếng Anh ${gradeNum}`,
+                        desc: "Khảo sát nhanh mức độ nắm bắt từ vựng và mẫu câu trọng tâm.",
+                        qCount: 15,
+                        duration: 15
+                    },
+                    {
+                        code: "de-02",
+                        title: `Bài Kiểm Tra 15 Phút • Đề Số 02 – Tiếng Anh ${gradeNum}`,
+                        desc: "Kiểm tra kỹ năng biến đổi từ loại và cấu trúc ngữ pháp then chốt.",
+                        qCount: 15,
+                        duration: 15
+                    }
+                ];
+            } else {
+                exams = [
+                    {
+                        code: "de-01",
+                        title: `Đề ${catName} • Đề Số 01 – Tiếng Anh ${gradeNum}`,
+                        desc: "Đề kiểm tra định kỳ chuẩn hóa kiến thức và kỹ năng ngôn ngữ.",
+                        qCount: 40,
+                        duration: defaultDuration
+                    },
+                    {
+                        code: "de-02",
+                        title: `Đề ${catName} • Đề Số 02 – Tiếng Anh ${gradeNum}`,
+                        desc: "Đề kiểm tra định kỳ mở rộng và rèn kỹ năng tự làm bài trực tuyến.",
+                        qCount: 40,
+                        duration: defaultDuration
+                    }
+                ];
+            }
+
+            let html = '';
+            exams.forEach((ex) => {
+                const targetUrl = `de-thi/lop-${gradeNum}/kiem-tra/${catId}/${ex.code}.html`;
+                html += `
+                <div class="exercise-row-item" style="${ex.isFeatured ? 'border-color:var(--teal); background:#f0fdfa;' : ''}">
+                    <div style="flex: 1;">
+                        <div class="ex-meta-title">
+                            <i class="fa-solid fa-file-signature" style="color: ${ex.isFeatured ? 'var(--teal)' : 'var(--amber)'};"></i>
+                            <span>${ex.title}</span>
+                            ${ex.isFeatured ? '<span class="ex-badge" style="background:#0d9488; color:#fff; font-size:0.75rem;">CHUẨN SỞ CẦN THƠ</span>' : ''}
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">${ex.desc}</div>
+                        <div class="ex-tags-wrap">
+                            <span class="ex-badge"><i class="fa-regular fa-circle-question"></i> ${ex.qCount} câu hỏi</span>
+                            <span class="ex-badge"><i class="fa-regular fa-clock"></i> ${ex.duration} phút</span>
+                            ${ex.hasAudio ? '<span class="ex-badge" style="background:#ecfdf5; color:#047857; font-weight:700;"><i class="fa-solid fa-headphones"></i> Có Audio Chuẩn</span>' : ''}
+                            <span class="ex-badge" style="background:#f1f5f9; color:#475569;">Mã: ${ex.code}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-download" style="background:${ex.isFeatured ? 'var(--teal)' : 'var(--amber)'}; color:#ffffff; border-color:${ex.isFeatured ? 'var(--teal)' : 'var(--amber)'};" onclick="openDirectExam('${targetUrl}', '${escapeJsStr(ex.title)}')">
+                            <span>Bắt Đầu Thi</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // 3. KHẢO SÁT NĂNG LỰC CHUẨN: Danh sách đề khảo sát
+        function renderSurveyExams() {
+            const container = document.getElementById('surveyExamsListContainer');
+            const gradeNum = (currentActiveGrade || 'grade9').replace('grade', '');
+
+            const surveys = [
+                {
+                    code: "khao-sat-01",
+                    title: `Khảo Sát Năng Lực Chuẩn • Đợt 01 (2026–2027) – Tiếng Anh ${gradeNum}`,
+                    desc: "Đánh giá toàn diện 4 kỹ năng đầu năm học chuẩn Sở GD&ĐT Cần Thơ.",
+                    qCount: 40,
+                    duration: 60
+                },
+                {
+                    code: "khao-sat-02",
+                    title: `Khảo Sát Năng Lực Chuẩn • Đợt 02 (2026–2027) – Tiếng Anh ${gradeNum}`,
+                    desc: "Khảo sát chất lượng giữa năm học đánh giá mức độ tiến bộ của học sinh.",
+                    qCount: 40,
+                    duration: 60
+                },
+                {
+                    code: "khao-sat-03",
+                    title: `Khảo Sát Chuyên Sâu • Đợt 03 – Luyện Thi HSG & Tuyển Sinh Lớp ${gradeNum}`,
+                    desc: "Bộ đề nâng cao phân hóa chuyên biệt dành cho học sinh khá giỏi bứt phá điểm 9-10.",
+                    qCount: 50,
+                    duration: 75
+                }
+            ];
+
+            let html = '';
+            surveys.forEach((sv) => {
+                const targetUrl = `de-thi/lop-${gradeNum}/khao-sat/${sv.code}.html`;
+                html += `
+                <div class="exercise-row-item">
+                    <div style="flex: 1;">
+                        <div class="ex-meta-title">
+                            <i class="fa-solid fa-award" style="color: var(--primary);"></i>
+                            <span>${sv.title}</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">${sv.desc}</div>
+                        <div class="ex-tags-wrap">
+                            <span class="ex-badge"><i class="fa-regular fa-circle-question"></i> ${sv.qCount} câu</span>
+                            <span class="ex-badge"><i class="fa-regular fa-clock"></i> ${sv.duration} phút</span>
+                            <span class="ex-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">Khảo Sát Chuẩn</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-download" style="background:var(--primary); color:#ffffff; border-color:var(--primary);" onclick="openDirectExam('${targetUrl}', '${escapeJsStr(sv.title)}')">
+                            <span>Vào Khảo Sát</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Chuyển đổi giữa 2 tab: Kiểm tra định kỳ vs Khảo sát năng lực
+        function switchExamMainTab(tab) {
+            const btnPeriodical = document.getElementById('btnTogglePeriodical');
+            const btnSurvey = document.getElementById('btnToggleSurvey');
+            const wrapPeriodical = document.getElementById('periodicalExamWrapper');
+            const wrapSurvey = document.getElementById('surveyExamWrapper');
+
+            if (tab === 'periodical') {
+                btnPeriodical.classList.add('active');
+                btnSurvey.classList.remove('active');
+                wrapPeriodical.style.display = 'block';
+                wrapSurvey.style.display = 'none';
+            } else {
+                btnPeriodical.classList.remove('active');
+                btnSurvey.classList.add('active');
+                wrapPeriodical.style.display = 'none';
+                wrapSurvey.style.display = 'block';
+                renderSurveyExams();
+            }
+        }
+
+        // 4. MỞ PHÒNG THI: Mở trong In-App Modal hoặc Tab riêng
+        function openDirectExam(url, title = 'Phòng Thi Trực Tuyến') {
+            currentLoadedExamUrl = url;
+            const modal = document.getElementById('examModalViewer');
+            const titleEl = document.getElementById('examModalTitle');
+            const iframe = document.getElementById('examModalIframe');
+
+            titleEl.innerText = title;
+            iframe.src = url;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeExamModal() {
+            if (confirm('Em có chắc chắn muốn rời khỏi bài thi không? Kết quả chưa nộp sẽ không được lưu.')) {
+                const modal = document.getElementById('examModalViewer');
+                const iframe = document.getElementById('examModalIframe');
+                iframe.src = 'about:blank';
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function openExamInNewTab() {
+            if (currentLoadedExamUrl) {
+                window.open(currentLoadedExamUrl, '_blank');
+            }
+        }
+
+        function escapeJsStr(str) {
+            if (!str) return '';
+            return str.replace(/'/g, "\\'");
+        }
+
+</script>
 </body>
 </html>

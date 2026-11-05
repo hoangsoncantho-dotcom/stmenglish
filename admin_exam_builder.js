@@ -1672,3 +1672,415 @@ if (typeof document !== 'undefined') {
     });
 }
 
+
+
+/**
+ * =========================================================================
+ * 4. TRÌNH XUẤT BẢN ĐỀ THI HTML TỰ ĐỘNG (AUTO EXAM HTML PUBLISHER)
+ * Mô hình lưu trữ đa cấp trên GitHub Pages (Option B):
+ * - Luyện tập: /de-thi/[lop]/luyen-tap/[ky-nang]/[ma_de].html
+ * - Kiểm tra định kỳ: /de-thi/[lop]/kiem-tra/[loai_ky_thi]/[ma_de].html
+ * - Khảo sát: /de-thi/[lop]/khao-sat/[ma_de].html
+ * =========================================================================
+ */
+
+let lastCompiledHTML = '';
+let lastCompiledExamData = null;
+
+// Tự động cập nhật các thẻ con (Metadata Tags) & Gợi ý tên/mã đề và đường dẫn GitHub
+function updatePublisherMetadata() {
+    const grade = document.getElementById('pubGrade') ? document.getElementById('pubGrade').value : '9';
+    const type = document.getElementById('pubType') ? document.getElementById('pubType').value : 'kiem-tra';
+    
+    const subPractice = document.getElementById('pubSubPracticeWrap');
+    const subPeriodical = document.getElementById('pubSubPeriodicalWrap');
+    const subSurvey = document.getElementById('pubSubSurveyWrap');
+
+    let subPath = '';
+    let defaultCode = '';
+    let defaultTitle = '';
+    let defaultTime = 60;
+
+    if (type === 'luyen-tap') {
+        if (subPractice) subPractice.style.display = 'block';
+        if (subPeriodical) subPeriodical.style.display = 'none';
+        if (subSurvey) subSurvey.style.display = 'none';
+
+        const skill = document.getElementById('pubSkill') ? document.getElementById('pubSkill').value : 'ngu-phap';
+        const exNum = document.getElementById('pubExNum') ? document.getElementById('pubExNum').value : '1';
+        
+        subPath = `luyen-tap/${skill}`;
+        defaultCode = `ex-0${exNum}`;
+        
+        const skillNames = {
+            'phat-am': 'Phát Âm & Trọng Âm',
+            'ngu-phap': 'Ngữ Pháp & Từ Vựng',
+            'nghe-hieu': 'Nghe Hiểu (Listening)',
+            'doc-hieu': 'Đọc Hiểu (Reading)',
+            'viet-mcq': 'Viết Trắc Nghiệm Hóa (Writing MCQ)'
+        };
+        defaultTitle = `Luyện Tập ${skillNames[skill] || 'Kỹ Năng'} • Exercise ${exNum} – Tiếng Anh ${grade}`;
+        defaultTime = 15;
+
+    } else if (type === 'kiem-tra') {
+        if (subPractice) subPractice.style.display = 'none';
+        if (subPeriodical) subPeriodical.style.display = 'block';
+        if (subSurvey) subSurvey.style.display = 'none';
+
+        const cat = document.getElementById('pubPeriodicalCat') ? document.getElementById('pubPeriodicalCat').value : 'giua-ky-1';
+        const deNum = document.getElementById('pubDeNum') ? document.getElementById('pubDeNum').value : '1';
+        
+        subPath = `kiem-tra/${cat}`;
+        defaultCode = `de-0${deNum}`;
+
+        const catNames = {
+            '15-phut': 'Bài Kiểm Tra 15 Phút',
+            '1-tiet': 'Bài Kiểm Tra 1 Tiết (45 Phút)',
+            'giua-ky-1': 'Đề Kiểm Tra Giữa Kỳ 1 (2026–2027)',
+            'cuoi-ky-1': 'Đề Kiểm Tra Cuối Kỳ 1 (2026–2027)',
+            'giua-ky-2': 'Đề Kiểm Tra Giữa Kỳ 2 (2026–2027)',
+            'cuoi-ky-2': 'Đề Kiểm Tra Cuối Kỳ 2 (2026–2027)'
+        };
+        defaultTitle = `${catNames[cat] || 'Kiểm Tra'} • Đề Số 0${deNum} – Tiếng Anh ${grade}`;
+        defaultTime = (cat === '15-phut') ? 15 : ((cat === '1-tiet') ? 45 : 60);
+
+    } else if (type === 'khao-sat') {
+        if (subPractice) subPractice.style.display = 'none';
+        if (subPeriodical) subPeriodical.style.display = 'none';
+        if (subSurvey) subSurvey.style.display = 'block';
+
+        const round = document.getElementById('pubSurveyRound') ? document.getElementById('pubSurveyRound').value : '1';
+        subPath = 'khao-sat';
+        defaultCode = `khao-sat-0${round}`;
+        defaultTitle = `Khảo Sát Năng Lực Chuẩn • Đợt 0${round} (2026–2027) – Tiếng Anh ${grade}`;
+        defaultTime = 60;
+    }
+
+    // Cập nhật giá trị vào form nếu đang để mặc định hoặc rỗng
+    const titleEl = document.getElementById('pubExamTitle');
+    if (titleEl && (!titleEl.value || titleEl.dataset.autofill === 'true')) {
+        titleEl.value = defaultTitle;
+        titleEl.dataset.autofill = 'true';
+    }
+
+    const codeEl = document.getElementById('pubExamCode');
+    if (codeEl && (!codeEl.value || codeEl.dataset.autofill === 'true')) {
+        codeEl.value = defaultCode;
+        codeEl.dataset.autofill = 'true';
+    }
+
+    const timeEl = document.getElementById('pubExamTime');
+    if (timeEl) timeEl.value = defaultTime;
+
+    // Hiển thị trực quan đường dẫn thư mục đích trên GitHub
+    const pathEl = document.getElementById('pubGithubPathBadge');
+    if (pathEl) {
+        pathEl.innerHTML = `<i class="fa-solid fa-folder-tree"></i> /de-thi/lop-${grade}/${subPath}/<strong>${codeEl ? codeEl.value : defaultCode}.html</strong>`;
+    }
+}
+
+// Bộ phân tích văn bản thô thông minh (Smart Contextual Text Parser)
+function parseRawTextToExam(rawText, metadata) {
+    const lines = rawText.split(/\r?\n/);
+    const sections = [];
+    let currentQuestions = [];
+    let currentQ = null;
+    let detectedAudio = '';
+    let detectedPassage = '';
+
+    const qRegex = /^(?:Câu|Question|Bài|Item)\s*(\d+)[:.]?\s*(.*)/i;
+    const numOnlyRegex = /^(\d+)[.)]\s+(.*)/;
+    const optRegex = /^\s*([A-D])[.)]\s*(.*)/i;
+    const optBracketRegex = /^\s*\[([A-D])\]\s*(.*)/i;
+    const ansRegex = /(?:Đáp án|Key|Answer|Ans)[:.]?\s*([A-D])/i;
+    const expRegex = /(?:Giải thích|Explanation|Note)[:.]?\s*(.*)/i;
+    const audioRegex = /(?:Audio|Track|AudioTrack|Mp3)[:.]?\s*(.*\.mp3|https?.*)/i;
+    const passageRegex = /(?:Đoạn văn|Passage|Bài đọc)[:.]?\s*(.*)/i;
+
+    let inPassage = false;
+    let passageBuffer = [];
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        // Bắt link audio nếu có
+        const audioMatch = line.match(audioRegex);
+        if (audioMatch) {
+            detectedAudio = audioMatch[1].trim();
+            continue;
+        }
+
+        // Bắt đoạn văn đọc hiểu nếu có
+        const passMatch = line.match(passageRegex);
+        if (passMatch) {
+            inPassage = true;
+            passageBuffer.push(passMatch[1].trim());
+            continue;
+        }
+
+        if (inPassage) {
+            if (line.match(qRegex) || line.match(numOnlyRegex)) {
+                inPassage = false;
+                detectedPassage = passageBuffer.join('<br><br>');
+            } else {
+                passageBuffer.push(line);
+                continue;
+            }
+        }
+
+        // Bắt đầu một câu hỏi mới
+        const qMatch = line.match(qRegex) || line.match(numOnlyRegex);
+        if (qMatch) {
+            if (currentQ && currentQ.question) {
+                currentQuestions.push(currentQ);
+            }
+            currentQ = {
+                tag: metadata.subType || "General Practice",
+                question: qMatch[2] || "Nội dung câu hỏi...",
+                optA: "", optB: "", optC: "", optD: "",
+                correct: "A",
+                explanation: ""
+            };
+            continue;
+        }
+
+        // Bắt các lựa chọn A, B, C, D
+        const optMatch = line.match(optRegex) || line.match(optBracketRegex);
+        if (optMatch && currentQ) {
+            const letter = optMatch[1].toUpperCase();
+            const text = optMatch[2].trim();
+            if (letter === 'A') currentQ.optA = text;
+            else if (letter === 'B') currentQ.optB = text;
+            else if (letter === 'C') currentQ.optC = text;
+            else if (letter === 'D') currentQ.optD = text;
+            continue;
+        }
+
+        // Bắt đáp án đúng
+        const ansMatch = line.match(ansRegex);
+        if (ansMatch && currentQ) {
+            currentQ.correct = ansMatch[1].toUpperCase();
+            continue;
+        }
+
+        // Bắt giải thích
+        const expMatch = line.match(expRegex);
+        if (expMatch && currentQ) {
+            currentQ.explanation = expMatch[1].trim();
+            continue;
+        }
+
+        // Nếu là dòng text tiếp diễn của câu hỏi
+        if (currentQ && !currentQ.optA) {
+            currentQ.question += ' ' + line;
+        }
+    }
+
+    if (currentQ && currentQ.question) {
+        currentQuestions.push(currentQ);
+    }
+
+    // Nếu không tách được câu nào từ regex câu hỏi, sinh câu mặc định từ dữ liệu mẫu
+    if (currentQuestions.length === 0) {
+        currentQuestions = [
+            {
+                tag: "Knowledge Check",
+                question: rawText.slice(0, 150) || "Câu hỏi mẫu kiểm tra kiến thức:",
+                optA: "Phương án A", optB: "Phương án B", optC: "Phương án C", optD: "Phương án D",
+                correct: "A",
+                explanation: "Lời giải chi tiết chuẩn sư phạm."
+            }
+        ];
+    }
+
+    sections.push({
+        title: metadata.title || "PHẦN THI TRẮC NGHIỆM",
+        badge: metadata.badge || "Standard Quiz",
+        type: detectedAudio ? "listening" : (detectedPassage ? "reading" : "multiple_choice"),
+        audioTrack: detectedAudio,
+        passage: detectedPassage,
+        instruction: "Chọn câu trả lời đúng nhất (A, B, C hoặc D) cho mỗi câu hỏi bên dưới.",
+        questions: currentQuestions
+    });
+
+    return {
+        info: {
+            code: metadata.code,
+            title: metadata.title,
+            desc: metadata.desc || `Bài thi môn Tiếng Anh Khối ${metadata.grade} chuẩn hóa E CLASS STM English.`,
+            grade: metadata.grade,
+            duration: metadata.duration || 60,
+            fullAudio: detectedAudio
+        },
+        sections: sections
+    };
+}
+
+// Hàm thực thi khi Thầy bấm nút "Xuất Bản Đề Thi (Generate HTML)"
+function publishExamFromRawText() {
+    const rawTextEl = document.getElementById('pubRawText');
+    const rawText = rawTextEl ? rawTextEl.value.trim() : '';
+
+    if (!rawText) {
+        alert('Thầy vui lòng dán nội dung văn bản đề thi vào khung bên dưới, hoặc bấm nút "Dán Mẫu Đề Nhanh" để thử nghiệm nhé!');
+        if (rawTextEl) rawTextEl.focus();
+        return;
+    }
+
+    const grade = document.getElementById('pubGrade') ? document.getElementById('pubGrade').value : '9';
+    const type = document.getElementById('pubType') ? document.getElementById('pubType').value : 'kiem-tra';
+    const title = document.getElementById('pubExamTitle') ? document.getElementById('pubExamTitle').value.trim() : 'Đề Kiểm Tra Tiếng Anh';
+    const code = document.getElementById('pubExamCode') ? document.getElementById('pubExamCode').value.trim() : 'exam_01';
+    const duration = parseInt(document.getElementById('pubExamTime').value) || 60;
+
+    let subType = '';
+    if (type === 'luyen-tap') {
+        subType = document.getElementById('pubSkill') ? document.getElementById('pubSkill').value : 'ngu-phap';
+    } else if (type === 'kiem-tra') {
+        subType = document.getElementById('pubPeriodicalCat') ? document.getElementById('pubPeriodicalCat').value : 'giua-ky-1';
+    } else {
+        subType = 'khao-sat';
+    }
+
+    const metadata = {
+        grade: grade,
+        type: type,
+        subType: subType,
+        title: title,
+        code: code,
+        duration: duration,
+        badge: type === 'kiem-tra' ? 'KIỂM TRA ĐỊNH KỲ' : (type === 'khao-sat' ? 'KHẢO SÁT NĂNG LỰC' : 'TỰ LUYỆN HÀNG NGÀY')
+    };
+
+    // Phân tích và biên dịch
+    lastCompiledExamData = parseRawTextToExam(rawText, metadata);
+    lastCompiledHTML = generateStandaloneHTML(lastCompiledExamData);
+
+    // Hiển thị khung kết quả xuất bản
+    const resultBox = document.getElementById('pubResultActionBox');
+    const statsText = document.getElementById('pubResultStatsText');
+    const pathText = document.getElementById('pubResultPathText');
+
+    let totalQ = 0;
+    lastCompiledExamData.sections.forEach(s => totalQ += s.questions.length);
+
+    if (statsText) {
+        statsText.innerHTML = `<i class="fa-solid fa-circle-check text-emerald"></i> Đã biên dịch thành công <strong>${totalQ} câu hỏi</strong> trắc nghiệm phân hóa!`;
+    }
+
+    if (pathText) {
+        let saveDir = `de-thi/lop-${grade}/`;
+        if (type === 'luyen-tap') saveDir += `luyen-tap/${subType}/`;
+        else if (type === 'kiem-tra') saveDir += `kiem-tra/${subType}/`;
+        else saveDir += 'khao-sat/';
+
+        pathText.innerHTML = `Vị trí lưu trên GitHub: <strong>${saveDir}${code}.html</strong>`;
+    }
+
+    if (resultBox) {
+        resultBox.style.display = 'block';
+        resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    if (typeof showStatusMessage === 'function') {
+        showStatusMessage(`Đã xuất bản thành công đề thi ${code}.html! Thầy có thể tải xuống hoặc xem thử ngay.`, 'success');
+    }
+}
+
+// Nút tải file HTML đã xuất bản
+function downloadPublishedExamHTML() {
+    if (!lastCompiledHTML || !lastCompiledExamData) {
+        alert('Chưa có đề thi nào được xuất bản! Thầy vui lòng bấm nút "Xuất Bản Đề Thi" trước nhé.');
+        return;
+    }
+    const fileName = `${lastCompiledExamData.info.code || 'exam'}.html`;
+    downloadBlob(lastCompiledHTML, fileName, 'text/html');
+    if (typeof showStatusMessage === 'function') {
+        showStatusMessage(`Đã tải file ${fileName} về máy thành công!`, 'success');
+    }
+}
+
+// Nút xem trước bài thi đã xuất bản
+function previewPublishedExamHTML() {
+    if (!lastCompiledHTML) {
+        alert('Chưa có đề thi nào được xuất bản! Thầy vui lòng bấm nút "Xuất Bản Đề Thi" trước nhé.');
+        return;
+    }
+    const win = window.open('', '_blank');
+    if (win) {
+        win.document.open();
+        win.document.write(lastCompiledHTML);
+        win.document.close();
+    } else {
+        alert('Trình duyệt đã chặn cửa sổ bật lên. Thầy vui lòng cấp quyền mở tab mới!');
+    }
+}
+
+// Nút copy toàn bộ mã HTML vào clipboard
+function copyPublishedExamHTML() {
+    if (!lastCompiledHTML) {
+        alert('Chưa có đề thi nào được xuất bản!');
+        return;
+    }
+    navigator.clipboard.writeText(lastCompiledHTML).then(() => {
+        alert('Đã sao chép toàn bộ mã nguồn HTML vào bộ nhớ tạm (Clipboard)! Thầy có thể dán trực tiếp vào file.');
+    }).catch(err => {
+        alert('Không thể sao chép tự động: ' + err);
+    });
+}
+
+// Nút Dán Mẫu Đề Nhanh
+function pasteSampleRawExam() {
+    const rawTextEl = document.getElementById('pubRawText');
+    if (!rawTextEl) return;
+
+    const sample = `Audio: 03_De_03_Listening_Full_Audio.mp3
+
+Câu 1: What was the main activity of the "Green Neighborhood" project last weekend?
+A. Painting classroom walls
+B. Cleaning up trash and planting trees along the canal
+C. Selling handicrafts to tourists
+D. Repairing old street lamps
+Đáp án: B
+Giải thích: Dẫn chứng bài nghe: "Volunteers cleaned up trash and planted trees along the canal."
+
+Câu 2: How many volunteers participated in the community event?
+A. Around thirty volunteers
+B. Over fifty volunteers
+C. Exactly one hundred volunteers
+D. Nearly eighty volunteers
+Đáp án: B
+Giải thích: Dẫn chứng bài nghe: "More than 50 volunteers joined enthusiastically."
+
+Câu 3: Our city council has decided to ________ ancient monuments to attract more international tourists.
+A. preserve
+B. demolish
+C. pollute
+D. discard
+Đáp án: A
+Giải thích: "preserve" (bảo tồn di tích cổ).
+
+Câu 4: The more regularly you exercise, ________ your immune system becomes.
+A. the stronger
+B. stronger
+C. the most strong
+D. more strongly
+Đáp án: A
+Giải thích: Cấu trúc so sánh kép "The + so sánh hơn..., the + so sánh hơn...".
+
+Câu 5: Rewrite using Question Word + To-Infinitive: "I have no idea where I should purchase local handicrafts."
+A. I have no idea where to purchase local handicrafts.
+B. I have no idea what to purchase local handicrafts.
+C. I have no idea where purchasing local handicrafts.
+D. I have no idea how purchasing local handicrafts.
+Đáp án: A
+Giải thích: Chuyển mệnh đề Wh- sang dạng rút gọn Wh-word + to V: "where to purchase".`;
+
+    rawTextEl.value = sample;
+    updatePublisherMetadata();
+    if (typeof showStatusMessage === 'function') {
+        showStatusMessage('Đã dán mẫu đề 5 câu chuẩn Cần Thơ có audio vào khung soạn thảo!', 'info');
+    }
+}
+

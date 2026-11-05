@@ -831,152 +831,318 @@
                  TAB 2: TRÌNH SOẠN THẢO ĐỀ THI TRẮC NGHIỆM ĐỘNG (SECTION-BASED BUILDER)
                  ======================================================== -->
             <div class="tab-panel" id="tab-exam-creator">
-                <div class="section-box">
-                    
-                    <!-- TIÊU ĐỀ MODULE & THANH CÔNG CỤ NHANH -->
+                
+                <!-- ========================================================
+                     MÔ-ĐUN A: TRÌNH XUẤT BẢN ĐỀ THI HTML TỰ ĐỘNG (AUTO HTML PUBLISHER)
+                     Cơ chế: Dán nội dung thô + Chọn Metadata Tags -> Biên dịch HTML đa cấp chuẩn GitHub Pages
+                     ======================================================== -->
+                <div class="section-box" style="margin-bottom: 2rem; border-left: 5px solid var(--teal);">
                     <div class="section-header" style="align-items: flex-start;">
                         <div>
-                            <h3 style="font-size: 1.3rem; display: flex; align-items: center; gap: 10px;">
-                                <i class="fa-solid fa-layer-group" style="color: var(--teal);"></i>
-                                Trình Soạn Thảo Đề Thi Theo Khối (Section-Based Builder)
+                            <span class="badge" style="background:#ccfbf1; color:#0f766e; font-weight:800; font-size:0.8rem; margin-bottom:6px; display:inline-block;">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> GITHUB PAGES MULTI-TIER ENGINE (OPTION B)
+                            </span>
+                            <h3 style="font-size: 1.35rem; display: flex; align-items: center; gap: 10px; color: var(--navy-dark);">
+                                <i class="fa-solid fa-file-code" style="color: var(--teal);"></i>
+                                Trình Xuất Bản Đề Thi HTML Tự Động (Auto Exam Publisher)
                             </h3>
-                            <p style="margin-top: 4px;">
-                                Soạn đề chuẩn hóa theo từng Phần & bảo toàn ngữ cảnh (Reading Passage, Listening Track, Signs & Notices, Arrangement). 
-                                Tự động biên dịch sang mã nguồn HTML chuẩn mực vàng file de901_gk1_2627.html.
+                            <p style="margin-top: 4px; font-size: 0.92rem; color: var(--text-muted);">
+                                Dán văn bản đề thi thô, chọn các thẻ phân loại (Tags). Hệ thống tự động phân tích ngữ cảnh, đóng gói thành <strong>01 file HTML độc lập hoàn chỉnh</strong> 
+                                có sẵn Timer, Modal kết quả, Review mode và API nộp điểm về Google Sheets. Thầy chỉ cần kéo thả file lên GitHub là website tự động cập nhật!
                             </p>
                         </div>
                         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                            <button type="button" class="btn btn-emerald" onclick="loadCanTho40Template()">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Nạp Khung Chuẩn 40 Câu Sở Cần Thơ
+                            <button type="button" class="btn btn-emerald" onclick="pasteSampleRawExam()">
+                                <i class="fa-solid fa-paste"></i> Dán Mẫu Đề Nhanh (5 Câu)
                             </button>
-                            <button type="button" class="btn btn-outline" onclick="addBlankSection()">
-                                <i class="fa-solid fa-plus"></i> Thêm Phần Mới
+                            <button type="button" class="btn btn-outline" onclick="loadCanTho40Template()">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Nạp Đề 40 Câu Cần Thơ
                             </button>
                         </div>
                     </div>
 
-                    <!-- KHỐI 1: THÔNG TIN CHUNG BỘ ĐỀ -->
-                    <div style="background: #f8fafc; border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2rem;">
-                        <h4 style="font-weight: 800; color: var(--navy); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px;">
-                            <i class="fa-solid fa-circle-info" style="color: var(--primary);"></i>
-                            Khối 1: Thông Tin Chung Đề Thi
+                    <!-- KHỐI METADATA TAGS TỰ ĐỘNG PHÂN LOẠI -->
+                    <div style="background: #f8fafc; border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+                        <h4 style="font-weight: 800; color: var(--navy); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; font-size: 1rem;">
+                            <i class="fa-solid fa-tags" style="color: var(--teal);"></i> 1. CÁC THẺ PHÂN LOẠI ĐỀ THI (METADATA TAGS)
                         </h4>
                         
-                        <div class="form-grid" style="grid-template-columns: 1.5fr 2fr 1fr 1fr; margin-bottom: 1rem;">
+                        <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                            
+                            <!-- 1. Khối lớp -->
                             <div class="form-group">
-                                <label>Mã Đề Thi (ID không dấu) *</label>
-                                <input type="text" id="examId" class="form-control" placeholder="Ví dụ: anh9-gk1-de04" value="anh9-gk1-de04">
-                            </div>
-                            <div class="form-group">
-                                <label>Tiêu Đề Bài Thi Khảo Thí *</label>
-                                <input type="text" id="examTitle" class="form-control" placeholder="Ví dụ: Đề Kiểm Tra Đánh Giá Năng Lực Giữa Kỳ 1 • Đề 04" value="Đề Kiểm Tra Đánh Giá Năng Lực Giữa Kỳ 1 (2026–2027) • Đề Số 04 - Tiếng Anh 9">
-                            </div>
-                            <div class="form-group">
-                                <label>Khối Lớp *</label>
-                                <select id="examGrade" class="form-control">
-                                    <option value="1">Lớp 1</option>
-                                    <option value="2">Lớp 2</option>
-                                    <option value="3">Lớp 3</option>
-                                    <option value="4">Lớp 4</option>
-                                    <option value="5">Lớp 5</option>
-                                    <option value="6">Lớp 6</option>
-                                    <option value="7">Lớp 7</option>
-                                    <option value="8">Lớp 8</option>
-                                    <option value="9" selected>Lớp 9</option>
-                                    <option value="10">Lớp 10</option>
-                                    <option value="11">Lớp 11</option>
-                                    <option value="12">Lớp 12</option>
+                                <label class="form-label" style="font-weight:700;"><i class="fa-solid fa-graduation-cap"></i> Khối Lớp (*):</label>
+                                <select id="pubGrade" class="form-control font-bold" onchange="updatePublisherMetadata()">
+                                    <option value="9" selected>Lớp 9 (Chương trình GDPT 2018)</option>
+                                    <option value="8">Lớp 8 (Global Success)</option>
+                                    <option value="7">Lớp 7 (Global Success)</option>
+                                    <option value="6">Lớp 6 (Global Success)</option>
+                                    <option value="5">Lớp 5 (Tiểu học)</option>
+                                    <option value="4">Lớp 4 (Tiểu học)</option>
+                                    <option value="3">Lớp 3 (Tiểu học)</option>
+                                    <option value="2">Lớp 2 (Tiểu học)</option>
+                                    <option value="1">Lớp 1 (Tiểu học)</option>
+                                    <option value="10">Lớp 10 (THPT)</option>
+                                    <option value="11">Lớp 11 (THPT)</option>
+                                    <option value="12">Lớp 12 (THPT & Luyện Thi)</option>
                                 </select>
                             </div>
+
+                            <!-- 2. Thể loại bài -->
                             <div class="form-group">
-                                <label>Thời Gian (Phút) *</label>
-                                <input type="number" id="examTime" class="form-control" value="60" min="5" max="180">
+                                <label class="form-label" style="font-weight:700;"><i class="fa-solid fa-list-check"></i> Thể Loại Bài (*):</label>
+                                <select id="pubType" class="form-control font-bold text-teal" onchange="updatePublisherMetadata()">
+                                    <option value="kiem-tra" selected>⏱️ Kiểm Tra Định Kỳ (Periodical Test)</option>
+                                    <option value="luyen-tap">🎯 Luyện Tập Hàng Ngày (Skill Practice)</option>
+                                    <option value="khao-sat">🏆 Khảo Sát Năng Lực Chuẩn (Diagnostic/Mock)</option>
+                                </select>
+                            </div>
+
+                            <!-- 3A. Nhánh con Luyện tập: Kỹ năng + Số bài -->
+                            <div id="pubSubPracticeWrap" style="display: none;">
+                                <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-weight:700;">Kỹ Năng:</label>
+                                        <select id="pubSkill" class="form-control" onchange="updatePublisherMetadata()">
+                                            <option value="phat-am">Phát Âm & Trọng Âm</option>
+                                            <option value="ngu-phap" selected>Ngữ Pháp & Từ Vựng</option>
+                                            <option value="nghe-hieu">Nghe Hiểu (Listening)</option>
+                                            <option value="doc-hieu">Đọc Hiểu (Reading)</option>
+                                            <option value="viet-mcq">Viết (Writing MCQ)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-weight:700;">Số Thứ Tự:</label>
+                                        <select id="pubExNum" class="form-control font-bold" onchange="updatePublisherMetadata()">
+                                            <option value="1" selected>Exercise 1</option>
+                                            <option value="2">Exercise 2</option>
+                                            <option value="3">Exercise 3</option>
+                                            <option value="4">Exercise 4</option>
+                                            <option value="5">Exercise 5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3B. Nhánh con Kiểm tra: Loại kỳ thi + Số đề -->
+                            <div id="pubSubPeriodicalWrap" style="display: block;">
+                                <div class="form-grid" style="grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-weight:700;">Loại Kỳ Thi:</label>
+                                        <select id="pubPeriodicalCat" class="form-control font-bold" onchange="updatePublisherMetadata()">
+                                            <option value="15-phut">15 Phút (Quick)</option>
+                                            <option value="1-tiet">1 Tiết (45 Phút)</option>
+                                            <option value="giua-ky-1" selected>Giữa Kỳ 1 (Midterm 1)</option>
+                                            <option value="cuoi-ky-1">Cuối Kỳ 1 (Final 1)</option>
+                                            <option value="giua-ky-2">Giữa Kỳ 2 (Midterm 2)</option>
+                                            <option value="cuoi-ky-2">Cuối Kỳ 2 (Final 2)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-weight:700;">Đề Số:</label>
+                                        <select id="pubDeNum" class="form-control font-bold text-emerald" onchange="updatePublisherMetadata()">
+                                            <option value="1">Đề Số 01</option>
+                                            <option value="2">Đề Số 02</option>
+                                            <option value="3" selected>Đề Số 03</option>
+                                            <option value="4">Đề Số 04</option>
+                                            <option value="5">Đề Số 05</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3C. Nhánh con Khảo sát -->
+                            <div id="pubSubSurveyWrap" style="display: none;">
+                                <div class="form-group">
+                                    <label class="form-label" style="font-weight:700;">Đợt Khảo Sát:</label>
+                                    <select id="pubSurveyRound" class="form-control font-bold" onchange="updatePublisherMetadata()">
+                                        <option value="1" selected>Khảo Sát Đợt 01 (Baseline)</option>
+                                        <option value="2">Khảo Sát Đợt 02 (Mid-Year)</option>
+                                        <option value="3">Khảo Sát Đợt 03 (Advanced Mock)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- 4. Thời gian làm bài -->
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;"><i class="fa-regular fa-clock"></i> Thời Gian (Phút):</label>
+                                <input type="number" id="pubExamTime" class="form-control font-bold text-crimson" value="60" min="5" max="180">
+                            </div>
+
+                        </div>
+
+                        <!-- Hàng tiêu đề & mã đề -->
+                        <div class="form-grid" style="grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 0.75rem;">
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Tên Đề Thi / Bài Tập (*):</label>
+                                <input type="text" id="pubExamTitle" class="form-control font-bold" value="Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 03 – Tiếng Anh 9" placeholder="Nhập tên đề thi hiển thị cho học sinh...">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Mã Đề / Tên File (*):</label>
+                                <input type="text" id="pubExamCode" class="form-control font-bold text-teal" value="de-03" oninput="updatePublisherMetadata()" placeholder="Ví dụ: de-03, ex-01...">
                             </div>
                         </div>
 
-                        <div class="form-grid" style="grid-template-columns: 2fr 2fr;">
-                            <div class="form-group">
-                                <label>Mô Tả & Hướng Dẫn Bài Thi</label>
-                                <input type="text" id="examDesc" class="form-control" value="Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ (Gồm Listening, Multiple Choice, Cloze test, Reading và Tự luận trắc nghiệm hóa 100%)." placeholder="Mô tả nội dung trọng tâm của đề...">
-                            </div>
-                            <div class="form-group">
-                                <label><i class="fa-solid fa-volume-high" style="color: var(--teal);"></i> Tên File / Link Audio MP3 Toàn Bài (Full Audio)</label>
-                                <input type="text" id="examFullAudio" class="form-control" value="04_De_04_Listening_Full_Audio.mp3" placeholder="Ví dụ: 04_De_04_Listening_Full_Audio.mp3 hoặc link online">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- KHỐI 2: KHU VỰC NHẬP LIỆU THEO PHẦN (SECTION-BASED BUILDER) -->
-                    <div style="margin-bottom: 2rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
-                            <h4 style="font-weight: 800; font-size: 1.15rem; color: var(--navy); display: flex; align-items: center; gap: 8px;">
-                                <i class="fa-solid fa-list-check" style="color: var(--teal);"></i>
-                                Khối 2: Cấu Trúc Các Phần Thi & Câu Hỏi 
-                                (<span id="totalSectionsCount">0</span> Phần • <span id="totalQuestionsCount">0</span> Câu)
-                            </h4>
-                            <button type="button" class="btn btn-teal" onclick="addBlankSection()">
-                                <i class="fa-solid fa-plus"></i> Thêm Phần Mới
-                            </button>
-                        </div>
-
-                        <!-- CONTAINER CHỨA CÁC SECTION CARDS -->
-                        <div id="sectionsContainer">
-                            <!-- Các section sẽ render động ở đây -->
-                        </div>
-                    </div>
-
-                    <!-- KHỐI 3: CƠ CHẾ BIÊN DỊCH & XUẤT FILE HOÀN CHỈNH -->
-                    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-lg);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <!-- THẺ HIỂN THỊ ĐƯỜNG DẪN GITHUB THỰC TẾ -->
+                        <div style="background: #e0f2fe; border: 1.5px dashed #0284c7; padding: 10px 14px; border-radius: 8px; font-size: 0.88rem; color: #0369a1; display: flex; align-items: center; justify-content: space-between;">
                             <div>
-                                <span style="background: rgba(13, 148, 136, 0.3); border: 1px solid var(--teal); color: #5eead4; font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; text-transform: uppercase;">
-                                    Khối 3: Compiler & Export Engine
+                                <span style="font-weight: 700;">Đường dẫn lưu trên GitHub Pages:</span>
+                                <span id="pubGithubPathBadge" style="margin-left: 6px; font-family: monospace; font-size: 0.95rem; font-weight: 700; color: #0c4a6e;">
+                                    <i class="fa-solid fa-folder-tree"></i> /de-thi/lop-9/kiem-tra/giua-ky-1/<strong>de-03.html</strong>
                                 </span>
-                                <h3 style="font-size: 1.35rem; font-weight: 800; margin: 8px 0 4px 0;">
-                                    Biên Dịch & Xuất Bản Đề Thi Độc Lập
-                                </h3>
-                                <p style="font-size: 0.88rem; color: #cbd5e1; max-width: 600px;">
-                                    Hệ thống sẽ biên dịch toàn bộ cấu trúc và câu hỏi trên thành một file HTML hoàn chỉnh 100% chuẩn giao diện file de901_gk1_2627.html (có thanh timer, player audio, chấm điểm tự động và gửi điểm về Google Sheets).
-                                </p>
                             </div>
-                            <button type="button" class="btn-compile-hero" onclick="compileAndExportHTML()">
-                                <i class="fa-solid fa-bolt"></i> Biên Dịch & Tạo Đề Thi (.html)
+                            <span style="font-size: 0.75rem; background: #ffffff; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Tự Động Đồng Bộ</span>
+                        </div>
+
+                    </div>
+
+                    <!-- KHUNG NHẬP LIỆU CHÍNH: TEXTAREA LỚN ĐỂ DÁN VĂN BẢN ĐỀ THI -->
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label class="form-label" style="font-weight: 800; font-size: 1rem; color: var(--navy-dark); margin-bottom: 0;">
+                                <i class="fa-solid fa-paste text-teal"></i> 2. KHUNG DÁN VĂN BẢN ĐỀ THI (HOẶC LINK NGUỒN):
+                            </label>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                Hỗ trợ: <code>Câu 1:</code>, <code>A. B. C. D.</code>, <code>Đáp án: A</code>, <code>Giải thích: ...</code>, <code>Audio: ...</code>
+                            </span>
+                        </div>
+                        <textarea id="pubRawText" class="form-control" rows="12" style="font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; padding: 14px;" placeholder="Thầy dán nội dung văn bản toàn bộ câu hỏi và đáp án vào đây...&#10;&#10;Ví dụ định dạng đề:&#10;Audio: 03_De_03_Listening_Full_Audio.mp3&#10;&#10;Câu 1: What was the main activity of the project last weekend?&#10;A. Painting classroom walls&#10;B. Cleaning up trash and planting trees&#10;C. Selling handicrafts to tourists&#10;D. Repairing old street lamps&#10;Đáp án: B&#10;Giải thích: Dẫn chứng Track 1: Volunteers cleaned up trash and planted trees.&#10;&#10;Câu 2: ..."></textarea>
+                    </div>
+
+                    <!-- NÚT XUẤT BẢN CHÍNH -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted);">
+                            <i class="fa-solid fa-shield-halved text-emerald"></i> File HTML sinh ra hoạt động độc lập 100%, bảo mật đáp án và tự động chấm điểm.
+                        </div>
+                        <button type="button" class="btn btn-primary" style="padding: 12px 32px; font-size: 1.05rem; font-weight: 800; border-radius: 30px; background: linear-gradient(135deg, var(--teal), var(--emerald)); border: none; box-shadow: 0 4px 15px rgba(13, 148, 136, 0.35);" onclick="publishExamFromRawText()">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> XUẤT BẢN ĐỀ THI HTML NGAY 🚀
+                        </button>
+                    </div>
+
+                    <!-- KHỐI KẾT QUẢ XUẤT BẢN & CÁC NÚT TẢI FILE / PREVIEW -->
+                    <div id="pubResultActionBox" style="display: none; margin-top: 1.5rem; background: #f0fdf4; border: 2px solid #86efac; border-radius: var(--radius-md); padding: 1.5rem; animation: fadeIn 0.3s ease;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <div>
+                                <h4 style="font-family:'Lexend',sans-serif; color:#065f46; font-size:1.15rem; font-weight:800; margin-bottom:4px;" id="pubResultStatsText">
+                                    <i class="fa-solid fa-circle-check text-emerald"></i> Đã xuất bản thành công!
+                                </h4>
+                                <div style="font-size: 0.9rem; color: #047857;" id="pubResultPathText">
+                                    Vị trí lưu trên GitHub: de-thi/lop-9/kiem-tra/giua-ky-1/de-03.html
+                                </div>
+                            </div>
+                            <span class="badge" style="background:#059669; color:#fff; font-weight:800; padding:6px 14px; font-size:0.85rem;">SẴN SÀNG UPLOAD</span>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1.2rem;">
+                            <button type="button" class="btn btn-emerald" style="padding: 10px 24px; font-weight: 800;" onclick="downloadPublishedExamHTML()">
+                                <i class="fa-solid fa-download"></i> TẢI XUỐNG FILE HTML (.html)
+                            </button>
+                            <button type="button" class="btn btn-outline" style="background:#ffffff; color:#0369a1; border-color:#0369a1; font-weight:700;" onclick="previewPublishedExamHTML()">
+                                <i class="fa-solid fa-eye"></i> THI THỬ / XEM TRƯỚC (PREVIEW)
+                            </button>
+                            <button type="button" class="btn btn-outline" style="background:#ffffff; color:#475569; font-weight:700;" onclick="copyPublishedExamHTML()">
+                                <i class="fa-solid fa-copy"></i> Sao Chép Mã HTML
                             </button>
                         </div>
 
-                        <!-- Khung kết quả sau khi biên dịch -->
-                        <div id="compileResultBox" style="display: none; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-md); padding: 1.2rem; margin-top: 1rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-                                <div>
-                                    <div style="font-weight: 800; color: #5eead4; font-size: 1rem;" id="compileStatusText">
-                                        🎉 ĐÃ BIÊN DỊCH THÀNH CÔNG ĐỀ THI!
-                                    </div>
-                                    <div style="font-size: 0.82rem; color: #cbd5e1; margin-top: 2px;" id="compileDetailText">
-                                        File HTML hoàn chỉnh đã sẵn sàng để tải về hoặc thi thử trực tiếp.
-                                    </div>
-                                </div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                    <button type="button" class="btn btn-emerald" onclick="downloadCompiledHTML()">
-                                        <i class="fa-solid fa-download"></i> Tải File HTML Về Máy
-                                    </button>
-                                    <button type="button" class="btn btn-primary" onclick="downloadCompiledJSON()">
-                                        <i class="fa-solid fa-file-code"></i> Tải File Dữ Liệu JSON
-                                    </button>
-                                    <button type="button" class="btn btn-outline" style="background: white; color: var(--navy);" onclick="previewCompiledExam()">
-                                        <i class="fa-solid fa-eye"></i> Thi Thử Trực Tiếp Ngay
-                                    </button>
-                                </div>
-                            </div>
+                        <!-- HƯỚNG DẪN KÉO THẢ LÊN GITHUB -->
+                        <div style="background: rgba(255, 255, 255, 0.7); border-radius: 8px; padding: 12px 16px; font-size: 0.88rem; color: #166534; line-height: 1.6;">
+                            <strong>💡 Hướng dẫn Thầy Sơn:</strong>
+                            <ol style="margin-left: 20px; margin-top: 4px;">
+                                <li>Bấm nút <strong>"TẢI XUỐNG FILE HTML"</strong> ở trên để lưu file về máy.</li>
+                                <li>Mở GitHub kho <code>stmenglish</code> &rarr; Đi vào đúng thư mục hiển thị ở trên (Ví dụ: <code>de-thi/lop-9/kiem-tra/giua-ky-1/</code>).</li>
+                                <li>Kéo thả file vào và bấm <strong>Commit changes</strong>. Hệ thống trang Lớp học sẽ tự động nhận diện bài thi ngay lập tức!</li>
+                            </ol>
                         </div>
                     </div>
 
                 </div>
+
+                <!-- ========================================================
+                     MÔ-ĐUN B: TRÌNH SOẠN THẢO THEO KHỐI NÂNG CAO (SECTION-BASED BUILDER)
+                     Dành cho đề thi 40 câu phức tạp nhiều track audio, bài đọc dài và câu hỏi tự luận
+                     ======================================================== -->
+                <div class="section-box">
+                    <div class="section-header" style="align-items: flex-start;">
+                        <div>
+                            <h3 style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px; color: var(--navy);">
+                                <i class="fa-solid fa-layer-group" style="color: var(--teal);"></i>
+                                Trình Soạn Thảo Theo Khối Nâng Cao (Section-Based Detailed Builder)
+                            </h3>
+                            <p style="margin-top: 4px; font-size: 0.88rem; color: var(--text-muted);">
+                                Quản lý chi tiết từng Section (Bài nghe 1, Bài nghe 2, Bài đọc Cloze-test, Đoạn văn Reading, Biển báo & Thông báo).
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline" onclick="addBlankSection()">
+                                <i class="fa-solid fa-plus"></i> Thêm Phần Mới
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="compileExam('download_html')">
+                                <i class="fa-solid fa-file-export"></i> Biên Dịch Bộ Đề Này
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- THÔNG TIN CHUNG BỘ ĐỀ NÂNG CAO -->
+                    <div style="background: #f8fafc; border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+                        <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 0.75rem;">
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Mã Đề Khối:</label>
+                                <input type="text" id="examCode" class="form-control font-bold text-teal" value="anh9-giuaky1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Khối Lớp:</label>
+                                <select id="examGrade" class="form-control font-bold">
+                                    <option value="9" selected>Lớp 9</option>
+                                    <option value="8">Lớp 8</option>
+                                    <option value="7">Lớp 7</option>
+                                    <option value="6">Lớp 6</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">Thời Gian (Phút):</label>
+                                <input type="number" id="examDuration" class="form-control font-bold" value="60">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="font-weight:700;">File Full Audio (Toàn Bài):</label>
+                                <input type="text" id="examFullAudio" class="form-control" value="03_De_03_Listening_Full_Audio.mp3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="font-weight:700;">Tiêu Đề Đề Thi:</label>
+                            <input type="text" id="examTitle" class="form-control font-bold" value="Đề Kiểm Tra Giữa Kỳ 1 (2026–2027) • Đề Số 03 – Tiếng Anh 9">
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label" style="font-weight:700;">Mô Tả / Chỉ Dẫn:</label>
+                            <input type="text" id="examDesc" class="form-control" value="Đề thi khảo sát năng lực 40 câu chuẩn Sở GD&ĐT Cần Thơ.">
+                        </div>
+                    </div>
+
+                    <!-- DANH SÁCH CÁC PHẦN (SECTIONS CONTAINER) -->
+                    <div id="sectionsContainer">
+                        <!-- Render bởi admin_exam_builder.js -->
+                    </div>
+
+                    <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <span id="totalQuestionsBadge" class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:800; font-size:0.9rem;">40 Câu hỏi</span>
+                        <div style="display:flex; gap:10px;">
+                            <button type="button" class="btn btn-outline" onclick="compileExam('download_json')">
+                                <i class="fa-solid fa-file-code"></i> Tải Dữ Liệu Đề (.json)
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="compileExam('preview')">
+                                <i class="fa-solid fa-eye"></i> Thi Thử Trực Tiếp (Preview)
+                            </button>
+                            <button type="button" class="btn btn-emerald" onclick="compileExam('download_html')">
+                                <i class="fa-solid fa-download"></i> Biên Dịch & Tạo Đề Thi (.html)
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
-            <!-- ========================================================
-                 TAB 3: TẢI BÀI VỞ & TÀI LIỆU BÀI GIẢNG (MATERIALS)
-                 ======================================================== -->
-            <div class="tab-panel" id="tab-materials">
+            <div class="admin-tab-pane" id="tab-materials">
                 <div class="section-box">
                     <div class="section-header">
                         <div>
