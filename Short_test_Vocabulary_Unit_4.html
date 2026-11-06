@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÀI KIỂM TRA ĐÁNH GIÁ NĂNG LỰC TỪ VỰNG — UNIT 4: MUSIC AND ARTS (TIẾNG ANH 7)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --secondary: #0f172a;
+      --accent: #dc2626;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --radius: 14px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 90px;
+    }
+
+    /* Top Sticky Header */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(13, 148, 136, 0.35);
+    }
+    .brand-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1.2;
+    }
+    .brand-info p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      color: var(--accent);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      font-family: 'Lexend', monospace;
+    }
+    .timer-badge.warning {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #b45309;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 28px auto;
+      padding: 0 20px;
+    }
+
+    /* Exam Title Card */
+    .hero-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: "MUSIC & ARTS";
+      position: absolute;
+      right: -20px;
+      bottom: -25px;
+      font-size: 64px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.04);
+      letter-spacing: 2px;
+      pointer-events: none;
+    }
+    .badge-unit {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .hero-card h1 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .hero-card p {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    /* Student Info Form */
+    .student-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .student-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    /* Instructions Box */
+    .instruction-card {
+      background: #f0fdfa;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: #115e59;
+    }
+
+    /* Question Card */
+    .question-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .question-card:hover {
+      border-color: #cbd5e1;
+    }
+    .question-card.answered {
+      border-left: 4px solid var(--primary);
+    }
+    .question-card.correct {
+      border-color: var(--success);
+      background: #f0fdf4;
+    }
+    .question-card.incorrect {
+      border-color: var(--accent);
+      background: #fef2f2;
+    }
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .q-num {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--primary-dark);
+      background: var(--primary-light);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .q-level {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .q-text {
+      font-size: 15.5px;
+      font-weight: 600;
+      color: var(--secondary);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+    }
+    .option-label:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+    .option-label input[type="radio"] {
+      margin-top: 3px;
+      margin-right: 12px;
+      accent-color: var(--primary);
+      width: 17px;
+      height: 17px;
+    }
+    .opt-key {
+      font-weight: 700;
+      color: var(--secondary);
+      margin-right: 6px;
+    }
+    .opt-text {
+      font-size: 14.5px;
+      color: #334155;
+    }
+
+    /* Status classes after submit */
+    .option-label.is-correct {
+      border-color: var(--success) !important;
+      background: #dcfce7 !important;
+      font-weight: 600;
+      color: #166534;
+    }
+    .option-label.is-wrong {
+      border-color: var(--accent) !important;
+      background: #fee2e2 !important;
+      color: #991b1b;
+    }
+
+    /* Explanation Box */
+    .explanation-box {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 18px;
+      background: #ffffff;
+      border: 1.5px dashed var(--primary);
+      border-radius: 10px;
+      font-size: 13.5px;
+      color: var(--secondary);
+      line-height: 1.6;
+    }
+    .explanation-box.show {
+      display: block;
+    }
+    .exp-title {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .exp-detail {
+      color: #334155;
+      margin-bottom: 4px;
+    }
+    .exp-trans {
+      color: #0369a1;
+      font-style: italic;
+    }
+
+    /* Bottom Action Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 90;
+      box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.05);
+    }
+    .progress-info {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .progress-info span {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 4px 10px rgba(13, 148, 136, 0.35);
+      transition: all 0.2s;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(13, 148, 136, 0.45);
+    }
+    .submit-btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Modal Result */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: white;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 20px;
+      padding: 32px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.92);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal-overlay.open .modal-card {
+      transform: scale(1);
+    }
+    .score-circle {
+      width: 110px;
+      height: 110px;
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 8px 16px rgba(13, 148, 136, 0.3);
+    }
+    .score-circle .big-num {
+      font-size: 36px;
+      font-weight: 800;
+      font-family: 'Lexend', sans-serif;
+      line-height: 1;
+    }
+    .score-circle .sub-text {
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+    .modal-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 6px;
+    }
+    .modal-card p.subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .stat-item {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .stat-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .stat-val {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .modal-btn {
+      width: 100%;
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-btn:hover {
+      background: #1e293b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="top-bar">
+    <div class="brand">
+      <div class="brand-logo">E</div>
+      <div class="brand-info">
+        <h2>E CLASS 2026 - 2027</h2>
+        <p>Thầy Nguyễn Hoàng Sơn • STM Center</p>
+      </div>
+    </div>
+    <div class="timer-badge" id="timerBadge">
+      ⏱️ <span id="timeDisplay">20:00</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Card -->
+    <section class="hero-card">
+      <span class="badge-unit">Tiếng Anh 7 • Unit 4</span>
+      <h1>BÀI KIỂM TRA ĐÁNH GIÁ NĂNG LỰC TỪ VỰNG</h1>
+      <p>Chủ đề: <strong>Music and Arts</strong> (Hệ thống 28 từ vựng trọng tâm • Thời gian làm bài: 20 phút • 20 câu trắc nghiệm)</p>
+    </section>
+
+    <!-- Student Info -->
+    <section class="student-card">
+      <h3>📝 Thông Tin Học Sinh Làm Bài</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="studentName">Họ và Tên học sinh (*):</label>
+          <input type="text" id="studentName" placeholder="Ví dụ: Nguyễn Văn An" required>
+        </div>
+        <div class="form-group">
+          <label for="studentClass">Lớp học (*):</label>
+          <input type="text" id="studentClass" placeholder="Ví dụ: 7A1 hoặc E7" required>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructions -->
+    <div class="instruction-card">
+      💡 <strong>Hướng dẫn:</strong> Đọc kỹ từng câu hỏi và chọn duy nhất 01 phương án đúng nhất (A, B, C hoặc D). Hết thời gian 20 phút, bài thi sẽ tự động nộp. Sau khi nộp bài, em sẽ được xem ngay điểm số và phần giải thích chi tiết cho từng câu hỏi.
+    </div>
+
+    <!-- Questions Container -->
+    <div id="questionsContainer"></div>
+  </main>
+
+  <!-- Bottom Floating Action Bar -->
+  <footer class="bottom-bar">
+    <div class="progress-info">
+      Đã làm: <span id="answeredCount">0</span> / <span id="totalQuestions">20</span> câu
+    </div>
+    <button class="submit-btn" id="submitBtn" onclick="confirmSubmit()">NỘP BÀI KIỂM TRA</button>
+  </footer>
+
+  <!-- Modal Kết Quả -->
+  <div class="modal-overlay" id="scoreModal">
+    <div class="modal-card">
+      <div class="score-circle">
+        <span class="big-num" id="modalScore">0.0</span>
+        <span class="sub-text">ĐIỂM SỐ</span>
+      </div>
+      <h2 id="modalGreeting">Chúc mừng em!</h2>
+      <p class="subtitle">Em đã hoàn thành bài kiểm tra từ vựng Unit 4.</p>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-label">Số câu đúng</div>
+          <div class="stat-val" id="statCorrect">0 / 20</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Tỷ lệ chính xác</div>
+          <div class="stat-val" id="statPercent">0%</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Thời gian làm bài</div>
+          <div class="stat-val" id="statTime">0 phút</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Xếp loại</div>
+          <div class="stat-val" id="statRank">Khá</div>
+        </div>
+      </div>
+
+      <div id="syncStatus" style="margin-bottom: 16px; font-size: 13.5px; color: #0d9488; font-weight: 600; text-align: center;">
+        🔄 Đang lưu điểm vào hệ thống của Thầy...
+      </div>
+
+      <button class="modal-btn" onclick="closeModalAndReview()">🔍 Xem Lại Đáp Án & Lời Giải Chi Tiết</button>
+    </div>
+  </div>
+
+  <script>
+    // 20 CÂU HỎI TỪ VỰNG CHUẨN MỰC BAO QUÁT TOÀN DIỆN UNIT 4
+    const QUESTIONS_DATA = [
+      {
+        id: 1,
+        level: "Nhận biết (Vocabulary)",
+        text: "A person who creates works of art, especially paintings or drawings, is called an ________.",
+        options: [
+          { key: "A", text: "artist" },
+          { key: "B", text: "actor" },
+          { key: "C", text: "audience" },
+          { key: "D", text: "author" }
+        ],
+        correct: "A",
+        explanation: "Từ vựng: 'artist' (/ˈɑːtɪst/) có nghĩa là nghệ sĩ, họa sĩ vẽ tranh.",
+        translation: "Một người sáng tạo ra các tác phẩm nghệ thuật, đặc biệt là tranh vẽ, được gọi là một họa sĩ/nghệ sĩ."
+      },
+      {
+        id: 2,
+        level: "Nhận biết (Musical Instrument)",
+        text: "The ________ is a musical instrument of the woodwind group, shaped like a thin pipe that the player blows across a hole.",
+        options: [
+          { key: "A", text: "drum" },
+          { key: "B", text: "guitar" },
+          { key: "C", text: "flute" },
+          { key: "D", text: "violin" }
+        ],
+        correct: "C",
+        explanation: "'flute' (/fluːt/) là cây sáo (thuộc bộ nhạc cụ hơi gỗ, thổi ngang qua lỗ thổi).",
+        translation: "Sáo là một nhạc cụ thuộc bộ hơi gỗ, có hình dạng ống mỏng mà người chơi thổi qua một lỗ nhỏ."
+      },
+      {
+        id: 3,
+        level: "Thông hiểu (Collocation)",
+        text: "To paint the wall with oil colors, the painter dipped his ________ into the paint bucket.",
+        options: [
+          { key: "A", text: "statue" },
+          { key: "B", text: "paintbrush" },
+          { key: "C", text: "sculpture" },
+          { key: "D", text: "landscape" }
+        ],
+        correct: "B",
+        explanation: "'paintbrush' (/ˈpeɪntbrʌʃ/) là cây cọ vẽ. 'dip... into...' = nhúng cọ vào thùng sơn/màu vẽ.",
+        translation: "Để sơn bức tường bằng màu dầu, người thợ vẽ đã nhúng cây cọ vẽ của mình vào thùng sơn."
+      },
+      {
+        id: 4,
+        level: "Nhận biết (Venue)",
+        text: "A room or building where works of art are displayed to the public is an art ________.",
+        options: [
+          { key: "A", text: "cinema" },
+          { key: "B", text: "theater" },
+          { key: "C", text: "gallery" },
+          { key: "D", text: "stadium" }
+        ],
+        correct: "C",
+        explanation: "'art gallery' (/ˈɡæləri/) là phòng trưng bày tranh/nghệ thuật.",
+        translation: "Một căn phòng hoặc tòa nhà nơi các tác phẩm nghệ thuật được trưng bày cho công chúng xem là phòng trưng bày nghệ thuật."
+      },
+      {
+        id: 5,
+        level: "Thông hiểu (Genre)",
+        text: "Trinh Cong Son was a famous Vietnamese ________ who wrote hundreds of memorable songs.",
+        options: [
+          { key: "A", text: "composer" },
+          { key: "B", text: "dancer" },
+          { key: "C", text: "actor" },
+          { key: "D", text: "painter" }
+        ],
+        correct: "A",
+        explanation: "'composer' (/kəmˈpəʊzə(r)/) là nhà soạn nhạc, nhạc sĩ sáng tác ca khúc.",
+        translation: "Trịnh Công Sơn là một nhạc sĩ/nhà soạn nhạc Việt Nam nổi tiếng, người đã sáng tác hàng trăm bài hát đáng nhớ."
+      },
+      {
+        id: 6,
+        level: "Vận dụng (Traditional Art)",
+        text: "In Vietnam, children really enjoy watching a ________, where artists control wooden characters in a pool of water.",
+        options: [
+          { key: "A", text: "rock concert" },
+          { key: "B", text: "water puppet show" },
+          { key: "C", text: "fashion show" },
+          { key: "D", text: "circus exhibition" }
+        ],
+        correct: "B",
+        explanation: "'water puppet show' là buổi biểu diễn múa rối nước truyền thống đặc sắc của Việt Nam.",
+        translation: "Ở Việt Nam, trẻ em rất thích xem chương trình múa rối nước, nơi các nghệ nhân điều khiển các con rối gỗ trong hồ nước."
+      },
+      {
+        id: 7,
+        level: "Thông hiểu (Grammar & Collocation)",
+        text: "My brother spends most of his ________ practicing the electric guitar in his bedroom.",
+        options: [
+          { key: "A", text: "spare time" },
+          { key: "B", text: "work day" },
+          { key: "C", text: "busy time" },
+          { key: "D", text: "office hours" }
+        ],
+        correct: "A",
+        explanation: "Cụm danh từ: 'spare time' (/ˌspeə ˈtaɪm/) = thời gian rảnh rỗi (đồng nghĩa với free time / leisure time).",
+        translation: "Anh trai tôi dành phần lớn thời gian rảnh rỗi của mình để tập chơi đàn ghi-ta điện trong phòng ngủ."
+      },
+      {
+        id: 8,
+        level: "Nhận biết (Musical Instrument)",
+        text: "He plays the ________ by hitting it with two wooden sticks called drumsticks.",
+        options: [
+          { key: "A", text: "piano" },
+          { key: "B", text: "violin" },
+          { key: "C", text: "drum" },
+          { key: "D", text: "flute" }
+        ],
+        correct: "C",
+        explanation: "'drum' (/drʌm/) là cái trống. Chơi trống bằng cách đánh dùi trống ('hit with drumsticks').",
+        translation: "Cậu ấy chơi trống bằng cách gõ vào nó bằng hai thanh dùi gỗ gọi là dùi trống."
+      },
+      {
+        id: 9,
+        level: "Thông hiểu (Vocabulary Meaning)",
+        text: "The Statue of Liberty in New York is a huge ________ made of copper and iron.",
+        options: [
+          { key: "A", text: "statue" },
+          { key: "B", text: "painting" },
+          { key: "C", text: "paintbrush" },
+          { key: "D", text: "cinema" }
+        ],
+        correct: "A",
+        explanation: "'statue' (/ˈstætʃuː/) là bức tượng điêu khắc.",
+        translation: "Tượng Nữ Thần Tự Do ở New York là một bức tượng khổng lồ được làm bằng đồng và sắt."
+      },
+      {
+        id: 10,
+        level: "Nhận biết (Music Genres)",
+        text: "________ is a genre of traditional music that originated among the ordinary working people of a region.",
+        options: [
+          { key: "A", text: "Rock music" },
+          { key: "B", text: "Folk music" },
+          { key: "C", text: "Pop music" },
+          { key: "D", text: "Hip-hop" }
+        ],
+        correct: "B",
+        explanation: "'folk music' (/ˈfəʊk ˈmjuːzɪk/) là nhạc dân ca / dân gian.",
+        translation: "Nhạc dân ca là thể loại âm nhạc truyền thống bắt nguồn từ những người dân lao động bình dân của một vùng miền."
+      },
+      {
+        id: 11,
+        level: "Vận dụng (Context)",
+        text: "Visiting an art ________ gives students a good chance to see oil paintings and modern sculptures in person.",
+        options: [
+          { key: "A", text: "cinema" },
+          { key: "B", text: "theater" },
+          { key: "C", text: "exhibition" },
+          { key: "D", text: "stadium" }
+        ],
+        correct: "C",
+        explanation: "'art exhibition' (/ˌeksɪˈbɪʃn/) là buổi triển lãm nghệ thuật.",
+        translation: "Đi xem một buổi triển lãm nghệ thuật mang lại cho học sinh cơ hội tốt để tận mắt chiêm ngưỡng các bức tranh sơn dầu và tượng điêu khắc hiện đại."
+      },
+      {
+        id: 12,
+        level: "Thông hiểu (Visual Arts)",
+        text: "The artist spent the whole morning painting a scenic countryside ________ with green hills and a winding river.",
+        options: [
+          { key: "A", text: "landscape" },
+          { key: "B", text: "portrait" },
+          { key: "C", text: "statue" },
+          { key: "D", text: "puppet" }
+        ],
+        correct: "A",
+        explanation: "'landscape' (/ˈlændskeɪp/) là tranh phong cảnh thiên nhiên đồng quê.",
+        translation: "Họa sĩ đã dành cả buổi sáng để vẽ một bức tranh phong cảnh đồng quê tuyệt đẹp với những ngọn đồi xanh và dòng sông uốn lượn."
+      },
+      {
+        id: 13,
+        level: "Nhận biết (Action Verb)",
+        text: "The school choir will ________ a series of folk songs at the spring festival tomorrow.",
+        options: [
+          { key: "A", text: "perform" },
+          { key: "B", text: "draw" },
+          { key: "C", text: "exhibit" },
+          { key: "D", text: "sculpt" }
+        ],
+        correct: "A",
+        explanation: "Động từ 'perform' (/pəˈfɔːm/) = biểu diễn, trình diễn (tiết mục ca hát, nhạc cụ).",
+        translation: "Đội hợp xướng của trường sẽ biểu diễn một chuỗi các bài hát dân ca tại lễ hội mùa xuân vào ngày mai."
+      },
+      {
+        id: 14,
+        level: "Thông hiểu (Expression)",
+        text: "It is my great ________ to welcome all of you to our annual art and music festival.",
+        options: [
+          { key: "A", text: "pleasure" },
+          { key: "B", text: "pleasant" },
+          { key: "C", text: "pleased" },
+          { key: "D", text: "pleasing" }
+        ],
+        correct: "A",
+        explanation: "Cấu trúc: 'It is my (great) pleasure to do something' (Thật là niềm vinh hạnh/niềm vui của tôi khi được làm gì). Sau tính từ sở hữu 'my' cần danh từ 'pleasure'.",
+        translation: "Thật là niềm vinh hạnh lớn của tôi khi được chào đón tất cả các bạn đến với liên hoan nghệ thuật và âm nhạc thường niên của chúng tôi."
+      },
+      {
+        id: 15,
+        level: "Vận dụng (Odd One Out)",
+        text: "Choose the word that does NOT belong to the group of 'Musical Instruments':",
+        options: [
+          { key: "A", text: "violin" },
+          { key: "B", text: "flute" },
+          { key: "C", text: "paintbrush" },
+          { key: "D", text: "guitar" }
+        ],
+        correct: "C",
+        explanation: "'paintbrush' là cọ vẽ tranh (dụng cụ mỹ thuật), trong khi violin, flute, guitar đều là nhạc cụ ('musical instruments').",
+        translation: "Chọn từ KHÔNG cùng nhóm 'Nhạc cụ': violin (đàn vĩ cầm), flute (sáo), paintbrush (cọ vẽ), guitar (đàn ghi-ta)."
+      },
+      {
+        id: 16,
+        level: "Thông hiểu (Noun of People)",
+        text: "Vincent van Gogh was a world-famous Dutch ________ known for his painting 'The Starry Night'.",
+        options: [
+          { key: "A", text: "composer" },
+          { key: "B", text: "painter" },
+          { key: "C", text: "conductor" },
+          { key: "D", text: "musician" }
+        ],
+        correct: "B",
+        explanation: "Van Gogh là danh họa/họa sĩ ('painter') nổi tiếng thế giới với kiệt tác 'Đêm đầy sao'.",
+        translation: "Vincent van Gogh là một danh họa người Hà Lan nổi tiếng thế giới với bức tranh 'Đêm đầy sao'."
+      },
+      {
+        id: 17,
+        level: "Nhận biết (Music Genres)",
+        text: "Mozart and Beethoven were master composers of European ________ music.",
+        options: [
+          { key: "A", text: "rock" },
+          { key: "B", text: "classical" },
+          { key: "C", text: "country" },
+          { key: "D", text: "pop" }
+        ],
+        correct: "B",
+        explanation: "Mozart và Beethoven là hai bậc thầy của nền nhạc cổ điển châu Âu ('classical music').",
+        translation: "Mozart và Beethoven là những nhà soạn nhạc bậc thầy của nền nhạc cổ điển châu Âu."
+      },
+      {
+        id: 18,
+        level: "Thông hiểu (Venue)",
+        text: "A building in which historical relics and ancient objects are kept and displayed is called a ________.",
+        options: [
+          { key: "A", text: "museum" },
+          { key: "B", text: "cinema" },
+          { key: "C", text: "theater" },
+          { key: "D", text: "stadium" }
+        ],
+        correct: "A",
+        explanation: "'museum' (/mjuˈziːəm/) là bảo tàng, nơi lưu giữ hiện vật lịch sử và văn hóa.",
+        translation: "Tòa nhà nơi lưu giữ và trưng bày các di tích lịch sử và hiện vật cổ kính được gọi là bảo tàng."
+      },
+      {
+        id: 19,
+        level: "Vận dụng (Collocation)",
+        text: "Can your younger sister play ________ piano or ________ violin?",
+        options: [
+          { key: "A", text: "a / a" },
+          { key: "B", text: "the / the" },
+          { key: "C", text: "an / an" },
+          { key: "D", text: "Ø / Ø" }
+        ],
+        correct: "B",
+        explanation: "Quy tắc ngữ pháp quan trọng: Khi nói về việc chơi một loại nhạc cụ nào đó, ta luôn dùng mạo từ xác định 'the' trước tên nhạc cụ (play the piano, play the violin).",
+        translation: "Em gái của bạn có biết chơi đàn piano hay đàn violin không?"
+      },
+      {
+        id: 20,
+        level: "Vận dụng cao (Contextual Usage)",
+        text: "The rock band gave an outstanding ________ in front of ten thousand cheering fans last night.",
+        options: [
+          { key: "A", text: "performance" },
+          { key: "B", text: "performer" },
+          { key: "C", text: "perform" },
+          { key: "D", text: "performing" }
+        ],
+        correct: "A",
+        explanation: "Sau tính từ 'outstanding' (xuất sắc) cần một danh từ chỉ sự kiện: 'performance' (/pəˈfɔːməns/) = buổi biểu diễn. 'give a performance' = cống hiến/thực hiện một màn biểu diễn.",
+        translation: "Ban nhạc rock đã cống hiến một buổi biểu diễn xuất sắc trước mười nghìn người hâm mộ cuồng nhiệt tối qua."
+      }
+    ];
+
+    const TEN_BAI_THI = "Bài kiểm tra Từ vựng Unit 4 (Tiếng Anh 7) - Music and Arts";
+    const URL_NHAN_DIEM = "https://script.google.com/macros/s/AKfycbywF3afxl8E2_c8cKkfPC7FjLO-2kTFIlcSgJftZT4dyRraswwPlZ8zcFw725S4Mwx_/exec";
+
+    let timerInterval = null;
+    let timeRemaining = 20 * 60; // 20 phút = 1200 giây
+    let isSubmitted = false;
+    const userAnswers = {};
+
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+      document.getElementById('totalQuestions').innerText = QUESTIONS_DATA.length;
+
+      QUESTIONS_DATA.forEach((q, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `qCard_${q.id}`;
+
+        let optionsHtml = '';
+        q.options.forEach(opt => {
+          optionsHtml += `
+            <label class="option-label" id="optLabel_${q.id}_${opt.key}">
+              <input type="radio" name="question_${q.id}" value="${opt.key}" onchange="selectAnswer(${q.id}, '${opt.key}')">
+              <span class="opt-key">[${opt.key}]</span>
+              <span class="opt-text">${opt.text}</span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="q-header">
+            <span class="q-num">Câu ${index + 1}</span>
+            <span class="q-level">${q.level}</span>
+          </div>
+          <div class="q-text">${q.text}</div>
+          <div class="options-list">${optionsHtml}</div>
+          <div class="explanation-box" id="expBox_${q.id}">
+            <div class="exp-title">✓ Đáp án chuẩn: [${q.correct}]</div>
+            <div class="exp-detail"><strong>• Giải thích:</strong> ${q.explanation}</div>
+            <div class="exp-trans"><strong>• Dịch câu:</strong> ${q.translation}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectAnswer(qId, key) {
+      if (isSubmitted) return;
+      userAnswers[qId] = key;
+      document.getElementById(`qCard_${qId}`).classList.add('answered');
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const count = Object.keys(userAnswers).length;
+      document.getElementById('answeredCount').innerText = count;
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          alert('⏰ Hết thời gian làm bài (20 phút)! Hệ thống sẽ tự động nộp bài của em.');
+          submitQuiz();
+          return;
+        }
+
+        timeRemaining--;
+        const m = Math.floor(timeRemaining / 60);
+        const s = timeRemaining % 60;
+        const display = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+        document.getElementById('timeDisplay').innerText = display;
+
+        if (timeRemaining <= 180) { // Dưới 3 phút đổi màu cảnh báo
+          document.getElementById('timerBadge').classList.add('warning');
+        }
+      }, 1000);
+    }
+
+    function confirmSubmit() {
+      if (isSubmitted) return;
+
+      const name = document.getElementById('studentName').value.trim();
+      const sClass = document.getElementById('studentClass').value.trim();
+
+      if (!name || !sClass) {
+        alert('⚠️ Em vui lòng điền đầy đủ Họ Tên và Lớp học trước khi nộp bài nhé!');
+        window.scrollTo({ top: 100, behavior: 'smooth' });
+        return;
+      }
+
+      const answeredCount = Object.keys(userAnswers).length;
+      if (answeredCount < QUESTIONS_DATA.length) {
+        const remaining = QUESTIONS_DATA.length - answeredCount;
+        const proceed = confirm(`⚠️ Em còn ${remaining} câu chưa hoàn thành. Em có chắc chắn muốn nộp bài ngay bây giờ không?`);
+        if (!proceed) return;
+      } else {
+        const proceed = confirm('✅ Em đã hoàn thành tất cả các câu hỏi. Em có muốn nộp bài để xem điểm số và lời giải chi tiết không?');
+        if (!proceed) return;
+      }
+
+      submitQuiz();
+    }
+
+    function submitQuiz() {
+      if (isSubmitted) return;
+      isSubmitted = true;
+      clearInterval(timerInterval);
+
+      // Disable inputs
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(r => r.disabled = true);
+
+      let correctCount = 0;
+
+      QUESTIONS_DATA.forEach(q => {
+        const card = document.getElementById(`qCard_${q.id}`);
+        const expBox = document.getElementById(`expBox_${q.id}`);
+        const userKey = userAnswers[q.id];
+
+        if (userKey === q.correct) {
+          correctCount++;
+          card.classList.add('correct');
+        } else {
+          card.classList.add('incorrect');
+        }
+
+        q.options.forEach(opt => {
+          const label = document.getElementById(`optLabel_${q.id}_${opt.key}`);
+          if (opt.key === q.correct) {
+            label.classList.add('is-correct');
+          } else if (opt.key === userKey) {
+            label.classList.add('is-wrong');
+          }
+        });
+
+        expBox.classList.add('show');
+      });
+
+      // Tính điểm (Thang 10: 20 câu -> mỗi câu 0.5 điểm)
+      const score = (correctCount * 0.5).toFixed(1);
+      const percent = Math.round((correctCount / QUESTIONS_DATA.length) * 100);
+      const timeSpentSec = (20 * 60) - timeRemaining;
+      const spentMin = Math.floor(timeSpentSec / 60);
+      const spentSec = timeSpentSec % 60;
+      const timeString = `${spentMin} phút ${spentSec < 10 ? '0' : ''}${spentSec} giây`;
+
+      let rank = "Cần cố gắng";
+      if (score >= 8.5) rank = "Xuất sắc";
+      else if (score >= 7.0) rank = "Giỏi";
+      else if (score >= 5.0) rank = "Khá";
+
+      const studentName = document.getElementById('studentName').value.trim() || "Học sinh";
+      const studentClass = document.getElementById('studentClass').value.trim() || "E7";
+
+      // Đưa thông tin vào Modal
+      document.getElementById('modalScore').innerText = score;
+      document.getElementById('modalGreeting').innerText = `Chúc mừng em ${studentName}!`;
+      document.getElementById('statCorrect').innerText = `${correctCount} / ${QUESTIONS_DATA.length} câu`;
+      document.getElementById('statPercent').innerText = `${percent}%`;
+      document.getElementById('statTime').innerText = timeString;
+      document.getElementById('statRank').innerText = rank;
+
+      // Hiển thị Modal
+      document.getElementById('scoreModal').classList.add('open');
+
+      // Update button
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.innerText = 'ĐÃ NỘP BÀI THÀNH CÔNG';
+      submitBtn.disabled = true;
+
+      // Đồng bộ dữ liệu gửi lên Google Sheets (Đa tương thích chuẩn Rule 10 GEMINI.md)
+      const allData = {
+        tenHocSinh: studentName,
+        hoTenHocSinh: studentName,
+        hoTen: studentName,
+        hoten: studentName,
+        ten: studentName,
+        name: studentName,
+        studentName: studentName,
+        'Họ Tên Học Sinh': studentName,
+        'Họ và Tên': studentName,
+
+        lopHoc: studentClass,
+        lop: studentClass,
+        studentClass: studentClass,
+        class: studentClass,
+        'Lớp': studentClass,
+
+        tenBaiHoc: TEN_BAI_THI,
+        tenBai: TEN_BAI_THI,
+        baiHoc: TEN_BAI_THI,
+        lesson: TEN_BAI_THI,
+        title: TEN_BAI_THI,
+        examName: TEN_BAI_THI,
+        'Tên bài học': TEN_BAI_THI,
+        'Tên bài': TEN_BAI_THI,
+
+        diemSo: score,
+        diem: score,
+        score: score,
+        point: score,
+        'Điểm Số': score,
+        'Điểm': score,
+
+        soCauDung: correctCount,
+        tongSoCau: QUESTIONS_DATA.length,
+        so_cau_dung: `${correctCount}/${QUESTIONS_DATA.length}`,
+
+        thoiGianNop: new Date().toLocaleString('vi-VN'),
+        thoiGian: new Date().toLocaleString('vi-VN'),
+        timestamp: new Date().toISOString(),
+        'Thời gian nộp': new Date().toLocaleString('vi-VN')
+      };
+
+      try {
+        const queryParams = new URLSearchParams(allData).toString();
+        const submitUrl = `${URL_NHAN_DIEM}?${queryParams}`;
+
+        fetch(submitUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(allData)
+        }).then(() => {
+          console.log('Kết quả đã được gửi thành công về Google Sheets');
+          const syncStatus = document.getElementById('syncStatus');
+          if (syncStatus) {
+            syncStatus.innerHTML = '✅ <strong>Đã lưu kết quả thành công vào hệ thống của Thầy Sơn!</strong>';
+            syncStatus.style.color = '#16a34a';
+          }
+        }).catch(err => {
+          console.error('Fetch thất bại, gửi fallback sendBeacon:', err);
+          try {
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon(submitUrl, JSON.stringify(allData));
+              const syncStatus = document.getElementById('syncStatus');
+              if (syncStatus) {
+                syncStatus.innerHTML = '✅ <strong>Đã lưu kết quả thành công vào hệ thống của Thầy Sơn!</strong>';
+                syncStatus.style.color = '#16a34a';
+              }
+            }
+          } catch(e) {}
+        });
+      } catch (err) {
+        console.error('Error submitting to API:', err);
+      }
+    }
+
+    function closeModalAndReview() {
+      document.getElementById('scoreModal').classList.remove('open');
+      window.scrollTo({ top: 350, behavior: 'smooth' });
+    }
+
+    window.onload = () => {
+      renderQuestions();
+      startTimer();
+    };
+  </script>
+</body>
+</html>
+
