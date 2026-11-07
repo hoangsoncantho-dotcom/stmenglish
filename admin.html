@@ -638,6 +638,162 @@
             box-shadow: 0 6px 18px rgba(13, 148, 136, 0.45);
         }
 
+    
+        /* CSS MÔ-ĐUN CHỈ MỤC & CÂY HỌC LIỆU 3 TẦNG */
+        .registry-tree-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .tree-node-card {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+        }
+        .tree-node-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--teal);
+            transform: translateY(-2px);
+        }
+        .tree-node-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .tree-node-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tree-node-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--teal-light);
+            color: var(--teal);
+        }
+        .tree-sub-list {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .tree-sub-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            color: #334155;
+            border: 1px solid #f1f5f9;
+        }
+        .tree-sub-item:hover {
+            background: #f0fdfa;
+            border-color: #ccfbf1;
+        }
+        .tree-actions a {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 6px;
+            font-size: 0.85rem;
+        }
+
+        /* CSS PHÂN TÍCH LỖI SAI (ITEM ANALYSIS & HEATMAP) */
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+            gap: 10px;
+            margin-top: 1.2rem;
+        }
+        .heatmap-cell {
+            padding: 10px 6px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: white;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .heatmap-cell:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-sm);
+        }
+        .heatmap-qnum {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--navy);
+            display: block;
+        }
+        .heatmap-rate {
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 4px;
+            display: block;
+        }
+        .rate-safe { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+        .rate-warn { background: #fefce8; border-color: #fef08a; color: #854d0e; }
+        .rate-danger { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+
+        /* MODAL LIVE PREVIEW ĐỀ THI */
+        .exam-preview-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .exam-preview-modal.active {
+            display: flex;
+        }
+        .exam-preview-box {
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            border-radius: var(--radius-lg);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .exam-preview-header {
+            padding: 1rem 1.5rem;
+            background: var(--navy);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .exam-preview-body {
+            flex: 1;
+            background: #f8fafc;
+        }
+        .exam-preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -690,6 +846,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-tab="registry" onclick="switchTab('registry', event)">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <span>Chỉ Mục & Cây Học Liệu</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-tab="homepage-cms" onclick="switchTab('homepage-cms', event)">
                     <i class="fa-solid fa-sliders"></i>
                     <span>Quản Trị Trang Chủ</span>
@@ -711,6 +873,12 @@
                 <a class="nav-link" data-tab="gradebook" onclick="switchTab('gradebook', event)">
                     <i class="fa-solid fa-trophy"></i>
                     <span>Sổ Điểm & Báo Cáo Khảo Thí</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-tab="settings" onclick="switchTab('settings', event)">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Cài Đặt & Phân Quyền (RBAC)</span>
                 </a>
             </li>
         </ul>
@@ -1148,6 +1316,68 @@
 
             </div>
 
+            <!-- ========================================================
+                 MÔ-ĐUN C: TRUNG TÂM CHỈ MỤC & CÂY HỌC LIỆU 3 TẦNG (REGISTRY)
+                 Đồng bộ tự động sang Classroom.html mà không cần sửa code HTML
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-registry">
+                <div class="section-box" style="border-left: 5px solid var(--teal);">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-sitemap" style="color: var(--teal);"></i> Cây Chỉ Mục Học Liệu & Đề Thi 3 Tầng (Classroom Dynamic Sync)</h3>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
+                                Quản lý tập trung toàn bộ đề thi, bài tập và học liệu từ Lớp 6 đến Lớp 9. Trang <code>classroom.html</code> sẽ tự động đọc chỉ mục này để dựng giao diện tương tác cho học sinh.
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="btn btn-secondary" onclick="exportRegistryJsonFile()">
+                                <i class="fa-solid fa-download"></i> Tải registry.json Về Máy
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="showAddRegistryItemModal()">
+                                <i class="fa-solid fa-plus"></i> + Thêm Mục Mới Vào Cây
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- THỐNG KÊ NHANH CHỈ MỤC -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0;">
+                        <div style="background: #f0fdfa; border: 1px solid #ccfbf1; padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.82rem; color: #0d9488; font-weight: 700;">KHỐI LỚP 6</div>
+                            <div id="regCountGrade6" style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-top: 4px;">12 Mục</div>
+                        </div>
+                        <div style="background: #f0f9ff; border: 1px solid #e0f2fe; padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.82rem; color: #0284c7; font-weight: 700;">KHỐI LỚP 7</div>
+                            <div id="regCountGrade7" style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-top: 4px;">15 Mục</div>
+                        </div>
+                        <div style="background: #fefce8; border: 1px solid #fef08a; padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.82rem; color: #ca8a04; font-weight: 700;">KHỐI LỚP 8</div>
+                            <div id="regCountGrade8" style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-top: 4px;">18 Mục</div>
+                        </div>
+                        <div style="background: #fdf2f8; border: 1px solid #fce7f3; padding: 1rem; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 0.82rem; color: #db2777; font-weight: 700;">KHỐI LỚP 9</div>
+                            <div id="regCountGrade9" style="font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-top: 4px;">24 Mục</div>
+                        </div>
+                    </div>
+
+                    <!-- BỘ LỌC CÂY DANH MỤC -->
+                    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 1.2rem; background: #f8fafc; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border);">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--navy);"><i class="fa-solid fa-filter"></i> Lọc xem khối lớp:</span>
+                        <button type="button" class="btn btn-sm" id="btnFilterAll" onclick="filterRegistryTree('all')" style="background: var(--navy); color: white; border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600;">Tất Cả Khối</button>
+                        <button type="button" class="btn btn-sm" id="btnFilter6" onclick="filterRegistryTree('lop-6')" style="background: white; border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600;">Lớp 6</button>
+                        <button type="button" class="btn btn-sm" id="btnFilter7" onclick="filterRegistryTree('lop-7')" style="background: white; border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600;">Lớp 7</button>
+                        <button type="button" class="btn btn-sm" id="btnFilter8" onclick="filterRegistryTree('lop-8')" style="background: white; border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600;">Lớp 8</button>
+                        <button type="button" class="btn btn-sm" id="btnFilter9" onclick="filterRegistryTree('lop-9')" style="background: white; border: 1px solid var(--border); border-radius: 20px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600;">Lớp 9</button>
+                    </div>
+
+                    <!-- VÙNG HIỂN THỊ CÂY CHỈ MỤC 3 TẦNG -->
+                    <div class="registry-tree-container" id="registryTreeContainer">
+                        <!-- Render tự động bởi JS -->
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="admin-tab-pane" id="tab-materials">
                 <div class="section-box">
                     <div class="section-header">
@@ -1343,6 +1573,33 @@
                                 <i class="fa-solid fa-file-excel"></i> Xuất File Excel
                             </button>
                         </div>
+                    </div>
+
+                    
+                    <!-- KHỐI PHÂN TÍCH CÂU SAI: ITEM ANALYSIS & ERROR HEATMAP -->
+                    <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                            <div>
+                                <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 8px;">
+                                    <i class="fa-solid fa-chart-line" style="color: var(--danger);"></i> Bản Đồ Nhiệt Phân Tích Lỗi Sai (Item Analysis & Error Heatmap)
+                                </h4>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                                    Phân tích tỷ lệ học sinh làm sai theo từng câu hỏi (1 - 40 câu) để Thầy Sơn nắm rõ lỗ hổng kiến thức cần ôn tập bổ trợ trên lớp.
+                                </p>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; font-size: 0.78rem; font-weight: 700;">
+                                <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #bbf7d0; border-radius: 3px; display: inline-block;"></span> Dưới 25% sai (Nắm vững)</span>
+                                <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #fef08a; border-radius: 3px; display: inline-block;"></span> 25% - 50% sai (Cần ôn)</span>
+                                <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #fecaca; border-radius: 3px; display: inline-block;"></span> Trên 50% sai (Bẫy đề thi)</span>
+                            </div>
+                        </div>
+
+                        <!-- 40 Ô HEATMAP -->
+                        <div class="heatmap-grid" id="examErrorHeatmapGrid">
+                            <!-- Render tự động bởi JS -->
+                        </div>
+
+                        <div id="heatmapDetailCallout" style="display: none; margin-top: 1rem; padding: 12px 16px; border-radius: 8px; font-size: 0.85rem; line-height: 1.5;"></div>
                     </div>
 
                     <div class="table-responsive">
@@ -1586,7 +1843,131 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
                     </div>
 
                 </div>
-            </div></main>
+            </div>
+
+            <!-- ========================================================
+                 MÔ-ĐUN F: CÀI ĐẶT HỆ THỐNG & PHÂN QUYỀN VẬN HÀNH (RBAC)
+                 Cấu hình theo từng giai đoạn phát triển của STM Center
+                 ======================================================== -->
+            <div class="tab-panel" id="tab-settings">
+                <div class="section-box" style="border-left: 5px solid var(--navy);">
+                    <div class="section-header">
+                        <div>
+                            <h3><i class="fa-solid fa-sliders" style="color: var(--navy);"></i> Cài Đặt Hệ Thống & Quản Trị Phân Quyền (RBAC)</h3>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
+                                Điều khiển các tham số cốt lõi, cổng Webhook Cloud và chuyển đổi mô hình phân quyền theo từng giai đoạn phát triển của trung tâm STM.
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="saveAllSystemSettings()">
+                            <i class="fa-solid fa-floppy-disk"></i> Lưu Toàn Bộ Cài Đặt
+                        </button>
+                    </div>
+
+                    <!-- PHÂN QUYỀN 2 GIAI ĐOẠN -->
+                    <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.5rem;">
+                        <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-user-shield" style="color: var(--primary);"></i> Chế Độ Phân Quyền Vận Hành Cơ Sở
+                        </h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin: 6px 0 16px 0;">
+                            Lựa chọn cấu hình quản trị phù hợp với quy mô nhân sự hiện tại của STM Center:
+                        </p>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem;">
+                            <!-- GIAI ĐOẠN 1 -->
+                            <div id="stage1Card" style="border: 2px solid var(--teal); background: #f0fdfa; padding: 1.25rem; border-radius: 12px; cursor: pointer;" onclick="selectRbacStage(1)">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-weight: 800; color: var(--navy); font-size: 1rem;">GIAI ĐOẠN 1: Cơ Sở 1 Ô Môn (Hiện tại)</span>
+                                    <span id="badgeStage1" style="background: var(--teal); color: white; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px;">ĐANG ÁP DỤNG</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: #334155; margin-top: 8px; line-height: 1.5;">
+                                    <strong>Chế độ Super Admin Toàn Quyền:</strong> Thầy Nguyễn Hoàng Sơn trực tiếp quản trị 100% mọi module: Xuất bản đề thi, chỉnh sửa trang chủ, xuất sổ điểm và quản lý drive.
+                                </p>
+                            </div>
+
+                            <!-- GIAI ĐOẠN 2 -->
+                            <div id="stage2Card" style="border: 2px solid var(--border); background: white; padding: 1.25rem; border-radius: 12px; cursor: pointer;" onclick="selectRbacStage(2)">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="font-weight: 800; color: var(--navy); font-size: 1rem;">GIAI ĐOẠN 2: Mở Rộng Cơ Sở & Trợ Giảng</span>
+                                    <span id="badgeStage2" style="background: #e2e8f0; color: #64748b; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px;">SẴN SÀNG</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: #64748b; margin-top: 8px; line-height: 1.5;">
+                                    <strong>Kích hoạt Phân Quyền Trợ Giảng (Moderator):</strong> Bổ sung tài khoản cho Trợ giảng/Giáo viên bộ môn. Trợ giảng chỉ được tra cứu sổ điểm, kiểm tra bài làm học sinh; tuyệt đối bị khóa quyền sửa trang chủ và xóa đề thi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- THÔNG SỐ CLOUD & WEBHOOK -->
+                    <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.5rem;">
+                        <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem;">
+                            <i class="fa-solid fa-cloud" style="color: var(--teal);"></i> Kết Nối Đám Mây & Máy Chủ Không Gian Số
+                        </h4>
+
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div>
+                                <label style="font-size: 0.85rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 6px;">
+                                    URL Webhook Google Apps Script (Tiếp nhận nộp bài & Lưu báo cáo Drive):
+                                </label>
+                                <input type="text" id="cfgGasWebhookUrl" class="form-control" style="width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: monospace; font-size: 0.88rem;" value="https://script.google.com/macros/s/AKfycbzstm_center_gas_drive_engine/exec" placeholder="https://script.google.com/macros/s/.../exec">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 6px;">
+                                        ID Thư Mục Google Drive Lưu Báo Cáo Học Sinh:
+                                    </label>
+                                    <input type="text" id="cfgDriveFolderId" class="form-control" style="width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: monospace; font-size: 0.88rem;" value="1X9_stm_english_reports_cloud_drive_2026">
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.85rem; font-weight: 700; color: var(--navy); display: block; margin-bottom: 6px;">
+                                        Kho Lưu Trữ GitHub Pages (Option B Jamstack):
+                                    </label>
+                                    <input type="text" id="cfgGithubRepoUrl" class="form-control" style="width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-family: monospace; font-size: 0.88rem;" value="https://hoangsonstm.github.io/stm-english">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SAO LƯU & AN TOÀN DỮ LIỆU -->
+                    <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--navy);">Sao Lưu Toàn Bộ Dữ Liệu Quản Trị (System Backup)</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                                Tải xuống bản sao lưu toàn bộ cấu hình trang chủ, chỉ mục đề thi và sổ điểm dưới dạng JSON để lưu trữ an toàn.
+                            </p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="btn btn-secondary" onclick="exportFullSystemBackupJson()">
+                                <i class="fa-solid fa-file-export"></i> Xuất File Sao Lưu Backup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    <!-- MODAL LIVE PREVIEW ĐỀ THI THỜI GIAN THỰC -->
+    <div id="liveExamPreviewModal" class="exam-preview-modal">
+        <div class="exam-preview-box">
+            <div class="exam-preview-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-laptop-code" style="color: var(--teal); font-size: 1.2rem;"></i>
+                    <h3 style="font-size: 1.05rem; font-weight: 800; color: white;" id="livePreviewTitle">Xem Thử Đề Thi Trực Tiếp (Live Simulation)</h3>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 0.8rem; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 20px;">Môi trường mô phỏng học sinh</span>
+                    <button type="button" onclick="closeLiveExamPreview()" style="background: transparent; border: none; color: white; font-size: 1.2rem; cursor: pointer; padding: 4px 8px;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="exam-preview-body">
+                <iframe id="liveExamPreviewFrame" class="exam-preview-iframe" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+</main>
 
     <script>
 
@@ -1676,11 +2057,14 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
 
             // Đổi tiêu đề header
             const titles = {
-                'dashboard': 'Tổng Quan Hệ Thống',
-                'exam-creator': 'Trình Soạn Thảo Đề Thi Trắc Nghiệm Động',
+                'dashboard': 'Tổng Quan Hệ Thống & Báo Cáo Năng Lực',
+                'exam-creator': 'Xưởng Xuất Bản Đề Thi Trắc Nghiệm Tự Động',
+                'registry': 'Trung Tâm Chỉ Mục & Cây Học Liệu 3 Tầng (Classroom Sync)',
+                'homepage-cms': 'Visual CMS Quản Trị Trang Chủ STM English',
                 'materials': 'Quản Trị Bài Giảng & Phiếu Bài Tập',
-                'submissions': 'Bài Tập Về Nhà Học Sinh Đã Nộp',
-                'gradebook': 'Sổ Điểm & Báo Cáo Khảo Thí'
+                'submissions': 'Bài Tập Về Nhà Học Sinh Đã Nộp (Google Drive 5TB)',
+                'gradebook': 'Sổ Điểm Điện Tử & Phân Tích Lỗi Sai (Item Analysis)',
+                'settings': 'Cài Đặt Hệ Thống & Phân Quyền Vận Hành (RBAC)'
             };
             const headingEl = document.getElementById('currentTabHeading');
             if (headingEl) {
@@ -2214,7 +2598,337 @@ Chấm bài chi tiết, phản hồi tiến độ hàng tuần</textarea>
         }
     </script>
 
-    <script src="admin_homepage_cms.js"></script>
+    <script src="admin_exam_builder.js"></script>
+    <script src="admin_homepage_cms.js">
+
+        /* =========================================================================
+         * 7. MÔ-ĐUN MỞ RỘNG V2.0: REGISTRY, HEATMAP, PREVIEW, SETTINGS (RBAC)
+         * ========================================================================= */
+
+        // Dữ liệu mẫu Registry Cây Học Liệu 3 Tầng
+        const defaultRegistryData = [
+            // LỚP 6
+            { id: "reg-01", grade: "lop-6", category: "de-thi", sub: "luyen-tap", title: "Bài tập tự luyện Unit 1: My New School", file: "ex-01.html", path: "de-thi/lop-6/luyen-tap/ngu-phap/ex-01.html", date: "2026-10-15" },
+            { id: "reg-02", grade: "lop-6", category: "de-thi", sub: "kiem-tra", title: "Đề kiểm tra Giữa kỳ 1 Lớp 6 - Đề 01", file: "de-01.html", path: "de-thi/lop-6/kiem-tra/giua-ky-1/de-01.html", date: "2026-10-20" },
+            { id: "reg-03", grade: "lop-6", category: "tai-lieu", sub: "ly-thuyet", title: "Lý thuyết & Từ vựng Unit 1 - 3 Lớp 6", file: "ly-thuyet-u1-u3.html", path: "tai-lieu/lop-6/unit-1/ly-thuyet-u1-u3.html", date: "2026-10-10" },
+
+            // LỚP 7
+            { id: "reg-04", grade: "lop-7", category: "de-thi", sub: "luyen-tap", title: "Luyện phát âm & Trọng âm Unit 4 Music and Arts", file: "ex-phat-am-u4.html", path: "de-thi/lop-7/luyen-tap/phat-am/ex-phat-am-u4.html", date: "2026-10-25" },
+            { id: "reg-05", grade: "lop-7", category: "de-thi", sub: "kiem-tra", title: "Đề kiểm tra Giữa kỳ 1 Lớp 7 - Đề 01", file: "de-01.html", path: "de-thi/lop-7/kiem-tra/giua-ky-1/de-01.html", date: "2026-10-22" },
+            { id: "reg-06", grade: "lop-7", category: "tai-lieu", sub: "doc-sach", title: "Bài đọc mở rộng: Traditional Music of Vietnam", file: "reading-music.html", path: "tai-lieu/lop-7/unit-4/reading-music.html", date: "2026-10-26" },
+
+            // LỚP 8
+            { id: "reg-07", grade: "lop-8", category: "de-thi", sub: "kiem-tra", title: "Bộ 5 Đề GK1 Tiếng Anh 8 Cần Thơ - Đề 01", file: "de-01.html", path: "de-thi/lop-8/kiem-tra/giua-ky-1/de-01.html", date: "2026-10-28" },
+            { id: "reg-08", grade: "lop-8", category: "de-thi", sub: "kiem-tra", title: "Bộ 5 Đề GK1 Tiếng Anh 8 Cần Thơ - Đề 02", file: "de-02.html", path: "de-thi/lop-8/kiem-tra/giua-ky-1/de-02.html", date: "2026-10-29" },
+            { id: "reg-09", grade: "lop-8", category: "tai-lieu", sub: "nang-cao", title: "Phiếu chuyên đề câu so sánh & Đảo ngữ Lớp 8", file: "comparisons.html", path: "tai-lieu/lop-8/unit-2/comparisons.html", date: "2026-10-18" },
+
+            // LỚP 9
+            { id: "reg-10", grade: "lop-9", category: "de-thi", sub: "khao-sat", title: "Khảo sát chất lượng đầu năm Lớp 9 - Đợt 1", file: "khao-sat-01.html", path: "de-thi/lop-9/khao-sat/khao-sat-01.html", date: "2026-09-15" },
+            { id: "reg-11", grade: "lop-9", category: "de-thi", sub: "kiem-tra", title: "Đề thi thử Tuyển sinh 10 Chuyên Cần Thơ - Đề 01", file: "de-chuyen-01.html", path: "de-thi/lop-9/kiem-tra/chuyen-10/de-chuyen-01.html", date: "2026-11-01" },
+            { id: "reg-12", grade: "lop-9", category: "tai-lieu", sub: "luyen-viet", title: "Hướng dẫn kỹ thuật viết câu Sentence Transformation", file: "writing-transformation.html", path: "tai-lieu/lop-9/unit-1/writing-transformation.html", date: "2026-10-05" }
+        ];
+
+        let currentRegistryData = JSON.parse(localStorage.getItem('stm_content_registry') || JSON.stringify(defaultRegistryData));
+        let activeRegistryFilter = 'all';
+
+        function renderRegistryTree() {
+            const container = document.getElementById('registryTreeContainer');
+            if (!container) return;
+
+            // Thống kê theo khối lớp
+            const counts = { 'lop-6': 0, 'lop-7': 0, 'lop-8': 0, 'lop-9': 0 };
+            currentRegistryData.forEach(item => {
+                if (counts[item.grade] !== undefined) counts[item.grade]++;
+            });
+
+            if (document.getElementById('regCountGrade6')) document.getElementById('regCountGrade6').innerText = counts['lop-6'] + " Mục";
+            if (document.getElementById('regCountGrade7')) document.getElementById('regCountGrade7').innerText = counts['lop-7'] + " Mục";
+            if (document.getElementById('regCountGrade8')) document.getElementById('regCountGrade8').innerText = counts['lop-8'] + " Mục";
+            if (document.getElementById('regCountGrade9')) document.getElementById('regCountGrade9').innerText = counts['lop-9'] + " Mục";
+
+            // Nhóm dữ liệu theo Khối Lớp
+            const grades = [
+                { key: 'lop-6', label: 'Khối Lớp 6 - Global Success', icon: 'fa-graduation-cap', color: 'var(--teal)' },
+                { key: 'lop-7', label: 'Khối Lớp 7 - Global Success', icon: 'fa-book-open', color: 'var(--primary)' },
+                { key: 'lop-8', label: 'Khối Lớp 8 - Global Success', icon: 'fa-award', color: 'var(--warning)' },
+                { key: 'lop-9', label: 'Khối Lớp 9 - Tuyển Sinh 10', icon: 'fa-fire', color: 'var(--danger)' }
+            ];
+
+            let html = '';
+            grades.forEach(g => {
+                if (activeRegistryFilter !== 'all' && activeRegistryFilter !== g.key) return;
+
+                const itemsInGrade = currentRegistryData.filter(x => x.grade === g.key);
+
+                html += `
+                    <div class="tree-node-card">
+                        <div class="tree-node-header">
+                            <span class="tree-node-title"><i class="fa-solid ${g.icon}" style="color: ${g.color};"></i> ${g.label}</span>
+                            <span class="tree-node-badge">${itemsInGrade.length} Tài nguyên</span>
+                        </div>
+                        <ul class="tree-sub-list">
+                `;
+
+                if (itemsInGrade.length === 0) {
+                    html += `<li class="tree-sub-item" style="color: var(--text-muted); font-style: italic;">Chưa có tài nguyên nào trong khối này.</li>`;
+                } else {
+                    itemsInGrade.forEach(it => {
+                        const iconType = it.category === 'de-thi' ? 'fa-file-circle-check' : 'fa-file-lines';
+                        html += `
+                            <li class="tree-sub-item">
+                                <div>
+                                    <i class="fa-solid ${iconType}" style="color: var(--primary); margin-right: 6px;"></i>
+                                    <strong>${it.title}</strong>
+                                    <div style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace; margin-top: 2px;">/${it.path}</div>
+                                </div>
+                                <div class="tree-actions">
+                                    <a href="${it.path}" target="_blank" title="Mở xem trên Web"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    <a href="javascript:void(0)" onclick="copyRegistryPath('${it.path}')" title="Sao chép đường dẫn"><i class="fa-solid fa-copy"></i></a>
+                                </div>
+                            </li>
+                        `;
+                    });
+                }
+
+                html += `
+                        </ul>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function filterRegistryTree(gradeKey) {
+            activeRegistryFilter = gradeKey;
+            ['all', '6', '7', '8', '9'].forEach(k => {
+                const btn = document.getElementById(k === 'all' ? 'btnFilterAll' : `btnFilter${k}`);
+                if (btn) {
+                    const match = (k === 'all' && gradeKey === 'all') || (gradeKey === `lop-${k}`);
+                    btn.style.background = match ? 'var(--navy)' : 'white';
+                    btn.style.color = match ? 'white' : 'var(--text-main)';
+                }
+            });
+            renderRegistryTree();
+        }
+
+        function exportRegistryJsonFile() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentRegistryData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "registry.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function copyRegistryPath(p) {
+            navigator.clipboard.writeText(p).then(() => {
+                alert("Đã sao chép đường dẫn: " + p);
+            });
+        }
+
+        function showAddRegistryItemModal() {
+            const title = prompt("Nhập tên bài học / đề thi:");
+            if (!title) return;
+            const path = prompt("Nhập đường dẫn tương đối (ví dụ: de-thi/lop-8/kiem-tra/giua-ky-1/de-03.html):");
+            if (!path) return;
+            const grade = path.includes('lop-6') ? 'lop-6' : (path.includes('lop-7') ? 'lop-7' : (path.includes('lop-8') ? 'lop-8' : 'lop-9'));
+
+            currentRegistryData.push({
+                id: "reg-" + Date.now(),
+                grade: grade,
+                category: path.includes('de-thi') ? 'de-thi' : 'tai-lieu',
+                sub: "custom",
+                title: title,
+                file: path.split('/').pop(),
+                path: path,
+                date: new Date().toISOString().slice(0, 10)
+            });
+
+            localStorage.setItem('stm_content_registry', JSON.stringify(currentRegistryData));
+            renderRegistryTree();
+            alert("✓ Đã thêm vào cây chỉ mục thành công!");
+        }
+
+        // -------------------------------------------------------------
+        // ITEM ANALYSIS & ERROR HEATMAP LOGIC
+        // -------------------------------------------------------------
+        const sampleQuestionTopics = [
+            "Listening Track 1 - Specific detail", "Listening Track 1 - Main idea", "Listening Track 1 - Detail inference", "Listening Track 1 - Completion",
+            "Listening Track 2 - True/False", "Listening Track 2 - True/False", "Listening Track 2 - Detailed choice", "Listening Track 2 - Key advice",
+            "Language Focus - Collocations", "Language Focus - Phrasal verbs", "Language Focus - Verb tenses", "Language Focus - Relative clauses", "Language Focus - Articles",
+            "Communication - Social exchange", "Communication - Expressing opinions",
+            "Signs & Notices - Traffic sign meaning", "Signs & Notices - School notice announcement",
+            "Closest Meaning - Synonym in context",
+            "Sentence Combining - Although/Because connectors",
+            "Sentence Arrangement - Ordering dialogue", "Paragraph Arrangement - Logical narrative order",
+            "Cloze-test - Vocabulary fill", "Cloze-test - Preposition fill", "Cloze-test - Pronoun connector", "Cloze-test - Conjunction", "Cloze-test - Grammar check",
+            "Reading Comprehension - Main topic", "Reading Comprehension - Factual detail", "Reading Comprehension - Vocabulary inference", "Reading Comprehension - True/Not True", "Reading Comprehension - Author's tone",
+            "Word Formation - Noun from adjective", "Word Formation - Adverb derivation", "Word Formation - Negative prefix form",
+            "Sentence Transformation - Inversion with 'Never'", "Sentence Transformation - Passive voice", "Sentence Transformation - Conditional Type 2",
+            "Sentence Building - Used to + V-inf", "Sentence Building - It takes time to V", "Sentence Building - Suggestion structure"
+        ];
+
+        function renderItemAnalysisHeatmap() {
+            const grid = document.getElementById('examErrorHeatmapGrid');
+            if (!grid) return;
+
+            // Sinh dữ liệu mô phỏng theo phân phối chuẩn khảo thí
+            const mockRates = [
+                12, 18, 15, 20, 22, 28, 30, 24, 35, 42,
+                19, 58, 64, 15, 20, 10, 14, 38, 45, 52,
+                68, 34, 40, 28, 36, 44, 25, 32, 48, 55,
+                62, 46, 54, 66, 72, 48, 56, 38, 42, 50
+            ];
+
+            let html = '';
+            for (let i = 1; i <= 40; i++) {
+                const rate = mockRates[i - 1] || Math.floor(Math.random() * 50 + 15);
+                let rateClass = 'rate-safe';
+                if (rate >= 50) rateClass = 'rate-danger';
+                else if (rate >= 25) rateClass = 'rate-warn';
+
+                const topic = sampleQuestionTopics[i - 1] || `Dạng bài câu ${i}`;
+
+                html += `
+                    <div class="heatmap-cell ${rateClass}" onclick="showHeatmapDetail(${i}, ${rate}, '${topic}')" title="Click xem chi tiết câu ${i}">
+                        <span class="heatmap-qnum">Câu ${i}</span>
+                        <span class="heatmap-rate">${rate}% sai</span>
+                    </div>
+                `;
+            }
+
+            grid.innerHTML = html;
+        }
+
+        function showHeatmapDetail(qNum, rate, topic) {
+            const callout = document.getElementById('heatmapDetailCallout');
+            if (!callout) return;
+
+            let badge = `<span style="background: #166534; color: white; padding: 2px 8px; border-radius: 12px; font-weight: 700;">HỌC SINH NẮM TỐT</span>`;
+            let advice = `Dạng bài này đa số học sinh đều trả lời chính xác, Thầy có thể lướt nhanh khi chữa đề.`;
+            callout.style.background = '#f0fdf4';
+            callout.style.border = '1px solid #bbf7d0';
+            callout.style.color = '#14532d';
+
+            if (rate >= 50) {
+                badge = `<span style="background: #dc2626; color: white; padding: 2px 8px; border-radius: 12px; font-weight: 700;">LỖI SAI HỆ THỐNG / BẪY ĐỀ THI</span>`;
+                advice = `Có tới <strong>${rate}% học sinh chọn sai</strong>! Thầy nên dành từ 5 - 10 phút đầu giờ để giải thích lại bản chất ngữ pháp và cơ chế bẫy của dạng câu này.`;
+                callout.style.background = '#fef2f2';
+                callout.style.border = '1px solid #fecaca';
+                callout.style.color = '#7f1d1d';
+            } else if (rate >= 25) {
+                badge = `<span style="background: #ca8a04; color: white; padding: 2px 8px; border-radius: 12px; font-weight: 700;">CẦN LƯU Ý ÔN TẬP</span>`;
+                advice = `Tỷ lệ sai ở mức trung bình (${rate}%). Nên nhắc nhở học sinh đọc kỹ ngữ cảnh đề bài.`;
+                callout.style.background = '#fefce8';
+                callout.style.border = '1px solid #fef08a';
+                callout.style.color = '#713f12';
+            }
+
+            callout.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <strong><i class="fa-solid fa-circle-question"></i> CHI TIẾT CÂU ${qNum}: ${topic}</strong>
+                    ${badge}
+                </div>
+                <div>${advice}</div>
+            `;
+            callout.style.display = 'block';
+        }
+
+        // -------------------------------------------------------------
+        // LIVE EXAM PREVIEW LOGIC
+        // -------------------------------------------------------------
+        function openLiveExamPreview(compiledHtml, title) {
+            const modal = document.getElementById('liveExamPreviewModal');
+            const frame = document.getElementById('liveExamPreviewFrame');
+            const titleEl = document.getElementById('livePreviewTitle');
+            if (!modal || !frame) return;
+
+            if (titleEl && title) {
+                titleEl.innerText = "Xem Thử: " + title;
+            }
+
+            frame.srcdoc = compiledHtml;
+            modal.classList.add('active');
+        }
+
+        function closeLiveExamPreview() {
+            const modal = document.getElementById('liveExamPreviewModal');
+            const frame = document.getElementById('liveExamPreviewFrame');
+            if (modal) modal.classList.remove('active');
+            if (frame) frame.srcdoc = 'about:blank';
+        }
+
+        // -------------------------------------------------------------
+        // SETTINGS & RBAC LOGIC
+        // -------------------------------------------------------------
+        let currentRbacStage = parseInt(localStorage.getItem('stm_rbac_stage') || '1');
+
+        function selectRbacStage(stage) {
+            currentRbacStage = stage;
+            localStorage.setItem('stm_rbac_stage', stage.toString());
+
+            const card1 = document.getElementById('stage1Card');
+            const card2 = document.getElementById('stage2Card');
+            const badge1 = document.getElementById('badgeStage1');
+            const badge2 = document.getElementById('badgeStage2');
+
+            if (stage === 1) {
+                if (card1) { card1.style.border = '2px solid var(--teal)'; card1.style.background = '#f0fdfa'; }
+                if (card2) { card2.style.border = '2px solid var(--border)'; card2.style.background = 'white'; }
+                if (badge1) { badge1.style.background = 'var(--teal)'; badge1.innerText = 'ĐANG ÁP DỤNG'; badge1.style.color = 'white'; }
+                if (badge2) { badge2.style.background = '#e2e8f0'; badge2.innerText = 'SẴN SÀNG'; badge2.style.color = '#64748b'; }
+            } else {
+                if (card1) { card1.style.border = '2px solid var(--border)'; card1.style.background = 'white'; }
+                if (card2) { card2.style.border = '2px solid var(--primary)'; card2.style.background = '#f0f9ff'; }
+                if (badge1) { badge1.style.background = '#e2e8f0'; badge1.innerText = 'TẠM TẮT'; badge1.style.color = '#64748b'; }
+                if (badge2) { badge2.style.background = 'var(--primary)'; badge2.innerText = 'ĐANG ÁP DỤNG'; badge2.style.color = 'white'; }
+            }
+        }
+
+        function saveAllSystemSettings() {
+            const gasUrl = document.getElementById('cfgGasWebhookUrl') ? document.getElementById('cfgGasWebhookUrl').value.trim() : '';
+            const driveId = document.getElementById('cfgDriveFolderId') ? document.getElementById('cfgDriveFolderId').value.trim() : '';
+            const githubUrl = document.getElementById('cfgGithubRepoUrl') ? document.getElementById('cfgGithubRepoUrl').value.trim() : '';
+
+            localStorage.setItem('stm_gas_webhook_url', gasUrl);
+            localStorage.setItem('stm_drive_folder_id', driveId);
+            localStorage.setItem('stm_github_repo_url', githubUrl);
+
+            alert("✓ Toàn bộ cài đặt hệ thống & cấu hình đám mây đã được lưu thành công!");
+        }
+
+        function exportFullSystemBackupJson() {
+            const backupPayload = {
+                system: "STM English Admin Control Center",
+                author: "Thầy Nguyễn Hoàng Sơn",
+                exportDate: new Date().toISOString(),
+                rbacStage: currentRbacStage,
+                gasWebhook: localStorage.getItem('stm_gas_webhook_url') || '',
+                driveFolderId: localStorage.getItem('stm_drive_folder_id') || '',
+                registry: currentRegistryData,
+                cms: JSON.parse(localStorage.getItem('stm_homepage_cms') || '{}'),
+                gradebookHistory: JSON.parse(localStorage.getItem('stm_quiz_history') || '[]')
+            };
+
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupPayload, null, 2));
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", `STM_System_Full_Backup_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(dl);
+            dl.click();
+            dl.remove();
+        }
+
+        // Tự động khởi chạy khi trang load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRegistryTree();
+            renderItemAnalysisHeatmap();
+            selectRbacStage(currentRbacStage);
+        });
+
+</script>
 </body>
 </html>
 
