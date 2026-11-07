@@ -351,51 +351,188 @@ function deleteHofItem(idx) {
     renderCmsHallOfFame();
 }
 
-// Render danh sách Bảng Tin
+// Render danh sách Bảng Tin (Mô hình Hybrid Dual-Engine: Rich Text Editor + Link Ngoài)
 function renderCmsNews() {
     const container = document.getElementById('cmsNewsContainer');
     if (!container) return;
 
     let html = '';
     (currentCmsData.news || []).forEach((n, idx) => {
+        const rawContent = n.contentHtml || '';
+        const externalUrl = n.externalUrl || n.link || '';
+
         html += `
-        <div class="cms-card-item" style="background:#ffffff; border:1.5px solid #e2e8f0; border-radius:10px; padding:1.25rem; margin-bottom:1rem; box-shadow:var(--shadow-sm);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-                <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:800;">
-                    <i class="fa-solid fa-newspaper"></i> BẢN TIN #${idx + 1}
-                </span>
-                <button type="button" class="btn btn-sm btn-outline" style="color:#dc2626; border-color:#dc2626;" onclick="deleteNewsItem(${idx})">
-                    <i class="fa-solid fa-trash-can"></i> Xóa
-                </button>
+        <div class="cms-card-item" style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:1.35rem; margin-bottom:1.5rem; box-shadow:var(--shadow-sm);">
+            <!-- HEADER THẺ BẢN TIN -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; padding-bottom:0.6rem; border-bottom:1px solid #f1f5f9;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span class="badge" style="background:#0284c7; color:white; font-weight:800; padding:4px 12px; border-radius:20px; font-size:0.82rem;">
+                        <i class="fa-solid fa-newspaper"></i> BẢN TIN #${idx + 1}
+                    </span>
+                    <span style="font-size:0.8rem; color:#64748b; font-weight:600;">ID: ${n.id || ('news-' + (idx+1))}</span>
+                </div>
+                <div style="display:flex; gap:8px;">
+                    <button type="button" class="btn btn-sm btn-outline" style="color:var(--primary); border-color:var(--primary);" onclick="previewCmsArticle(${idx})">
+                        <i class="fa-solid fa-eye"></i> Xem Thử Bài Viết
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline" style="color:#dc2626; border-color:#dc2626;" onclick="deleteNewsItem(${idx})">
+                        <i class="fa-solid fa-trash-can"></i> Xóa
+                    </button>
+                </div>
             </div>
+
+            <!-- THÔNG TIN CƠ BẢN -->
             <div class="form-grid" style="grid-template-columns: 3fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Tiêu Đề Bài Viết (*):</label>
-                    <input type="text" id="cmsNewsTitle_${idx}" class="form-control font-bold" value="${escapeHtmlAttr(n.title)}">
+                    <label class="form-label" style="font-size:0.82rem; font-weight:700; color:var(--navy);">Tiêu Đề Bài Viết (*):</label>
+                    <input type="text" id="cmsNewsTitle_${idx}" class="form-control font-bold" value="${escapeHtmlAttr(n.title)}" style="font-size:0.95rem;">
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Ngày Đăng:</label>
+                    <label class="form-label" style="font-size:0.82rem; font-weight:700; color:var(--navy);">Ngày Đăng:</label>
                     <input type="text" id="cmsNewsDate_${idx}" class="form-control" value="${escapeHtmlAttr(n.date)}">
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Chuyên Mục:</label>
+                    <label class="form-label" style="font-size:0.82rem; font-weight:700; color:var(--navy);">Chuyên Mục:</label>
                     <input type="text" id="cmsNewsCat_${idx}" class="form-control" value="${escapeHtmlAttr(n.category)}">
                 </div>
             </div>
-            <div class="form-grid" style="grid-template-columns: 2fr 1fr; gap:0.75rem; margin-bottom:0;">
+
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr; gap:0.75rem; margin-bottom:1rem;">
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Tóm Tắt Ngắn:</label>
-                    <textarea id="cmsNewsSummary_${idx}" class="form-control" rows="2">${escapeHtml(n.summary)}</textarea>
+                    <label class="form-label" style="font-size:0.82rem; font-weight:700; color:var(--navy);">Tóm Tắt Ngắn (Hiển thị thẻ ngoài trang chủ):</label>
+                    <textarea id="cmsNewsSummary_${idx}" class="form-control" rows="2" style="font-size:0.88rem;">${escapeHtml(n.summary)}</textarea>
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
-                    <label class="form-label" style="font-size:0.8rem; font-weight:700;">Đường Dẫn Ảnh Bìa (Tùy chọn):</label>
+                    <label class="form-label" style="font-size:0.82rem; font-weight:700; color:var(--navy);">Đường Dẫn Ảnh Bìa (Tùy chọn):</label>
                     <input type="text" id="cmsNewsThumb_${idx}" class="form-control" value="${escapeHtmlAttr(n.thumbnail || '')}" placeholder="VD: ./images/news1.jpg">
+                </div>
+            </div>
+
+            <!-- ========================================================
+                 MÔ HÌNH HYBRID DUAL-ENGINE: QUẢN LÝ NỘI DUNG CHI TIẾT
+                 ======================================================== -->
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:1rem; margin-top:0.75rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                    <span style="font-weight:800; font-size:0.88rem; color:var(--navy); display:flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-pen-nib" style="color:var(--teal);"></i> NỘI DUNG BÀI VIẾT CHI TIẾT (Chọn 1 trong 2 cách xuất bản):
+                    </span>
+                    <span style="font-size:0.75rem; background:#ccfbf1; color:#0f766e; font-weight:700; padding:2px 8px; border-radius:12px;">
+                        Hybrid Dual-Engine
+                    </span>
+                </div>
+
+                <!-- CÁCH 1: TRÌNH SOẠN THẢO RICH TEXT EDITOR (KHUYÊN DÙNG) -->
+                <div style="margin-bottom:1rem;">
+                    <label style="font-size:0.8rem; font-weight:700; color:#0369a1; display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+                        <i class="fa-solid fa-file-word"></i> CÁCH 1 (Khuyên dùng): Trình Soạn Thảo Rich Text (Copy từ Word paste thẳng vào đây)
+                    </label>
+
+                    <!-- TOOLBAR SOẠN THẢO -->
+                    <div style="display:flex; flex-wrap:wrap; gap:4px; background:#f1f5f9; padding:6px; border-radius:8px 8px 0 0; border:1px solid #cbd5e1; border-bottom:none;">
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; font-weight:bold; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('bold', null, ${idx})" title="In đậm (Ctrl+B)"><b>B</b></button>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; font-style:italic; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('italic', null, ${idx})" title="In nghiêng (Ctrl+I)"><i>I</i></button>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; text-decoration:underline; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('underline', null, ${idx})" title="Gạch chân (Ctrl+U)"><u>U</u></button>
+                        <span style="border-left:1px solid #cbd5e1; margin:0 4px;"></span>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; font-weight:700; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('formatBlock', '<h3>', ${idx})" title="Tiêu đề H3">H3</button>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; font-weight:700; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('formatBlock', '<h4>', ${idx})" title="Tiêu đề H4">H4</button>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('formatBlock', '<p>', ${idx})" title="Đoạn văn">P</button>
+                        <span style="border-left:1px solid #cbd5e1; margin:0 4px;"></span>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('insertUnorderedList', null, ${idx})" title="Danh sách gạch đầu dòng"><i class="fa-solid fa-list-ul"></i></button>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; background:white; border:1px solid #cbd5e1;" onclick="execCmsCmd('insertOrderedList', null, ${idx})" title="Danh sách đánh số"><i class="fa-solid fa-list-ol"></i></button>
+                        <span style="border-left:1px solid #cbd5e1; margin:0 4px;"></span>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; background:white; border:1px solid #cbd5e1;" onclick="insertCmsLink(${idx})" title="Chèn liên kết web"><i class="fa-solid fa-link"></i> Link</button>
+                        <button type="button" class="btn btn-sm" style="padding:4px 8px; background:white; border:1px solid #cbd5e1; color:#dc2626;" onclick="execCmsCmd('removeFormat', null, ${idx})" title="Xóa định dạng"><i class="fa-solid fa-eraser"></i></button>
+                    </div>
+
+                    <!-- VÙNG SOẠN THẢO CONTENTEDITABLE -->
+                    <div id="cmsNewsEditor_${idx}" contenteditable="true"
+                         style="min-height:160px; max-height:360px; overflow-y:auto; background:white; padding:12px; border:1px solid #cbd5e1; border-radius:0 0 8px 8px; font-size:0.92rem; line-height:1.6; outline:none;"
+                         placeholder="Thầy dán nội dung từ file Word hoặc gõ bài viết vào đây...">${rawContent}</div>
+                </div>
+
+                <!-- CÁCH 2: HOẶC DÁN ĐƯỜNG DẪN BÀI VIẾT (GOOGLE DOCS HOẶC FILE TĨNH) -->
+                <div>
+                    <label style="font-size:0.8rem; font-weight:700; color:#475569; display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                        <i class="fa-solid fa-link"></i> CÁCH 2 (Dán Link ngoài): Hoặc dán Link Google Docs (Publish to web) / Link bài viết tĩnh riêng:
+                    </label>
+                    <input type="text" id="cmsNewsExternalUrl_${idx}" class="form-control"
+                           value="${escapeHtmlAttr(externalUrl)}"
+                           placeholder="VD: https://docs.google.com/document/d/.../pub hoặc ./tin-tuc/bai-viet-chi-tiet.html"
+                           style="font-size:0.85rem; font-family:monospace;">
+                    <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">
+                        💡 <em>Ghi chú: Nếu Thầy vừa có nội dung Rich Text vừa có link Google Docs, hệ thống sẽ ưu tiên hiển thị nội dung Rich Text trong cửa sổ đọc bài STM và đính kèm nút "Xem bản gốc Google Docs" rất tiện lợi!</em>
+                    </div>
                 </div>
             </div>
         </div>
         `;
     });
     container.innerHTML = html;
+}
+
+// Hàm hỗ trợ thao tác Rich Text Editor
+function execCmsCmd(cmd, val, idx) {
+    const editor = document.getElementById('cmsNewsEditor_' + idx);
+    if (editor) {
+        editor.focus();
+        document.execCommand(cmd, false, val);
+    }
+}
+
+function insertCmsLink(idx) {
+    const url = prompt("Nhập liên kết web (URL):", "https://");
+    if (url && url !== "https://") {
+        execCmsCmd('createLink', url, idx);
+    }
+}
+
+// Cửa sổ xem trước bài viết chuẩn bị xuất bản
+function previewCmsArticle(idx) {
+    syncCmsInputsToData();
+    const n = (currentCmsData.news || [])[idx];
+    if (!n) return;
+
+    const previewModal = document.getElementById('cmsArticlePreviewModal');
+    const titleEl = document.getElementById('articlePreviewTitle');
+    const metaEl = document.getElementById('articlePreviewMeta');
+    const contentEl = document.getElementById('articlePreviewContent');
+    const externalLinkEl = document.getElementById('articlePreviewExternalLink');
+
+    if (titleEl) titleEl.innerText = n.title || 'Tiêu đề bài viết';
+    if (metaEl) metaEl.innerHTML = `<i class="fa-regular fa-calendar"></i> ${n.date || 'Hôm nay'} &nbsp;|&nbsp; <i class="fa-solid fa-tag"></i> ${n.category || 'Tin tức'}`;
+    
+    let bodyHtml = '';
+    if (n.summary) {
+        bodyHtml += `<div style="font-size:1.05rem; font-weight:600; color:#334155; margin-bottom:1.2rem; padding-bottom:1rem; border-bottom:1px solid #e2e8f0; line-height:1.6;">${escapeHtml(n.summary)}</div>`;
+    }
+    if (n.contentHtml && n.contentHtml.trim() !== '') {
+        bodyHtml += `<div class="article-content" style="line-height:1.8; color:#0f172a;">${n.contentHtml}</div>`;
+    } else if (n.externalUrl) {
+        bodyHtml += `<div style="padding:2rem; text-align:center; background:#f8fafc; border-radius:10px;">
+            <p>Bài viết này được cấu hình liên kết đến tài liệu ngoài:</p>
+            <a href="${n.externalUrl}" target="_blank" style="font-weight:700; color:var(--primary); word-break:break-all;">${n.externalUrl}</a>
+        </div>`;
+    } else {
+        bodyHtml += `<p style="color:#64748b; font-style:italic;">Chưa có nội dung chi tiết cho bài viết này.</p>`;
+    }
+
+    if (contentEl) contentEl.innerHTML = bodyHtml;
+
+    if (externalLinkEl) {
+        if (n.externalUrl) {
+            externalLinkEl.href = n.externalUrl;
+            externalLinkEl.style.display = 'inline-flex';
+        } else {
+            externalLinkEl.style.display = 'none';
+        }
+    }
+
+    if (previewModal) previewModal.style.display = 'flex';
+}
+
+function closeCmsArticlePreview() {
+    const previewModal = document.getElementById('cmsArticlePreviewModal');
+    if (previewModal) previewModal.style.display = 'none';
 }
 
 function addNewsItem() {
@@ -476,13 +613,24 @@ function syncCmsInputsToData() {
         s.avatar = getVal('cmsHofAvatar_' + idx) || '';
     });
 
-    // 4. News
+    // 4. News (Hybrid Dual-Engine: Rich Text HTML + External Link)
     (currentCmsData.news || []).forEach((n, idx) => {
         n.title = getVal('cmsNewsTitle_' + idx) || n.title;
         n.date = getVal('cmsNewsDate_' + idx) || n.date;
         n.category = getVal('cmsNewsCat_' + idx) || n.category;
         n.summary = getVal('cmsNewsSummary_' + idx) || n.summary;
         n.thumbnail = getVal('cmsNewsThumb_' + idx) || '';
+
+        // Lấy nội dung từ Rich Text Editor
+        const editor = document.getElementById('cmsNewsEditor_' + idx);
+        if (editor) {
+            n.contentHtml = editor.innerHTML;
+        }
+
+        // Lấy link ngoài (Google Docs / URL riêng)
+        const extUrl = getVal('cmsNewsExternalUrl_' + idx);
+        n.externalUrl = extUrl;
+        n.link = extUrl || '';
     });
 }
 
